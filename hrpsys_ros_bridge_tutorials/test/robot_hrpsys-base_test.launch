@@ -1,0 +1,20 @@
+<!-- =*- mode: xml -*- -->
+<launch>
+  <arg name="ROBOT_NAME_FOR_EUS"/>
+  <arg name="ROBOT_NAME_FOR_LAUNCH" default="$(arg ROBOT_NAME_FOR_EUS)"/>
+  <arg name="ROBOT_MODEL_PKG_PATH" default="$(find hrpsys_ros_bridge_tutorials)"/>
+  <arg name="ROBOT_EUSTEST_PKG_PATH" default="$(find hrpsys_ros_bridge_tutorials)"/>
+  <arg name="NOSIM" default="false" />
+  <arg name="TIME_LIMIT" default="300"/>
+
+  <!-- test program written by euslisp -->
+  <test test-name="$(arg ROBOT_NAME_FOR_LAUNCH)_test_eus" pkg="roseus"
+        type="roseus" args="$(arg ROBOT_EUSTEST_PKG_PATH)/test/$(arg ROBOT_NAME_FOR_EUS)-hrpsys-base-test.l &quot;(run-hrpsys-base-test \&quot;$(arg ROBOT_NAME_FOR_EUS)\&quot; :robot-model-pkg-path \&quot;$(arg ROBOT_MODEL_PKG_PATH)\&quot;)&quot;"
+        time-limit="$(arg TIME_LIMIT)"/>
+
+  <!-- setup xx_startup.launch and xx_ros_bridge.launch -->
+  <include file="$(arg ROBOT_MODEL_PKG_PATH)/launch/$(arg ROBOT_NAME_FOR_LAUNCH)_startup.launch" >
+    <arg name="NOSIM" default="$(arg NOSIM)" />
+  </include>
+  <include file="$(arg ROBOT_MODEL_PKG_PATH)/launch/$(arg ROBOT_NAME_FOR_LAUNCH)_ros_bridge.launch" />
+</launch>

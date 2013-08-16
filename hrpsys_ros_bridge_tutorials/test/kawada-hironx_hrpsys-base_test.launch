@@ -1,0 +1,8 @@
+<!-- =*- mode: xml -*- -->
+<launch>
+  <include file="$(find hrpsys_ros_bridge_tutorials)/test/robot_hrpsys-base_test.launch">
+    <arg name="ROBOT_NAME_FOR_EUS" value="kawada-hironx"/>
+    <arg name="ROBOT_NAME_FOR_LAUNCH" value="hironx"/>
+    <arg name="NOSIM" default="true" />
+  </include>
+</launch>
