@@ -103,9 +103,9 @@
 (defun wait-for-ROSBridge-activated (&key (timeout-count 20))
   (mapcar #'(lambda (x)
               (wait-for-rtcs
-               (format nil "rtcat localhost/~A | grep Active" x)
+               (format nil "rtcat localhost/~A | grep Active" (string-left-trim "0123456789 " x))
                :timeout-count timeout-count))
-          (rtshell-cmd-exec "rtls localhost/| grep ROSBridge")))
+          (rtshell-cmd-exec "rtls localhost/ -l | grep ROSBridge | cut -d/ -f5")))
 
 (defun wait-for-tf-published (&key (timeout-count 10))
   (and
