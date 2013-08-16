@@ -9,7 +9,7 @@
 
   <!-- test program written by euslisp -->
   <test test-name="$(arg ROBOT_NAME_FOR_LAUNCH)_test_eus" pkg="roseus"
-        type="roseus" args="$(arg ROBOT_EUSTEST_PKG_PATH)/test/$(arg ROBOT_NAME_FOR_EUS)-hrpsys-base-test.l &quot;(run-hrpsys-base-test \&quot;$(arg ROBOT_NAME_FOR_EUS)\&quot; :robot-model-pkg-path \&quot;$(arg ROBOT_MODEL_PKG_PATH)\&quot;)&quot;"
+        type="roseus" args="$(arg ROBOT_EUSTEST_PKG_PATH)/test/$(arg ROBOT_NAME_FOR_EUS)-hrpsys-ros-bridge-test.l &quot;(run-hrpsys-ros-bridge-test \&quot;$(arg ROBOT_NAME_FOR_EUS)\&quot; :robot-model-pkg-path \&quot;$(arg ROBOT_MODEL_PKG_PATH)\&quot;)&quot;"
         time-limit="$(arg TIME_LIMIT)"/>
 
   <!-- setup xx_startup.launch and xx_ros_bridge.launch -->

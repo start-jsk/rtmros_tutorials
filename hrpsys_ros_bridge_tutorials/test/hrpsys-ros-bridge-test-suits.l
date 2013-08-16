@@ -41,7 +41,7 @@
                 ))
   t)
 
-(defun run-hrpsys-base-test
+(defun run-hrpsys-ros-bridge-test
   (robot-name
    &key (robot-model-pkg-name "hrpsys_ros_bridge_tutorials")
         (robot-model-pkg-path (ros::resolve-ros-path (format nil "package://~A" robot-model-pkg-name))))
@@ -52,7 +52,7 @@
   (run-all-tests)
   (exit 0))
 
-(defun hrpsys-base-test-debug-mode
+(defun hrpsys-ros-bridge-test-debug-mode
   (robot-name
    &key (robot-model-pkg-name "hrpsys_ros_bridge_tutorials")
         (robot-model-pkg-path (ros::resolve-ros-path (format nil "package://~A" robot-model-pkg-name))))
