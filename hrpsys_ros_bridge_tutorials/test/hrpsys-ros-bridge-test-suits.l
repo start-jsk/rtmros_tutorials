@@ -92,7 +92,7 @@
 
 (defun wait-for-Simulator (&key (timeout-count 5))
   (wait-for-rtcs
-   (format nil "rtls localhost | grep -v longfloor | grep '(Robot)0.rtc'")
+   (format nil "rtls localhost -l | grep -v longfloor | grep '(Robot)0.rtc'")
    :timeout-count timeout-count))
 
 (defun wait-for-HrpsysSeqStateROSBridge (&key (timeout-count 5))
