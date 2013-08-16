@@ -17,6 +17,6 @@ test_barrett-wam.py: barrett-wam.l gen-testcode.l
 	chmod u+x $@
 
 clean:
-	rm -fr *.dae samplerobot.l test_samplerobot.py barrett-wam.l test_barret-wam.py
+	rm -fr *.dae samplerobot.l test_samplerobot.py barrett-wam.l test_barrett-wam.py barrett-wam.zae
 
 
