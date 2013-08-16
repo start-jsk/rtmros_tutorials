@@ -38,7 +38,7 @@ execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} python ${jsk_tools_
 add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/test/.gen_testcode
   COMMAND make -C ${PROJECT_SOURCE_DIR}/test/
   VERBATIM)
-add_custom_target(gen_testcode DEPENDS ${PROJECT_SOURCE_DIR}/test/.gen_testcode)
+add_custom_target(gen_testcode DEPENDS test/barrett-wam.zae ${PROJECT_SOURCE_DIR}/test/.gen_testcode)
 add_dependencies(tests gen_testcode)
 rosbuild_download_test_data(https://openrave.svn.sourceforge.net/svnroot/openrave/data/robots/barrett-wam.zae test/barrett-wam.zae 7d59cad7186b3fb516c3dd75303c52f2)
 rosbuild_add_rostest(test/test-modelloader.launch)
