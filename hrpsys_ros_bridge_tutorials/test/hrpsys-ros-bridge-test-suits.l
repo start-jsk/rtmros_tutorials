@@ -37,7 +37,8 @@
                                                                            "test-tf-published")
                                                  :test #'string=))
                            (*unit-test* . functions))
-                (list 'test-robot-init 'test-tf-published 'test-rosbridge-activated 'test-hrpsysseqstaterosbridge 'test-simulator)
+                (if use-deftest (list 'test-robot-init))
+                (list 'test-tf-published 'test-rosbridge-activated 'test-hrpsysseqstaterosbridge 'test-simulator)
                 ))
   t)
 
@@ -285,9 +286,11 @@
 
 ;; test for simple walking of AutoBalancer.rtc by checking whether the robot tumbled or not
 (defun tmp-test-walk-simple
-  (rob)
-  (send rob :reset-pose)
-  (send rob :fix-leg-to-coords (make-coords))
+  (rob &key (pose-func
+             #'(lambda ()
+                 (send rob :reset-pose)
+                 (send rob :fix-leg-to-coords (make-coords)))))
+  (funcall pose-func)
   (send *ri* :angle-vector (send rob :angle-vector) 2000)
   (send *ri* :wait-interpolation)
   (send *ri* :start-auto-balancer)
