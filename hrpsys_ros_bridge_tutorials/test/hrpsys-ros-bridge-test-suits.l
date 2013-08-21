@@ -93,31 +93,31 @@
 
 (defun wait-for-Simulator (&key (timeout-count 5))
   (wait-for-rtcs
-   (format nil "rtls localhost -l | grep -v longfloor | grep '(Robot)0.rtc'")
+   (format nil "rtls localhost:5005/ -l | grep -v longfloor | grep '(Robot)0.rtc'")
    :timeout-count timeout-count))
 
 (defun wait-for-HrpsysSeqStateROSBridge (&key (timeout-count 5))
   (wait-for-rtcs
-   "rtcat localhost/HrpsysSeqStateROSBridge0.rtc"
+   "rtcat localhost:5005/HrpsysSeqStateROSBridge0.rtc"
    :timeout-count timeout-count))
 
 (defun wait-for-ROSBridge-activated (&key (timeout-count 20))
   (mapcar #'(lambda (x)
               (wait-for-rtcs
-               (format nil "rtcat localhost/~A | grep Active" (string-left-trim "0123456789 " x))
+               (format nil "rtcat localhost:5005/~A | grep Active" (string-left-trim "0123456789 " x))
                :timeout-count timeout-count))
-          (rtshell-cmd-exec "rtls localhost/ -l | grep ROSBridge | cut -d/ -f5")))
+          (rtshell-cmd-exec "rtls localhost:5005/ -l | grep ROSBridge | cut -d/ -f5")))
 
 (defun wait-for-tf-published (&key (timeout-count 10))
   (and
    (wait-for-rtcs
-    "rtcat -l localhost/HrpsysSeqStateROSBridge0.rtc:rsangle | grep Connected | grep '(Robot)0.rtc:q'"
+    "rtcat -l localhost:5005/HrpsysSeqStateROSBridge0.rtc:rsangle | grep Connected | grep '(Robot)0.rtc:q'"
     :timeout-count timeout-count)
    (wait-for-rtcs
-    "rtcat -l localhost/HrpsysSeqStateROSBridge0.rtc:baseTform | grep Connected | grep 'sh.rtc:baseTformOut'"
+    "rtcat -l localhost:5005/HrpsysSeqStateROSBridge0.rtc:baseTform | grep Connected | grep 'sh.rtc:baseTformOut'"
     :timeout-count timeout-count)
    (wait-for-rtcs
-    "rtcat -l localhost/HrpsysSeqStateROSBridge0.rtc:baseRpy | grep Connected | grep 'kf.rtc:rpy'"
+    "rtcat -l localhost:5005/HrpsysSeqStateROSBridge0.rtc:baseRpy | grep Connected | grep 'kf.rtc:rpy'"
     :timeout-count timeout-count)
    ))
 
