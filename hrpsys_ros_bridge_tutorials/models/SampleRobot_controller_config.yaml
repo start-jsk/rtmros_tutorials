@@ -1,0 +1,33 @@
+controller_configuration:
+  - group_name: rarm
+    controller_name: /rarm_controller
+    joint_list:
+      - RARM_SHOULDER_P
+      - RARM_SHOULDER_R
+      - RARM_SHOULDER_Y
+      - RARM_ELBOW
+      - RARM_WRIST_Y
+      - RARM_WRIST_P
+  - group_name: larm
+    controller_name: /larm_controller
+    joint_list:
+      - LARM_SHOULDER_P
+      - LARM_SHOULDER_R
+      - LARM_SHOULDER_Y
+      - LARM_ELBOW
+      - LARM_WRIST_Y
+      - LARM_WRIST_P
+  - group_name: torso
+    controller_name: /torso_controller
+    joint_list:
+      - WAIST_P
+      - WAIST_R
+      - CHEST
+  - group_name: rhand
+    controller_name: /rhand_controller
+    joint_list:
+      - RARM_WRIST_R
+  - group_name: lhand
+    controller_name: /lhand_controller
+    joint_list:
+      - LARM_WRIST_R
