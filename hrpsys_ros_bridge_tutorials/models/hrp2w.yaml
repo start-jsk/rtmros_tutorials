@@ -1,0 +1,58 @@
+##
+## - collada_joint_name : euslisp_joint_name (start with :)
+##
+
+torso:
+  - CHEST_JOINT0 : torso-waist-p
+  - CHEST_JOINT1 : torso-waist-y
+head:
+  - HEAD_JOINT0  : head-neck-y
+  - HEAD_JOINT1  : head-neck-p
+rarm:
+  - RARM_JOINT0  : rarm-shoulder-p
+  - RARM_JOINT1  : rarm-shoulder-r
+  - RARM_JOINT2  : rarm-shoulder-y
+  - RARM_JOINT3  : rarm-elbow-p
+  - RARM_JOINT4  : rarm-wrist-y
+  - RARM_JOINT5  : rarm-wrist-r
+  - RARM_JOINT6  : rarm-wrist-p
+  - RARM_JOINT7  : rarm-thumb-r
+larm:
+  - LARM_JOINT0  : larm-shoulder-p
+  - LARM_JOINT1  : larm-shoulder-r
+  - LARM_JOINT2  : larm-shoulder-y
+  - LARM_JOINT3  : larm-elbow-p
+  - LARM_JOINT4  : larm-wrist-y
+  - LARM_JOINT5  : larm-wrist-r
+  - LARM_JOINT6  : larm-wrist-p
+  - LARM_JOINT7  : larm-thumb-r
+
+##
+## end-coords
+##
+torso-end-coords:
+  translate : [-0.032, 0.0, -0.3507]
+head-end-coords:
+  translate : [0.079, 0.0, 0.1035]
+  rotate    : [0.0, 1.0, 0.0, 99.9999]
+rarm-end-coords:
+  translate : [0.0, 0.0169, -0.174]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+  parent    : RARM_LINK6
+larm-end-coords:
+  translate : [0.0, -0.0169, -0.174]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+  parent    : LARM_LINK6
+
+##
+## reset-pose
+##
+angle-vector:
+  reset-pose : [0.0, 0.0, 
+                0.0, 0.0,
+                10.0, -10.0, 0.0, -25.0, 0.0, 0.0, -10.0,  15.0,
+                10.0,  10.0, 0.0, -25.0, 0.0, 0.0, -10.0, -15.0]
+  reset-manip-pose : [0.0,   0.0,
+                      0.0,  40.0,
+                     50.0, -30.0, -10.0, -120.0, -25.0, -5.0, -20.0,  60.0,
+                     50.0,  30.0,  10.0, -120.0,  25.0,  5.0, -20.0, -60.0]
