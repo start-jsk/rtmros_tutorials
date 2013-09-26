@@ -143,6 +143,15 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/models/kojiro.wrl)
   compile_openhrp_model(${PROJECT_SOURCE_DIR}/models/kojiro.wrl)
 endif(EXISTS ${PROJECT_SOURCE_DIR}/models/kojiro.wrl)
 
+macro (generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots ROBOT_NAME)
+  generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_NAME}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${ARGV})
+endmacro ()
+
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSK "--no-euslisp")
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNT "--no-euslisp")
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNTS "--no-euslisp")
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2W "--no-euslisp")
+
 ## ALL
 list(GET compile_robots 0 compile_robot)
 list(REMOVE_AT compile_robots 0)
