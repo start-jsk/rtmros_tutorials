@@ -107,7 +107,7 @@ macro(compile_openhrp2_model _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _Open
       $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
       ${_OpenHRP2_robot_name}
       ${ARGN})
-  endif(EXISTS $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
+  endif()
 endmacro(compile_openhrp2_model _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir)
 
 # old HRP2xx.wrl files should be coverted.
@@ -144,7 +144,9 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/models/kojiro.wrl)
 endif(EXISTS ${PROJECT_SOURCE_DIR}/models/kojiro.wrl)
 
 macro (generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots ROBOT_NAME)
-  generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_NAME}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${ARGV})
+  if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/${ROBOT_NAME}/${ROBOT_NAME}main.wrl)
+    generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_NAME}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${ARGV})
+  endif()
 endmacro ()
 
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSK "--no-euslisp")
