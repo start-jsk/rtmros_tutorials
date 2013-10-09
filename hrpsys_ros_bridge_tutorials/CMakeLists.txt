@@ -137,6 +137,13 @@ compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_WITH_3HAND HRP2JSK
  -a rightarm_torso,BODY,RARM_LINK6,-0.0042,0.0392,-0.1245,3.373247e-18,1.0,-9.813081e-18,1.5708,R_THUMBCM_Y,0,R_THUMBCM_P,1,R_INDEXMP_R,0,R_INDEXMP_P,0,R_INDEXPIP_R,1,R_MIDDLEPIP_R,1
  -a rightarm_grasp,CHEST_LINK1,RARM_LINK6,0.0,0.03,-0.17,-1.0,0.0,0.0,2.0944,R_THUMBCM_Y,0,R_THUMBCM_P,1,R_INDEXMP_R,0,R_INDEXMP_P,0,R_INDEXPIP_R,1,R_MIDDLEPIP_R,1
   )
+compile_openhrp_model_for_closed_robots(HRP4R HRP4R HRP4R
+  -a leftarm,L_SHOULDER_P_LINK,L_WRIST_R_LINK,0,0,0,0,0,0,1,L_HAND_J0,-1,L_HAND_J1,-1
+  -a rightarm,R_SHOULDER_P_LINK,R_WRIST_R_LINK,0,0,0,0,0,0,1,R_HAND_J0,1,R_HAND_J1,1
+  --conf-file-option "virtual_force_sensor: vlhsensor, CHEST_Y, L_WRIST_R, 0,0,0, 0,0,1,0, vrhsensor, CHEST_Y, R_WRIST_R, 0,0,0, 0,0,1,0, vlfsensor, WAIST, L_ANKLE_R, 0,0,0, 0,0,1,0, vrfsensor, WAIST, R_ANKLE_R, 0,0,0, 0,0,1,0"
+  --conf-file-option "abc_leg_offset: 0.0, 0.079919, 0.0"
+  --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
+  )
 
 # KOJIRO model generation ;; gen kojiro.dae and kojiro.l from kojiro.wrl and kojiro.yaml
 if(EXISTS ${PROJECT_SOURCE_DIR}/models/kojiro.wrl)
@@ -153,6 +160,7 @@ generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNT "--no-euslisp")
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNTS "--no-euslisp")
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2W "--no-euslisp")
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP4R "--no-euslisp")
 
 ## ALL
 list(GET compile_robots 0 compile_robot)

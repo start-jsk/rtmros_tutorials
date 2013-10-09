@@ -1,0 +1,90 @@
+##
+## - collada_joint_name : euslisp_joint_name (start with :)
+##
+
+rleg:
+  - R_HIP_Y      : rleg-crotch-y
+  - R_HIP_R      : rleg-crotch-r
+  - R_HIP_P      : rleg-crotch-p
+  - R_KNEE_P     : rleg-knee-p
+  - R_ANKLE_P    : rleg-ankle-p
+  - R_ANKLE_R    : rleg-ankle-r
+lleg:
+  - L_HIP_Y      : lleg-crotch-y
+  - L_HIP_R      : lleg-crotch-r
+  - L_HIP_P      : lleg-crotch-p
+  - L_KNEE_P     : lleg-knee-p
+  - L_ANKLE_P    : lleg-ankle-p
+  - L_ANKLE_R    : lleg-ankle-r
+torso:
+  - CHEST_P      : torso-waist-p
+  - CHEST_Y      : torso-waist-y
+head:
+  - NECK_Y       : head-neck-y
+  - NECK_P       : head-neck-p
+rarm:
+  - R_SHOULDER_P : rarm-shoulder-p
+  - R_SHOULDER_R : rarm-shoulder-r
+  - R_SHOULDER_Y : rarm-shoulder-y
+  - R_ELBOW_P    : rarm-elbow-p
+  - R_WRIST_Y    : rarm-wrist-y
+  - R_WRIST_P    : rarm-wrist-p
+  - R_WRIST_R    : rarm-wrist-r
+  - R_HAND_J0    : rarm-hand-j0
+  - R_HAND_J1    : rarm-hand-j1
+larm:
+  - L_SHOULDER_P : larm-shoulder-p
+  - L_SHOULDER_R : larm-shoulder-r
+  - L_SHOULDER_Y : larm-shoulder-y
+  - L_ELBOW_P    : larm-elbow-p
+  - L_WRIST_Y    : larm-wrist-y
+  - L_WRIST_P    : larm-wrist-p
+  - L_WRIST_R    : larm-wrist-r
+  - L_HAND_J0    : larm-hand-j0
+  - L_HAND_J1    : larm-hand-j1
+
+
+##
+## end-coords
+##
+rleg-end-coords:
+  translate : [0.0, 0, -0.091849]
+lleg-end-coords:
+  translate : [0.0, 0, -0.091849]
+rarm-end-coords:
+  translate : [0, 0, -0.1]
+  rotate    : [0, 1, 0, 90]
+  parent    : R_WRIST_R_LINK
+larm-end-coords:
+  translate : [0, 0, -0.1]
+  rotate    : [0, 1, 0, 90]
+  parent    : L_WRIST_R_LINK
+head-end-coords:
+  translate : [0.085, 0, 0.0]
+  rotate    : [0, 1, 0, 90]
+torso-end-coords:
+  translate : [0.0, 0, 0.3]
+  rotate    : [1, 0, 0, 0]
+
+##
+## reset-pose
+##
+angle-vector:
+  reset-manip-pose : [0.0, -1, -20, 40, -20,  1,
+                      0.0,  1, -20, 40, -20, -1,
+                      8.0, 0.0, 
+                      0.0, 15.0,
+                      50.0, -30.0, -10.0, -120.0, -25.0, -20.0, -5.0,  1.0, 0.0,
+                      50.0,  30.0,  10.0, -120.0,  25.0, -20.0,  5.0, -1.0, 0.0]
+  reset-pose : [0.0, -1, -20, 40, -20,  1,
+                0.0,  1, -20, 40, -20, -1,
+                8.0, 0.0, 
+                0.0, 0.0,
+                -3.0, -10.0, 0.0, -30.0, 0.0, 0.0, 0.0,  1.0, 0.0,
+                -3.0,  10.0, 0.0, -30.0, 0.0, 0.0, 0.0, -1.0, 0.0]
+  init-pose : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+               0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+               0.0, 0.0, 
+               0.0, 0.0,
+               0.0, -10.0, 0.0, 0.0, 0.0, 0.0, 0.0,  10.0, 0.0,
+               0.0,  10.0, 0.0, 0.0, 0.0, 0.0, 0.0, -10.0, 0.0]
