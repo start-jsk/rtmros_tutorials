@@ -59,7 +59,8 @@ compile_openhrp_model(
 compile_openhrp_model(
   ${openhrp3_PACKAGE_PATH}/share/OpenHRP-3.1/sample/model/sample1.wrl SampleRobot
   --conf-file-option "abc_leg_offset: 0,0.09,0"
-  --conf-file-option "abc_stride_parameter: 0.15,0.05,10")
+  --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
+  --conf-file-option "abc_end_effectors: :rarm,RARM_WRIST_P,CHEST, :larm,LARM_WRIST_P,CHEST, :rleg,RLEG_ANKLE_R,WAIST, :lleg,LLEG_ANKLE_R,WAIST")
 
 compile_collada_model(
   ${collada_robots_PACKAGE_PATH}/data/robots/kawada-hironx.dae
@@ -113,13 +114,16 @@ endmacro()
 # old HRP2xx.wrl files should be coverted.
 compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
   --conf-file-option "abc_leg_offset: 0.0, 0.095, 0.0"
-  --conf-file-option "abc_stride_parameter: 0.15,0.05,10")
+  --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
+  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,")
 compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT HRP2JSKNT
   --conf-file-option "abc_leg_offset: 0.0, 0.095, 0.0"
-  --conf-file-option "abc_stride_parameter: 0.15,0.05,10")
+  --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
+  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,")
 compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS HRP2JSKNTS
   --conf-file-option "abc_leg_offset: 0.0, 0.095, 0.0"
-  --conf-file-option "abc_stride_parameter: 0.15,0.05,10")
+  --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
+  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,")
 compile_openhrp_model_for_closed_robots(HRP2W HRP2W HRP2W)
 compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_WITH_3HAND HRP2JSKNT_WITH_3HAND
  -a leftarm,CHEST_LINK1,LARM_LINK6,-0.0042,-0.0392,-0.1245,-3.373247e-18,1.0,9.813081e-18,1.5708,L_THUMBCM_Y,0,L_THUMBCM_P,1,L_INDEXMP_R,0,L_INDEXMP_P,0,L_INDEXPIP_R,-1,L_MIDDLEPIP_R,-1
@@ -143,6 +147,7 @@ compile_openhrp_model_for_closed_robots(HRP4R HRP4R HRP4R
   --conf-file-option "virtual_force_sensor: vlhsensor, CHEST_Y, L_WRIST_R, 0,0,0, 0,0,1,0, vrhsensor, CHEST_Y, R_WRIST_R, 0,0,0, 0,0,1,0, vlfsensor, WAIST, L_ANKLE_R, 0,0,0, 0,0,1,0, vrfsensor, WAIST, R_ANKLE_R, 0,0,0, 0,0,1,0"
   --conf-file-option "abc_leg_offset: 0.0, 0.079919, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
+  --conf-file-option "abc_end_effectors: :rarm,R_WRIST_R,CHEST_Y, :larm,L_WRIST_R,CHEST_Y, :rleg,R_ANKLE_R,WAIST, :lleg,L_ANKLE_R,WAIST,"
   )
 
 # KOJIRO model generation ;; gen kojiro.dae and kojiro.l from kojiro.wrl and kojiro.yaml
