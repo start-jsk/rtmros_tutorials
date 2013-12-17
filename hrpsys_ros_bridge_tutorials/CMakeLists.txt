@@ -60,7 +60,9 @@ compile_openhrp_model(
   ${openhrp3_PACKAGE_PATH}/share/OpenHRP-3.1/sample/model/sample1.wrl SampleRobot
   --conf-file-option "abc_leg_offset: 0,0.09,0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
-  --conf-file-option "abc_end_effectors: :rarm,RARM_WRIST_P,CHEST, :larm,LARM_WRIST_P,CHEST, :rleg,RLEG_ANKLE_R,WAIST, :lleg,LLEG_ANKLE_R,WAIST")
+  --conf-file-option "abc_end_effectors: :rarm,RARM_WRIST_P,CHEST, :larm,LARM_WRIST_P,CHEST, :rleg,RLEG_ANKLE_R,WAIST, :lleg,LLEG_ANKLE_R,WAIST"
+  --conf-file-option "end_effectors: :rarm,RARM_WRIST_P,CHEST,0.0,-5.684342e-17,-0.12,9.813078e-18,1.0,0.0,1.5708, :larm,LARM_WRIST_P,CHEST,0.0,5.684342e-17,-0.12,-9.813078e-18,1.0,0.0,1.5708, :rleg,RLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, :lleg,LLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0,"
+)
 
 compile_collada_model(
   ${collada_robots_PACKAGE_PATH}/data/robots/kawada-hironx.dae
@@ -115,15 +117,18 @@ endmacro()
 compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
   --conf-file-option "abc_leg_offset: 0.0, 0.095, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
-  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,")
+  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,"
+  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-5.684342e-17,0.0169,-0.174,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-5.684342e-17,-0.0169,-0.174,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.0,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.0,0.01,-0.105,0.0,0.0,0.0,0.0,")
 compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT HRP2JSKNT
   --conf-file-option "abc_leg_offset: 0.0, 0.095, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
-  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,")
+  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,"
+  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT6,WAIST,-0.079411,-0.01,-0.031,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT6,WAIST,-0.079411,0.01,-0.031,0.0,0.0,0.0,0.0,")
 compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS HRP2JSKNTS
   --conf-file-option "abc_leg_offset: 0.0, 0.095, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
-  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,")
+  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,"
+  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT6,WAIST,-0.079411,-0.01,-0.031,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT6,WAIST,-0.079411,0.01,-0.031,0.0,0.0,0.0,0.0,")
 compile_openhrp_model_for_closed_robots(HRP2W HRP2W HRP2W)
 compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_WITH_3HAND HRP2JSKNT_WITH_3HAND
  -a leftarm,CHEST_LINK1,LARM_LINK6,-0.0042,-0.0392,-0.1245,-3.373247e-18,1.0,9.813081e-18,1.5708,L_THUMBCM_Y,0,L_THUMBCM_P,1,L_INDEXMP_R,0,L_INDEXMP_P,0,L_INDEXPIP_R,-1,L_MIDDLEPIP_R,-1
@@ -148,6 +153,7 @@ compile_openhrp_model_for_closed_robots(HRP4R HRP4R HRP4R
   --conf-file-option "abc_leg_offset: 0.0, 0.079919, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --conf-file-option "abc_end_effectors: :rarm,R_WRIST_R,CHEST_Y, :larm,L_WRIST_R,CHEST_Y, :rleg,R_ANKLE_R,WAIST, :lleg,L_ANKLE_R,WAIST,"
+  --conf-file-option "end_effectors: :rarm,R_WRIST_R,CHEST_Y,0.0,0.0,-0.1,-1.471962e-17,1.0,-1.471962e-17,1.5708, :larm,L_WRIST_R,CHEST_Y,0.0,0.0,-0.1,1.471962e-17,1.0,1.471962e-17,1.5708, :rleg,R_ANKLE_R,WAIST,0.0,0.0,-0.091849,0.0,0.0,0.0,0.0, :lleg,L_ANKLE_R,WAIST,0.0,0.0,-0.091849,0.0,0.0,0.0,0.0,"
   )
 
 # KOJIRO model generation ;; gen kojiro.dae and kojiro.l from kojiro.wrl and kojiro.yaml
