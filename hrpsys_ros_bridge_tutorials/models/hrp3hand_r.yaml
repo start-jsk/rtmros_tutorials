@@ -1,0 +1,17 @@
+##
+## - collada_joint_name : euslisp_joint_name (start with :)
+##
+
+rarm:
+  - R_THUMBCM_Y  : rarm-t-1y
+  - R_THUMBCM_P  : rarm-t-1p
+  - R_INDEXMP_R  : rarm-f1-1r
+  - R_INDEXMP_P  : rarm-f1-1p
+  - R_INDEXPIP_R  : rarm-f1-2p
+  - R_MIDDLEPIP_R : rarm-f2-2r
+
+##
+## reset-pose
+##
+angle-vector:
+  reset-pose : [0, 0, 0, 0, 0, 0]
