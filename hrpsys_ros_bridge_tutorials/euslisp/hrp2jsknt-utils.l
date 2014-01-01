@@ -1,6 +1,5 @@
 (load "package://hrpsys_ros_bridge_tutorials/models/hrp2jsknt.l")
-(load "package://hrpsys_ros_bridge_tutorials/models/hrp3hand_l.l")
-(load "package://hrpsys_ros_bridge_tutorials/models/hrp3hand_r.l")
+(load "package://hrpsys_ros_bridge_tutorials/euslisp/hrp3hand-utils.l")
 
 (unless (assoc :init-org (send hrp2jsknt-robot :methods))
   (rplaca (assoc :init (send hrp2jsknt-robot :methods)) :init-org))
@@ -29,7 +28,7 @@
        (:rarm
         (setq hr (send self :get :rhand-model))
         (setq ret (forward-message-to hr args)))
-       (:both
+       ((:both :arms)
         (setq hr (send self :get :lhand-model))
         (push (forward-message-to hr args) ret)
         (setq hr (send self :get :rhand-model))
