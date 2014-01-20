@@ -1,0 +1,14 @@
+rarm:
+  - link1      : rarm-link1
+  - link2      : rarm-link2
+  - link3      : rarm-link3
+  - link4      : rarm-link4
+  - link5      : rarm-link5
+  - link6      : rarm-link6
+  - link7      : rarm-link7
+  - link8      : rarm-link8
+  - link9      : rarm-link9
+
+rarm-end-coords:
+  translate : [0, 0, 0.05]
+  rotate    : [1, 0, 0, 0]
