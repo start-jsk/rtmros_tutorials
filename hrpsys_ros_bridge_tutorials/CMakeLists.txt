@@ -181,6 +181,12 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/models/kojiro.wrl)
   compile_openhrp_model(${PROJECT_SOURCE_DIR}/models/kojiro.wrl)
 endif(EXISTS ${PROJECT_SOURCE_DIR}/models/kojiro.wrl)
 
+if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
+  compile_openhrp_model(
+    ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl
+    TESTMDOFARM)
+endif()
+
 macro (generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots ROBOT_NAME)
   if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/${ROBOT_NAME}/${ROBOT_NAME}main.wrl)
     generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_NAME}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${ARGV})
@@ -192,6 +198,11 @@ generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNTS "--no-euslisp")
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2W "--no-euslisp")
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP4R "--no-euslisp")
+generate_default_launch_eusinterface_files(
+  "$(find hrpsys_ros_bridge_tutorials)/models/TESTMDOFARM.wrl"
+  hrpsys_ros_bridge_tutorials
+  TESTMDOFARM
+  "--no-euslisp")
 #generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--no-euslisp")
 
 ## ALL
