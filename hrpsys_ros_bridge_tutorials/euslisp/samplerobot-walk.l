@@ -79,7 +79,7 @@
         (fname (format nil "~A/samplerobot-walk-pattern"
                        (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials/build"))))
     (format t ";; dump pattern file~%")
-    (send *ri* :dump-seq-pattern-file pattern-list fname)
+    (dump-seq-pattern-file pattern-list fname)
     (format t ";; load pattern file~%")
     (send *ri* :load-pattern fname)
     ))
