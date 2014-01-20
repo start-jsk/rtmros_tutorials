@@ -1,0 +1,880 @@
+#VRML V2.0 utf8
+
+# Produced by EusLisp 8.26(r658M 1032:1035M 60377) for Linux64 created on nozawa-ThinkPad-T430(Mon Dec 9 13:42:51 JST 2013)
+# Date: Tue Jan  7 00:57:07 2014
+
+
+PROTO Joint [
+ exposedField     SFVec3f      center              0 0 0
+ exposedField     MFNode       children            []
+ exposedField     MFFloat      llimit              []
+ exposedField     SFRotation   limitOrientation    0 0 1 0
+ exposedField     SFString     name                ""
+ exposedField     SFRotation   rotation            0 0 1 0
+ exposedField     SFVec3f      scale               1 1 1
+ exposedField     SFRotation   scaleOrientation    0 0 1 0
+ exposedField     MFFloat      stiffness           [ 0 0 0 ]
+ exposedField     SFVec3f      translation         0 0 0
+ exposedField     MFFloat      ulimit              []
+ exposedField     MFFloat      dh                  [0 0 0 0]
+ exposedField     SFString     jointType           ""
+ exposedField     SFInt32      jointId             -1
+ exposedField     SFVec3f     jointAxis           0 0 1
+]
+{
+   Transform {
+      center           IS center
+      children         IS children
+      rotation         IS rotation
+      scale            IS scale
+      scaleOrientation IS scaleOrientation
+      translation      IS translation
+   }
+}
+
+PROTO Segment [
+ field           SFVec3f     bboxCenter        0 0 0
+ field           SFVec3f     bboxSize          -1 -1 -1
+ exposedField    SFVec3f     centerOfMass      0 0 0
+ exposedField    MFNode      children          [ ]
+ exposedField    SFNode      coord             NULL
+ exposedField    MFNode      displacers        [ ]
+ exposedField    SFFloat     mass              0
+ exposedField    MFFloat     momentsOfInertia  [ 0 0 0 0 0 0 0 0 0 ]
+ exposedField    SFString    name              ""
+ eventIn         MFNode      addChildren
+ eventIn         MFNode      removeChildren
+]
+{
+   Group {
+      addChildren    IS addChildren
+      bboxCenter     IS bboxCenter
+      bboxSize       IS bboxSize
+      children       IS children
+      removeChildren IS removeChildren
+   }
+}
+
+
+PROTO Humanoid [
+ field           SFVec3f    bboxCenter            0 0 0
+ field           SFVec3f    bboxSize              -1 -1 -1
+ exposedField    SFVec3f    center                0 0 0
+ exposedField    MFNode     humanoidBody          [ ]
+ exposedField    MFString   info                  [ ]
+ exposedField    MFNode     joints                [ ]
+ exposedField    SFString   name                  ""
+ exposedField    SFRotation rotation              0 0 1 0
+ exposedField    SFVec3f    scale                 1 1 1
+ exposedField    SFRotation scaleOrientation      0 0 1 0
+ exposedField    MFNode     segments              [ ]
+ exposedField    MFNode     sites                 [ ]
+ exposedField    SFVec3f    translation           0 0 0
+ exposedField    SFString   version               "1.1"
+ exposedField    MFNode     viewpoints            [ ]
+]
+{
+   Transform {
+      bboxCenter       IS bboxCenter
+      bboxSize         IS bboxSize
+      center           IS center
+      rotation         IS rotation
+      scale            IS scale
+      scaleOrientation IS scaleOrientation
+      translation      IS translation
+      children [
+         Group {
+            children IS viewpoints
+         }
+         Group {
+            children IS humanoidBody
+         }
+      ]
+   }
+}
+
+
+PROTO VisionSensor [
+  exposedField SFVec3f    translation       0 0 0
+  exposedField SFRotation rotation              0 0 1 0
+  #exposedField SFRotation orientation       0 0 1 0
+  exposedField SFFloat    fieldOfView       0.785398
+  exposedField SFString   name              ""
+  exposedField SFFloat    frontClipDistance 0.01
+  exposedField SFFloat    backClipDistance  10.0
+  exposedField SFString   type              "NONE"
+  exposedField SFInt32    sensorId          -1
+  exposedField SFInt32    width             320  # 
+  exposedField SFInt32    height            240  # 
+  #exposedField MFNode       children            [] # for me
+]
+{
+  Transform {
+    rotation         IS rotation
+    translation      IS translation
+    #children IS children # for me
+  }
+}
+
+
+PROTO ForceSensor [
+  exposedField SFVec3f maxForce -1 -1 -1
+  exposedField SFVec3f maxTorque -1 -1 -1
+  exposedField SFVec3f translation 0 0 0
+  exposedField SFRotation rotation 0 0 1 0
+  exposedField SFInt32 sensorId -1
+]
+{
+  Transform {
+translation IS translation
+    rotation IS rotation
+  }
+}
+
+PROTO Gyro [
+  exposedField SFVec3f maxAngularVelocity -1 -1 -1
+  exposedField SFVec3f translation 0 0 0
+  exposedField SFRotation rotation 0 0 1 0
+  exposedField SFInt32 sensorId -1
+]
+{
+  Transform {
+    translation IS translation
+    rotation IS rotation
+  }
+}
+
+PROTO AccelerationSensor [
+  exposedField SFVec3f maxAcceleration -1 -1 -1
+  exposedField SFVec3f translation 0 0 0
+  exposedField SFRotation rotation 0 0 1 0
+  exposedField SFInt32 sensorId -1
+]
+{
+  Transform {
+    translation IS translation
+    rotation IS rotation
+  }
+}
+
+PROTO PressureSensor [
+  exposedField SFFloat maxPressure -1
+  exposedField SFVec3f translation 0 0 0
+  exposedField SFRotation rotation 0 0 1 0
+  exposedField SFInt32 sensorId -1
+]
+{
+  Transform {
+    translation IS translation
+    rotation IS rotation
+  }
+}
+
+
+NavigationInfo {
+   avatarSize    0.5
+   headlight     TRUE
+   type  ["EXAMINE", "ANY"]
+}
+
+Viewpoint {
+   position    3 0 0.835
+   orientation 0.5770 0.5775 0.5775 2.0935
+}
+
+DEF TESTMDOFARM Humanoid {
+   humanoidBody [
+    DEF WAIST Joint {
+       jointType "fixed"
+       dh [0 0 0 0]
+       translation 0.000000 0.000000 0.000000
+       rotation 0.0 0.0 1.0 0
+       children [
+          DEF link0_S Segment {
+             centerOfMass 0.0 0.0 0.025
+             mass 1.0
+             momentsOfInertia [ 1.000000e-06 0.0 0.0 0.0 1.000000e-06 0.0 0.0 0.0 1.000000e-06 ]
+             children [
+                Shape {
+                   appearance Appearance {
+                      material Material {
+                      }
+                   }
+                   geometry DEF link0-FACES IndexedFaceSet {
+                      creaseAngle 0.8
+                      ccw TRUE
+                      solid TRUE
+                      colorPerVertex FALSE
+                      color Color {
+                         color [
+                          0.0 0.996094 0.0,
+                         ]
+                      }
+                      coord DEF link0-COORD Coordinate {
+                         point[
+                          0.005000 0.005000 0.000000,
+                          0.005000 0.005000 0.050000,
+                          0.005000 -0.005000 0.000000,
+                          0.005000 -0.005000 0.050000,
+                          -0.005000 0.005000 0.000000,
+                          -0.005000 -0.005000 0.000000,
+                          -0.005000 -0.005000 0.050000,
+                          -0.005000 0.005000 0.050000,
+                         ]
+                      }
+                      coordIndex [
+                       3, 1, 7, -1,
+                       7, 6, 3, -1,
+                       5, 4, 0, -1,
+                       0, 2, 5, -1,
+                       7, 1, 0, -1,
+                       0, 4, 7, -1,
+                       1, 3, 2, -1,
+                       2, 0, 1, -1,
+                       3, 6, 5, -1,
+                       5, 2, 3, -1,
+                       6, 7, 4, -1,
+                       4, 5, 6, -1,
+                      ]
+                      colorIndex [
+                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                      ]
+                   }
+                }
+             ]
+          } #Segment
+          DEF link1 Joint {
+             jointType "rotate"
+             dh [0 0 0 0]
+             jointId 0
+             jointAxis 0.0 0.0 1.0
+             ulimit [1.5708]
+             llimit [-1.5708]
+             translation 0.000000 0.000000 0.050000
+             rotation 0.0 0.0 1.0 0
+             children [
+                DEF link1_S Segment {
+                   centerOfMass 0.0 0.0 0.025
+                   mass 1.0
+                   momentsOfInertia [ 1.000000e-06 0.0 0.0 0.0 1.000000e-06 0.0 0.0 0.0 1.000000e-06 ]
+                   children [
+                      Shape {
+                         appearance Appearance {
+                            material Material {
+                            }
+                         }
+                         geometry DEF link1-FACES IndexedFaceSet {
+                            creaseAngle 0.8
+                            ccw TRUE
+                            solid TRUE
+                            colorPerVertex FALSE
+                            color Color {
+                               color [
+                                0.0 0.996094 0.0,
+                               ]
+                            }
+                            coord DEF link1-COORD Coordinate {
+                               point[
+                                0.005000 0.005000 0.000000,
+                                0.005000 0.005000 0.050000,
+                                0.005000 -0.005000 0.000000,
+                                0.005000 -0.005000 0.050000,
+                                -0.005000 0.005000 0.000000,
+                                -0.005000 -0.005000 0.000000,
+                                -0.005000 -0.005000 0.050000,
+                                -0.005000 0.005000 0.050000,
+                               ]
+                            }
+                            coordIndex [
+                             3, 1, 7, -1,
+                             7, 6, 3, -1,
+                             5, 4, 0, -1,
+                             0, 2, 5, -1,
+                             7, 1, 0, -1,
+                             0, 4, 7, -1,
+                             1, 3, 2, -1,
+                             2, 0, 1, -1,
+                             3, 6, 5, -1,
+                             5, 2, 3, -1,
+                             6, 7, 4, -1,
+                             4, 5, 6, -1,
+                            ]
+                            colorIndex [
+                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                            ]
+                         }
+                      }
+                   ]
+                } #Segment
+                DEF link2 Joint {
+                   jointType "rotate"
+                   dh [0 0 0 0]
+                   jointId 1
+                   jointAxis 0.0 1.0 0.0
+                   ulimit [1.5708]
+                   llimit [-1.5708]
+                   translation 0.000000 0.000000 0.050000
+                   rotation 0.0 0.0 1.0 0
+                   children [
+                      DEF link2_S Segment {
+                         centerOfMass 0.0 0.0 0.025
+                         mass 1.0
+                         momentsOfInertia [ 1.000000e-06 0.0 0.0 0.0 1.000000e-06 0.0 0.0 0.0 1.000000e-06 ]
+                         children [
+                            Shape {
+                               appearance Appearance {
+                                  material Material {
+                                  }
+                               }
+                               geometry DEF link2-FACES IndexedFaceSet {
+                                  creaseAngle 0.8
+                                  ccw TRUE
+                                  solid TRUE
+                                  colorPerVertex FALSE
+                                  color Color {
+                                     color [
+                                      0.0 0.996094 0.0,
+                                     ]
+                                  }
+                                  coord DEF link2-COORD Coordinate {
+                                     point[
+                                      0.005000 0.005000 0.000000,
+                                      0.005000 0.005000 0.050000,
+                                      0.005000 -0.005000 0.000000,
+                                      0.005000 -0.005000 0.050000,
+                                      -0.005000 0.005000 0.000000,
+                                      -0.005000 -0.005000 0.000000,
+                                      -0.005000 -0.005000 0.050000,
+                                      -0.005000 0.005000 0.050000,
+                                     ]
+                                  }
+                                  coordIndex [
+                                   3, 1, 7, -1,
+                                   7, 6, 3, -1,
+                                   5, 4, 0, -1,
+                                   0, 2, 5, -1,
+                                   7, 1, 0, -1,
+                                   0, 4, 7, -1,
+                                   1, 3, 2, -1,
+                                   2, 0, 1, -1,
+                                   3, 6, 5, -1,
+                                   5, 2, 3, -1,
+                                   6, 7, 4, -1,
+                                   4, 5, 6, -1,
+                                  ]
+                                  colorIndex [
+                                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                  ]
+                               }
+                            }
+                         ]
+                      } #Segment
+                      DEF link3 Joint {
+                         jointType "rotate"
+                         dh [0 0 0 0]
+                         jointId 2
+                         jointAxis 1.0 0.0 0.0
+                         ulimit [1.5708]
+                         llimit [-1.5708]
+                         translation 0.000000 0.000000 0.050000
+                         rotation 0.0 0.0 1.0 0
+                         children [
+                            DEF link3_S Segment {
+                               centerOfMass 0.0 0.0 0.025
+                               mass 1.0
+                               momentsOfInertia [ 1.000000e-06 0.0 0.0 0.0 1.000000e-06 0.0 0.0 0.0 1.000000e-06 ]
+                               children [
+                                  Shape {
+                                     appearance Appearance {
+                                        material Material {
+                                        }
+                                     }
+                                     geometry DEF link3-FACES IndexedFaceSet {
+                                        creaseAngle 0.8
+                                        ccw TRUE
+                                        solid TRUE
+                                        colorPerVertex FALSE
+                                        color Color {
+                                           color [
+                                            0.0 0.996094 0.0,
+                                           ]
+                                        }
+                                        coord DEF link3-COORD Coordinate {
+                                           point[
+                                            0.005000 0.005000 0.000000,
+                                            0.005000 0.005000 0.050000,
+                                            0.005000 -0.005000 0.000000,
+                                            0.005000 -0.005000 0.050000,
+                                            -0.005000 0.005000 0.000000,
+                                            -0.005000 -0.005000 0.000000,
+                                            -0.005000 -0.005000 0.050000,
+                                            -0.005000 0.005000 0.050000,
+                                           ]
+                                        }
+                                        coordIndex [
+                                         3, 1, 7, -1,
+                                         7, 6, 3, -1,
+                                         5, 4, 0, -1,
+                                         0, 2, 5, -1,
+                                         7, 1, 0, -1,
+                                         0, 4, 7, -1,
+                                         1, 3, 2, -1,
+                                         2, 0, 1, -1,
+                                         3, 6, 5, -1,
+                                         5, 2, 3, -1,
+                                         6, 7, 4, -1,
+                                         4, 5, 6, -1,
+                                        ]
+                                        colorIndex [
+                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                        ]
+                                     }
+                                  }
+                               ]
+                            } #Segment
+                            DEF link4 Joint {
+                               jointType "rotate"
+                               dh [0 0 0 0]
+                               jointId 3
+                               jointAxis 0.0 0.0 1.0
+                               ulimit [1.5708]
+                               llimit [-1.5708]
+                               translation 0.000000 0.000000 0.050000
+                               rotation 0.0 0.0 1.0 0
+                               children [
+                                  DEF link4_S Segment {
+                                     centerOfMass 0.0 0.0 0.025
+                                     mass 1.0
+                                     momentsOfInertia [ 1.000000e-06 0.0 0.0 0.0 1.000000e-06 0.0 0.0 0.0 1.000000e-06 ]
+                                     children [
+                                        Shape {
+                                           appearance Appearance {
+                                              material Material {
+                                              }
+                                           }
+                                           geometry DEF link4-FACES IndexedFaceSet {
+                                              creaseAngle 0.8
+                                              ccw TRUE
+                                              solid TRUE
+                                              colorPerVertex FALSE
+                                              color Color {
+                                                 color [
+                                                  0.0 0.996094 0.0,
+                                                 ]
+                                              }
+                                              coord DEF link4-COORD Coordinate {
+                                                 point[
+                                                  0.005000 0.005000 0.000000,
+                                                  0.005000 0.005000 0.050000,
+                                                  0.005000 -0.005000 0.000000,
+                                                  0.005000 -0.005000 0.050000,
+                                                  -0.005000 0.005000 0.000000,
+                                                  -0.005000 -0.005000 0.000000,
+                                                  -0.005000 -0.005000 0.050000,
+                                                  -0.005000 0.005000 0.050000,
+                                                 ]
+                                              }
+                                              coordIndex [
+                                               3, 1, 7, -1,
+                                               7, 6, 3, -1,
+                                               5, 4, 0, -1,
+                                               0, 2, 5, -1,
+                                               7, 1, 0, -1,
+                                               0, 4, 7, -1,
+                                               1, 3, 2, -1,
+                                               2, 0, 1, -1,
+                                               3, 6, 5, -1,
+                                               5, 2, 3, -1,
+                                               6, 7, 4, -1,
+                                               4, 5, 6, -1,
+                                              ]
+                                              colorIndex [
+                                               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                              ]
+                                           }
+                                        }
+                                     ]
+                                  } #Segment
+                                  DEF link5 Joint {
+                                     jointType "rotate"
+                                     dh [0 0 0 0]
+                                     jointId 4
+                                     jointAxis 0.0 1.0 0.0
+                                     ulimit [1.5708]
+                                     llimit [-1.5708]
+                                     translation 0.000000 0.000000 0.050000
+                                     rotation 0.0 0.0 1.0 0
+                                     children [
+                                        DEF link5_S Segment {
+                                           centerOfMass 0.0 0.0 0.025
+                                           mass 1.0
+                                           momentsOfInertia [ 1.000000e-06 0.0 0.0 0.0 1.000000e-06 0.0 0.0 0.0 1.000000e-06 ]
+                                           children [
+                                              Shape {
+                                                 appearance Appearance {
+                                                    material Material {
+                                                    }
+                                                 }
+                                                 geometry DEF link5-FACES IndexedFaceSet {
+                                                    creaseAngle 0.8
+                                                    ccw TRUE
+                                                    solid TRUE
+                                                    colorPerVertex FALSE
+                                                    color Color {
+                                                       color [
+                                                        0.0 0.996094 0.0,
+                                                       ]
+                                                    }
+                                                    coord DEF link5-COORD Coordinate {
+                                                       point[
+                                                        0.005000 0.005000 0.000000,
+                                                        0.005000 0.005000 0.050000,
+                                                        0.005000 -0.005000 0.000000,
+                                                        0.005000 -0.005000 0.050000,
+                                                        -0.005000 0.005000 0.000000,
+                                                        -0.005000 -0.005000 0.000000,
+                                                        -0.005000 -0.005000 0.050000,
+                                                        -0.005000 0.005000 0.050000,
+                                                       ]
+                                                    }
+                                                    coordIndex [
+                                                     3, 1, 7, -1,
+                                                     7, 6, 3, -1,
+                                                     5, 4, 0, -1,
+                                                     0, 2, 5, -1,
+                                                     7, 1, 0, -1,
+                                                     0, 4, 7, -1,
+                                                     1, 3, 2, -1,
+                                                     2, 0, 1, -1,
+                                                     3, 6, 5, -1,
+                                                     5, 2, 3, -1,
+                                                     6, 7, 4, -1,
+                                                     4, 5, 6, -1,
+                                                    ]
+                                                    colorIndex [
+                                                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                                                    ]
+                                                 }
+                                              }
+                                           ]
+                                        } #Segment
+                                        DEF link6 Joint {
+                                           jointType "rotate"
+                                           dh [0 0 0 0]
+                                           jointId 5
+                                           jointAxis 1.0 0.0 0.0
+                                           ulimit [1.5708]
+                                           llimit [-1.5708]
+                                           translation 0.000000 0.000000 0.050000
+                                           rotation 0.0 0.0 1.0 0
+                                           children [
+                                              DEF link6_S Segment {
+                                                 centerOfMass 0.0 0.0 0.025
+                                                 mass 1.0
+                                                 momentsOfInertia [ 1.000000e-06 0.0 0.0 0.0 1.000000e-06 0.0 0.0 0.0 1.000000e-06 ]
+                                                 children [
+                                                    Shape {
+                                                       appearance Appearance {
+                                                          material Material {
+                                                          }
+      }
+      geometry DEF link6-FACES IndexedFaceSet {
+        creaseAngle 0.8
+        ccw TRUE
+        solid TRUE
+        colorPerVertex FALSE
+        color Color {
+           color [
+             0.0 0.996094 0.0,
+           ]
+        }
+        coord DEF link6-COORD Coordinate {
+          point[
+            0.005000 0.005000 0.000000,
+            0.005000 0.005000 0.050000,
+            0.005000 -0.005000 0.000000,
+            0.005000 -0.005000 0.050000,
+            -0.005000 0.005000 0.000000,
+            -0.005000 -0.005000 0.000000,
+            -0.005000 -0.005000 0.050000,
+            -0.005000 0.005000 0.050000,
+          ]
+        }
+        coordIndex [
+          3, 1, 7, -1,
+          7, 6, 3, -1,
+          5, 4, 0, -1,
+          0, 2, 5, -1,
+          7, 1, 0, -1,
+          0, 4, 7, -1,
+          1, 3, 2, -1,
+          2, 0, 1, -1,
+          3, 6, 5, -1,
+          5, 2, 3, -1,
+          6, 7, 4, -1,
+          4, 5, 6, -1,
+        ]
+        colorIndex [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        ]
+      }
+    }
+  ]
+} #Segment
+DEF link7 Joint {
+  jointType "rotate"
+  dh [0 0 0 0]
+  jointId 6
+  jointAxis 0.0 0.0 1.0
+  ulimit [1.5708]
+  llimit [-1.5708]
+  translation 0.000000 0.000000 0.050000
+  rotation 0.0 0.0 1.0 0
+  children [
+DEF link7_S Segment {
+  centerOfMass 0.0 0.0 0.025
+  mass 1.0
+  momentsOfInertia [ 1.000000e-06 0.0 0.0 0.0 1.000000e-06 0.0 0.0 0.0 1.000000e-06 ]
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry DEF link7-FACES IndexedFaceSet {
+        creaseAngle 0.8
+        ccw TRUE
+        solid TRUE
+        colorPerVertex FALSE
+        color Color {
+           color [
+             0.0 0.996094 0.0,
+           ]
+        }
+        coord DEF link7-COORD Coordinate {
+          point[
+            0.005000 0.005000 0.000000,
+            0.005000 0.005000 0.050000,
+            0.005000 -0.005000 0.000000,
+            0.005000 -0.005000 0.050000,
+            -0.005000 0.005000 0.000000,
+            -0.005000 -0.005000 0.000000,
+            -0.005000 -0.005000 0.050000,
+            -0.005000 0.005000 0.050000,
+          ]
+        }
+        coordIndex [
+          3, 1, 7, -1,
+          7, 6, 3, -1,
+          5, 4, 0, -1,
+          0, 2, 5, -1,
+          7, 1, 0, -1,
+          0, 4, 7, -1,
+          1, 3, 2, -1,
+          2, 0, 1, -1,
+          3, 6, 5, -1,
+          5, 2, 3, -1,
+          6, 7, 4, -1,
+          4, 5, 6, -1,
+        ]
+        colorIndex [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        ]
+      }
+    }
+  ]
+} #Segment
+DEF link8 Joint {
+  jointType "rotate"
+  dh [0 0 0 0]
+  jointId 7
+  jointAxis 0.0 1.0 0.0
+  ulimit [1.5708]
+  llimit [-1.5708]
+  translation 0.000000 0.000000 0.050000
+  rotation 0.0 0.0 1.0 0
+  children [
+DEF link8_S Segment {
+  centerOfMass 0.0 0.0 0.025
+  mass 1.0
+  momentsOfInertia [ 1.000000e-06 0.0 0.0 0.0 1.000000e-06 0.0 0.0 0.0 1.000000e-06 ]
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry DEF link8-FACES IndexedFaceSet {
+        creaseAngle 0.8
+        ccw TRUE
+        solid TRUE
+        colorPerVertex FALSE
+        color Color {
+           color [
+             0.0 0.996094 0.0,
+           ]
+        }
+        coord DEF link8-COORD Coordinate {
+          point[
+            0.005000 0.005000 0.000000,
+            0.005000 0.005000 0.050000,
+            0.005000 -0.005000 0.000000,
+            0.005000 -0.005000 0.050000,
+            -0.005000 0.005000 0.000000,
+            -0.005000 -0.005000 0.000000,
+            -0.005000 -0.005000 0.050000,
+            -0.005000 0.005000 0.050000,
+          ]
+        }
+        coordIndex [
+          3, 1, 7, -1,
+          7, 6, 3, -1,
+          5, 4, 0, -1,
+          0, 2, 5, -1,
+          7, 1, 0, -1,
+          0, 4, 7, -1,
+          1, 3, 2, -1,
+          2, 0, 1, -1,
+          3, 6, 5, -1,
+          5, 2, 3, -1,
+          6, 7, 4, -1,
+          4, 5, 6, -1,
+        ]
+        colorIndex [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        ]
+      }
+    }
+  ]
+} #Segment
+DEF link9 Joint {
+  jointType "rotate"
+  dh [0 0 0 0]
+  jointId 8
+  jointAxis 1.0 0.0 0.0
+  ulimit [1.5708]
+  llimit [-1.5708]
+  translation 0.000000 0.000000 0.050000
+  rotation 0.0 0.0 1.0 0
+  children [
+DEF link9_S Segment {
+  centerOfMass 0.0 0.0 0.025
+  mass 1.0
+  momentsOfInertia [ 1.000000e-06 0.0 0.0 0.0 1.000000e-06 0.0 0.0 0.0 1.000000e-06 ]
+  children [
+                                                    DEF gsensor AccelerationSensor {
+                                                       sensorId 0
+                                                       translation 0 0 0.05
+                                                       rotation 1 0 0 0
+                                                    }
+                                                    DEF gyrometer Gyro {
+                                                       sensorId 0
+                                                       translation 0 0 0.05
+                                                       rotation 1 0 0 0
+                                                    }
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry DEF link9-FACES IndexedFaceSet {
+        creaseAngle 0.8
+        ccw TRUE
+        solid TRUE
+        colorPerVertex FALSE
+        color Color {
+           color [
+             0.0 0.996094 0.0,
+           ]
+        }
+        coord DEF link9-COORD Coordinate {
+          point[
+            0.005000 0.005000 0.000000,
+            0.005000 0.005000 0.050000,
+            0.005000 -0.005000 0.000000,
+            0.005000 -0.005000 0.050000,
+            -0.005000 0.005000 0.000000,
+            -0.005000 -0.005000 0.000000,
+            -0.005000 -0.005000 0.050000,
+            -0.005000 0.005000 0.050000,
+          ]
+        }
+        coordIndex [
+          3, 1, 7, -1,
+          7, 6, 3, -1,
+          5, 4, 0, -1,
+          0, 2, 5, -1,
+          7, 1, 0, -1,
+          0, 4, 7, -1,
+          1, 3, 2, -1,
+          2, 0, 1, -1,
+          3, 6, 5, -1,
+          5, 2, 3, -1,
+          6, 7, 4, -1,
+          4, 5, 6, -1,
+        ]
+        colorIndex [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        ]
+      }
+    }
+  ]
+} #Segment
+]
+} #link9
+    ,
+]
+} #link8
+    ,
+]
+} #link7
+    ,
+]
+} #link6
+    ,
+]
+} #link5
+    ,
+]
+} #link4
+    ,
+]
+} #link3
+    ,
+]
+} #link2
+    ,
+]
+} #link1
+    ,
+]
+} #WAIST
+] # END of HumanoidBody
+
+joints [
+  USE WAIST,
+  USE link1,
+  USE link2,
+  USE link3,
+  USE link4,
+  USE link5,
+  USE link6,
+  USE link7,
+  USE link8,
+  USE link9
+]
+
+segments [
+  USE link0_S,
+  USE link1_S,
+  USE link2_S,
+  USE link3_S,
+  USE link4_S,
+  USE link5_S,
+  USE link6_S,
+  USE link7_S,
+  USE link8_S,
+  USE link9_S
+]
+
+}
