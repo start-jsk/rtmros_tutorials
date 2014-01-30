@@ -66,7 +66,7 @@
     ))
 
 (defun samplerobot-walk-eus
-  ()
+  (&optional (x 500) (y 150) (th 45) (dt 0.01)) ;; x[mm] y[mm] th[deg] dt[s]
   ;; limit crotch-y range which are originally inf and -inf
   (send *sr* :legs :crotch-y :min-angle -90)
   (send *sr* :legs :crotch-y :max-angle 90)
@@ -74,8 +74,8 @@
   (let ((pattern-list
          (send *sr* :calc-walk-pattern-from-footstep-list
                (send *sr* :go-pos-params->footstep-list
-                     500 150 45) ;; x[mm] y[mm] th[rad]
-               :debug-view :no-message :dt 0.01))
+                     x y th)
+               :debug-view :no-message :dt dt))
         (fname (format nil "~A/samplerobot-walk-pattern"
                        (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials/build"))))
     (format t ";; dump pattern file~%")
