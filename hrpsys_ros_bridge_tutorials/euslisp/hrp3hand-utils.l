@@ -27,6 +27,8 @@
     (send self :angle-vector (float-vector  90 70 0 10 -20 -40)))
   (:distal-pose2 ()
     (send self :angle-vector (float-vector  90 90 -20 10 20 60)))
+  (:grasp-pose ()
+    (send self :angle-vector (float-vector 77.9709 -11.4732 8.28742 -16.3569 106.185 86.0974)))
     )
   )
 
