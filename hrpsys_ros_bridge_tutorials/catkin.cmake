@@ -5,7 +5,7 @@ project(hrpsys_ros_bridge_tutorials)
 
 #pkg_check_modules(hrpsys_ros_bridge REQUIRED)
 include(${hrpsys_ros_bridge_SOURCE_DIR}/cmake/compile_robot_model.cmake)
-
+catkin_package()
 #pkg_check_modules(hrpsys hrpsys REQUIRED)
 
 if(EXISTS ${hrpsys_SOURCE_DIR}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
@@ -121,3 +121,5 @@ generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNTS "--no-euslisp")
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2W "--no-euslisp")
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP4R "--no-euslisp")
+
+install(DIRECTORY euslisp launch scripts models DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
