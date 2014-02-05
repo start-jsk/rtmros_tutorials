@@ -1,7 +1,13 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(hrpsys_ros_bridge_tutorials)
 
-# find_package(catkin REQUIRED COMPONENTS hrpsys hrpsys_ros_bridge)
+find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge)
+catkin_package(
+    DEPENDS #
+    CATKIN-DEPENDS hrpsys_ros_bridge #
+    INCLUDE_DIRS # TODO include
+    LIBRARIES # TODO
+)
 
 #pkg_check_modules(hrpsys_ros_bridge REQUIRED)
 include(${hrpsys_ros_bridge_SOURCE_DIR}/cmake/compile_robot_model.cmake)
