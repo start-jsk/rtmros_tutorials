@@ -9,10 +9,7 @@ catkin_package(
     LIBRARIES # TODO
 )
 
-#pkg_check_modules(hrpsys_ros_bridge REQUIRED)
-include(${hrpsys_ros_bridge_SOURCE_DIR}/cmake/compile_robot_model.cmake)
 catkin_package()
-#pkg_check_modules(hrpsys hrpsys REQUIRED)
 
 if(EXISTS ${hrpsys_SOURCE_DIR}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
   compile_openhrp_model(
