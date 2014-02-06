@@ -16,7 +16,7 @@ pkg_check_modules(hrpsys hrpsys REQUIRED)
 
 if(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
   compile_openhrp_model(
-    ${hrpsys_SHARE}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl
+    ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl
     HRP4C
     -a rightarm_torso,BODY,R_WRIST_R_LINK,0,0,0,0.707,0,0.707,0 -a leftarm_torso,BODY,L_WRIST_R_LINK,0,0,0,0.707,0,0.707,0 -a rightarm,BODY,CHEST_Y_LINK,0,0,0,0.707,0,0.707,0 -a leftarm,CHEST_Y_LINK,L_WRIST_R_LINK,0,0,0,0.707,0,0.707,0
     --conf-file-option "virtual_force_sensor: vlhsensor, CHEST_Y, L_HAND_J0, 0,0,0, 0,0,1,0, vrhsensor, CHEST_Y, R_HAND_J0, 0,0,0, 0,0,1,0"
@@ -24,7 +24,7 @@ if(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
     --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
 )
-endif(EXISTS ${hrpsys_SHARE}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
+endif(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
 
 compile_openhrp_model(
   ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/PA10/pa10.main.wrl)
