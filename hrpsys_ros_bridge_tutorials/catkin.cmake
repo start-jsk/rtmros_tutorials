@@ -11,9 +11,12 @@ catkin_package(
 
 catkin_package()
 
-if(EXISTS ${hrpsys_SOURCE_DIR}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
+pkg_check_modules(openhrp3 openhrp3 REQUIRED)
+pkg_check_modules(hrpsys hrpsys REQUIRED)
+
+if(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
   compile_openhrp_model(
-    ${hrpsys_SOURCE_DIR}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl
+    ${hrpsys_SHARE}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl
     HRP4C
     -a rightarm_torso,BODY,R_WRIST_R_LINK,0,0,0,0.707,0,0.707,0 -a leftarm_torso,BODY,L_WRIST_R_LINK,0,0,0,0.707,0,0.707,0 -a rightarm,BODY,CHEST_Y_LINK,0,0,0,0.707,0,0.707,0 -a leftarm,CHEST_Y_LINK,L_WRIST_R_LINK,0,0,0,0.707,0,0.707,0
     --conf-file-option "virtual_force_sensor: vlhsensor, CHEST_Y, L_HAND_J0, 0,0,0, 0,0,1,0, vrhsensor, CHEST_Y, R_HAND_J0, 0,0,0, 0,0,1,0"
@@ -21,13 +24,12 @@ if(EXISTS ${hrpsys_SOURCE_DIR}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
     --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
 )
-endif(EXISTS ${hrpsys_SOURCE_DIR}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
+endif(EXISTS ${hrpsys_SHARE}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
 
-#pkg_check_modules(openhrp3 openhrp3 REQUIRED)
 compile_openhrp_model(
-  ${openhrp3_SOURCE_DIR}/share/OpenHRP-3.1/sample/model/PA10/pa10.main.wrl)
+  ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/PA10/pa10.main.wrl)
 compile_openhrp_model(
-  ${openhrp3_SOURCE_DIR}/share/OpenHRP-3.1/sample/model/sample1.wrl SampleRobot
+  ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/sample1.wrl SampleRobot
   --conf-file-option "abc_leg_offset: 0,0.09,0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --conf-file-option "abc_end_effectors: :rarm,RARM_WRIST_P,CHEST, :larm,LARM_WRIST_P,CHEST, :rleg,RLEG_ANKLE_R,WAIST, :lleg,LLEG_ANKLE_R,WAIST"
