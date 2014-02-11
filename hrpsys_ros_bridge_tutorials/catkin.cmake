@@ -27,6 +27,7 @@ if(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
 )
 endif(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
 
+if(EXISTS ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/PA10/pa10.main.wrl)
 compile_openhrp_model(
   ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/PA10/pa10.main.wrl)
 compile_openhrp_model(
@@ -37,6 +38,7 @@ compile_openhrp_model(
   --conf-file-option "end_effectors: :rarm,RARM_WRIST_P,CHEST,0.0,-5.684342e-17,-0.12,9.813078e-18,1.0,0.0,1.5708, :larm,LARM_WRIST_P,CHEST,0.0,5.684342e-17,-0.12,-9.813078e-18,1.0,0.0,1.5708, :rleg,RLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, :lleg,LLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
 )
+endif(EXISTS ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/PA10/pa10.main.wrl)
 
 # collada_robots
 # webots_simulator
