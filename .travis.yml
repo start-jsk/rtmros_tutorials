@@ -36,7 +36,7 @@ install: # Use this to install any prerequisites or dependencies necessary to ru
   - mkdir -p ~/ros/ws_$REPOSITORY_NAME/src
   - cd ~/ros/ws_$REPOSITORY_NAME/src
   - wstool init .
-  - wstool set jsk-ros-pkg/jsk_model_tools https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/jsk_model_tools
+  - wstool set jsk-ros-pkg/jsk_model_tools https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/jsk_model_tools --svn
   - wstool update
   - ln -s $CI_SOURCE_PATH . # Link the repo we are testing to the new workspace
   - cd ../
