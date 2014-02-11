@@ -9,6 +9,9 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/hrpsys_tutorials</url>
 
+  <rosdep name="hrpsys"/>
+  <rosdep name="hrpsys_tools"/>
+
   <depend package="hrpsys"/>
   <depend package="hrpsys_tools"/>
 

@@ -26,6 +26,8 @@ Following scripts are only for internal usage:
     <rosdoc config="rosdoc.yaml" />
   </export>
 
+  <rosdep name="hrpsys_ros_bridge"/>
+
   <depend package="hrpsys_ros_bridge"/>
 
   <depend package="hrpsys_tutorials"/>

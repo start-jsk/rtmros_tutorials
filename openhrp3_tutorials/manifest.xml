@@ -11,6 +11,7 @@
   <url>http://ros.org/wiki/openhrp3_tutorials</url>
 
   <depend package="openhrp3" />
+  <rosdep name="openhrp3" />
 
   <depend package="hrpsys" />
   <depend package="euscollada" />
