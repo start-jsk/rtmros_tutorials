@@ -119,7 +119,7 @@ if __name__ == '__main__':
 
     if argc < 4:
         print '### usage   : <in>.xml <out>.xml objname,url,is_robot_q,add_collision_q,0,0,0,0,0,0,0'
-        print '### example : hoge.xml fuga.xml  table,url_of_table,True,True,0.0,0.0,1.0,0.0,0.0,1.0,90.0'
+        print '### example : sample_in.xml sample_out.xml  table,url_of_table,True,True,0.0,0.0,1.0,0.0,0.0,1.0,90.0'
         print '###                             string,string      ,bool,bool,trans<3>   ,rotation<4>'
         exit(0)
 
