@@ -273,7 +273,7 @@
       (when sret (push (reverse sret) ret))
       (if debug (print (list 'ret-fields (reverse ret))))
       (mapcar #'(lambda (x)
-		  (if debug (print (list 'fuga (car x) (cadr x) x (is-node (cdr x)))))
+		  (if debug (print (list 'debug (car x) (cadr x) x (is-node (cdr x)))))
 		  (cond 
 		   ((is-node (cdr x))
 		    (append (list (car x)) (split-nodes (cdr x) debug)))
@@ -310,7 +310,7 @@
       (when sret (push (reverse sret) ret))
       (if debug (print (list 'ret-node (reverse ret))))
       (mapcar #'(lambda (x)
-		  (if debug (print (list 'hoge (car x))))
+		  (if debug (print (list 'debug (car x))))
 		  (if (eq (car x) 'def)
 		      (append (subseq x 0 3)
 			      (split-fields (elt x 3) (elt x 2) debug))
@@ -482,8 +482,8 @@
 			(_range (length str)))))
       (concatenate string (append (list (char-upcase (car ret2))) (mapcar #'char-downcase (cdr ret2))))
       )))
-;; (print-all-vrml-nodes-fields "hoge.wrl" (split-nodes (append (list 'aref) cc) nil))
-;; (print-all-vrml-nodes-fields "hoge.wrl" (split-nodes (append (list 'aref) data2) nil))
+;; (print-all-vrml-nodes-fields "sample.wrl" (split-nodes (append (list 'aref) cc) nil))
+;; (print-all-vrml-nodes-fields "sample.wrl" (split-nodes (append (list 'aref) data2) nil))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Webots VRML -> OpenHRP3 VRML Converter
@@ -841,8 +841,8 @@
 
 ;; (pprint (append-openhrp3-humanoid (replace-servo->joint (insert-segment (append-openhrp3-waist-joint (split-nodes c3 nil))))))
 ;; (append (list '(aref)) (append-openhrp3-humanoid (replace-servo->joint (insert-segment (append-openhrp3-waist-joint (split-nodes c3 nil))))))
-;; (print-all-vrml-nodes-fields "hoge.wrl" (append (list '(aref)) (append-openhrp3-humanoid (replace-servo->joint (insert-segment (append-openhrp3-waist-joint (split-nodes c3 nil)))))))
-;; (print-all-vrml-nodes-fields "hoge.wrl" (append (list '(aref)) (append-openhrp3-humanoid (replace-servo->joint (insert-segment (append-openhrp3-waist-joint (split-nodes (append (list 'aref) cc) nil)))))))
+;; (print-all-vrml-nodes-fields "sample.wrl" (append (list '(aref)) (append-openhrp3-humanoid (replace-servo->joint (insert-segment (append-openhrp3-waist-joint (split-nodes c3 nil)))))))
+;; (print-all-vrml-nodes-fields "sample.wrl" (append (list '(aref)) (append-openhrp3-humanoid (replace-servo->joint (insert-segment (append-openhrp3-waist-joint (split-nodes (append (list 'aref) cc) nil)))))))
 
 (in-package "USER")
 (import '(vrml::convert-webots-vrml->openhrp3-vrml-for-darwin))
