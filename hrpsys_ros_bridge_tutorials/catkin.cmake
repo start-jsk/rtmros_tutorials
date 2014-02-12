@@ -2,15 +2,15 @@ cmake_minimum_required(VERSION 2.8.3)
 project(hrpsys_ros_bridge_tutorials)
 
 #find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge hrpsys openhrp3)
-find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge openhrp3 hrpsys) # pr2_controllers_msgs robot_monitor
+find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge) # pr2_controllers_msgs robot_monitor
 
-# find_package(PkgConfig)
-# pkg_check_modules(openhrp3 openhrp3 REQUIRED)
-# pkg_check_modules(hrpsys hrpsys-base REQUIRED)
+find_package(PkgConfig)
+pkg_check_modules(openhrp3 openhrp3 REQUIRED)
+#pkg_check_modules(hrpsys hrpsys-base REQUIRED)
 
 catkin_package(
     DEPENDS #
-    CATKIN_DEPENDS hrpsys_ros_bridge openhrp3 hrpsys#
+    CATKIN_DEPENDS hrpsys_ros_bridge
     INCLUDE_DIRS # TODO include
     LIBRARIES # TODO
 )
