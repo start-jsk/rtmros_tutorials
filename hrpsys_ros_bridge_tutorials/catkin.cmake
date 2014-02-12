@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(hrpsys_ros_bridge_tutorials)
 
 #find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge hrpsys openhrp3)
-find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge)
+find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada)
 
 find_package(PkgConfig)
 pkg_check_modules(openhrp3 openhrp3 REQUIRED)
