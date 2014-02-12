@@ -10,7 +10,7 @@ pkg_check_modules(hrpsys hrpsys-base REQUIRED)
 
 catkin_package(
     DEPENDS openhrp3 hrpsys-base
-    CATKIN_DEPENDS hrpsys_ros_bridge
+    CATKIN_DEPENDS hrpsys_ros_bridge euscollada
     INCLUDE_DIRS # TODO include
     LIBRARIES # TODO
 )
