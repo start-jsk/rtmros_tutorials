@@ -6,10 +6,10 @@ find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge) # pr2_controllers_msg
 
 find_package(PkgConfig)
 pkg_check_modules(openhrp3 openhrp3 REQUIRED)
-#pkg_check_modules(hrpsys hrpsys-base REQUIRED)
+pkg_check_modules(hrpsys hrpsys-base REQUIRED)
 
 catkin_package(
-    DEPENDS openhrp3
+    DEPENDS openhrp3 hrpsys-base
     CATKIN_DEPENDS hrpsys_ros_bridge
     INCLUDE_DIRS # TODO include
     LIBRARIES # TODO
