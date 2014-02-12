@@ -5,7 +5,7 @@ project(hrpsys_ros_bridge_tutorials)
 find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada)
 
 find_package(PkgConfig)
-pkg_check_modules(openhrp3 openhrp3 REQUIRED)
+pkg_check_modules(openhrp3 openhrp3.1 REQUIRED)
 pkg_check_modules(hrpsys hrpsys-base REQUIRED)
 
 catkin_package(
