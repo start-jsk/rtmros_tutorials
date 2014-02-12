@@ -21,7 +21,8 @@
   <run_depend>hrpsys_ros_bridge</run_depend>
   <run_depend>hrpsys</run_depend>
   <run_depend>openhrp3</run_depend>
-
+  <run_depend>euscollada</run_depend>
+  
   <!-- <test_depend>openhrp3</test_depend> -->
   <export>
   </export>
