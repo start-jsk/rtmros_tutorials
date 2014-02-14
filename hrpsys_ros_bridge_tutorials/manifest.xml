@@ -25,7 +25,9 @@ Following scripts are only for internal usage:
   <export>
     <rosdoc config="rosdoc.yaml" />
   </export>
-
+  <rosdep name="hrpsys"/>
+  <rosdep name="openhrp3"/>
+  
   <rosdep name="hrpsys_ros_bridge"/>
 
   <depend package="hrpsys_ros_bridge"/>
