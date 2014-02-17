@@ -211,17 +211,6 @@ generate_default_launch_eusinterface_files(
   "--no-euslisp")
 #generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--no-euslisp")
 
-## ALL
-list(GET compile_robots 0 compile_robot)
-list(REMOVE_AT compile_robots 0)
-add_custom_target(openhrp_robots ALL)
-add_dependencies(openhrp_robots ${compile_robot})
-foreach(compile_target ${compile_robots})
-  add_dependencies(${compile_robot} ${compile_target})
-  list(GET compile_robots 0 compile_robot)
-  list(REMOVE_AT compile_robots 0)
-endforeach(compile_target ${compile_robots})
-
 ##
 ## test
 ##
