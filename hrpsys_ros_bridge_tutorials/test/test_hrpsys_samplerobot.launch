@@ -1,0 +1,16 @@
+<!-- =*- mode: xml -*- -->
+<launch>
+  <arg name="ROBOT_MODEL_PKG_PATH" default="$(find hrpsys_ros_bridge_tutorials)"/>
+  <arg name="NOSIM" default="false" />
+  <arg name="GUI" default="false" />
+  <arg name="TIME_LIMIT" default="300"/>
+
+  <!-- setup xx_startup.launch and xx_ros_bridge.launch -->
+  <include file="$(find hrpsys_ros_bridge_tutorials)/launch/samplerobot_startup.launch" >
+    <arg name="NOSIM" default="$(arg NOSIM)" />
+    <arg name="GUI" default="$(arg GUI)" />
+    <arg name="corbaport" default="2809" />
+  </include>
+
+  <test test-name="test_samplerobot_hrpsys" pkg="hrpsys_ros_bridge_tutorials" type="test_hrpsys.py" args="SampleRobot\(Robot\)0 29"/>
+</launch>
