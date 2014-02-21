@@ -169,7 +169,9 @@ compile_openhrp_model_for_closed_robots(HRP4R HRP4R HRP4R
   --conf-file-option "abc_end_effectors: :rarm,R_WRIST_R,CHEST_Y, :larm,L_WRIST_R,CHEST_Y, :rleg,R_ANKLE_R,WAIST, :lleg,L_ANKLE_R,WAIST,"
   --conf-file-option "end_effectors: :rarm,R_WRIST_R,CHEST_Y,0.0,0.0,-0.1,-1.471962e-17,1.0,-1.471962e-17,1.5708, :larm,L_WRIST_R,CHEST_Y,0.0,0.0,-0.1,1.471962e-17,1.0,1.471962e-17,1.5708, :rleg,R_ANKLE_R,WAIST,0.0,0.0,-0.091849,0.0,0.0,0.0,0.0, :lleg,L_ANKLE_R,WAIST,0.0,0.0,-0.091849,0.0,0.0,0.0,0.0,"
   )
-
+compile_openhrp_model_for_closed_robots(URATALEG URATALEG URATALEG
+  --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  )
 if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_L/HRP3HAND_Lmain.wrl)
   compile_openhrp_model(
     $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_L/HRP3HAND_Lmain.wrl
@@ -209,6 +211,7 @@ generate_default_launch_eusinterface_files(
   hrpsys_ros_bridge_tutorials
   TESTMDOFARM
   "--no-euslisp")
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(URATALEG "--no-euslisp")
 #generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--no-euslisp")
 
 ##
