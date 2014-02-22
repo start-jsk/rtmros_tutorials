@@ -38,7 +38,7 @@ Following scripts are only for internal usage:
   <depend package="collada_robots"/>
 
   <!-- examples -->
-  <depend package="rviz"/>
+  <rosdep name="rviz"/>
   <depend package="jsk_perception" />
   <depend package="image_view2" />
   <depend package="pr2eus"/>
