@@ -14,6 +14,12 @@
     uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/jsk_model_tools
     local-name: jsk-ros-pkg/jsk_model_tools
 - svn:
+    uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/euslisp
+    local-name: jsk-ros-pkg/euslisp
+- svn:
+    uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/roseus
+    local-name: jsk-ros-pkg/roseus
+- svn:
     uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/openrave_planning/collada_robots
     local-name: jsk-ros-pkg/collada_robots
 - git:
