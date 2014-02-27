@@ -1,0 +1,13 @@
+<!-- =*- mode: xml -*- -->
+<launch>
+  <arg name="ROBOT_MODEL_PKG_PATH" default="$(find hrpsys_ros_bridge_tutorials)"/>
+  <arg name="GUI" default="false" />
+  <arg name="TIME_LIMIT" default="300"/>
+
+  <include file="$(find hrpsys_ros_bridge_tutorials)/launch/pa10_startup.launch" >
+    <arg name="GUI" default="$(arg GUI)" />
+    <arg name="corbaport" default="2809" />
+  </include>
+
+  <test test-name="test_samplerobot_hrpsys" pkg="hrpsys_ros_bridge_tutorials" type="test_hrpsys.py" args="HRP1\(Robot\)0 9"/>
+</launch>
