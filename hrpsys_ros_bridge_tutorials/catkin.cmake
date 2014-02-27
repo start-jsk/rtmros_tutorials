@@ -4,9 +4,22 @@ project(hrpsys_ros_bridge_tutorials)
 #find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge hrpsys openhrp3)
 find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada)
 
+set(PKG_CONFIG_PATH "${openhrp3_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}") # for openrtm3.1.pc
+execute_process(
+  COMMAND pkg-config --variable=idl_dir openhrp3.1
+  OUTPUT_VARIABLE OPENHRP_IDL_DIR
+  RESULT_VARIABLE RESULT
+  OUTPUT_STRIP_TRAILING_WHITESPACE)
+if(NOT RESULT EQUAL 0)
+  set(OPENHRP_FOUND FALSE)
+endif()
+set(OPENHRP_SAMPLE_DIR ${OPENHRP_IDL_DIR}/../sample)
+
 find_package(PkgConfig)
-pkg_check_modules(openhrp3 openhrp3.1 REQUIRED)
 pkg_check_modules(hrpsys hrpsys-base REQUIRED)
+if(NOT EXISTS ${hrpsys_ros_bridge_SOURCE_DIR}) # for installed package
+  set(hrpsys_ros_bridge_SOURCE_DIR ${hrpsys_ros_bridge_PREFIX}/share/hrpsys_ros_bridge)
+endif()
 
 catkin_package(
     DEPENDS openhrp3 hrpsys-base
@@ -27,20 +40,26 @@ if(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
 )
 endif(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
 
-if(EXISTS ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/PA10/pa10.main.wrl)
+if(EXISTS ${OPENHRP_SAMPLE_DIR}/model/PA10/pa10.main.wrl)
 compile_openhrp_model(
-  ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/PA10/pa10.main.wrl)
-endif(EXISTS ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/PA10/pa10.main.wrl)
-if(EXISTS ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/sample1.wrl)
+  ${OPENHRP_SAMPLE_DIR}/model/PA10/pa10.main.wrl)
+endif(EXISTS ${OPENHRP_SAMPLE_DIR}/model/PA10/pa10.main.wrl)
+if(EXISTS ${OPENHRP_SAMPLE_DIR}/model/sample1.wrl)
 compile_openhrp_model(
-  ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/sample1.wrl SampleRobot
+  ${OPENHRP_SAMPLE_DIR}/model/sample1.wrl SampleRobot
   --conf-file-option "abc_leg_offset: 0,0.09,0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --conf-file-option "abc_end_effectors: :rarm,RARM_WRIST_P,CHEST, :larm,LARM_WRIST_P,CHEST, :rleg,RLEG_ANKLE_R,WAIST, :lleg,LLEG_ANKLE_R,WAIST"
   --conf-file-option "end_effectors: :rarm,RARM_WRIST_P,CHEST,0.0,-5.684342e-17,-0.12,9.813078e-18,1.0,0.0,1.5708, :larm,LARM_WRIST_P,CHEST,0.0,5.684342e-17,-0.12,-9.813078e-18,1.0,0.0,1.5708, :rleg,RLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, :lleg,LLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
 )
-endif(EXISTS ${openhrp3_PREFIX}/share/openhrp3/share/OpenHRP-3.1/sample/model/sample1.wrl)
+else()
+  get_cmake_property(_variableNames VARIABLES)
+  foreach (_variableName ${_variableNames})
+    message(STATUS "${_variableName}=${${_variableName}}")
+  endforeach()
+  message(FATAL_ERROR "${OPENHRP_SAMPLE_DIR}/model/sample1.wrl not found")
+endif(EXISTS ${OPENHRP_SAMPLE_DIR}/model/sample1.wrl)
 
 # collada_robots
 # webots_simulator
