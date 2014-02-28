@@ -25,6 +25,7 @@ Following scripts are only for internal usage:
   <export>
     <rosdoc config="rosdoc.yaml" />
   </export>
+  <rosdep name="rostest"/>
   <rosdep name="hrpsys"/>
   <rosdep name="openhrp3"/>
   
@@ -43,5 +44,4 @@ Following scripts are only for internal usage:
   <depend package="image_view2" />
   <depend package="pr2eus"/>
 </package>
-
 
