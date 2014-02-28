@@ -161,5 +161,5 @@ install(CODE
   endforeach()
 ")
 
-add_rostest(test/test_hrpsys_pa10.launch)
-add_rostest(test/test_hrpsys_samplerobot.launch)
+add_rostest(test/test_hrpsys_pa10.test)
+add_rostest(test/test_hrpsys_samplerobot.test)
