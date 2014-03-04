@@ -10,15 +10,26 @@
 - git:
     uri: https://github.com/start-jsk/rtshell_core 
     local-name: rtm-ros-robotics/openrtm_common/rtshell_core
-- svn:
-    uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/jsk_model_tools
-    local-name: jsk-ros-pkg/jsk_model_tools
-- svn:
-    uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/openrave_planning/collada_robots
-    local-name: jsk-ros-pkg/collada_robots
 - git:
     uri: https://github.com/start-jsk/rtmros_common
     local-name: rtm-ros-robotics/rtmros_common
 - git:
     uri: https://github.com/start-jsk/rtmros_tutorials
     local-name: rtm-ros-robotics/rtmros_tutorials
+##
+## jsk ros packages => move to github
+##
+#  jsk-ros-pkg old repository
+#- svn:
+#    uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/jsk_model_tools
+#    local-name: jsk-ros-pkg/jsk_model_tools
+#- svn:
+#    uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/openrave_planning/collada_robots
+#    local-name: jsk-ros-pkg/collada_robots
+# jsk-ros-pkg new repository
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_model_tools
+    local-name: jsk-ros-pkg/jsk_model_tools
+- git:
+    uri: https://github.com/jsk-ros-pkg/openrave_planning
+    local-name: jsk-ros-pkg/openrave_planning
