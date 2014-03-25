@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(hrpsys_ros_bridge_tutorials)
 
 #find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge hrpsys openhrp3)
-find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest)
+find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest hrpsys)
 
 set(PKG_CONFIG_PATH "${openhrp3_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}") # for openrtm3.1.pc
 execute_process(
@@ -15,14 +15,15 @@ if(NOT RESULT EQUAL 0)
 endif()
 set(OPENHRP_SAMPLE_DIR ${OPENHRP_IDL_DIR}/../sample)
 
-find_package(PkgConfig)
-pkg_check_modules(hrpsys hrpsys-base REQUIRED)
 if(NOT EXISTS ${hrpsys_ros_bridge_SOURCE_DIR}) # for installed package
   set(hrpsys_ros_bridge_SOURCE_DIR ${hrpsys_ros_bridge_PREFIX}/share/hrpsys_ros_bridge)
 endif()
 
+unset(hrpsys_LIBRARIES CACHE)
+unset(openhrp3_LIBRARIES CACHE)
+
 catkin_package(
-    DEPENDS openhrp3 hrpsys-base
+    DEPENDS openhrp3 hrpsys
     CATKIN_DEPENDS hrpsys_ros_bridge euscollada
     INCLUDE_DIRS # TODO include
     LIBRARIES # TODO
