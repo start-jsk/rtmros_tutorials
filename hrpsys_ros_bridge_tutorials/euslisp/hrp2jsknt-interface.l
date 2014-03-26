@@ -8,17 +8,28 @@
   :slots ())
 (defmethod hrp2jsknt-interface
   (:init
-   (&rest args)
+   (&key (set-st-param-p t) (set-abc-param-p t) &rest args)
+   ;; you can toggle to set st/abc parameters by
+   ;; :set-st-param-p and :set-abc-param-p
    (prog1
        (send-super :init :robot hrp2jsknt-robot)
-     (send self :set-st-param
-           :k-tpcc-p #f(2.5 2.5)
-           :k-tpcc-x #f(5 5)
-           :k-brot-p #f(0 0)
-           :k-brot-tc #f(0.1 0.1))
-     (send self :set-auto-balancer-param
-           :default-zmp-offsets (list (float-vector 20 -15 0) (float-vector 20 15 0)))
+     (if set-st-param-p
+         (send self :set-st-param
+               :k-tpcc-p #f(2.5 2.5)
+               :k-tpcc-x #f(5 5)
+               :k-brot-p #f(0 0)
+               :k-brot-tc #f(0.1 0.1)))
+     (if set-abc-param-p
+         (send self :set-auto-balancer-param
+               :default-zmp-offsets (list (float-vector 20 -15 0) (float-vector 20 15 0))))
      ))
+  (:set-gazebo-simulation-param ()
+    ;; misc parameters for gazebo simulation
+    (send self :set-st-param
+          :k-tpcc-p #f(0.1 0.1)
+          :k-tpcc-x #f(4 4)
+          :k-brot-p #f(0 0)
+          :k-brot-tc #f(0.1 0.1)))
   )
 
 (defun hrp2jsknt-init ()
