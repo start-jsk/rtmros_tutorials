@@ -130,13 +130,13 @@ compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
 compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT HRP2JSKNT
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
-  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT6,WAIST,-0.079411,-0.01,-0.031,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT6,WAIST,-0.079411,0.01,-0.031,0.0,0.0,0.0,0.0,"
+  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
 compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS HRP2JSKNTS
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
-  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT6,WAIST,-0.079411,-0.01,-0.031,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT6,WAIST,-0.079411,0.01,-0.031,0.0,0.0,0.0,0.0,"
+  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
 compile_openhrp_model_for_closed_robots(HRP2W HRP2W HRP2W)
