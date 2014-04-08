@@ -166,6 +166,10 @@ compile_openhrp_model_for_closed_robots(HRP4R HRP4R HRP4R
   )
 compile_openhrp_model_for_closed_robots(URATALEG URATALEG URATALEG
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  --conf-file-option "abc_leg_offset: 0.0, 0.08, 0.0"
+  --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
+  --conf-file-option "abc_end_effectors: :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,"
+  --conf-file-option "end_effectors: :rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0,"
   )
 if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_L/HRP3HAND_Lmain.wrl)
   compile_openhrp_model(
