@@ -12,6 +12,8 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 if(NOT RESULT EQUAL 0)
   set(OPENHRP_FOUND FALSE)
+  message("PKG_CONFIG_PATH = $ENV{PKG_CONFIG_PATH}")
+  message(FATAL_ERROR "Could not found openhrp3.1")
 endif()
 set(OPENHRP_SAMPLE_DIR ${OPENHRP_IDL_DIR}/../sample)
 
