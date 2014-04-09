@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(hrpsys_ros_bridge_tutorials)
 
 #find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge hrpsys openhrp3)
-find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest hrpsys)
+find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest)
 
 set(PKG_CONFIG_PATH "${openhrp3_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}") # for openrtm3.1.pc
 execute_process(
