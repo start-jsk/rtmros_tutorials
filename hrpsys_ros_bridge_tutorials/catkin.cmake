@@ -21,9 +21,6 @@ if(NOT EXISTS ${hrpsys_ros_bridge_SOURCE_DIR}) # for installed package
   set(hrpsys_ros_bridge_SOURCE_DIR ${hrpsys_ros_bridge_PREFIX}/share/hrpsys_ros_bridge)
 endif()
 
-unset(hrpsys_LIBRARIES CACHE)
-unset(openhrp3_LIBRARIES CACHE)
-
 catkin_package(
     DEPENDS openhrp3 hrpsys
     CATKIN_DEPENDS hrpsys_ros_bridge euscollada
