@@ -22,7 +22,7 @@ if(NOT EXISTS ${hrpsys_ros_bridge_SOURCE_DIR}) # for installed package
 endif()
 
 catkin_package(
-    DEPENDS openhrp3 hrpsys
+    DEPENDS
     CATKIN_DEPENDS hrpsys_ros_bridge euscollada
     INCLUDE_DIRS # TODO include
     LIBRARIES # TODO
