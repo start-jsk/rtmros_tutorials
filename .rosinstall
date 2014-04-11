@@ -19,6 +19,9 @@
 - git:
     uri: https://github.com/jsk-ros-pkg/jsk_roseus
     local-name: jsk-ros-pkg/jsk_roseus
+- git:
+    uri: https://github.com/jsk-ros-pkg/jsk_pr2eus
+    local-name: jsk-ros-pkg/jsk_pr2eus
 - svn:
     uri: https://svn.code.sf.net/p/jsk-ros-pkg/code/trunk/openrave_planning/collada_robots
     local-name: jsk-ros-pkg/collada_robots
