@@ -111,13 +111,19 @@ endif()
 ###
 ### convert model for closed models
 ###
-macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
-  if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
+macro(compile_model_for_closed_robots _robot_wrl_file _OpenHRP2_robot_name)
+  if(EXISTS ${_robot_wrl_file})
     compile_openhrp_model(
-      $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
+      ${_robot_wrl_file}
       ${_OpenHRP2_robot_name}
       ${ARGN})
   endif()
+endmacro()
+macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
+  compile_model_for_closed_robots(
+    $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
+    ${_OpenHRP2_robot_name}
+    ${ARGN})
 endmacro()
 
 # old HRP2xx.wrl files should be coverted.
@@ -164,13 +170,14 @@ compile_openhrp_model_for_closed_robots(HRP4R HRP4R HRP4R
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --conf-file-option "end_effectors: :rarm,R_WRIST_R,CHEST_Y,0.0,0.0,-0.1,-1.471962e-17,1.0,-1.471962e-17,1.5708, :larm,L_WRIST_R,CHEST_Y,0.0,0.0,-0.1,1.471962e-17,1.0,1.471962e-17,1.5708, :rleg,R_ANKLE_R,WAIST,0.0,0.0,-0.091849,0.0,0.0,0.0,0.0, :lleg,L_ANKLE_R,WAIST,0.0,0.0,-0.091849,0.0,0.0,0.0,0.0,"
   )
-compile_openhrp_model_for_closed_robots(URATALEG URATALEG URATALEG
+compile_model_for_closed_robots($ENV{CVSDIR}/euslib/rbrain/urataleg/URATALEGmain.wrl URATALEG
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.08, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --conf-file-option "abc_end_effectors: :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,"
   --conf-file-option "end_effectors: :rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0,"
   )
+
 if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_L/HRP3HAND_Lmain.wrl)
   compile_openhrp_model(
     $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_L/HRP3HAND_Lmain.wrl
