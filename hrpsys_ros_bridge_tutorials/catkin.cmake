@@ -12,17 +12,17 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 if(NOT RESULT EQUAL 0)
   set(OPENHRP_FOUND FALSE)
+  message("PKG_CONFIG_PATH = $ENV{PKG_CONFIG_PATH}")
+  message(FATAL_ERROR "Could not found openhrp3.1")
 endif()
 set(OPENHRP_SAMPLE_DIR ${OPENHRP_IDL_DIR}/../sample)
 
-find_package(PkgConfig)
-pkg_check_modules(hrpsys hrpsys-base REQUIRED)
 if(NOT EXISTS ${hrpsys_ros_bridge_SOURCE_DIR}) # for installed package
   set(hrpsys_ros_bridge_SOURCE_DIR ${hrpsys_ros_bridge_PREFIX}/share/hrpsys_ros_bridge)
 endif()
 
 catkin_package(
-    DEPENDS openhrp3 hrpsys-base
+    DEPENDS
     CATKIN_DEPENDS hrpsys_ros_bridge euscollada
     INCLUDE_DIRS # TODO include
     LIBRARIES # TODO
@@ -49,7 +49,6 @@ compile_openhrp_model(
   ${OPENHRP_SAMPLE_DIR}/model/sample1.wrl SampleRobot
   --conf-file-option "abc_leg_offset: 0,0.09,0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
-  --conf-file-option "abc_end_effectors: :rarm,RARM_WRIST_P,CHEST, :larm,LARM_WRIST_P,CHEST, :rleg,RLEG_ANKLE_R,WAIST, :lleg,LLEG_ANKLE_R,WAIST"
   --conf-file-option "end_effectors: :rarm,RARM_WRIST_P,CHEST,0.0,-5.684342e-17,-0.12,9.813078e-18,1.0,0.0,1.5708, :larm,LARM_WRIST_P,CHEST,0.0,5.684342e-17,-0.12,-9.813078e-18,1.0,0.0,1.5708, :rleg,RLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, :lleg,LLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
 )
@@ -78,25 +77,22 @@ endmacro()
 
 # old HRP2xx.wrl files should be coverted.
 compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
-  --conf-file-option "abc_leg_offset: 0.0, 0.095, 0.0"
+  --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
-  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,"
   --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-5.684342e-17,0.0169,-0.174,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-5.684342e-17,-0.0169,-0.174,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.0,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.0,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
 
 compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT HRP2JSKNT
-  --conf-file-option "abc_leg_offset: 0.0, 0.095, 0.0"
+  --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
-  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,"
-  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT6,WAIST,-0.079411,-0.01,-0.031,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT6,WAIST,-0.079411,0.01,-0.031,0.0,0.0,0.0,0.0,"
+  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
 compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS HRP2JSKNTS
-  --conf-file-option "abc_leg_offset: 0.0, 0.095, 0.0"
+  --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
-  --conf-file-option "abc_end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1, :larm,LARM_JOINT6,CHEST_JOINT1, :rleg,RLEG_JOINT5,WAIST, :lleg,LLEG_JOINT5,WAIST,"
-  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT6,WAIST,-0.079411,-0.01,-0.031,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT6,WAIST,-0.079411,0.01,-0.031,0.0,0.0,0.0,0.0,"
+  --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
 # compile_openhrp_model_for_closed_robots(HRP2W HRP2W HRP2W)

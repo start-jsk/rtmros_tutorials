@@ -12,5 +12,6 @@
     <arg name="corbaport" default="2809" />
   </include>
 
-  <test test-name="test_samplerobot_hrpsys" pkg="hrpsys_ros_bridge_tutorials" type="test_hrpsys.py" args="SampleRobot\(Robot\)0 29"/>
+  <test test-name="test_samplerobot_hrpsys" pkg="hrpsys_ros_bridge_tutorials" type="test_hrpsys.py" args="SampleRobot\(Robot\)0 29"
+        retry="4" />
 </launch>
