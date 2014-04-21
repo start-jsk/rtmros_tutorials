@@ -17,8 +17,8 @@ lleg:
   - LLEG_JOINT4  : lleg-ankle-p
   - LLEG_JOINT5  : lleg-ankle-r
 torso:
-  - CHEST_JOINT0 : torso-waist-p
-  - CHEST_JOINT1 : torso-waist-y
+  - CHEST_JOINT0 : torso-waist-y
+  - CHEST_JOINT1 : torso-waist-p
 head:
   - HEAD_JOINT0  : head-neck-y
   - HEAD_JOINT1  : head-neck-p
