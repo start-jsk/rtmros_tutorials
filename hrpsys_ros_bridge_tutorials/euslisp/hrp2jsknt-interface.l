@@ -2,6 +2,8 @@
 (require :hrp2jsknt "package://hrpsys_ros_bridge_tutorials/models/hrp2jsknt.l")
 (when (probe-file (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknt-utils.l"))
   (require :hrp2jsknt-utils "package://hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknt-utils.l"))
+(if (ros::resolve-ros-path "package://jsk_hrp2_ros_bridge")
+    (ros::load-ros-manifest "jsk_hrp2_ros_bridge"))
 
 (defclass hrp2jsknt-interface
   :super rtm-ros-robot-interface
@@ -19,6 +21,23 @@
      (send self :set-auto-balancer-param
            :default-zmp-offsets (list (float-vector 20 -15 0) (float-vector 20 15 0)))
      ))
+  (:define-all-ROSBridge-srv-methods
+   (&key (debug-view nil) (ros-pkg-name "hrpsys_ros_bridge"))
+   (send-super :define-all-ROSBridge-srv-methods)
+   (if (ros::resolve-ros-path "package://jsk_hrp2_ros_bridge")
+       (send-super :define-all-ROSBridge-srv-methods :ros-pkg-name "jsk_hrp2_ros_bridge"))
+   )
+  (:hand-controlmode-vector
+   (cmode)
+   (send self :hrp3handcontrollerservice_setcontrolmodevector :i_cmode cmode))
+  (:hand-angle-vector
+   (av &optional (tm 1000))
+   (send self :hrp3handcontrollerservice_setjointangles :jvs av :tm (/ tm 1000.0)))
+  ;;(:hand-wait-interpolation-raw
+  (:hand-wait-interpolation
+   ()
+   (send self :hrp3handcontrollerservice_waitinterpolation)
+   )
   )
 
 (defun hrp2jsknt-init ()
