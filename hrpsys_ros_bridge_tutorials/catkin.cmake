@@ -80,6 +80,12 @@ macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP
     ${_OpenHRP2_robot_name}
     ${ARGN})
 endmacro()
+macro(compile_rbrain_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
+  compile_model_for_closed_robots(
+    $ENV{CVSDIR}/euslib/rbrain/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
+    ${_OpenHRP2_robot_name}
+    ${ARGN})
+endmacro()
 
 # old HRP2xx.wrl files should be coverted.
 compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
@@ -141,7 +147,7 @@ if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
 endif()
 
 # URATALEG
-compile_model_for_closed_robots($ENV{CVSDIR}/euslib/rbrain/urataleg/URATALEGmain.wrl URATALEG
+compile_rbrain_model_for_closed_robots(URATALEG urataleg URATALEG
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.08, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
@@ -153,7 +159,7 @@ compile_model_for_closed_robots($ENV{CVSDIR}/euslib/rbrain/urataleg/URATALEGmain
   )
 
 # STARO
-compile_openhrp_model_for_closed_robots(STARO STARO STARO
+compile_rbrain_model_for_closed_robots(STARO staro STARO
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
