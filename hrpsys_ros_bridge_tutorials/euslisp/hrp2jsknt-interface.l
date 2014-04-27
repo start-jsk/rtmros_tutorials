@@ -29,14 +29,22 @@
    )
   (:hand-controlmode-vector
    (cmode)
-   (send self :hrp3handcontrollerservice_setcontrolmodevector :i_cmode cmode))
+   (if (find-method self :hrp3handcontrollerservice_setcontrolmodevector)
+       (send self :hrp3handcontrollerservice_setcontrolmodevector :i_cmode cmode)
+     (warn ";; :hrp3handcontrollerservice_setcontrolmodevector is not implemented!~%"))
+   )
   (:hand-angle-vector
    (av &optional (tm 1000))
-   (send self :hrp3handcontrollerservice_setjointangles :jvs av :tm (/ tm 1000.0)))
+   (if (find-method self :hrp3handcontrollerservice_setjointangles)
+       (send self :hrp3handcontrollerservice_setjointangles :jvs av :tm (/ tm 1000.0))
+     (warn ";; :hrp3handcontrollerservice_setjointangles is not implemented!~%"))
+   )
   ;;(:hand-wait-interpolation-raw
   (:hand-wait-interpolation
    ()
-   (send self :hrp3handcontrollerservice_waitinterpolation)
+   (if (find-method self :hrp3handcontrollerservice_waitinterpolation)
+       (send self :hrp3handcontrollerservice_waitinterpolation)
+     (warn ";; :hrp3handcontrollerservice_waitinterpolation is not implemented!~%"))
    )
   )
 
