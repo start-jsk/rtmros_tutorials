@@ -35,4 +35,14 @@
         (push (forward-message-to hr args) ret))
        )
      ret))
+  (:hand-angle-vector
+   (&optional (av))
+   (when av
+     (send self :hand :rarm :angle-vector (subseq av 0 6))
+     (send self :hand :larm :angle-vector (subseq av 6))
+     )
+   (concatenate float-vector
+                (send self :hand :rarm :angle-vector)
+                (send self :hand :larm :angle-vector))
+   )
   )
