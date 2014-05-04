@@ -117,6 +117,8 @@ macro(compile_model_for_closed_robots _robot_wrl_file _OpenHRP2_robot_name)
       ${_robot_wrl_file}
       ${_OpenHRP2_robot_name}
       ${ARGN})
+  else()
+    message("\n\n\n\n ${_robot_wrl_file} is not found..\n\n\n\n")
   endif()
 endmacro()
 macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
@@ -124,6 +126,17 @@ macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP
     $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
+endmacro()
+macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
+  if (EXISTS $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
+    string(TOLOWER ${_OpenHRP2_robot_name} _sname)
+    set(_workdir ${PROJECT_SOURCE_DIR}/models)
+    set(_gen_jointmm_command_arg "\"\\(write-min-max-table \\(${_sname}\\) \\\"${_workdir}/${_sname}.l\\\" :margin 1.0\\)\"")
+    add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/build/${_sname}_joint_minmax_done
+      COMMAND rosrun roseus roseus ${PROJECT_SOURCE_DIR}/euslisp/make-joint-min-max-table.l ${_workdir}/${_sname}.l "\"${_gen_jointmm_command_arg}\"" "\"(exit)\"" && touch ${PROJECT_SOURCE_DIR}/build/${_sname}_joint_minmax_done
+      DEPENDS ${_workdir}/${_sname}.l)
+    add_custom_target(${_sname}_${PROJECT_NAME}_compile2 ALL DEPENDS ${PROJECT_SOURCE_DIR}/build/${_sname}_joint_minmax_done ${_sname}_${PROJECT_NAME}_compile)
+  endif()
 endmacro()
 
 # old HRP2xx.wrl files should be coverted.
@@ -133,19 +146,22 @@ compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
   --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-5.684342e-17,0.0169,-0.174,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-5.684342e-17,-0.0169,-0.174,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.0,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.0,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
-compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT HRP2JSKNT
+gen_minmax_table_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK)
+compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSKNT
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
-compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS HRP2JSKNTS
+gen_minmax_table_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSKNT)
+compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
-compile_openhrp_model_for_closed_robots(HRP2W HRP2W HRP2W)
+gen_minmax_table_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS)
+compile_openhrp_model_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W)
 compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_WITH_3HAND HRP2JSKNT_WITH_3HAND
  -a leftarm,CHEST_LINK1,LARM_LINK6,-0.0042,-0.0392,-0.1245,-3.373247e-18,1.0,9.813081e-18,1.5708,L_THUMBCM_Y,0,L_THUMBCM_P,1,L_INDEXMP_R,0,L_INDEXMP_P,0,L_INDEXPIP_R,-1,L_MIDDLEPIP_R,-1
  -a leftarm_torso,BODY,LARM_LINK6,-0.0042,-0.0392,-0.1245,-3.373247e-18,1.0,9.813081e-18,1.5708,L_THUMBCM_Y,0,L_THUMBCM_P,1,L_INDEXMP_R,0,L_INDEXMP_P,0,L_INDEXPIP_R,-1,L_MIDDLEPIP_R,-1
@@ -181,7 +197,7 @@ compile_model_for_closed_robots($ENV{CVSDIR}/euslib/rbrain/urataleg/URATALEGmain
   --conf-file-option "collision_pair: WAIST:LLEG_JOINT1 WAIST:LLEG_JOINT3 WAIST:LLEG_JOINT4 WAIST:RLEG_JOINT1 WAIST:RLEG_JOINT2 WAIST:RLEG_JOINT3 WAIST:RLEG_JOINT4 WAIST:RLEG_JOINT5 LLEG_JOINT0:RLEG_JOINT0 LLEG_JOINT0:LLEG_JOINT3 LLEG_JOINT0:LLEG_JOINT4 LLEG_JOINT0:LLEG_JOINT5 LLEG_JOINT0:RLEG_JOINT1 LLEG_JOINT0:RLEG_JOINT2 LLEG_JOINT0:RLEG_JOINT3 LLEG_JOINT0:RLEG_JOINT4 LLEG_JOINT0:RLEG_JOINT5 RLEG_JOINT0:LLEG_JOINT1 RLEG_JOINT0:LLEG_JOINT2 RLEG_JOINT0:LLEG_JOINT3 RLEG_JOINT0:LLEG_JOINT4 RLEG_JOINT0:LLEG_JOINT5 RLEG_JOINT0:RLEG_JOINT3 RLEG_JOINT0:RLEG_JOINT4 RLEG_JOINT0:RLEG_JOINT5 LLEG_JOINT1:LLEG_JOINT3 LLEG_JOINT1:LLEG_JOINT4 LLEG_JOINT1:LLEG_JOINT5 LLEG_JOINT1:RLEG_JOINT1 LLEG_JOINT1:RLEG_JOINT2 LLEG_JOINT1:RLEG_JOINT3 LLEG_JOINT1:RLEG_JOINT4 LLEG_JOINT1:RLEG_JOINT5 LLEG_JOINT2:LLEG_JOINT4 LLEG_JOINT2:LLEG_JOINT5 LLEG_JOINT2:RLEG_JOINT1 LLEG_JOINT2:RLEG_JOINT2 LLEG_JOINT2:RLEG_JOINT3 LLEG_JOINT2:RLEG_JOINT4 LLEG_JOINT2:RLEG_JOINT5 LLEG_JOINT3:RLEG_JOINT1 LLEG_JOINT3:RLEG_JOINT2 LLEG_JOINT3:RLEG_JOINT3 LLEG_JOINT3:RLEG_JOINT4 LLEG_JOINT3:RLEG_JOINT5 LLEG_JOINT4:RLEG_JOINT1 LLEG_JOINT4:RLEG_JOINT2 LLEG_JOINT4:RLEG_JOINT3 LLEG_JOINT4:RLEG_JOINT4 LLEG_JOINT4:RLEG_JOINT5 LLEG_JOINT5:RLEG_JOINT1 LLEG_JOINT5:RLEG_JOINT2 LLEG_JOINT5:RLEG_JOINT3 LLEG_JOINT5:RLEG_JOINT4 LLEG_JOINT5:RLEG_JOINT5 RLEG_JOINT1:RLEG_JOINT3 RLEG_JOINT1:RLEG_JOINT4 RLEG_JOINT1:RLEG_JOINT5 RLEG_JOINT2:RLEG_JOINT4 RLEG_JOINT2:RLEG_JOINT5"
   )
 
-compile_openhrp_model_for_closed_robots(STARO STARO STARO
+compile_model_for_closed_robots($ENV{CVSDIR}/euslib/rbrain/staro/STAROmain.wrl STARO
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
