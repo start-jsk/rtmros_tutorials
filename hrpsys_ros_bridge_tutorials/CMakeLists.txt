@@ -117,6 +117,8 @@ macro(compile_model_for_closed_robots _robot_wrl_file _OpenHRP2_robot_name)
       ${_robot_wrl_file}
       ${_OpenHRP2_robot_name}
       ${ARGN})
+  else()
+    message("\n\n\n\n ${_robot_wrl_file} is not found..\n\n\n\n")
   endif()
 endmacro()
 macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
