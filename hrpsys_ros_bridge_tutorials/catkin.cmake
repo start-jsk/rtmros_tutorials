@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(hrpsys_ros_bridge_tutorials)
 
 #find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge hrpsys openhrp3)
-find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest)
+find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest euslisp)
 
 set(PKG_CONFIG_PATH "${openhrp3_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}") # for openrtm3.1.pc
 execute_process(
@@ -93,10 +93,29 @@ macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_rob
     string(TOLOWER ${_OpenHRP2_robot_name} _sname)
     set(_workdir ${PROJECT_SOURCE_DIR}/models)
     set(_gen_jointmm_command_arg "\"\\(write-min-max-table \\(${_sname}\\) \\\"${_workdir}/${_sname}.l\\\" :margin 1.0\\)\"")
-    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done
-      COMMAND rosrun roseus roseus ${PROJECT_SOURCE_DIR}/euslisp/make-joint-min-max-table.l ${_workdir}/${_sname}.l "\"${_gen_jointmm_command_arg}\"" "\"(exit)\"" && touch ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done
+    if(euslisp_SOURCE_DIR)
+      set(euslisp_PACKAGE_PATH ${euslisp_SOURCE_DIR})
+    elseif(euslisp_SOURCE_PREFIX)
+      set(euslisp_PACKAGE_PATH ${euslisp_SOURCE_PREFIX})
+    else(euslisp_SOURCE_PREFIX)
+      set(euslisp_PACKAGE_PATH ${euslisp_PREFIX}/share/euslisp)
+    endif()
+
+    execute_process(
+      COMMAND find ${euslisp_PACKAGE_PATH} -name irteusgl -executable
+      OUTPUT_VARIABLE irteusgl_path
+      RESULT_VARIABLE result_
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(NOT result_ EQUAL 0)
+      message(FATAL_ERROR "failed to find euslisp, skipping generating min max table")
+    else(NOT result_ EQUAL 0)
+      set(euslisp_exe ${irteusgl_path})
+      message("find euslisp on ${euslisp_exe}")
+      add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done
+      COMMAND ${euslisp_exe} ${PROJECT_SOURCE_DIR}/euslisp/make-joint-min-max-table.l ${_workdir}/${_sname}.l "\"${_gen_jointmm_command_arg}\"" "\"(exit)\"" && touch ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done
       DEPENDS ${_workdir}/${_sname}.l)
     add_custom_target(${_sname}_${PROJECT_NAME}_compile2 ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done ${_sname}_${PROJECT_NAME}_compile)
+    endif(NOT result_ EQUAL 0)
   endif()
 endmacro()
 
