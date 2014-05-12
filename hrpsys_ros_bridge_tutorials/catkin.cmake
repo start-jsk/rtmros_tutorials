@@ -209,16 +209,17 @@ compile_rbrain_model_for_closed_robots(STARO staro STARO
   --conf-dt-option "0.002"
   )
 
-macro (generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots ROBOT_NAME)
-  if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/${ROBOT_NAME}/${ROBOT_NAME}main.wrl)
-    generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_NAME}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${ARGV})
+macro (generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots ROBOT_DIR ROBOT_NAME)
+  if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
+    generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${ARGV})
   endif()
 endmacro ()
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSK "--no-euslisp")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNT "--no-euslisp")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNTS "--no-euslisp")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2W "--no-euslisp")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP4R "--no-euslisp")
+
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSK_for_OpenHRP3 HRP2JSK "--no-euslisp")
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNT_for_OpenHRP3 HRP2JSKNT "--no-euslisp")
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS "--no-euslisp")
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2W_for_OpenHRP3 HRP2W "--no-euslisp")
+generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP4R HRP4R "--no-euslisp")
 
 install(DIRECTORY euslisp launch scripts models test DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
 install(CODE
