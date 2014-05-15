@@ -6,7 +6,7 @@
   :slots ())
 (defmethod hrp4c-interface
   (:init (&rest args)
-   (prog1 (send-super :init :robot hrp4-robot)
+   (prog1 (send-super* :init :robot hrp4-robot args)
      (send self :add-controller :larm-controller)
      (send self :add-controller :rarm-controller)
      (send self :add-controller :head-controller)
