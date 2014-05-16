@@ -221,6 +221,10 @@ generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2W_for_OpenHRP3 HRP2W "--no-euslisp")
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP4R HRP4R "--no-euslisp")
 
+if(EXISTS $ENV{CVSDIR}/euslib/rbrain/staro/STAROmain.wrl)
+  generate_default_launch_eusinterface_files("$ENV{CVSDIR}/euslib/rbrain/staro/STAROmain.wrl" hrpsys_ros_bridge_tutorials STARO "--no-euslisp")
+endif()
+
 install(DIRECTORY euslisp launch scripts models test DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
 install(CODE
   "execute_process(COMMAND echo \"fix \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_SHARE_DESTINATION}/model/* ${CATKIN_DEVEL_PREFIX} -> ${CMAKE_INSTALL_PREFIX}\")
