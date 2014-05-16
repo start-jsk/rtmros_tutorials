@@ -236,8 +236,11 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
 endif()
 
 macro (generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots ROBOT_DIR ROBOT_NAME)
+  set(_arg_list ${ARGV})
+  # remove arguments of this macro
+  list(REMOVE_AT _arg_list 0 1)
   if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
-    generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${ARGV})
+    generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
   endif()
 endmacro ()
 
