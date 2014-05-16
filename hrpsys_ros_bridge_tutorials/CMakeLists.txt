@@ -254,6 +254,10 @@ generate_default_launch_eusinterface_files(
 generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(URATALEG URATALEG "--no-euslisp")
 #generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--no-euslisp")
 
+if(EXISTS $ENV{CVSDIR}/euslib/rbrain/staro/STAROmain.wrl)
+  generate_default_launch_eusinterface_files("$ENV{CVSDIR}/euslib/rbrain/staro/STAROmain.wrl" hrpsys_ros_bridge_tutorials STARO "--no-euslisp")
+endif()
+
 ##
 ## test
 ##
