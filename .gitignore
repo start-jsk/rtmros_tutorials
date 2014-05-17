@@ -44,3 +44,4 @@ hrpsys_ros_bridge_tutorials/models/*.xml
 hrpsys_ros_bridge_tutorials/models/*.l
 hrpsys_ros_bridge_tutorials/models/*.dae
 hrpsys_ros_bridge_tutorials/models/*_controller_config.yaml
+hrpsys_ros_bridge_tutorials/scripts/*_unstable_hrpsys_config.py
