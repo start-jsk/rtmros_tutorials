@@ -11,7 +11,7 @@
   :slots ())
 (defmethod hrp2jsknts-interface
   (:init (&rest args)
-         (send-super :init :robot hrp2jsknts-robot)))
+         (send-super* :init :robot hrp2jsknts-robot args)))
 
 (defun hrp2jsknts-init ()
   (if (not (boundp '*ri*))

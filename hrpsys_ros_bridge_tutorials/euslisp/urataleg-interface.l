@@ -8,7 +8,7 @@
   (:init
    (&rest args)
    (prog1
-       (send-super :init :robot urataleg-robot)
+       (send-super* :init :robot urataleg-robot args)
      (send self :set-st-param
            :k-tpcc-p #f(2.5 2.5)
            :k-tpcc-x #f(5 5)

@@ -8,7 +8,7 @@
   :slots ())
 (defmethod testmdofarm-interface
   (:init (&rest args)
-         (send-super :init :robot testmdofarm-robot)))
+         (send-super* :init :robot testmdofarm-robot args)))
 
 (defun testmdofarm-init ()
   (if (not (boundp '*ri*))
