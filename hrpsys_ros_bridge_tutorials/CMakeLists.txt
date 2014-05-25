@@ -235,7 +235,7 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
     TESTMDOFARM)
 endif()
 
-macro (generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots ROBOT_DIR ROBOT_NAME)
+macro (generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots ROBOT_DIR ROBOT_NAME)
   set(_arg_list ${ARGV})
   # remove arguments of this macro
   list(REMOVE_AT _arg_list 0 1)
@@ -243,23 +243,28 @@ macro (generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robo
     generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
   endif()
 endmacro ()
+macro (generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots ROBOT_DIR ROBOT_NAME)
+  set(_arg_list ${ARGV})
+  # remove arguments of this macro
+  list(REMOVE_AT _arg_list 0 1)
+  if(EXISTS $ENV{CVSDIR}/euslib/rbrain/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
+    generate_default_launch_eusinterface_files("$(env CVSDIR)/euslib/rbrain/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
+  endif()
+endmacro ()
 
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSK_for_OpenHRP3 HRP2JSK "--use-unstable-hrpsys-config")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNT_for_OpenHRP3 HRP2JSKNT "--use-unstable-hrpsys-config")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS "--use-unstable-hrpsys-config")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2W_for_OpenHRP3 HRP2W "--use-unstable-hrpsys-config")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSK_for_OpenHRP3 HRP2JSK "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSKNT_for_OpenHRP3 HRP2JSKNT "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2W_for_OpenHRP3 HRP2W "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(staro STARO "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(urataleg URATALEG "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files(
   "$(find hrpsys_ros_bridge_tutorials)/models/TESTMDOFARM.wrl"
   hrpsys_ros_bridge_tutorials
   TESTMDOFARM
   "--no-euslisp")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(URATALEG URATALEG "--use-unstable-hrpsys-config")
-#generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--no-euslisp")
-
-if(EXISTS $ENV{CVSDIR}/euslib/rbrain/staro/STAROmain.wrl)
-  generate_default_launch_eusinterface_files("$ENV{CVSDIR}/euslib/rbrain/staro/STAROmain.wrl" hrpsys_ros_bridge_tutorials STARO "--no-euslisp")
-endif()
+#generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--use-unstable-hrpsys-config")
 
 ##
 ## test
