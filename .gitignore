@@ -36,3 +36,12 @@ msg/_.*\.py$
 
 # Catkin custom files
 CATKIN_IGNORE
+
+# generated files from hrpsys_ros_bridge/cmake/compile_robot_model.cmake
+hrpsys_ros_bridge_tutorials/launch/*.launch
+hrpsys_ros_bridge_tutorials/models/*.conf
+hrpsys_ros_bridge_tutorials/models/*.xml
+hrpsys_ros_bridge_tutorials/models/*.l
+hrpsys_ros_bridge_tutorials/models/*.dae
+hrpsys_ros_bridge_tutorials/models/*_controller_config.yaml
+hrpsys_ros_bridge_tutorials/scripts/*_unstable_hrpsys_config.py
