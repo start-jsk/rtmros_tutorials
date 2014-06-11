@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(hrpsys_ros_bridge_tutorials)
 
 #find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge hrpsys openhrp3)
-find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest)
+find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest euslisp)
 
 set(PKG_CONFIG_PATH "${openhrp3_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}") # for openrtm3.1.pc
 execute_process(
@@ -72,6 +72,8 @@ macro(compile_model_for_closed_robots _robot_wrl_file _OpenHRP2_robot_name)
       ${_robot_wrl_file}
       ${_OpenHRP2_robot_name}
       ${ARGN})
+  else()
+    message("\n\n\n\n ${_robot_wrl_file} is not found..\n\n\n\n")
   endif()
 endmacro()
 macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
@@ -79,6 +81,42 @@ macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP
     $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
+endmacro()
+macro(compile_rbrain_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
+  compile_model_for_closed_robots(
+    $ENV{CVSDIR}/euslib/rbrain/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
+    ${_OpenHRP2_robot_name}
+    ${ARGN})
+endmacro()
+macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
+  if (EXISTS $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
+    string(TOLOWER ${_OpenHRP2_robot_name} _sname)
+    set(_workdir ${PROJECT_SOURCE_DIR}/models)
+    set(_gen_jointmm_command_arg "\"\\(write-min-max-table \\(${_sname}\\) \\\"${_workdir}/${_sname}.l\\\" :margin 1.0\\)\"")
+    if(euslisp_SOURCE_DIR)
+      set(euslisp_PACKAGE_PATH ${euslisp_SOURCE_DIR})
+    elseif(euslisp_SOURCE_PREFIX)
+      set(euslisp_PACKAGE_PATH ${euslisp_SOURCE_PREFIX})
+    else(euslisp_SOURCE_PREFIX)
+      set(euslisp_PACKAGE_PATH ${euslisp_PREFIX}/share/euslisp)
+    endif()
+
+    execute_process(
+      COMMAND find ${euslisp_PACKAGE_PATH} -name irteusgl -executable
+      OUTPUT_VARIABLE irteusgl_path
+      RESULT_VARIABLE result_
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(NOT result_ EQUAL 0)
+      message(FATAL_ERROR "failed to find euslisp, skipping generating min max table")
+    else(NOT result_ EQUAL 0)
+      set(euslisp_exe ${irteusgl_path})
+      message("find euslisp on ${euslisp_exe}")
+      add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done
+      COMMAND ${euslisp_exe} ${PROJECT_SOURCE_DIR}/euslisp/make-joint-min-max-table.l ${_workdir}/${_sname}.l "\"${_gen_jointmm_command_arg}\"" "\"(exit)\"" && touch ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done
+      DEPENDS ${_workdir}/${_sname}.l)
+    add_custom_target(${_sname}_${PROJECT_NAME}_compile2 ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done ${_sname}_${PROJECT_NAME}_compile)
+    endif(NOT result_ EQUAL 0)
+  endif()
 endmacro()
 
 # old HRP2xx.wrl files should be coverted.
@@ -88,20 +126,23 @@ compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
   --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-5.684342e-17,0.0169,-0.174,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-5.684342e-17,-0.0169,-0.174,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.0,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.0,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
+gen_minmax_table_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK)
 
-compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT HRP2JSKNT
+compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSKNT
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
-compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS HRP2JSKNTS
+gen_minmax_table_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSKNT)
+compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --conf-file-option "end_effectors: :rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,-9.813078e-18,1.0,4.906539e-18,1.5708, :larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,9.813078e-18,1.0,-4.906539e-18,1.5708, :rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, :lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
-# compile_openhrp_model_for_closed_robots(HRP2W HRP2W HRP2W)
+gen_minmax_table_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS)
+# compile_openhrp_model_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W)
 # compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_WITH_3HAND HRP2JSKNT_WITH_3HAND
 #  -a leftarm,CHEST_LINK1,LARM_LINK6,-0.0042,-0.0392,-0.1245,-3.373247e-18,1.0,9.813081e-18,1.5708,L_THUMBCM_Y,0,L_THUMBCM_P,1,L_INDEXMP_R,0,L_INDEXMP_P,0,L_INDEXPIP_R,-1,L_MIDDLEPIP_R,-1
 #  -a leftarm_torso,BODY,LARM_LINK6,-0.0042,-0.0392,-0.1245,-3.373247e-18,1.0,9.813081e-18,1.5708,L_THUMBCM_Y,0,L_THUMBCM_P,1,L_INDEXMP_R,0,L_INDEXMP_P,0,L_INDEXPIP_R,-1,L_MIDDLEPIP_R,-1
@@ -141,7 +182,7 @@ if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
 endif()
 
 # URATALEG
-compile_model_for_closed_robots($ENV{CVSDIR}/euslib/rbrain/urataleg/URATALEGmain.wrl URATALEG
+compile_rbrain_model_for_closed_robots(URATALEG urataleg URATALEG
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.08, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
@@ -153,7 +194,7 @@ compile_model_for_closed_robots($ENV{CVSDIR}/euslib/rbrain/urataleg/URATALEGmain
   )
 
 # STARO
-compile_openhrp_model_for_closed_robots(STARO STARO STARO
+compile_rbrain_model_for_closed_robots(STARO staro STARO
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
@@ -168,16 +209,36 @@ compile_openhrp_model_for_closed_robots(STARO STARO STARO
   --conf-dt-option "0.002"
   )
 
-macro (generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots ROBOT_NAME)
-  if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/${ROBOT_NAME}/${ROBOT_NAME}main.wrl)
-    generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_NAME}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${ARGV})
+macro (generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots ROBOT_DIR ROBOT_NAME)
+  set(_arg_list ${ARGV})
+  # remove arguments of this macro
+  list(REMOVE_AT _arg_list 0 1)
+  if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
+    generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
   endif()
 endmacro ()
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSK "--no-euslisp")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNT "--no-euslisp")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2JSKNTS "--no-euslisp")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP2W "--no-euslisp")
-generate_default_launch_eusinterface_files_for_jsk_hrpsys_ros_bridge_robots(HRP4R "--no-euslisp")
+macro (generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots ROBOT_DIR ROBOT_NAME)
+  set(_arg_list ${ARGV})
+  # remove arguments of this macro
+  list(REMOVE_AT _arg_list 0 1)
+  if(EXISTS $ENV{CVSDIR}/euslib/rbrain/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
+    generate_default_launch_eusinterface_files("$(env CVSDIR)/euslib/rbrain/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
+  endif()
+endmacro ()
+
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSK_for_OpenHRP3 HRP2JSK "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSKNT_for_OpenHRP3 HRP2JSKNT "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2W_for_OpenHRP3 HRP2W "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(staro STARO "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(urataleg URATALEG "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files(
+  "$(find hrpsys_ros_bridge_tutorials)/models/TESTMDOFARM.wrl"
+  hrpsys_ros_bridge_tutorials
+  TESTMDOFARM
+  "--no-euslisp")
+generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--use-unstable-hrpsys-config")
 
 install(DIRECTORY euslisp launch scripts models test DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
 install(CODE

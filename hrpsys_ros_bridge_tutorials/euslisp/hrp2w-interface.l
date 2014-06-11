@@ -8,7 +8,7 @@
   :slots ())
 (defmethod hrp2w-interface
   (:init (&rest args)
-         (send-super :init :robot hrp2w-robot)))
+         (send-super* :init :robot hrp2w-robot args)))
 
 (defun hrp2w-init ()
   (if (not (boundp '*ri*))
