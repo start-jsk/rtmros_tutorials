@@ -103,8 +103,8 @@
 	  (right-av (elt av-list 1)))
      (setq msg (instance hrpsys_gazebo_msgs::JointCommand :init))
      (when left-av
-       (send msg :position (concatenate float-vector (mapcar #'deg2rad (concatenate cons left-av)))))
-     (ros::publish "/HRP3HAND_L/joint_command" msg)
+       (send msg :position (concatenate float-vector (mapcar #'deg2rad (concatenate cons left-av))))
+       (ros::publish "/HRP3HAND_L/joint_command" msg))
      (when right-av
        (send msg :position (concatenate float-vector (mapcar #'deg2rad (concatenate cons right-av))))
        (ros::publish "/HRP3HAND_R/joint_command" msg)))
