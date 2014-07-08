@@ -209,6 +209,12 @@ compile_rbrain_model_for_closed_robots(STARO staro STARO
   --conf-dt-option "0.002"
   )
 
+if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
+  compile_openhrp_model(
+    ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl
+    TESTMDOFARM)
+endif()
+
 macro (generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots ROBOT_DIR ROBOT_NAME)
   set(_arg_list ${ARGV})
   # remove arguments of this macro
