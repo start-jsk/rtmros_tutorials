@@ -63,16 +63,16 @@ class TestModelLoaderORR(TestModelLoaderBase):
 
     def test_GR001_models(self):
         dae_file = rospkg.RosPack().get_path("hrpsys_ros_bridge_tutorials")+"/models/"+"GR000.dae"
-        wrl_file = rospkg.RosPack().get_path("choreonoid")+"/share/choreonoid-1.3/model/GR001/GR001.wrl"
         if os.path.exists(dae_file):
+            wrl_file = rospkg.RosPack().get_path("choreonoid++")+"/share/choreonoid-1.3/model/GR001/GR001.wrl"
             self.checkModels(wrl_file, dae_file)
         else:
             return True
 
     def test_HRP4C_models(self):
         dae_file = rospkg.RosPack().get_path("hrpsys_ros_bridge_tutorials")+"/models/"+"HRP4C.dae"
-        wrl_file = rospkg.RosPack().get_path("hrpsys")+"/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl"
         if os.path.exists(dae_file):
+            wrl_file = rospkg.RosPack().get_path("hrpsys")+"/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl"
             self.checkModels(wrl_file, dae_file)
         else:
             return True
