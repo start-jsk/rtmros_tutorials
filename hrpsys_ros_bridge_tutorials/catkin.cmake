@@ -258,3 +258,25 @@ install(CODE
 
 add_rostest(test/test_hrpsys_pa10.launch)
 add_rostest(test/test_hrpsys_samplerobot.launch)
+
+
+macro (generate_hand_attached_hrp2_model _robot_name)
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  set(_in_urdf_file "${_model_dir}/${_robot_name}.urdf")
+  set(_out_urdf_file "${_model_dir}/${_robot_name}_WH.urdf")
+  string(TOLOWER ${_robot_name} _srobot_name)
+  set(_launch_file "${PROJECT_SOURCE_DIR}/launch/${_srobot_name}_ros_bridge.launch")
+  set(_script_file "${PROJECT_SOURCE_DIR}/models/gen_hand_attached_hrp2_model.sh")
+  message("generate hand_attached_hrp2_model for ${_robot_name}")
+  add_custom_command(OUTPUT ${_out_urdf_file}
+      COMMAND ${_script_file} ${_robot_name} ${_in_urdf_file} ${_out_urdf_file} ${_launch_file}
+      DEPENDS ${_in_urdf_file} ${_launch_file} "${_model_dir}/HRP3HAND_L.urdf" "${_model_dir}/HRP3HAND_R.urdf")
+  add_custom_target(${_robot_name}_compile DEPENDS ${_out_urdf_file})
+  list(APPEND compile_urdf_robots ${_robot_name}_compile)
+endmacro()
+
+if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
+  generate_hand_attached_hrp2_model(HRP2JSKNT)
+  generate_hand_attached_hrp2_model(HRP2JSKNTS)
+  add_custom_target(all_robots_compile ALL DEPENDS ${compile_urdf_robots})
+endif()
