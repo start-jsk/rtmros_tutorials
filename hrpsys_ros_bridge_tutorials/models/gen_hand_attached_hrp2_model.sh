@@ -13,6 +13,12 @@ ADDITIONAL_ROS_PACKAGE_PATH=$5
 TMP_FILE=`echo ${INPUT_FILE} | sed "s/.urdf/_tmp.urdf/g"`
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ADDITIONAL_ROS_PACKAGE_PATH
 
+# wait until input files are generated
+echo "wait to generate ${INPUT_FILE} and ${LAUNCH_FILE}"
+while [ ! -e ${INPUT_FILE} -o ! -e ${LAUNCH_FILE} -o ! -e `rospack find hrpsys_ros_bridge_tutroials`/models/HRP3HAND_L.urdf -o ! -e `rospack find hrpsys_ros_bridge_tutroials`/models/HRP3HAND_R.urdf]
+do
+    sleep 1
+done
 
 # make tmp file
 cp ${INPUT_FILE} ${TMP_FILE}
