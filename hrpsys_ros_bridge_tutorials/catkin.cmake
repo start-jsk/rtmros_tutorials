@@ -181,6 +181,18 @@ if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
     HRP3HAND_R)
 endif()
 
+if(EXISTS ${PROJECT_SOURCE_DIR}/models/ROBOTIQ/ROBOTIQ_Rmain.wrl)
+  compile_openhrp_model(
+    ${PROJECT_SOURCE_DIR}/models/ROBOTIQ/ROBOTIQ_Rmain.wrl
+    ROBOTIQ_R)
+endif()
+
+if(EXISTS ${PROJECT_SOURCE_DIR}/models/ROBOTIQ/ROBOTIQ_Lmain.wrl)
+  compile_openhrp_model(
+    ${PROJECT_SOURCE_DIR}/models/ROBOTIQ/ROBOTIQ_Lmain.wrl
+    ROBOTIQ_L)
+endif()
+
 # URATALEG
 compile_rbrain_model_for_closed_robots(URATALEG urataleg URATALEG
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
