@@ -299,9 +299,9 @@ humanoidBody [
                 minAngle -3.141592654
                 children [
                   DEF LHAND_PALM_LINK Segment {
-                     centerOfMass -0.013490080 -0.0066656445 -0.045838199
-                     mass 0.059288504
-                     momentsOfInertia [0.000086845450 -0.00000043636051 -0.0000064855932 -0.00000043636051 0.000086855267 -0.0000053020311 -0.0000064855932 -0.0000053020311 0.000021192085]
+                     centerOfMass 0 0.126 0
+                     mass 1.45
+                     momentsOfInertia [2.977439e-3 0.0 0.0 0.0 4.025959e-3 0.0 0.0 0.0  3.145983e-3]
                   children [
                      Transform {
                         rotation 0 1 0 3.141592654
@@ -315,8 +315,8 @@ humanoidBody [
                   jointAxis "X"
                   translation 0 0.147 0.037
                   rotation 0 1 0 0
-                  llimit [1.570796327]  #-90
-                  ulimit [-0.523333333]   #+30
+                  llimit [-1.570796327]  #-90
+                  ulimit [0.523333333]   #+30
                   lvlimit [-2.23776]
                   uvlimit [ 2.23776]
                   children [
@@ -325,9 +325,9 @@ humanoidBody [
                     minAngle -1.570796327
                     children [
                       DEF LHAND_LINK0 Segment {
-                         centerOfMass -0.013490080 -0.0066656445 -0.045838199
-                         mass 2.3
-                         momentsOfInertia [0.000086845450 -0.00000043636051 -0.0000064855932 -0.00000043636051 0.000086855267 -0.0000053020311 -0.0000064855932 -0.0000053020311 0.000021192085]
+                         centerOfMass 0 0.076 0.022
+                         mass 0.25
+                         momentsOfInertia [5.235584e-4 0.0 0.0 0.0 5.99019e-5 0.0 0.0 0.0 5.064566e-4]
                          children [
                             Inline { url "hand_models/robotiq_hand_l_finger2.wrl" }
                     ]
@@ -341,11 +341,11 @@ humanoidBody [
               DEF LHAND_1F_JOINT0 Joint{
               jointType "rotate"
               jointId 1
-              jointAxis "Z"
+              jointAxis "X"
               translation 0.037 0.147 -0.037
               rotation 0 0 1 0
-              llimit [-0.2793]    #-16
-              ulimit [0.0] #0
+              llimit [-0.5233334]  #-30
+              ulimit [1.570796327] #90
               lvlimit [-2.23776]
               uvlimit [ 2.23776]
               children [
@@ -355,20 +355,41 @@ humanoidBody [
                 children [
                   DEF LHAND_LINK1 Segment {
                      centerOfMass 0.0 0.0 0.0
-                     mass 0.0
-                     momentsOfInertia [0.000086845450 -0.00000043636051 -0.0000064855932 -0.00000043636051 0.000086855267 -0.0000053020311 -0.0000064855932 -0.0000053020311 0.000021192085]
+                     mass 0.05
+                     momentsOfInertia [3.333e-6 0.0 0.0 0.0 3.333e-6 0.0 0.0 0.0  3.333e-6]
                      children [
-                       Inline { url "hand_models/robotiq_hand_l_finger3.wrl" }
+                        Transform{
+                           children[
+                              Background {
+                                 skyColor [ 0.627451 0.627451 0.627451 ]
+                              }
+                              Shape { # triangle mesh
+                                 appearance Appearance {
+                                    material Material {
+                                       ambientIntensity 0
+                                       diffuseColor     0 0 1
+                                       specularColor    0 0 0
+                                       emissiveColor    0 0 0
+                                       shininess        1
+                                       transparency     0
+                                    }
+                                 } # appearance
+                                 geometry Box {
+                                    size 0.02 0.02 0.02
+                                 }
+                              }
+                           ]
+                        }
                      ]
                   } # End of Segment
                   DEF LHAND_1F_JOINT1 Joint{
                   jointType "rotate"
                   jointId 2
-                  jointAxis "X"
+                  jointAxis "Z"
                   translation 0.0 0.0 0.0
                   rotation 0 0 1 0
-                  llimit [-0.5233334]  #-30
-                  ulimit [1.570796327] #90
+                  llimit [0.0]    #0
+                  ulimit [0.2793] #16
                   lvlimit [-2.23776]
                   uvlimit [ 2.23776]
                   children [
@@ -377,9 +398,9 @@ humanoidBody [
                     minAngle 0.5233334
                     children [
                       DEF LHAND_LINK2 Segment {
-                         centerOfMass -0.013490080 -0.0066656445 -0.045838199
-                         mass 2.3
-                         momentsOfInertia [0.000086845450 -0.00000043636051 -0.0000064855932 -0.00000043636051 0.000086855267 -0.0000053020311 -0.0000064855932 -0.0000053020311 0.000021192085]
+                         centerOfMass 0 0.076 -0.022
+                         mass 0.25
+                         momentsOfInertia [5.235584e-4 0.0 0.0 0.0 5.99019e-5 0.0 0.0 0.0 5.064566e-4]
                          children [
                            Inline { url "hand_models/robotiq_hand_l_finger1.wrl" }
                          ]
@@ -396,11 +417,11 @@ humanoidBody [
               DEF LHAND_2F_JOINT0 Joint{
               jointType "rotate"
               jointId 3
-              jointAxis "Z"
+              jointAxis "X"
               translation -0.037 0.147 -0.037
               rotation 0 0 1 0
-              llimit [0.0]    #0
-              ulimit [0.2793] #16
+              llimit [-0.5233334]  #-30
+              ulimit [1.570796327] #90
               lvlimit [-2.23776]
               uvlimit [ 2.23776]
               children [
@@ -410,20 +431,41 @@ humanoidBody [
                 children [
                 DEF LHAND_LINK3 Segment {
                    centerOfMass 0.0 0.0 0.0
-                   mass 0.0
-                   momentsOfInertia [0.000086845450 -0.00000043636051 -0.0000064855932 -0.00000043636051 0.000086855267 -0.0000053020311 -0.0000064855932 -0.0000053020311 0.000021192085]
+                   mass 0.05
+                   momentsOfInertia [3.333e-6 0.0 0.0 0.0 3.333e-6 0.0 0.0 0.0  3.333e-6]
                    children [
-                     Inline { url "hand_models/robotiq_hand_l_finger3.wrl" }
+                      Transform{
+                         children[
+                            Background {
+                               skyColor [ 0.627451 0.627451 0.627451 ]
+                            }
+                            Shape { # triangle mesh
+                               appearance Appearance {
+                                  material Material {
+                                     ambientIntensity 0
+                                     diffuseColor     0 0 1
+                                     specularColor    0 0 0
+                                     emissiveColor    0 0 0
+                                     shininess        1
+                                     transparency     0
+                                  }
+                               } # appearance
+                               geometry Box {
+                                  size 0.02 0.02 0.02
+                               }
+                            }
+                         ]
+                      }
                    ]
                 } # End of Segment
                 DEF LHAND_2F_JOINT1 Joint{
                 jointType "rotate"
                 jointId 4
-                jointAxis "X"
+                jointAxis "Z"
                 translation 0.0 0.0 0.0
                 rotation 1 0 0 0
-                llimit [-0.5233334]  #-30
-                ulimit [1.570796327] #90
+                llimit [-0.2793]    #-16
+                ulimit [0.0] #0
                 lvlimit [-2.23776]
                 uvlimit [ 2.23776]
                 children [
@@ -432,9 +474,9 @@ humanoidBody [
                   minAngle -0.5233334
                   children [
                     DEF LHAND_LINK4 Segment {
-                       centerOfMass -0.013490080 -0.0066656445 -0.045838199
-                       mass 2.3
-                       momentsOfInertia [0.000086845450 -0.00000043636051 -0.0000064855932 -0.00000043636051 0.000086855267 -0.0000053020311 -0.0000064855932 -0.0000053020311 0.000021192085]
+                       centerOfMass 0 0.076 -0.022
+                       mass 0.25
+                       momentsOfInertia [5.235584e-4 0.0 0.0 0.0 5.99019e-5 0.0 0.0 0.0 5.064566e-4]
                     children [
                       Inline { url "hand_models/robotiq_hand_l_finger1.wrl" }
                     ]

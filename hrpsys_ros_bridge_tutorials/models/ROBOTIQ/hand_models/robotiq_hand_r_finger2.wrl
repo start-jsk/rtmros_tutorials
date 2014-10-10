@@ -6,7 +6,7 @@ Shape { # triangle mesh
 	appearance Appearance {
 		material 	Material {
 		ambientIntensity 0
-		diffuseColor     1 1 1
+		diffuseColor     0.4 0.7 0.4
 		specularColor    0 0 0
 		emissiveColor    0 0 0
 		shininess        1
