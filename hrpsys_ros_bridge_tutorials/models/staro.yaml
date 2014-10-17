@@ -44,10 +44,19 @@ torso:
 ##
 ## end-coords
 ##
+
+## JR3
+# rleg-end-coords:
+#   translate : [0.0, 0, -0.096]
+# lleg-end-coords:
+#   translate : [0.0, 0, -0.096]
+
+## WACHO TECH
 rleg-end-coords:
-  translate : [0.0, 0, -0.096]
+  translate : [0.0, 0, -0.1335]
 lleg-end-coords:
-  translate : [0.0, 0, -0.096]
+  translate : [0.0, 0, -0.1335]
+
 # straigh ver
 # rarm-end-coords:
 #   translate : [-0.063286056916196, -0.1488, -0.063286056916196] # 89.5 / sqrt(2) * 0.001
