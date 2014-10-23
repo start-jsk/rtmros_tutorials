@@ -19,6 +19,7 @@ if(NOT hrpsys_ros_bridge_tutorials_SOURCE_DIR)
 endif()
 
 ## Convert robot models
+message("DEBUG MESSAGE IN ${hrpsys_gazebo_general_SOURCE_PREFIX}, ${hrpsys_gazebo_general_SOURCE_DIR}, ${hrpsys_gazebo_general_PREFIX}")
 if(EXISTS ${hrpsys_gazebo_general_SOURCE_PREFIX})
   set(hrpsys_gazebo_general_PACKAGE_PATH ${hrpsys_gazebo_general_SOURCE_PREFIX})
 else()
