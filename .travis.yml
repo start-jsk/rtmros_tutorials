@@ -57,13 +57,14 @@ install: # Use this to install any prerequisites or dependencies necessary to ru
   - echo $CI_SOURCE_PATH
   - ls ~/ros/ws_$REPOSITORY_NAME/
   - ls ~/ros/ws_$REPOSITORY_NAME/src
-  - if [ $USE_DEB == false ]; then sed -i "s@^\(.*github.com/.*\)@#\1@" .rosinstall               ; fi
+#  - if [ $USE_DEB == false ]; then sed -i "s@^\(.*github.com/.*\)@#\1@" .rosinstall               ; fi
 #  - cat ~/ros/ws_$REPOSITORY_NAME/src/rtmros_tutorials/.rosinstall
 #  - cat ~/ros/ws_$REPOSITORY_NAME/src/rtmros_tutorials/hrpsys_gazebo_tutorials/catkin.cmake
 #  - if [ $USE_DEB == false ]; then $ROSWS merge ~/ros/ws_$REPOSITORY_NAME/src/rtmros_tutorials/.rosinstall ; fi
 #  - rm -f ~/ros/ws_$REPOSITORY_NAME/src/.rosinstall
-  - ls $CI_SOURCE_PATH/.rosinstall
-  - if [ $USE_DEB == false ]; then $ROSWS merge $CI_SOURCE_PATH/.rosinstall ; fi
+#  - ls $CI_SOURCE_PATH/.rosinstall
+#  - if [ $USE_DEB == false ]; then $ROSWS merge $CI_SOURCE_PATH/.rosinstall ; fi
+  - if [ $USE_DEB == false -o $BUILDER == rosbuild ]; then $ROSWS set rtm-ros-robotics/rtmros_gazebo https://github.com/start-jsk/rtmros_gazebo --git -y        ; fi
   - if [ $USE_DEB == false ]; then $ROSWS update   ; fi
   - ls ~/ros/ws_$REPOSITORY_NAME/src/rtm-ros-robotics -l
   - ln -s $CI_SOURCE_PATH . # Link the repo we are testing to the new workspace
