@@ -31,11 +31,14 @@ before_install: # Use this to prepare the system to install prerequisites or dep
   - export REPOSITORY_NAME=${PWD##*/}
   - echo "Testing branch $TRAVIS_BRANCH of $REPOSITORY_NAME"
   - sudo sh -c 'echo "deb http://packages.ros.org/ros-shadow-fixed/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
+  - sudo sh -c 'echo "deb http://packages.osrfoundation.org/drc/ubuntu precise main" > /etc/apt/sources.list.d/drc-latest.list'
   - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+  - wget http://packages.osrfoundation.org/drc.key -O - | sudo apt-key add -
   - sudo apt-get update -qq
   - sudo apt-get install -qq -y python-catkin-pkg python-rosdep python-wstool ros-$ROS_DISTRO-catkin
   - if [ $ROSWS == rosws ]; then sudo apt-get install -qq -y python-rosinstall     ; fi
   - if [ $BUILDER == rosbuild ]; then sudo apt-get install -qq -y ros-$ROS_DISTRO-rosmake ; fi
+  - sudo apt-get install -qq drcsim-hydro
   # Setup rosdep
   - sudo rosdep init
   - rosdep update; while [ $? != 0 ]; do sleep 1; rosdep update; done
