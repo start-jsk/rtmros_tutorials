@@ -44,7 +44,7 @@ install: # Use this to install any prerequisites or dependencies necessary to ru
   - mkdir -p ~/ros/ws_$REPOSITORY_NAME/src
   - cd ~/ros/ws_$REPOSITORY_NAME/src
   - if [ $USE_DEB == false -o $BUILDER == rosbuild ]; then $ROSWS init .   ; fi
-  - if [ $USE_DEB == false ]; then $ROSWS merge http://raw.github.com/$TRAVIS_REPO_SLUG/$TRAVIS_BRANCH/.rosinstall ; fi
+  - if [ $USE_DEB == false ]; then $ROSWS merge file://$CI_SOURCE_PATH/.rosinstall      ; fi
   - if [ $USE_DEB == false -o $BUILDER == rosbuild ]; then if [ $ROSWS == rosws ]; then $ROSWS merge /opt/ros/$ROS_DISTRO/.rosinstall; fi  ; fi
   - if [ $USE_DEB == false ]; then sed -i "s@^\(.*github.com/$TRAVIS_REPO_SLUG.*\)@#\1@" .rosinstall               ; fi # comment out current repo
   - if [ $USE_DEB == false ]; then $ROSWS update   ; fi
@@ -62,12 +62,12 @@ before_script: # Use this to prepare your build for testing e.g. copy database c
   - if [ $BUILDER == rosbuild ]; then rospack profile              ; fi
 script: # All commands must exit with code 0 on success. Anything else is considered failure.
   # for catkin
-  # We use CPU number -j4 instead of -j8 in order to obtain stable travis test (https://github.com/start-jsk/rtmros_tutorials/pull/65/files)
-  - if [ $BUILDER == catkin ]; then catkin_make -j4 -l4            ; fi
+  # We use CPU number -j2 instead of -j8 in order to obtain stable travis test (https://github.com/start-jsk/rtmros_tutorials/pull/65/files)
+  - if [ $BUILDER == catkin ]; then catkin_make -j2 -l2            ; fi
   - if [ $BUILDER == catkin ]; then export TARGET_PKG=`find build/$REPOSITORY_NAME -name Makefile -print |  sed s@.*/\\\\\([^\/]*\\\\\)/Makefile@\\\1@g` ; fi
-  - if [ $BUILDER == catkin -a "$TARGET_PKG" != "" ]; then catkin_make test --pkg $TARGET_PKG -j4 -l4  ; fi
+  - if [ $BUILDER == catkin -a "$TARGET_PKG" != "" ]; then catkin_make test --pkg $TARGET_PKG -j2 -l2  ; fi
   - if [ $BUILDER == catkin ]; then find build -name LastTest.log -exec echo "==== {} ====" \; -exec cat {} \;  ; fi
-  - if [ $BUILDER == catkin ]; then catkin_make -j4 -l4 install >/dev/null ; fi
+  - if [ $BUILDER == catkin ]; then catkin_make -j2 -l2 install >/dev/null ; fi
   - if [ $BUILDER == catkin ]; then rm -fr devel src build                 ; fi
   - if [ $BUILDER == catkin ]; then source install/setup.bash              ; fi
   - if [ $BUILDER == catkin -a "$TARGET_PKG" != "" ]; then export EXIT_STATUS=0; for pkg in $TARGET_PKG; do [ "`find install/share/$pkg -iname '*.test'`" == "" ] && echo "[$pkg] No tests ware found!!!"  || find install/share/$pkg -iname "*.test" -print0 | xargs -0 -n1 rostest || export EXIT_STATUS=$?; done; [ $EXIT_STATUS == 0 ] ; fi
