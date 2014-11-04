@@ -1,5 +1,5 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="HRP2JSKNT" >
-  <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/HRP2JSKNT_tmp.urdf" />
+  <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/HRP2JSKNT_body.urdf" />
   <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/HRP3HAND_L.urdf" />
   <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/HRP3HAND_R.urdf" />
 </robot>

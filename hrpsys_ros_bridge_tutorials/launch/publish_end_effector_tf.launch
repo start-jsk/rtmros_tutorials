@@ -1,0 +1,8 @@
+<launch>
+  <arg name="ROBOT_NAME" default="hrp2jsknt" />
+  <arg name="END_EFFECTOR_YAML_FILE" default="$(find hrpsys_ros_bridge_tutorials)/models/$(arg ROBOT_NAME).yaml" />
+
+  <node pkg="hrpsys_ros_bridge_tutorials" type="publish_end_effector_tf.py" name="publish_end_effector_tf" output="screen">
+    <rosparam command="load" file="$(arg END_EFFECTOR_YAML_FILE)" />
+  </node>
+</launch>
