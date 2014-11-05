@@ -20,6 +20,17 @@ echo "source ~/ros/ws_rtmros_tutorials/devel/setup.bash" >> ~/.bashrc
 echo "source \`rospack find hrpsys_gazebo_tutorials\`/setup.sh" >> ~/.bashrc
 ```
 
+### Install Depend Package
+```
+sudo apt-get install python-rosdep
+sudo rosdep init
+roscd hrpsys_ros_bridge_tutorials/..
+find -L . -name package.xml -exec dirname {} \; | xargs -n 1 -i find {} -name manifest.xml | xargs -n 1 -i mv {} {}.deprecated # rename manifest.xml for rosdep install
+rosdep install -r -n --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
+find -L . -name manifest.xml.deprecated | xargs -n 1 -i dirname {} | xargs -n 1 -i mv `pwd`/{}/manifest.xml.deprecated `pwd`/{}/manifest.xml
+
+```
+
 ### Try Sample
 Open Terminal and run gazebo
 
