@@ -32,7 +32,6 @@
   <run_depend>pr2eus</run_depend>
   <run_depend>roseus_msgs</run_depend>
 
-  <test_depend>openhrp3</test_depend>
   <export>
   </export>
 </package>
