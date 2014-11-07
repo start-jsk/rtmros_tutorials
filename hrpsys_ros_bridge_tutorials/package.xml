@@ -19,13 +19,19 @@
   <build_depend>euscollada</build_depend>
   <build_depend>rostest</build_depend>
   <build_depend>euslisp</build_depend>
+  <build_depend>roseus</build_depend>
+  <build_depend>pr2eus</build_depend>
+  <build_depend>roseus_msgs</build_depend>
 
   <run_depend>hrpsys_ros_bridge</run_depend>
   <run_depend>hrpsys</run_depend>
   <run_depend>openhrp3</run_depend>
   <run_depend>euscollada</run_depend>
   <run_depend>euslisp</run_depend>
-  
+  <run_depend>roseus</run_depend>
+  <run_depend>pr2eus</run_depend>
+  <run_depend>roseus_msgs</run_depend>
+
   <!-- <test_depend>openhrp3</test_depend> -->
   <export>
   </export>

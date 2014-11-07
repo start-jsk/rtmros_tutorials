@@ -40,8 +40,6 @@ Following scripts are only for internal usage:
 
   <!-- examples -->
   <rosdep name="rviz"/>
-  <depend package="jsk_perception" />
-  <depend package="image_view2" />
   <depend package="pr2eus"/>
 </package>
 
