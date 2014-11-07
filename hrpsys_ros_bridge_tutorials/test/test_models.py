@@ -1,11 +1,17 @@
 #!/usr/bin/env python
 import rospkg
+import unittest
+import rostest
 import os
 import sys
 
 sys.path.append(rospkg.RosPack().get_path("openhrp3")+"/test")
 
-from test_modelloader import *
+sys.stderr.write(";;;;;; test path -> ");
+sys.stderr.write(rospkg.RosPack().get_path("openhrp3")+"/test")
+sys.stderr.write("\n");
+
+from test_modelloader import TestModelLoaderBase
 
 PKG = 'hrpsys_ros_bridge_tutorials'
 NAME = 'hrpsys_ros_bridge_tutorials_model_test'
