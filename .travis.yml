@@ -28,6 +28,8 @@ notifications:
       - noazawa@jsk.t.u-tokyo.ac.jp
     on_success: always #[always|never|change] # default: change
     on_failure: always #[always|never|change] # default: always
-script: source .travis/travis.sh
+script:
+  - source .travis/travis.sh
+  - rostest -t hrpsys_ros_bridge_tutorials test_samplerobot_euslisp_unittests.test
 before_script:
   - export ROS_PARALLEL_JOBS="-j2 -l2"

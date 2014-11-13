@@ -273,4 +273,4 @@ install(CODE
 
 add_rostest(test/test_hrpsys_pa10.launch)
 add_rostest(test/test_hrpsys_samplerobot.launch)
-add_rostest(test/hrpsys-samples/test_samplerobot_euslisp_unittests.test)
+#add_rostest(test/hrpsys-samples/test_samplerobot_euslisp_unittests.test)
