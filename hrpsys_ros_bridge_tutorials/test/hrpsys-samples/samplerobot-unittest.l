@@ -11,12 +11,16 @@
 
 ;; Wait until odom is published
 (warn ";; waiting for odom...~%")
+(ros::ros-warn ";; waiting for odom...~%")
+(ros::ros-info ";; waiting for odom...~%")
 (ros::load-ros-manifest "nav_msgs")
 (setq *odom-published*  nil)
 (defun odom-cb (msg) (setq *odom-published* t))
 (ros::subscribe "/odom" nav_msgs::Odometry #'odom-cb)
 (while (and (ros::ok) (not *odom-published*)) (ros::spin-once))
 (warn ";; waiting for odom...done~%")
+(ros::ros-warn ";; waiting for odom...done~%")
+(ros::ros-info ";; waiting for odom...done~%")
 
 ;; Load demo file which is specified next to this file in argument
 (let ((name (elt lisp::*eustop-argument* (1+ (position-if #'(lambda (x) (substringp "samplerobot-unittest.l" x)) lisp::*eustop-argument*)))))
