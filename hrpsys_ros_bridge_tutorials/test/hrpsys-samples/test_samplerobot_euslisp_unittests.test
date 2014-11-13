@@ -15,7 +15,4 @@
   <test test-name="test_samplerobot_0_sequence_player" pkg="roseus" type="roseus"
         args="$(find hrpsys_ros_bridge_tutorials)/test/hrpsys-samples/samplerobot-unittest.l $(find hrpsys_ros_bridge_tutorials)/test/hrpsys-samples/samplerobot-sequence-player.l"
         retry="4" />
-  <test test-name="test_samplerobot_1_data_logger" pkg="roseus" type="roseus"
-        args="$(find hrpsys_ros_bridge_tutorials)/test/hrpsys-samples/samplerobot-unittest.l $(find hrpsys_ros_bridge_tutorials)/test/hrpsys-samples/samplerobot-data-logger.l"
-        retry="4" />
 </launch>
