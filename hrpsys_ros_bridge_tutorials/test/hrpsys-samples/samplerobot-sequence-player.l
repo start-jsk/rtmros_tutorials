@@ -13,6 +13,7 @@
   "1. :angle-vector (setJointAngles) and :wait-interpolation (waitInterpolation)"
   (send *ri* :angle-vector (send *sr* :angle-vector) 700)
   (send *ri* :wait-interpolation)
+  (warn ";; seq error ~A ~A~%" (send *ri* :state :potentio-vector) (send *sr* :angle-vector))
   (eps= (distance (send *ri* :state :potentio-vector) (send *sr* :angle-vector)) 0.0)
   )
 
