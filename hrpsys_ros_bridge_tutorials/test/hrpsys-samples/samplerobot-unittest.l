@@ -1,7 +1,11 @@
 #!/usr/bin/env roseus
 
+(ros::ros-warn ";; roseus unittest init~%")
+(ros::ros-info ";; roseus unittest init~%")
 (require :unittest "lib/llib/unittest.l")
 (init-unit-test)
+(ros::ros-warn ";; roseus unittest init2~%")
+(ros::ros-info ";; roseus unittest init2~%")
 
 ;; Wait until Ros bridges are prepared.
 (ros::roseus "unittest")
