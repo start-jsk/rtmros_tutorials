@@ -5,9 +5,19 @@
 
 ;; Wait until Ros bridges are prepared.
 (ros::roseus "unittest")
-(unless (boundp '*tfl*)
-  (defvar *tfl* (instance ros::transform-listener :init)))
-(send *tfl* :wait-for-transform "WAIST_LINK0" "odom" (ros::time) 20.0)
+;;(unless (boundp '*tfl*)
+;;  (defvar *tfl* (instance ros::transform-listener :init)))
+;;(send *tfl* :wait-for-transform "WAIST_LINK0" "odom" (ros::time) 20.0)
+
+;; Wait until odom is published
+(warn ";; waiting for odom...~%")
+(ros::load-ros-manifest "nav_msgs")
+(setq *odom-published*  nil)
+(defun odom-cb (msg) (setq *odom-published* t))
+(ros::subscribe "/odom" nav_msgs::Odometry #'odom-cb)
+(while (and (ros::ok) (not *odom-published*)) (ros::spin-once))
+(warn ";; waiting for odom...done~%")
+
 ;; Load demo file which is specified next to this file in argument
 (let ((name (elt lisp::*eustop-argument* (1+ (position-if #'(lambda (x) (substringp "samplerobot-unittest.l" x)) lisp::*eustop-argument*)))))
   (defvar *test-prefix* (pathname-name name))
