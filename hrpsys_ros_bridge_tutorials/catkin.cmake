@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 2.8.3)
 project(hrpsys_ros_bridge_tutorials)
 
 #find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge hrpsys openhrp3)
-find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest euslisp)
+find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest
+  euslisp xacro)
 
 set(PKG_CONFIG_PATH "${openhrp3_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}") # for openrtm3.1.pc
 execute_process(
@@ -244,6 +245,13 @@ generate_default_launch_eusinterface_files(
   "--no-euslisp")
 generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--use-unstable-hrpsys-config")
 
+# find xacro
+if(EXISTS ${xacro_SOURCE_DIR}/xacro.py)
+  set(xacro_exe ${xacro_SOURCE_DIR}/xacro.py)
+else(EXISTS ${xacro_SOURCE_DIR}/xacro.py)
+  set(xacro_exe ${xacro_PREFIX}/share/xacro/xacro.py)
+endif(EXISTS ${xacro_SOURCE_DIR}/xacro.py)
+  
 macro (generate_hand_attached_hrp2_model _robot_name)
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
   set(_in_urdf_file "${_model_dir}/${_robot_name}.urdf")
@@ -258,9 +266,26 @@ macro (generate_hand_attached_hrp2_model _robot_name)
   list(APPEND compile_urdf_robots ${_robot_name}_model_generate)
 endmacro()
 
+macro (run_xacro_for_hand_hrp2_model _robot_name)
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  set(_in_xacro_file "${_model_dir}/${_robot_name}.urdf.xacro")
+  set(_in_body_urdf "${_model_dir}/${_robot_name}_body.urdf")
+  set(_in_hand_l_urdf "${_model_dir}/HRP3HAND_L.urdf")
+  set(_in_hand_r_urdf "${_model_dir}/HRP3HAND_L.urdf")
+  set(_out_urdf_file "${_model_dir}/${_robot_name}_WH.urdf")
+  add_custom_command(OUTPUT ${_out_urdf_file}
+      COMMAND ${xacro_exe} ${_in_xacro_file} > ${_out_urdf_file}
+      DEPENDS ${_in_xacro_file} ${_in_body_urdf}
+      ${_in_hand_l_urdf} ${_in_hand_r_urdf})
+  add_custom_target(${_robot_name}_xacro_model_generate DEPENDS ${_out_urdf_file})
+  list(APPEND compile_urdf_robots ${_robot_name}_xacro_model_generate)
+endmacro()
+
 if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   generate_hand_attached_hrp2_model(HRP2JSKNT)
   generate_hand_attached_hrp2_model(HRP2JSKNTS)
+  run_xacro_for_hand_hrp2_model(HRP2JSKNT)
+  run_xacro_for_hand_hrp2_model(HRP2JSKNTS)
   add_custom_target(all_robots_model_generate ALL DEPENDS ${compile_urdf_robots})
 endif()
 
