@@ -56,11 +56,19 @@ lleg-end-coords:
 #   translate : [-0.063286056916196, 0.1488, -0.063286056916196]
 #   rotate : [0.281085, 0.678598, -0.678598, 148.6]
 # side version
+# contact-end-coords
+# rarm-end-coords:
+#   translate : [0, -0.2393, 0]
+#   rotate : [-0.281085, 0.678598, 0.678598, 148.6]
+# larm-end-coords:
+#   translate : [0, 0.2393, 0]
+#   rotate : [0.281085, 0.678598, -0.678598, 148.6]
+# grasp-end-coords
 rarm-end-coords:
-  translate : [0, -0.2393, 0]
+  translate : [-0.063286, -0.146, -0.063286]
   rotate : [-0.281085, 0.678598, 0.678598, 148.6]
 larm-end-coords:
-  translate : [0, 0.2393, 0]
+  translate : [-0.063286, 0.146, -0.063286]
   rotate : [0.281085, 0.678598, -0.678598, 148.6]
 head-end-coords:
   translate : [0.1, 0, 0.2]
