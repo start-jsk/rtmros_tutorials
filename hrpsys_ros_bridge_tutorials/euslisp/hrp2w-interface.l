@@ -46,9 +46,16 @@
    )
   )
 
-(defun hrp2w-init ()
+(defun hrp2w-init (&key (sim nil))
   (if (not (boundp '*ri*))
       (setq *ri* (instance hrp2w-interface :init)))
   (if (not (boundp '*hrp2w*))
-      (setq *hrp2w* (instance hrp2w-robot :init))))
+      (setq *hrp2w* (instance hrp2w-robot :init)))
+  (unless sim
+    (if (not (boundp '*vmax*))
+	(progn
+	  (require :vmax "package://vmax_controller/euslisp/vmax-interface.l")
+	  (setq *vmax* (instance vmax-interface :init)))))
+  (setq ((send *hrp2w* :head :neck-p) . max-angle) 44)
+  )
 
