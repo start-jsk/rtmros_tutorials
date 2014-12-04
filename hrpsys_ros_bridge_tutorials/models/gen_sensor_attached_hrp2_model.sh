@@ -74,7 +74,10 @@ function generate_hrp2jsknt_model()
     tmp_model8=$(add_sensor_to_tmp_urdf 0 0 0 -1.571 0 -1.571 camera_rgb_frame camera_rgb_optical_frame $tmp_model7)
     tmp_model9=$(add_sensor_to_tmp_urdf 0 -0.02 0.0 0 0 0 camera_link camera_depth_frame $tmp_model8)
     tmp_model10=$(add_sensor_to_tmp_urdf 0 0 0 -1.571 0 -1.571 camera_depth_frame camera_depth_optical_frame $tmp_model9)
-    cp $tmp_model10 $2
+    # add calib jig
+    tmp_model11=$(add_sensor_to_tmp_urdf 0 0.2 -0.2 0 0 1.57 LARM_LINK6 LARM_cb_jig $tmp_model10)
+    tmp_model12=$(add_sensor_to_tmp_urdf 0 -0.2 -0.2 0 0 1.57 RARM_LINK6 RARM_cb_jig $tmp_model1)
+    cp $tmp_model12 $2
 }
 
 generate_hrp2jsknt_model $input_urdf $output_urdf $yaml_file
