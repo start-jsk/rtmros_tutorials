@@ -94,38 +94,23 @@
       (generate-room-models (format nil "room~a" name)))
     (return-from generate-room-models))
   ;; check the model is derived from the room class
-  (let* ((robot-list (list "SampleRobot" "HRP2JSK" "HRP2JSKNT" "HRP2JSKNTS"))
-	 (world-file-path-list)
-	 (room (funcall (read-from-string name))))
+  (let* ((world-file-path-list)
+         (room (funcall (read-from-string name))))
     (unless (derivedp room scene)
       (warn "[ERROR] room (~a) is not room the model.~%" name)
       (return-from generate-room-models))
 
     ;; generate the world file
-    (dolist (robot-name robot-list)
-      (let* ((room-name (string-downcase (send room :name)))
-	     (package-dir-path (string-downcase (read (piped-fork "rospack find hrpsys_gazebo_tutorials"))))
-	     (world-src-file-path (format nil "~a/worlds/world_source.world" package-dir-path))
-	     (world-new-file-path (format nil "~a/worlds/~a_~a.world" package-dir-path robot-name room-name)))
-	(unix:system (format nil "rm -rf ~a" world-new-file-path))
-	(unix:system (format nil "cp ~a ~a" world-src-file-path world-new-file-path))
-	(unix:system (format nil "sed -i -e \"s@    <!-- A robot -->@    <!-- A robot -->\\n    <include>\\n      <uri>model://~a</uri>\\n      <pose>1.0 0 0.73 0 0 0</pose>\\n    </include>@g\" ~a" robot-name world-new-file-path))
-	(push world-new-file-path world-file-path-list)))
-
+    (let* ((room-name (string-downcase (send room :name)))
+           (package-dir-path (string-downcase (read (piped-fork "rospack find hrpsys_gazebo_tutorials"))))
+           (world-src-file-path (format nil "~a/worlds/world_source.world" package-dir-path))
+           (world-new-file-path (format nil "~a/worlds/~a.world" package-dir-path room-name)))
+      (unix:system (format nil "rm -rf ~a" world-new-file-path))
+      (unix:system (format nil "cp ~a ~a" world-src-file-path world-new-file-path))
+      (push world-new-file-path world-file-path-list))
     ;; convert models
-    (eus2urdf-room-for-gazebo room 
-			      :make-static t :make-fixed t :world-file-path-list world-file-path-list)
-    ;; generate the launch file
-    (dolist (robot-name robot-list)
-      (let* ((room-name (string-downcase (send room :name)))
-	     (package-dir-path (string-downcase (read (piped-fork "rospack find hrpsys_gazebo_tutorials"))))
-	     (launch-src-file-path (format nil "~a/launch/gazebo_launch_source.launch" package-dir-path))
-	     (launch-new-file-path (format nil "~a/launch/gazebo_~a_no_controllers_in_~a.launch" package-dir-path (string-downcase robot-name) room-name)))
-	(unix:system (format nil "rm -rf ~a" launch-new-file-path))
-	(unix:system (format nil "cp ~a ~a" launch-src-file-path launch-new-file-path))
-	(unix:system (format nil "sed -i -e \"s@__world_name__@~a_~a.world@g\" ~a" robot-name room-name launch-new-file-path))
-	(unix:system (format nil "sed -i -e \"s@__robot_name__@~a@g\" ~a" (string-downcase robot-name) launch-new-file-path))
-	(warning-message 2 "You can start simulation with following command:~%roslaunch hrpsys_gazebo_tutorials gazebo_~a_no_controllers_in_~a.launch~%" (string-downcase robot-name) room-name))))
-  )
+    (eus2urdf-room-for-gazebo room
+                              :make-static t :make-fixed t :world-file-path-list world-file-path-list)
+    ))
 (warn "(generate-room-models \"room73b2\")~%")
 

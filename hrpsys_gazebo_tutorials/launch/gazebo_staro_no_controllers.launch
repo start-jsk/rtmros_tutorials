@@ -1,6 +1,6 @@
 <launch>
   <arg name="gzname" default="gazebo"/>
-  <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty.world"/>
+  <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty_add_cfm.world"/>
   <arg name="PAUSED" default="false"/>
   <arg name="SYNCHRONIZED" default="false" />
 
@@ -14,5 +14,6 @@
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
     <arg name="USE_INSTANCE_NAME" value="true" />
     <arg name="gzname" value="$(arg gzname)" />
+    <arg name="MODEL_TRANSLATE_Z" value="0.98" />
   </include>
 </launch>
