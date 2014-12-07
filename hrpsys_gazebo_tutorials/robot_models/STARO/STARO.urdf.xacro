@@ -1,5 +1,6 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="STARO" >
   <xacro:include filename="$(find hrpsys_gazebo_tutorials)/robot_models/STARO/STARO.urdf" />
+  <xacro:include filename="$(find multisense_sl_description)/urdf/multisense_sl_v4.urdf" />
   <!-- add IOB plugin -->
   <gazebo>
     <plugin filename="libIOBPlugin.so" name="hrpsys_gazebo_plugin" >
