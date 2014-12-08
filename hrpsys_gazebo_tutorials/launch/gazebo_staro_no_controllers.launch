@@ -7,6 +7,13 @@
 
   <arg if="$(arg USE_HAND)"
        name="USE_MODEL" value="$(find hrpsys_gazebo_tutorials)/robot_models/STARO/STARO_with_hand.urdf.xacro" />
+  <rosparam if="$(arg USE_HAND)"
+            command="load"
+            file="$(find hrpsys_gazebo_tutorials)/config/L_ROBOTIQ.yaml" ns="L_ROBOTIQ" />
+  <rosparam if="$(arg USE_HAND)"
+            command="load"
+            file="$(find hrpsys_gazebo_tutorials)/config/R_ROBOTIQ.yaml" ns="R_ROBOTIQ" />
+
   <arg unless="$(arg USE_HAND)"
        name="USE_MODEL" value="$(find hrpsys_gazebo_tutorials)/robot_models/STARO/STARO.urdf.xacro" />
 
