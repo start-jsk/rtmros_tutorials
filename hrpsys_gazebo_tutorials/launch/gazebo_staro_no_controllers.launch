@@ -3,12 +3,25 @@
   <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty_add_cfm.world"/>
   <arg name="PAUSED" default="false"/>
   <arg name="SYNCHRONIZED" default="false" />
+  <arg name="USE_HAND" default="true" />
+
+  <arg if="$(arg USE_HAND)"
+       name="USE_MODEL" value="$(find hrpsys_gazebo_tutorials)/robot_models/STARO/STARO_with_hand.urdf.xacro" />
+  <rosparam if="$(arg USE_HAND)"
+            command="load"
+            file="$(find hrpsys_gazebo_tutorials)/config/L_ROBOTIQ.yaml" ns="L_ROBOTIQ" />
+  <rosparam if="$(arg USE_HAND)"
+            command="load"
+            file="$(find hrpsys_gazebo_tutorials)/config/R_ROBOTIQ.yaml" ns="R_ROBOTIQ" />
+
+  <arg unless="$(arg USE_HAND)"
+       name="USE_MODEL" value="$(find hrpsys_gazebo_tutorials)/robot_models/STARO/STARO.urdf.xacro" />
 
   <include file="$(find hrpsys_gazebo_general)/launch/gazebo_robot_no_controllers.launch">
     <arg name="ROBOT_TYPE" value="STARO" />
     <arg name="WORLD" value="$(arg WORLD)" />
     <arg name="HRPSYS_GAZEBO_CONFIG" default="$(find hrpsys_gazebo_tutorials)/config/STARO.yaml" />
-    <arg name="ROBOT_MODEL" default="$(find hrpsys_gazebo_tutorials)/robot_models/STARO/STARO.urdf.xacro" />
+    <arg name="ROBOT_MODEL" value="$(arg USE_MODEL)" />
 
     <arg name="PAUSED" value="$(arg PAUSED)"/>
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
