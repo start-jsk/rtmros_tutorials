@@ -1,0 +1,517 @@
+#VRML V2.0 utf8
+
+PROTO Joint [
+    exposedField     SFVec3f      center              0 0 0
+    exposedField     MFNode       children            []
+    exposedField     MFFloat      llimit              []
+    exposedField     MFFloat      lvlimit              []
+    exposedField     SFRotation   limitOrientation    0 0 1 0
+    exposedField     SFString     name                ""
+    exposedField     SFRotation   rotation            0 0 1 0
+    exposedField     SFVec3f      scale               1 1 1
+    exposedField     SFRotation   scaleOrientation    0 0 1 0
+    exposedField     MFFloat      stiffness           [ 0 0 0 ]
+    exposedField     SFVec3f      translation         0 0 0
+    exposedField     MFFloat      ulimit              []
+    exposedField     MFFloat      uvlimit              []
+    exposedField     MFFloat      dh                  [ 0 0 0 0 ]
+    exposedField     SFString     jointType           ""
+    exposedField     SFInt32      jointId             -1
+    exposedField     SFString     jointAxis           "Z"
+
+    exposedField     SFFloat      gearRatio     1
+    exposedField     SFFloat      rotorInertia  0
+    exposedField     SFFloat      rotorResistor 0
+    exposedField     SFFloat      torqueConst   1
+    exposedField     SFFloat      encoderPulse  1
+]
+{
+    Transform {
+        center           IS center
+        children         IS children
+        rotation         IS rotation
+        scale            IS scale
+        scaleOrientation IS scaleOrientation
+        translation      IS translation
+    }
+}
+
+PROTO Segment [
+    field           SFVec3f     bboxCenter        0 0 0
+    field           SFVec3f     bboxSize          -1 -1 -1
+    exposedField    SFVec3f     centerOfMass      0 0 0
+    exposedField    MFNode      children          [ ]
+    exposedField    SFNode      coord             NULL
+    exposedField    MFNode      displacers        [ ]
+    exposedField    SFFloat     mass              0 
+    exposedField    MFFloat     momentsOfInertia  [ 0 0 0 0 0 0 0 0 0 ]
+    exposedField    SFString    name              ""
+    eventIn         MFNode      addChildren
+    eventIn         MFNode      removeChildren
+]
+{
+    Group {
+        addChildren    IS addChildren
+        bboxCenter     IS bboxCenter
+        bboxSize       IS bboxSize
+        children       IS children
+        removeChildren IS removeChildren
+    }
+}
+
+PROTO Humanoid [
+    field           SFVec3f    bboxCenter            0 0 0
+    field           SFVec3f    bboxSize              -1 -1 -1
+    exposedField    SFVec3f    center                0 0 0
+    exposedField    MFNode     humanoidBody          [ ]
+    exposedField    MFString   info                  [ ]
+    exposedField    MFNode     joints                [ ]
+    exposedField    SFString   name                  ""
+    exposedField    SFRotation rotation              0 0 1 0
+    exposedField    SFVec3f    scale                 1 1 1
+    exposedField    SFRotation scaleOrientation      0 0 1 0
+    exposedField    MFNode     segments              [ ]
+    exposedField    MFNode     sites                 [ ]
+    exposedField    SFVec3f    translation           0 0 0
+    exposedField    SFString   version               "1.1"
+    exposedField    MFNode     viewpoints            [ ]
+]
+{
+  Transform {
+    bboxCenter       IS bboxCenter
+    bboxSize         IS bboxSize
+    center           IS center
+    rotation         IS rotation
+    scale            IS scale
+    scaleOrientation IS scaleOrientation
+    translation      IS translation
+    children [
+      Group {
+        children IS viewpoints
+      }
+      Group {
+        children IS humanoidBody 
+      }
+    ]
+  }
+}
+
+PROTO VisionSensor [
+  exposedField SFVec3f    translation       0 0 0
+  exposedField SFRotation rotation              0 0 1 0
+  exposedField SFFloat    fieldOfView       0.785398
+  exposedField SFString   name              ""
+  exposedField SFFloat    frontClipDistance 0.01
+  exposedField SFFloat    backClipDistance  10.0
+  exposedField SFString   type              "NONE"
+  exposedField SFInt32    sensorId          -1
+  exposedField SFInt32    width             320  # 
+  exposedField SFInt32    height            240  # 
+  exposedField SFFloat	  frameRate         30
+  #exposedField MFNode    children            [] # for me
+]
+{
+  Transform {
+    rotation         IS rotation
+    translation      IS translation
+    #children IS children # for me
+  }
+}
+
+
+PROTO ForceSensor [  
+exposedField SFVec3f maxForce -1 -1 -1
+  exposedField SFVec3f maxTorque -1 -1 -1
+  exposedField SFVec3f translation 0 0 0
+  exposedField SFRotation rotation 0 0 1 0
+  exposedField SFInt32 sensorId -1
+]
+{
+  Transform {
+translation IS translation
+    rotation IS rotation
+  }
+}
+
+PROTO Gyro [
+  exposedField SFVec3f maxAngularVelocity -1 -1 -1
+  exposedField SFVec3f translation 0 0 0
+  exposedField SFRotation rotation 0 0 1 0
+  exposedField SFInt32 sensorId -1
+]
+{
+  Transform {
+    translation IS translation
+    rotation IS rotation
+  }
+}
+
+PROTO AccelerationSensor [
+  exposedField SFVec3f maxAcceleration -1 -1 -1
+  exposedField SFVec3f translation 0 0 0
+  exposedField SFRotation rotation 0 0 1 0
+  exposedField SFInt32 sensorId -1
+]
+{
+  Transform {
+    translation IS translation
+    rotation IS rotation
+  }
+}
+
+PROTO PressureSensor [
+  exposedField SFFloat maxPressure -1
+  exposedField SFVec3f translation 0 0 0
+  exposedField SFRotation rotation 0 0 1 0
+  exposedField SFInt32 sensorId -1
+]
+{
+  Transform {
+    translation IS translation
+    rotation IS rotation
+  }
+}
+
+PROTO PhotoInterrupter [
+  exposedField SFVec3f transmitter 0 0 0
+  exposedField SFVec3f receiver 0 0 0
+  exposedField SFInt32 sensorId -1
+]
+{
+  Transform{
+    children [
+      Transform{
+        translation IS transmitter
+      }
+      Transform{
+        translation IS receiver
+      }
+    ]
+  }
+}
+
+PROTO CylinderSensorZ [
+    exposedField    SFFloat    maxAngle	      -1
+    exposedField    SFFloat    minAngle        0
+    exposedField    MFNode     children        [ ]
+]
+{
+  Transform{
+    rotation 1 0 0 1.5708
+    children [
+      DEF SensorY CylinderSensor{
+	maxAngle IS maxAngle
+	minAngle IS minAngle
+      }
+      DEF AxisY Transform{
+        children [
+          Transform{
+            rotation 1 0 0 -1.5708
+            children IS children
+          }
+        ]
+      }
+    ]
+  }
+  ROUTE SensorY.rotation_changed TO AxisY.set_rotation
+}
+
+PROTO CylinderSensorY [
+    exposedField    SFFloat    maxAngle	      -1
+    exposedField    SFFloat    minAngle        0
+    exposedField    MFNode     children        [ ]
+]
+{
+  Transform{
+    rotation 0 1 0 1.5708
+    children [
+      DEF SensorX CylinderSensor{
+	maxAngle IS maxAngle
+	minAngle IS minAngle
+      }
+      DEF AxisX Transform{
+        children [
+          Transform{
+            rotation 0 1 0 -1.5708
+            children IS children
+          }
+        ]
+      }
+    ]
+  }
+  ROUTE SensorX.rotation_changed TO AxisX.set_rotation
+}
+
+PROTO CylinderSensorX [
+    exposedField    SFFloat    maxAngle	      -1
+    exposedField    SFFloat    minAngle        0
+    exposedField    MFNode     children        [ ]
+]
+{
+  Transform{
+    rotation 0 0 1 -1.5708
+    children [
+      DEF SensorZ CylinderSensor{
+	maxAngle IS maxAngle
+	minAngle IS minAngle
+      }
+      DEF AxisZ Transform{
+        children [
+          Transform{
+            rotation 0 0 1 1.5708
+            children IS children
+          }
+        ]
+      }
+    ]
+  }
+  ROUTE SensorZ.rotation_changed TO AxisZ.set_rotation
+}
+
+NavigationInfo {
+  avatarSize    0.5
+  headlight     TRUE
+  type  ["EXAMINE", "ANY"]
+}
+
+Background {
+  skyColor 0.4 0.6 0.4
+}
+
+Viewpoint {
+  position    3 0 0.835
+  orientation 0.5770 0.5775 0.5775 2.0935
+}
+
+DEF ROBOTIQ_L Humanoid {
+  name "ROBOTIQ_L"
+
+humanoidBody [
+#              DEF RARM_JOINT7 Joint{ #rarm wrist roll
+              DEF WAIST Joint{ #rarm wrist roll
+              jointType "free"
+#              translation 0.0 0.0 0.0
+              translation 0.0 -0.1729541122913361 0.0
+              rotation 0 0 1 0
+              children [
+                DEF LHAND_PALM_LINK_MOV CylinderSensorZ {
+                maxAngle 3.141592654
+                minAngle -3.141592654
+                children [
+                  DEF LHAND_PALM_LINK Segment {
+                     centerOfMass 0 0.126 0
+                     mass 1.45
+                     momentsOfInertia [2.977439e-3 0.0 0.0 0.0 4.025959e-3 0.0 0.0 0.0  3.145983e-3]
+                  children [
+                     Transform {
+                        rotation 0 1 0 3.141592654
+                        children [ Inline { url "hand_models/robotiq_hand_l_simple_with_no_finger.wrl" }]
+                     }
+                  ]
+                  } # End of Segment
+                  DEF LHAND_0F_JOINT0 Joint{
+                  jointType "rotate"
+                  jointId 0
+                  jointAxis "X"
+                  translation 0 0.147 0.037
+                  rotation 0 1 0 0
+                  llimit [-1.570796327]  #-90
+                  ulimit [0.523333333]   #+30
+                  lvlimit [-2.23776]
+                  uvlimit [ 2.23776]
+                  children [
+                    DEF LHAND_LINK0_MOV CylinderSensorZ {
+                    maxAngle 0.523333333
+                    minAngle -1.570796327
+                    children [
+                      DEF LHAND_LINK0 Segment {
+                         centerOfMass 0 0.076 0.022
+                         mass 0.25
+                         momentsOfInertia [5.235584e-4 0.0 0.0 0.0 5.99019e-5 0.0 0.0 0.0 5.064566e-4]
+                         children [
+                            Inline { url "hand_models/robotiq_hand_l_finger2.wrl" }
+                    ]
+                    } # End of Segment
+
+                ]
+                }
+                ]
+              } # End of LHAND_0F_JOINT0
+
+              DEF LHAND_1F_JOINT0 Joint{
+              jointType "rotate"
+              jointId 1
+              jointAxis "X"
+              translation 0.037 0.147 -0.037
+              rotation 0 0 1 0
+              llimit [-0.5233334]  #-30
+              ulimit [1.570796327] #90
+              lvlimit [-2.23776]
+              uvlimit [ 2.23776]
+              children [
+                DEF LHAND_LINK1_MOV CylinderSensorZ {
+                maxAngle 0.0
+                minAngle -0.2793
+                children [
+                  DEF LHAND_LINK1 Segment {
+                     centerOfMass 0.0 0.0 0.0
+                     mass 0.05
+                     momentsOfInertia [3.333e-6 0.0 0.0 0.0 3.333e-6 0.0 0.0 0.0  3.333e-6]
+                     children [
+                        Transform{
+                           children[
+                              Background {
+                                 skyColor [ 0.627451 0.627451 0.627451 ]
+                              }
+                              Shape { # triangle mesh
+                                 appearance Appearance {
+                                    material Material {
+                                       ambientIntensity 0
+                                       diffuseColor     0 0 1
+                                       specularColor    0 0 0
+                                       emissiveColor    0 0 0
+                                       shininess        1
+                                       transparency     0
+                                    }
+                                 } # appearance
+                                 geometry Box {
+                                    size 0.02 0.02 0.02
+                                 }
+                              }
+                           ]
+                        }
+                     ]
+                  } # End of Segment
+                  DEF LHAND_1F_JOINT1 Joint{
+                  jointType "rotate"
+                  jointId 2
+                  jointAxis "Z"
+                  translation 0.0 0.0 0.0
+                  rotation 0 0 1 0
+                  llimit [0.0]    #0
+                  ulimit [0.2793] #16
+                  lvlimit [-2.23776]
+                  uvlimit [ 2.23776]
+                  children [
+                    DEF LHAND_LINK2_MOV CylinderSensorZ {
+                    maxAngle 1.570796327
+                    minAngle 0.5233334
+                    children [
+                      DEF LHAND_LINK2 Segment {
+                         centerOfMass 0 0.076 -0.022
+                         mass 0.25
+                         momentsOfInertia [5.235584e-4 0.0 0.0 0.0 5.99019e-5 0.0 0.0 0.0 5.064566e-4]
+                         children [
+                           Inline { url "hand_models/robotiq_hand_l_finger1.wrl" }
+                         ]
+                      } # End of Segment
+                    ]
+                    }
+                  ]
+                  } # End of 
+                ]
+                }
+                ]
+              } # End of 
+
+              DEF LHAND_2F_JOINT0 Joint{
+              jointType "rotate"
+              jointId 3
+              jointAxis "X"
+              translation -0.037 0.147 -0.037
+              rotation 0 0 1 0
+              llimit [-0.5233334]  #-30
+              ulimit [1.570796327] #90
+              lvlimit [-2.23776]
+              uvlimit [ 2.23776]
+              children [
+                DEF LHAND_LINK3_MOV CylinderSensorZ {
+                maxAngle 0.2793
+                minAngle 0.0
+                children [
+                DEF LHAND_LINK3 Segment {
+                   centerOfMass 0.0 0.0 0.0
+                   mass 0.05
+                   momentsOfInertia [3.333e-6 0.0 0.0 0.0 3.333e-6 0.0 0.0 0.0  3.333e-6]
+                   children [
+                      Transform{
+                         children[
+                            Background {
+                               skyColor [ 0.627451 0.627451 0.627451 ]
+                            }
+                            Shape { # triangle mesh
+                               appearance Appearance {
+                                  material Material {
+                                     ambientIntensity 0
+                                     diffuseColor     0 0 1
+                                     specularColor    0 0 0
+                                     emissiveColor    0 0 0
+                                     shininess        1
+                                     transparency     0
+                                  }
+                               } # appearance
+                               geometry Box {
+                                  size 0.02 0.02 0.02
+                               }
+                            }
+                         ]
+                      }
+                   ]
+                } # End of Segment
+                DEF LHAND_2F_JOINT1 Joint{
+                jointType "rotate"
+                jointId 4
+                jointAxis "Z"
+                translation 0.0 0.0 0.0
+                rotation 1 0 0 0
+                llimit [-0.2793]    #-16
+                ulimit [0.0] #0
+                lvlimit [-2.23776]
+                uvlimit [ 2.23776]
+                children [
+                  DEF LHAND_LINK4_MOV CylinderSensorZ {
+                  maxAngle 1.570796327
+                  minAngle -0.5233334
+                  children [
+                    DEF LHAND_LINK4 Segment {
+                       centerOfMass 0 0.076 -0.022
+                       mass 0.25
+                       momentsOfInertia [5.235584e-4 0.0 0.0 0.0 5.99019e-5 0.0 0.0 0.0 5.064566e-4]
+                    children [
+                      Inline { url "hand_models/robotiq_hand_l_finger1.wrl" }
+                    ]
+                    } # End of Segment
+                  ]
+                  }
+                ]
+                } # End of RARM_JOINT12
+                ]
+                }
+                ]
+              } # End of RARM_JOINT11
+
+                ]
+                }
+                ]
+              } # End of RARM_JOINT7
+
+    ] # End of [humanoidBody] 
+
+joints [
+    USE WAIST,
+    USE LHAND_0F_JOINT0,
+    USE LHAND_1F_JOINT0,
+    USE LHAND_1F_JOINT1,
+    USE LHAND_2F_JOINT0,
+    USE LHAND_2F_JOINT1,
+] #joints
+
+segments [
+    USE LHAND_PALM_LINK,
+    USE LHAND_LINK0,
+    USE LHAND_LINK1,
+    USE LHAND_LINK2,
+    USE LHAND_LINK3,
+    USE LHAND_LINK4,
+] #segments
+} #of DEF P2 Humanoid

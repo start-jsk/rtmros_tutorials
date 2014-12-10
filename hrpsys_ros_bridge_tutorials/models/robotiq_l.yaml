@@ -1,0 +1,16 @@
+##
+## - collada_joint_name : euslisp_joint_name (start with :)
+##
+
+larm:
+  - LHAND_0F_JOINT0 : larm-f0-p
+  - LHAND_1F_JOINT0 : larm-f1-p
+  - LHAND_1F_JOINT1 : larm-f1-r
+  - LHAND_2F_JOINT0 : larm-f2-p
+  - LHAND_2F_JOINT1 : larm-f2-r
+
+##
+## reset-pose
+##
+angle-vector:
+  reset-pose : [0, 0, 0, 0, 0, 0]
