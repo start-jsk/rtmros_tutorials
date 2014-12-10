@@ -207,6 +207,12 @@ compile_rbrain_model_for_closed_robots(STARO staro STARO
   --simulation-timestep-option "0.002"
   )
 
+# JAXON
+compile_rbrain_model_for_closed_robots(JAXON jaxon JAXON
+  --conf-dt-option "0.002"
+  --simulation-timestep-option "0.002"
+)
+
 if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
   compile_openhrp_model(
     ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl
@@ -236,6 +242,7 @@ generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSK
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2W_for_OpenHRP3 HRP2W "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(staro STARO "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(jaxon JAXON "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(urataleg URATALEG "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files(
   "$(find hrpsys_ros_bridge_tutorials)/models/TESTMDOFARM.wrl"
