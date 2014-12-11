@@ -21,6 +21,8 @@
 
   <!-- end:copied from drcsim_gazebo/launch/.. -->
 
+  <env name="VRC_CHEATS_ENABLED" value="1" />
+
   <include file="$(find hrpsys_gazebo_tutorials)/launch/gazebo_staro_no_controllers.launch">
     <arg name="WORLD" value="drc_practice_task_1_staro.world" />
     <arg name="SPAWN_MODEL" value="false" />
