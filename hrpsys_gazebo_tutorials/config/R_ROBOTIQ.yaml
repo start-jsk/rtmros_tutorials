@@ -1,0 +1,40 @@
+hrpsys_gazebo_configuration:
+  publish_joint_state:
+    topic: /joint_states
+    step: 25
+## velocity feedback for joint control, use parameter gains/joint_name/p_v
+#  use_velocity_feedback: true
+## synchronized hrpsys and gazebo
+# use_synchronized_command: false
+# name of robot (using for namespace)
+  robotname: R_ROBOTIQ
+# joint_id (order) conversion from gazebo to hrpsys, joint_id_list[gazebo_id] := hrpsys_id
+  joint_id_list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+# joints list used in gazebo, sizeof(joint_id_list) == sizeof(joints)
+  joints:
+    - R_finger_1_joint_1
+    - R_finger_1_joint_2
+    - R_finger_1_joint_3
+    - R_finger_2_joint_1
+    - R_finger_2_joint_2
+    - R_finger_2_joint_3
+    - R_finger_middle_joint_1
+    - R_finger_middle_joint_2
+    - R_finger_middle_joint_3
+    - R_palm_finger_1_joint
+    - R_palm_finger_2_joint
+    - R_palm_finger_middle_joint
+## jointid:
+  gains:
+    R_finger_1_joint_1         : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_finger_1_joint_2         : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_finger_1_joint_3         : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_finger_2_joint_1         : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_finger_2_joint_2         : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_finger_2_joint_3         : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_finger_middle_joint_1    : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_finger_middle_joint_2    : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_finger_middle_joint_3    : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_palm_finger_1_joint      : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_palm_finger_2_joint      : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    R_palm_finger_middle_joint : {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}

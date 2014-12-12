@@ -1,0 +1,30 @@
+<launch>
+  <!-- start:copied from drcsim_gazebo/launch/.. -->
+  <param name="/atlas/time_to_unpin" type="double" value="1.0"/>
+  <param name="/atlas/startup_mode" type="string" value="bdi_stand"/>
+
+  <!-- to trigger synchronization delay, set
+       atlas_msgs::AtlasCommand::desired_controller_period_ms to non-zero -->
+  <param name="/atlas/delay_window_size" type="double" value="5.0"/>
+  <param name="/atlas/delay_max_per_window" type="double" value="0.25"/>
+  <param name="/atlas/delay_max_per_step" type="double" value="0.025"/>
+
+  <param name="robot_initial_pose/x"     value="3.0" type="double"/>
+  <param name="robot_initial_pose/y"     value="2.0" type="double"/>
+  <param name="robot_initial_pose/z"     value="0.95" type="double"/>
+  <param name="robot_initial_pose/roll"  value="0" type="double"/>
+  <param name="robot_initial_pose/pitch" value="0" type="double"/>
+  <param name="robot_initial_pose/yaw"   value="0" type="double"/>
+
+  <!--param name="robot_start_in_vehicle" value="$(arg robot_start_in_vehicle)" type="bool"/-->
+  <param name="robot_start_in_vehicle" value="false" type="bool"/>
+
+  <!-- end:copied from drcsim_gazebo/launch/.. -->
+
+  <env name="VRC_CHEATS_ENABLED" value="1" />
+
+  <include file="$(find hrpsys_gazebo_tutorials)/launch/gazebo_staro_no_controllers.launch">
+    <arg name="WORLD" value="drc_practice_task_1_staro.world" />
+    <arg name="SPAWN_MODEL" value="false" />
+  </include>
+</launch>

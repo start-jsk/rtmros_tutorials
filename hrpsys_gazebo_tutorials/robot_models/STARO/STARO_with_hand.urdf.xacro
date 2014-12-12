@@ -1,6 +1,21 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="STARO" >
   <xacro:include filename="$(find hrpsys_gazebo_tutorials)/robot_models/STARO/STARO.urdf" />
   <xacro:include filename="$(find multisense_sl_description)/urdf/multisense_sl_v4.urdf" />
+  <xacro:include filename="$(find hrpsys_gazebo_tutorials)/robot_models/ROBOTIQ/ROBOTIQ.urdf.xacro" />
+
+  <joint name="staro_to_multisense" type="fixed">
+    <parent link="HEAD_LINK1" />
+    <child  link="head" />
+    <origin xyz="0.075 0 0.15" rpy="0 0 0"/>
+  </joint>
+
+  <xacro:robotiq_hand_for_gazebo prefix="L_" parent="LARM_LINK7">
+    <origin xyz="-0.027224 0.149 -0.027224" rpy="-1.5707963268 -0.7853981634 3.1415926536" />
+  </xacro:robotiq_hand_for_gazebo>
+  <xacro:robotiq_hand_for_gazebo prefix="R_" parent="RARM_LINK7">
+    <origin xyz="-0.027224 -0.149 -0.027224" rpy="-1.5707963268 -0.7853981634 3.1415926536" />
+  </xacro:robotiq_hand_for_gazebo>
+
   <!-- add IOB plugin -->
   <gazebo>
     <plugin filename="libIOBPlugin.so" name="hrpsys_gazebo_plugin" >

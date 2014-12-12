@@ -1,0 +1,16 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ROBOTIQ" >
+  <xacro:include filename="$(find robotiq_hand_description)/urdf/robotiq_hand.urdf.xacro" />
+
+  <xacro:macro name="robotiq_hand_for_gazebo" params="prefix parent *origin" >
+    <xacro:robotiq_hand prefix="${prefix}" parent="${parent}" reflect="-1">
+      <insert_block name="origin"/>
+    </xacro:robotiq_hand>
+    <!-- add IOB plugin -->
+    <gazebo>
+      <plugin filename="libIOBPlugin.so" name="hrpsys_gazebo_plugin" >
+        <robotname>${prefix}ROBOTIQ</robotname>
+        <controller>hrpsys_gazebo_configuration</controller>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>
