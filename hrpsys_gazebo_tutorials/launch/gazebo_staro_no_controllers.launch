@@ -4,6 +4,7 @@
   <arg name="PAUSED" default="false"/>
   <arg name="SYNCHRONIZED" default="false" />
   <arg name="USE_HAND" default="true" />
+  <arg name="SPAWN_MODEL" default="true" />
 
   <arg if="$(arg USE_HAND)"
        name="USE_MODEL" value="$(find hrpsys_gazebo_tutorials)/robot_models/STARO/STARO_with_hand.urdf.xacro" />
@@ -28,5 +29,6 @@
     <arg name="USE_INSTANCE_NAME" value="true" />
     <arg name="gzname" value="$(arg gzname)" />
     <arg name="MODEL_TRANSLATE_Z" value="0.98" />
+    <arg name="SPAWN_MODEL" value="$(arg SPAWN_MODEL)" />
   </include>
 </launch>
