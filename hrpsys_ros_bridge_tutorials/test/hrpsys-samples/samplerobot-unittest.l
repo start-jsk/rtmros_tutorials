@@ -21,6 +21,9 @@
   (defvar *test-prefix* (pathname-name name))
   (load name))
 (warn ";; loading test example file... done.~%")
+;; wait-interpolation bug
+(defmethod rtm-ros-robot-interface
+  (:wait-interpolation (&rest args) (unix:sleep 10)))
 
 ;; Test init
 (warn ";; initializing test...~%")
