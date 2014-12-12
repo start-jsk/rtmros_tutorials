@@ -22,11 +22,11 @@
   (send *ri* :set-interpolation-mode :linear)
   (send *sr* :reset-manip-pose)
   (send *ri* :angle-vector (send *sr* :angle-vector) 500)
-  ;;(send *ri* :wait-interpolation)
+  (send *ri* :wait-interpolation)
   (send *ri* :set-interpolation-mode :hoffarbib)
   (send *sr* :reset-pose)
   (send *ri* :angle-vector (send *sr* :angle-vector) 500)
-  ;;(send *ri* :wait-interpolation)
+  (send *ri* :wait-interpolation)
   t)
 
 (defun samplerobot-sequence-player-demo ()
