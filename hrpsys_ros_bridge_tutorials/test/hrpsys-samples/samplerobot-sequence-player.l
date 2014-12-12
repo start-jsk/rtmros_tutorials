@@ -15,7 +15,7 @@
   (send *ri* :wait-interpolation)
   (warn ";; seq diff ~A~%" (distance (send *ri* :state :potentio-vector) (send *sr* :angle-vector)))
   (eps= (distance (send *ri* :state :potentio-vector) (send *sr* :angle-vector)) 0.0)
-  )
+  nil)
 
 (defun samplerobot-sequence-player-demo1 ()
   "2. :set-interpolation-mode"
