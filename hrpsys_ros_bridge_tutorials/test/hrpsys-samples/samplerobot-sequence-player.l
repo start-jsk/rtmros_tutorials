@@ -12,7 +12,9 @@
 (defun samplerobot-sequence-player-demo0 ()
   "1. :angle-vector (setJointAngles) and :wait-interpolation (waitInterpolation)"
   (send *ri* :angle-vector (send *sr* :angle-vector) 700)
+  (warn ";; before wait interpolation")
   (send *ri* :wait-interpolation)
+  (warn ";; after wait interpolation")
   (warn ";; seq diff ~A~%" (distance (send *ri* :state :potentio-vector) (send *sr* :angle-vector)))
   (eps= (distance (send *ri* :state :potentio-vector) (send *sr* :angle-vector)) 0.0)
   )
