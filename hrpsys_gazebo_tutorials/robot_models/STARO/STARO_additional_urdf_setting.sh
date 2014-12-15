@@ -12,6 +12,9 @@ sed -i -e '/<gazebo reference="RLEG_LINK5">/{N;N;N;N;s@  <gazebo reference="RLEG
 ## change foot geometry to BOX
 sed -i -e '/<collision>/{N;N;N;s@<collision>\n      <origin xyz="0 0 -0.04" rpy="0 -0 0"/>\n      <geometry>\n        <mesh filename="package://hrpsys_gazebo_tutorials/robot_models/STARO/meshes/RLEG_LINK5_mesh.dae" scale="1 1 1" />@<collision>\n      <origin xyz="0.015 -0.010 -0.0709961" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.23 0.13 0.05" />@;}' ${OUTPUT_FILE}
 sed -i -e '/<collision>/{N;N;N;s@<collision>\n      <origin xyz="0 0 -0.04" rpy="0 -0 0"/>\n      <geometry>\n        <mesh filename="package://hrpsys_gazebo_tutorials/robot_models/STARO/meshes/LLEG_LINK5_mesh.dae" scale="1 1 1" />@<collision>\n      <origin xyz="0.015 0.010 -0.0709961" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.23 0.13 0.05" />@;}' ${OUTPUT_FILE}
+## change BODY CHEST_LINK1 geometry to small BOX
+sed -i -e '/<collision>/{N;N;N;s@<collision>\n      <origin xyz="0 0 1" rpy="0 -0 0"/>\n      <geometry>\n        <mesh filename="package://hrpsys_gazebo_tutorials/robot_models/STARO/meshes/BODY_mesh.dae" scale="1 1 1" />@<collision>\n      <origin xyz="0 0 0.145" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.235 0.5 0.29" />@;}' ${OUTPUT_FILE}
+sed -i -e '/<collision>/{N;N;N;s@<collision>\n      <origin xyz="0 0 0.11075" rpy="0 -0 0"/>\n      <geometry>\n        <mesh filename="package://hrpsys_gazebo_tutorials/robot_models/STARO/meshes/CHEST_LINK1_mesh.dae" scale="1 1 1" />@<collision>\n      <origin xyz="-0.05 0 -0.01" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.18 0.55 0.16" />@;}' ${OUTPUT_FILE}
 # continuous joint not working in GAZEBO
 sed -i -e 's@continuous@revolute@g' ${OUTPUT_FILE}
 sed -i -e 's@<joint name="HEAD_JOINT0" type="fixed">@<joint name="HEAD_JOINT0" type="revolute">@g' ${OUTPUT_FILE}
