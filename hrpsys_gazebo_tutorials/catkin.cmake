@@ -33,6 +33,7 @@ generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP2J
 generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP2JSKNTS.dae)
 generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/STARO.dae)
 generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP4C.dae)
+generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP4R.dae)
 add_custom_target(all_robots_compile_tutorials ALL DEPENDS ${compile_urdf_robots})
 
 ## install
