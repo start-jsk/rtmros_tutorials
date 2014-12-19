@@ -1,8 +1,8 @@
 <launch>
   <arg name="SYNCHRONIZED" default="false" />
 
-  <!-- <rosparam command="load" -->
-  <!--           file="$(find hrpsys_ros_bridge)/models/STARO_controller_config.yaml" /> -->
+  <rosparam command="load"
+            file="$(find hrpsys_ros_bridge_tutorials)/models/STARO_controller_config.yaml" />
 
   <include file="$(find hrpsys_gazebo_general)/launch/robot_hrpsys_bringup.launch">
     <arg name="ROBOT_TYPE" value="STARO" />
