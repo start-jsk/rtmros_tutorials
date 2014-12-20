@@ -283,7 +283,7 @@ macro (run_xacro_for_hand_hrp2_model _robot_name)
   set(_in_xacro_file "${_model_dir}/${_robot_name}.urdf.xacro")
   set(_in_body_urdf "${_model_dir}/${_robot_name}_body.urdf")
   set(_in_hand_l_urdf "${_model_dir}/HRP3HAND_L.urdf")
-  set(_in_hand_r_urdf "${_model_dir}/HRP3HAND_L.urdf")
+  set(_in_hand_r_urdf "${_model_dir}/HRP3HAND_R.urdf")
   set(_out_urdf_file "${_model_dir}/${_robot_name}_WH.urdf")
   add_custom_command(OUTPUT ${_out_urdf_file}
       COMMAND ${xacro_exe} ${_in_xacro_file} > ${_out_urdf_file}
