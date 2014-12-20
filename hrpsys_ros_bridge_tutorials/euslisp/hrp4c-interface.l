@@ -44,9 +44,9 @@
      (cons :joint-names (list "CHEST_P" "CHEST_R" "CHEST_Y")))))
   )
 
-(defun hrp4c-init ()
+(defun hrp4c-init (&rest args)
   (if (not (boundp '*ri*))
-      (setq *ri* (instance hrp4c-interface :init)))
+      (setq *ri* (instance* hrp4c-interface :init args)))
   (if (not (boundp '*hrp4c*))
       (setq *hrp4c* (instance hrp4-robot :init)))
   )

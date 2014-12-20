@@ -46,9 +46,9 @@
    )
   )
 
-(defun hrp2w-init (&key (sim nil))
+(defun hrp2w-init (&key (sim nil) &rest args)
   (if (not (boundp '*ri*))
-      (setq *ri* (instance hrp2w-interface :init)))
+      (setq *ri* (instance* hrp2w-interface :init args)))
   (if (not (boundp '*hrp2w*))
       (setq *hrp2w* (instance hrp2w-robot :init)))
   (unless sim

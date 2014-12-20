@@ -19,8 +19,8 @@
      ))
   )
 
-(defun urataleg-init ()
+(defun urataleg-init (&rest args)
   (if (not (boundp '*ri*))
-      (setq *ri* (instance urataleg-interface :init)))
+      (setq *ri* (instance* urataleg-interface :init args)))
   (if (not (boundp '*urataleg*))
       (setq *urataleg* (instance urataleg-robot :init))))
