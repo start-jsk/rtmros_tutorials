@@ -10,9 +10,9 @@
   (:init (&rest args)
          (send-super* :init :robot testmdofarm-robot args)))
 
-(defun testmdofarm-init ()
+(defun testmdofarm-init (&rest args)
   (if (not (boundp '*ri*))
-      (setq *ri* (instance testmdofarm-interface :init)))
+      (setq *ri* (instance* testmdofarm-interface :init args)))
   (if (not (boundp '*testmdofarm*))
       (setq *testmdofarm* (instance testmdofarm-robot :init)))
   (objects (list *testmdofarm*))

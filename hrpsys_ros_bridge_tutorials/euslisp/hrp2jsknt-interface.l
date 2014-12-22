@@ -13,8 +13,8 @@
   (:init (&rest args)
          (send-super* :init :robot hrp2jsknt-robot args)))
 
-(defun hrp2jsknt-init ()
+(defun hrp2jsknt-init (&rest args)
   (if (not (boundp '*ri*))
-      (setq *ri* (instance hrp2jsknt-interface :init)))
+      (setq *ri* (instance* hrp2jsknt-interface :init args)))
   (if (not (boundp '*hrp2jsknt*))
       (setq *hrp2jsknt* (instance hrp2jsknt-robot :init))))
