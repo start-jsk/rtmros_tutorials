@@ -93,6 +93,7 @@ macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_rob
     string(TOLOWER ${_OpenHRP2_robot_name} _sname)
     set(_workdir ${PROJECT_SOURCE_DIR}/models)
     set(_gen_jointmm_command_arg "\"\\(write-min-max-table \\(${_sname}\\) \\\"${_workdir}/${_sname}.l\\\" :margin 1.0\\)\"")
+    set(_gen_jointmm_conf_command_arg "\"\\(write-min-max-table-to-conf-file \\(${_sname}\\) \\\"${_workdir}/${_OpenHRP2_robot_name}.conf\\\"\\)\"")
     if(euslisp_SOURCE_DIR)
       set(euslisp_PACKAGE_PATH ${euslisp_SOURCE_DIR})
     elseif(euslisp_SOURCE_PREFIX)
@@ -114,7 +115,10 @@ macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_rob
       add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done
       COMMAND ${euslisp_exe} ${PROJECT_SOURCE_DIR}/euslisp/make-joint-min-max-table.l ${_workdir}/${_sname}.l "\"${_gen_jointmm_command_arg}\"" "\"(exit)\"" && touch ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done
       DEPENDS ${_workdir}/${_sname}.l)
-    add_custom_target(${_sname}_${PROJECT_NAME}_compile2 ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done ${_sname}_${PROJECT_NAME}_compile)
+      add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_conf_done
+      COMMAND ${euslisp_exe} ${PROJECT_SOURCE_DIR}/euslisp/make-joint-min-max-table.l ${_workdir}/${_sname}.l "\"${_gen_jointmm_conf_command_arg}\"" "\"(exit)\"" && touch ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_conf_done
+      DEPENDS ${_workdir}/${_OpenHRP2_robot_name}.xml ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done)
+    add_custom_target(${_sname}_${PROJECT_NAME}_compile2 ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_conf_done ${_sname}_${PROJECT_NAME}_compile)
     endif(NOT result_ EQUAL 0)
   endif()
 endmacro()
