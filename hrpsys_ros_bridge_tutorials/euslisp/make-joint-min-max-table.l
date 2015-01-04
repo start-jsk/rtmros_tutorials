@@ -79,20 +79,22 @@
   (unless (car (piped-fork-returns-list (format nil "grep joint_limit_table ~A" conf-file-path)))
     (with-open-file
      (of conf-file-path :direction :output :if-exists :append)
-     (format of "~%~%# for joint limit table~%")
-     (format of "joint_limit_table: ")
-     (dolist (j (remove-if-not #'(lambda (x) (send x :joint-min-max-table)) (send robot :joint-list)))
-       (format of "~A:~A:" (send j :name) (send (send j :joint-min-max-target) :name)) ;; self_joint_name:target_joint_name
-       (let* ((mmt (send j :joint-min-max-table))
-              (dims (array-dimensions mmt))
-              (str ""))
-         (dotimes (i (car dims))
-           (let ((str2 ""))
-             (if (= i 0)
-                 (setq str2 (format nil "~A:~A" (round (aref mmt 0 0)) (round (aref mmt 0 (- (cadr (array-dimensions mmt)) 1))))) ;; target_min_angle:target_max_angle
-               (dotimes (j (cadr dims))
-                 (setq str2 (if (= j 0) (format nil "~A" (round (aref mmt i j))) (format nil "~A,~A" str2 (round (aref mmt i j))))))) ;; min_table:max_table
-             (setq str (if (= i 0) (format nil "~A" str2) (format nil "~A:~A" str str2)))))
-         (format of "~A:" str)
-         )))
-    ))
+     (let ((jmmtl (remove-if-not #'(lambda (x) (send x :joint-min-max-table)) (send robot :joint-list))))
+       (when jmmtl
+         (format of "~%~%# for joint limit table~%")
+         (format of "joint_limit_table: ")
+         (dolist (j jmmtl)
+           (format of "~A:~A:" (send j :name) (send (send j :joint-min-max-target) :name)) ;; self_joint_name:target_joint_name
+           (let* ((mmt (send j :joint-min-max-table))
+                  (dims (array-dimensions mmt))
+                  (str ""))
+             (dotimes (i (car dims))
+               (let ((str2 ""))
+                 (if (= i 0)
+                     (setq str2 (format nil "~A:~A" (round (aref mmt 0 0)) (round (aref mmt 0 (- (cadr (array-dimensions mmt)) 1))))) ;; target_min_angle:target_max_angle
+                   (dotimes (j (cadr dims))
+                     (setq str2 (if (= j 0) (format nil "~A" (round (aref mmt i j))) (format nil "~A,~A" str2 (round (aref mmt i j))))))) ;; min_table:max_table
+                 (setq str (if (= i 0) (format nil "~A" str2) (format nil "~A:~A" str str2)))))
+             (format of "~A:" str)
+             )))
+       ))))
