@@ -35,6 +35,13 @@
               (send robot limb :crotch-r)
               (send robot limb :crotch-p)
               :margin margin)))
+  (if (and (send robot :rleg :crotch-y) (send robot :lleg :crotch-y))
+      (send robot :make-joint-min-max-table
+            (send robot :rleg :crotch-y :child-link)
+            (send robot :lleg :crotch-y :child-link)
+            (send robot :rleg :crotch-y)
+            (send robot :lleg :crotch-y)
+            :margin margin))
   (if (and (send robot :torso :waist-y) (send robot :torso :waist-p))
       (send robot :make-joint-min-max-table
             (send robot :torso :waist-y :parent-link)
