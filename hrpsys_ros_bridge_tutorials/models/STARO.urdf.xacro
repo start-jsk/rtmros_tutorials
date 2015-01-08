@@ -1,0 +1,89 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="STARO" >
+  <xacro:include filename="STARO_body.urdf" />
+  <xacro:include filename="$(find multisense_sl_description)/urdf/multisense_sl_v4.urdf" />
+  <xacro:include filename="$(find robotiq_hand_description)/urdf/robotiq_hand.urdf.xacro" />
+
+  <link name="HEAD_LINK1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/HEAD_LINK1_without_camera.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/HEAD_LINK1_without_camera.dae" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="4.873" />
+      <origin xyz="0.01617 0.00844 0.1502" rpy="0 -0 0"/>
+      <inertia ixx="0.15" ixy="1.76326e-18" ixz="0.01" iyy="0.16" iyz="-1.33463e-17" izz="0.04"/>
+    </inertial>
+  </link>
+  <gazebo reference="HEAD_LINK1">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+
+  <joint name="staro_to_multisense" type="fixed">
+    <parent link="HEAD_LINK1" />
+    <child  link="head" />
+    <origin xyz="0.07595 0 0.19825" rpy="0 0 0"/>
+  </joint>
+
+  <link name="LARM_LINK7">
+    <visual>
+      <origin xyz="0 0.0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/l_hand_attached_link.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/l_hand_attached_link.dae" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="4.219" />
+      <origin xyz="-0.02359 0.12884 -0.02825" rpy="0 -0 0"/>
+      <inertia ixx="0.0527968" ixy="0" ixz="0" iyy="0.057042" iyz="0" izz="0.0492541"/>
+    </inertial>
+  </link>
+  <gazebo reference="LARM_LINK7">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <link name="RARM_LINK7">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/r_hand_attached_link.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/r_hand_attached_link.dae" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="4.219" />
+      <origin xyz="0.02359 -0.12884 -0.02825" rpy="0 -0 0"/>
+      <inertia ixx="0.0527968" ixy="0" ixz="0" iyy="0.057042" iyz="0" izz="0.0492541"/>
+    </inertial>
+  </link>
+  <gazebo reference="RARM_LINK7">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+
+  <xacro:robotiq_hand prefix="L_" parent="LARM_LINK7" reflect="-1">
+    <origin xyz="-0.027224 0.149 -0.027224" rpy="-1.5707963268 -0.7853981634 3.1415926536" />
+  </xacro:robotiq_hand>
+  <xacro:robotiq_hand prefix="R_" parent="RARM_LINK7" reflect="-1">
+    <origin xyz="-0.027224 -0.149 -0.027224" rpy="-1.5707963268 -0.7853981634 3.1415926536" />
+  </xacro:robotiq_hand>
+</robot>
