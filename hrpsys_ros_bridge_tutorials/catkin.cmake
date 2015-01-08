@@ -325,6 +325,79 @@ if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   add_custom_target(all_robots_model_generate ALL DEPENDS ${compile_urdf_robots})
 endif()
 
+macro (generate_staro_hand_model _robot_name _dir_name)
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  set(_org_model_dir "$ENV{CVSDIR}/euslib/rbrain/${_dir_name}/")
+  set(_in_urdf_file "${_model_dir}/${_robot_name}.urdf")
+  set(_out_mesh_dir "${_model_dir}/${_robot_name}_meshes/")
+  set(_l_mesh "l_hand_attached_link.dae")
+  set(_r_mesh "r_hand_attached_link.dae")
+  set(_h_mesh "HEAD_LINK1_without_camera.dae")
+  add_custom_command(OUTPUT ${_out_mesh_dir}/${_l_mesh}
+    COMMAND cp ${_org_model_dir}/${_l_mesh} ${_out_mesh_dir}/${_l_mesh}
+    DEPENDS ${_in_urdf_file})
+  add_custom_command(OUTPUT ${_out_mesh_dir}/${_r_mesh}
+    COMMAND cp ${_org_model_dir}/${_r_mesh} ${_out_mesh_dir}/${_r_mesh}
+    DEPENDS ${_in_urdf_file})
+  add_custom_command(OUTPUT ${_out_mesh_dir}/${_h_mesh}
+    COMMAND cp ${_org_model_dir}/${_h_mesh} ${_out_mesh_dir}/${_h_mesh}
+    DEPENDS ${_in_urdf_file})
+  add_custom_target(${_robot_name}_lhand_generate DEPENDS ${_out_mesh_dir}/${_l_mesh})
+  add_custom_target(${_robot_name}_rhand_generate DEPENDS ${_out_mesh_dir}/${_r_mesh})
+  add_custom_target(${_robot_name}_head_generate DEPENDS ${_out_mesh_dir}/${_h_mesh})
+  list(APPEND compile_staro_urdf_robots ${_robot_name}_lhand_generate)
+  list(APPEND compile_staro_urdf_robots ${_robot_name}_rhand_generate)
+  list(APPEND compile_staro_urdf_robots ${_robot_name}_head_generate)
+endmacro()
+
+macro (generate_hand_attached_staro_model _robot_name)
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  set(_in_urdf_file "${_model_dir}/${_robot_name}.urdf")
+  set(_out_urdf_file "${_model_dir}/${_robot_name}_body.urdf")
+  string(TOLOWER ${_robot_name} _srobot_name)
+  set(_script_file "${PROJECT_SOURCE_DIR}/models/gen_hand_attached_staro_model.sh")
+  message("generate hand_attached_staro_model for ${_robot_name}")
+  add_custom_command(OUTPUT ${_out_urdf_file}
+      COMMAND ${_script_file} ${_robot_name} ${_in_urdf_file} ${PROJECT_SOURCE_DIR}/..
+      DEPENDS ${_in_urdf_file})
+  add_custom_target(${_robot_name}_model_generate DEPENDS ${_out_urdf_file})
+  list(APPEND compile_staro_urdf_robots ${_robot_name}_model_generate)
+endmacro()
+
+macro (run_xacro_for_hand_staro_model _robot_name)
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  set(_in_xacro_file "${_model_dir}/${_robot_name}.urdf.xacro")
+  set(_in_body_urdf "${_model_dir}/${_robot_name}_body.urdf")
+  set(_out_urdf_file "${_model_dir}/${_robot_name}_WH.urdf")
+  add_custom_command(OUTPUT ${_out_urdf_file}
+      COMMAND ${xacro_exe} ${_in_xacro_file} > ${_out_urdf_file}
+      DEPENDS ${_in_xacro_file} ${_in_body_urdf})
+  add_custom_target(${_robot_name}_xacro_model_generate DEPENDS ${_out_urdf_file})
+  list(APPEND compile_staro_urdf_robots ${_robot_name}_xacro_model_generate)
+endmacro()
+
+macro (attach_sensor_and_endeffector_to_staro_urdf
+    _robot_name _urdf_file _out_file _yaml_file)
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  set(_in_urdf_file "${_model_dir}${_urdf_file}")
+  set(_in_yaml_file "${_model_dir}${_yaml_file}")
+  set(_out_urdf_file "${_model_dir}${_out_file}")
+  set(_script_file "${_model_dir}gen_sensor_attached_staro_model.sh")
+  add_custom_command(OUTPUT ${_out_urdf_file}
+    COMMAND ${_script_file} ${_robot_name} ${euscollada_PACKAGE_PATH} ${_in_urdf_file} ${_out_urdf_file} ${_in_yaml_file}
+    DEPENDS ${_in_urdf_file} ${_in_yaml_file} ${_script_file})
+  add_custom_target(${_out_file}_generate DEPENDS ${_out_urdf_file})
+  list(APPEND compile_staro_urdf_robots ${_out_file}_generate)
+endmacro()
+
+if(EXISTS $ENV{CVSDIR}/euslib/rbrain/staro/l_hand_attached_link.dae)
+  generate_staro_hand_model(STARO staro)
+  generate_hand_attached_staro_model(STARO)
+  run_xacro_for_hand_staro_model(STARO)
+  attach_sensor_and_endeffector_to_staro_urdf(staro STARO_WH.urdf STARO_WH_SENSORS.urdf staro.yaml)
+  add_custom_target(all_staro_model_generate ALL DEPENDS ${compile_staro_urdf_robots})
+endif()
+
 install(DIRECTORY euslisp launch scripts models test DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
 install(CODE
   "execute_process(COMMAND echo \"fix \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_SHARE_DESTINATION}/model/* ${CATKIN_DEVEL_PREFIX} -> ${CMAKE_INSTALL_PREFIX}\")
