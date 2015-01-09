@@ -101,8 +101,7 @@ angle-vector:
 sensors:
   - {sensor_name: 'gsensor',   sensor_type: 'acceleration', parent_link: 'BODY', translate: '0 0 0'}
   - {sensor_name: 'gyrometer', sensor_type: 'gyro', parent_link: 'BODY', translate: '0 0 0'}
-## sensor position should be confirmed
-  - {sensor_name: 'rfsensor', sensor_type: 'base_force6d', parent_link: 'RLEG_LINK5', translate: '0 0 -0.069'}
-  - {sensor_name: 'lfsensor', sensor_type: 'base_force6d', parent_link: 'LLEG_LINK5', translate: '0 0 -0.069'}
-  - {sensor_name: 'rasensor', sensor_type: 'base_force6d', parent_link: 'RARM_LINK7', translate: '0 -0.05755 0', rotate: '1 0 0 90'}
+  - {sensor_name: 'rasensor', sensor_type: 'base_force6d', parent_link: 'RARM_LINK7', translate: '0 -0.05755 0', rotate: '0.57735 -0.57735 0.57735 120'}
   - {sensor_name: 'lasensor', sensor_type: 'base_force6d', parent_link: 'LARM_LINK7', translate: '0  0.05755 0', rotate: '1 0 0 -90'}
+  - {sensor_name: 'rfsensor', sensor_type: 'base_force6d', parent_link: 'RLEG_LINK5', translate: '0 0 -0.069', rotate: '0 1 0 180'}
+  - {sensor_name: 'lfsensor', sensor_type: 'base_force6d', parent_link: 'LLEG_LINK5', translate: '0 0 -0.069', rotate: '0 1 0 180'}
