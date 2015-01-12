@@ -1,0 +1,5 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robotiq_l" >
+  <xacro:robotiq_hand prefix="L_" parent="LARM_LINK7" reflect="-1">
+    <origin xyz="-0.027224 0.149 -0.027224" rpy="-1.5707963268 -0.7853981634 3.1415926536" />
+  </xacro:robotiq_hand>
+</robot>

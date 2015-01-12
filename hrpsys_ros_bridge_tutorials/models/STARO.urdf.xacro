@@ -83,10 +83,6 @@
     <mu2>0.9</mu2>
   </gazebo>
 
-  <xacro:robotiq_hand prefix="L_" parent="LARM_LINK7" reflect="-1">
-    <origin xyz="-0.027224 0.149 -0.027224" rpy="-1.5707963268 -0.7853981634 3.1415926536" />
-  </xacro:robotiq_hand>
-  <xacro:robotiq_hand prefix="R_" parent="RARM_LINK7" reflect="-1">
-    <origin xyz="-0.027224 -0.149 -0.027224" rpy="-1.5707963268 -0.7853981634 3.1415926536" />
-  </xacro:robotiq_hand>
+  <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/robotiq_l.urdf.xacro" />
+  <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/robotiq_r.urdf.xacro" />
 </robot>
