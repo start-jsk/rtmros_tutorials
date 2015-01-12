@@ -2,7 +2,6 @@
   <xacro:include filename="STARO_body.urdf" />
   <!-- no head for REAL multisense -->
   <!--xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" /-->
-  <xacro:include filename="$(find robotiq_hand_description)/urdf/robotiq_hand.urdf.xacro" />
 
   <link name="HEAD_LINK1">
     <visual>
