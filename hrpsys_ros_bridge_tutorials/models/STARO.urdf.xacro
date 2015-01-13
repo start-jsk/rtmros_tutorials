@@ -1,7 +1,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="STARO" >
   <xacro:include filename="STARO_body.urdf" />
-  <xacro:include filename="$(find multisense_sl_description)/urdf/multisense_sl_v4.urdf" />
-  <xacro:include filename="$(find robotiq_hand_description)/urdf/robotiq_hand.urdf.xacro" />
+  <!-- no head for REAL multisense -->
+  <!--xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" /-->
 
   <link name="HEAD_LINK1">
     <visual>
@@ -16,7 +16,7 @@
         <mesh filename="package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/HEAD_LINK1_without_camera.dae" scale="1 1 1" />
       </geometry>
     </collision>
-    <inertial>
+    <inertial> <!-- mass propaties should be corrected -->
       <mass value="4.873" />
       <origin xyz="0.01617 0.00844 0.1502" rpy="0 -0 0"/>
       <inertia ixx="0.15" ixy="1.76326e-18" ixz="0.01" iyy="0.16" iyz="-1.33463e-17" izz="0.04"/>
@@ -27,9 +27,11 @@
     <mu2>0.9</mu2>
   </gazebo>
 
+  <link name="multisense/head_root" />
   <joint name="staro_to_multisense" type="fixed">
     <parent link="HEAD_LINK1" />
-    <child  link="head" />
+    <!--child  link="head" /--> <!-- for drcsim / multisense_sl_description -->
+    <child  link="multisense/head_root" /> <!-- for multisense / multisense_description -->
     <origin xyz="0.07595 0 0.19825" rpy="0 0 0"/>
   </joint>
 
@@ -46,7 +48,7 @@
         <mesh filename="package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/l_hand_attached_link.dae" scale="1 1 1" />
       </geometry>
     </collision>
-    <inertial>
+    <inertial> <!-- mass propaties should be corrected -->
       <mass value="4.219" />
       <origin xyz="-0.02359 0.12884 -0.02825" rpy="0 -0 0"/>
       <inertia ixx="0.0527968" ixy="0" ixz="0" iyy="0.057042" iyz="0" izz="0.0492541"/>
@@ -69,7 +71,7 @@
         <mesh filename="package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/r_hand_attached_link.dae" scale="1 1 1" />
       </geometry>
     </collision>
-    <inertial>
+    <inertial> <!-- mass propaties should be corrected -->
       <mass value="4.219" />
       <origin xyz="0.02359 -0.12884 -0.02825" rpy="0 -0 0"/>
       <inertia ixx="0.0527968" ixy="0" ixz="0" iyy="0.057042" iyz="0" izz="0.0492541"/>
@@ -80,10 +82,6 @@
     <mu2>0.9</mu2>
   </gazebo>
 
-  <xacro:robotiq_hand prefix="L_" parent="LARM_LINK7" reflect="-1">
-    <origin xyz="-0.027224 0.149 -0.027224" rpy="-1.5707963268 -0.7853981634 3.1415926536" />
-  </xacro:robotiq_hand>
-  <xacro:robotiq_hand prefix="R_" parent="RARM_LINK7" reflect="-1">
-    <origin xyz="-0.027224 -0.149 -0.027224" rpy="-1.5707963268 -0.7853981634 3.1415926536" />
-  </xacro:robotiq_hand>
+  <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/robotiq_l.urdf.xacro" />
+  <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/robotiq_r.urdf.xacro" />
 </robot>
