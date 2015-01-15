@@ -213,6 +213,16 @@ compile_rbrain_model_for_closed_robots(STARO staro STARO
   --simulation-timestep-option "0.002"
   )
 
+# YSTLEG
+compile_rbrain_model_for_closed_robots(YSTLEG ystleg YSTLEG
+  --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  --conf-file-option "abc_leg_offset: 0.0, 0.08, 0.0"
+  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0,"
+  --conf-dt-option "0.002"
+  --simulation-timestep-option "0.002"
+  )
+
+
 # JAXON
 compile_rbrain_model_for_closed_robots(JAXON jaxon JAXON
   --conf-dt-option "0.002"
@@ -250,6 +260,7 @@ generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R H
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(staro STARO "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(jaxon JAXON "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(urataleg URATALEG "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(ystleg YSTLEG "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files(
   "$(find hrpsys_ros_bridge_tutorials)/models/TESTMDOFARM.wrl"
   hrpsys_ros_bridge_tutorials
