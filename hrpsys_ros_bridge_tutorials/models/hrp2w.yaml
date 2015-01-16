@@ -3,8 +3,8 @@
 ##
 
 torso:
-  - CHEST_JOINT0 : torso-waist-p
-  - CHEST_JOINT1 : torso-waist-y
+  - CHEST_JOINT0 : torso-waist-y
+  - CHEST_JOINT1 : torso-waist-p
 head:
   - HEAD_JOINT0  : head-neck-y
   - HEAD_JOINT1  : head-neck-p
