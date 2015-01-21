@@ -32,7 +32,8 @@
     <parent link="HEAD_LINK1" />
     <!--child  link="head" /--> <!-- for drcsim / multisense_sl_description -->
     <child  link="multisense/head_root" /> <!-- for multisense / multisense_description -->
-    <origin xyz="0.07595 0 0.19825" rpy="0 0 0"/>
+    <!--origin xyz="0.07595 0 0.19825" rpy="0 0 0"/-->
+    <origin xyz="0.0832703049 -0.0076383991 0.1989256909" rpy="0.0288834088 0.0091750864 0.0131467637" /> <!-- calibrated 2015.01.21-->
   </joint>
 
   <link name="LARM_LINK7">
@@ -84,4 +85,12 @@
 
   <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/robotiq_l.urdf.xacro" />
   <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/robotiq_r.urdf.xacro" />
+  <!-- for calibration / original offset of camera_frame
+  <link name="multisense/left_camera_optical_frame" />
+  <joint name="multisense/left_camera_optical_frame_joint" type="fixed">
+    <parent link="HEAD_LINK1" />
+    <child  link="multisense/left_camera_optical_frame" />
+    <origin xyz="0.07595 0.035 0.19625" rpy="-1.5707960129 0 -1.5707960129"/>
+  </joint>
+  -->
 </robot>
