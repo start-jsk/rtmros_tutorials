@@ -1,0 +1,18 @@
+<launch>
+  <rosparam command="load"
+            file="$(find hrpsys_ros_bridge_tutorials)/models/HRP4R_controller_config.yaml" />
+
+  <node pkg="tf" type="static_transform_publisher" name="sensor_transform_0"
+        args="0 0 0 0 0 0 /L_ANKLE_R_LINK lfsensor 100" />
+  <node pkg="tf" type="static_transform_publisher" name="sensor_transform_1"
+        args="0 0 0 0 0 0 /R_ANKLE_R_LINK rfsensor 100" />
+  <node pkg="tf" type="static_transform_publisher" name="sensor_transform_4"
+        args="0 0 0 0 0 0 /BODY gyrometer 100" />
+
+  <include file="$(find hrpsys_gazebo_general)/launch/robot_hrpsys_bringup.launch">
+    <arg name="ROBOT_TYPE" value="HRP4R" />
+    <arg name="CONF_DIR" value="$(find hrpsys_ros_bridge_tutorials)/models" />
+    <arg name="USE_INSTANCE_NAME" value="true" />
+    <arg name="HRPSYS_PY_ARGS" value="--use-unstable-rtc" />
+  </include>
+</launch>
