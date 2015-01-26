@@ -19,7 +19,11 @@ endif()
 set(OPENHRP_SAMPLE_DIR ${OPENHRP_IDL_DIR}/../sample)
 
 if(NOT EXISTS ${hrpsys_ros_bridge_SOURCE_DIR}) # for installed package
-  set(hrpsys_ros_bridge_SOURCE_DIR ${hrpsys_ros_bridge_PREFIX}/share/hrpsys_ros_bridge)
+  if(EXISTS ${hrpsys_ros_bridge_SOURCE_PREFIX}) # for installed package
+    set(hrpsys_ros_bridge_SOURCE_DIR ${hrpsys_ros_bridge_SOURCE_PREFIX})
+  else()
+    set(hrpsys_ros_bridge_SOURCE_DIR ${hrpsys_ros_bridge_PREFIX}/share/hrpsys_ros_bridge)
+  endif(EXISTS ${hrpsys_ros_bridge_SOURCE_PREFIX})
 endif()
 
 catkin_package(
@@ -271,12 +275,16 @@ generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/s
 # find xacro
 if(EXISTS ${xacro_SOURCE_DIR}/xacro.py)
   set(xacro_exe ${xacro_SOURCE_DIR}/xacro.py)
+elseif(EXISTS ${xacro_SOURCE_PREFIX}/xacro.py)
+  set(xacro_exe ${xacro_SOURCE_PREFIX}/xacro.py)
 else(EXISTS ${xacro_SOURCE_DIR}/xacro.py)
   set(xacro_exe ${xacro_PREFIX}/share/xacro/xacro.py)
 endif(EXISTS ${xacro_SOURCE_DIR}/xacro.py)
 
 if (euscollada_SOURCE_DIR)
   set(euscollada_PACKAGE_PATH ${euscollada_SOURCE_DIR})
+elseif (euscollada_SOURCE_PREFIX)
+  set(euscollada_PACKAGE_PATH ${euscollada_SOURCE_PREFIX})
 else (euscollada_SOURCE_DIR)
   set(euscollada_PACKAGE_PATH ${euscollada_PREFIX}/share/euscollada)
 endif(euscollada_SOURCE_DIR)
@@ -417,6 +425,9 @@ if(EXISTS $ENV{CVSDIR}/euslib/rbrain/jaxon/l_hand_attached_link.dae)
   find_package(multisense_description)
   if(${multisense_description_FOUND})
     find_package(jaxon_description)
+    if(NOT jaxon_description_SOURCE_DIR AND jaxon_description_SOURCE_PREFIX)
+      set(jaxon_description_SOURCE_DIR ${jaxon_description_SOURCE_PREFIX})
+    endif(NOT jaxon_description_SOURCE_DIR AND jaxon_description_SOURCE_PREFIX)
     if(NOT jaxon_description_SOURCE_DIR)
       execute_process(
         COMMAND rospack find jaxon_description
