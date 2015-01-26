@@ -11,6 +11,10 @@ pkg_check_modules(collada_urdf_jsk_patch collada_urdf_jsk_patch)
 
 catkin_package(CATKIN_DEPENDS euscollada hrpsys_ros_bridge hrpsys_ros_bridge_tutorials hrpsys_gazebo_general)
 
+if(NOT hrpsys_ros_bridge_tutorials_SOURCE_DIR AND hrpsys_ros_bridge_tutorials_SOURCE_PREFIX)
+  set(hrpsys_ros_bridge_tutorials_SOURCE_DIR ${hrpsys_ros_bridge_tutorials_SOURCE_PREFIX})
+endif(NOT hrpsys_ros_bridge_tutorials_SOURCE_DIR AND hrpsys_ros_bridge_tutorials_SOURCE_PREFIX)
+
 if(NOT hrpsys_ros_bridge_tutorials_SOURCE_DIR)
   execute_process(
     COMMAND rospack find hrpsys_ros_bridge_tutorials
@@ -21,6 +25,8 @@ endif()
 ## Convert robot models
 if(EXISTS ${hrpsys_gazebo_general_SOURCE_DIR})
   set(hrpsys_gazebo_general_PACKAGE_PATH ${hrpsys_gazebo_general_SOURCE_DIR})
+elseif(EXISTS ${hrpsys_gazebo_general_SOURCE_PREFIX})
+  set(hrpsys_gazebo_general_PACKAGE_PATH ${hrpsys_gazebo_general_SOURCE_PREFIX})
 else()
   set(hrpsys_gazebo_general_PACKAGE_PATH ${hrpsys_gazebo_general_PREFIX}/share/hrpsys_gazebo_general)
 endif()
