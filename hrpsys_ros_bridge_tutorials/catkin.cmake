@@ -41,7 +41,7 @@ if(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
     --conf-file-option "virtual_force_sensor: vlhsensor, CHEST_Y, L_HAND_J0, 0,0,0, 0,0,1,0, vrhsensor, CHEST_Y, R_HAND_J0, 0,0,0, 0,0,1,0"
     --conf-file-option "abc_leg_offset: 0.0, 0.06845, 0.0"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
-)
+  )
 endif(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
 
 if(EXISTS ${OPENHRP_SAMPLE_DIR}/model/PA10/pa10.main.wrl)
@@ -56,7 +56,7 @@ compile_openhrp_model(
   --conf-file-option "end_effectors: lleg,LLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, rleg,RLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, larm,LARM_WRIST_P,CHEST,0.0,0,-0.12,0,1.0,0.0,1.5708, rarm,RARM_WRIST_P,CHEST,0.0,0,-0.12,0,1.0,0.0,1.5708,"
   --conf-file-option "collision_pair: RARM_WRIST_P:WAIST LARM_WRIST_P:WAIST RARM_WRIST_P:RLEG_HIP_R LARM_WRIST_P:LLEG_HIP_R RARM_WRIST_R:RLEG_HIP_R LARM_WRIST_R:LLEG_HIP_R"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
-)
+  )
 else()
   get_cmake_property(_variableNames VARIABLES)
   foreach (_variableName ${_variableNames})
@@ -77,6 +77,7 @@ macro(compile_model_for_closed_robots _robot_wrl_file _OpenHRP2_robot_name)
       ${_robot_wrl_file}
       ${_OpenHRP2_robot_name}
       ${ARGN})
+    set(compile_robots ${compile_robots} PARENT_SCOPE)
   else()
     message("\n\n\n\n ${_robot_wrl_file} is not found..\n\n\n\n")
   endif()
@@ -86,12 +87,14 @@ macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP
     $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
+  set(compile_robots ${compile_robots} PARENT_SCOPE)
 endmacro()
 macro(compile_rbrain_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
   compile_model_for_closed_robots(
     $ENV{CVSDIR}/euslib/rbrain/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
+  set(compile_robots ${compile_robots} PARENT_SCOPE)
 endmacro()
 macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
   if (EXISTS $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
@@ -134,6 +137,7 @@ compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
   --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,0.0,0.0169,-0.174,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,0.0,-0.0169,-0.174,0.0,1.0,0.0,1.5708,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
+
 gen_minmax_table_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK)
 
 compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSKNT
@@ -297,8 +301,8 @@ macro (generate_hand_attached_hrp2_model _robot_name)
   set(_script_file "${PROJECT_SOURCE_DIR}/models/gen_hand_attached_hrp2_model.sh")
   message("generate hand_attached_hrp2_model for ${_robot_name}")
   add_custom_command(OUTPUT ${_out_urdf_file}
-      COMMAND ${_script_file} ${_robot_name} ${_in_urdf_file} ${PROJECT_SOURCE_DIR}/..
-      DEPENDS ${_in_urdf_file})
+      COMMAND ${_script_file} ${_robot_name} ${_in_urdf_file} ${euscollada_PACKAGE_PATH}
+      DEPENDS ${_in_urdf_file} ${_script_file})
   add_custom_target(${_robot_name}_model_generate DEPENDS ${_out_urdf_file})
   list(APPEND compile_urdf_robots ${_robot_name}_model_generate)
 endmacro()
@@ -377,7 +381,7 @@ macro (generate_hand_attached_staro_model _robot_name)
   set(_script_file "${PROJECT_SOURCE_DIR}/models/gen_hand_attached_staro_model.sh")
   message("generate hand_attached_staro_model for ${_robot_name}")
   add_custom_command(OUTPUT ${_out_urdf_file}
-      COMMAND ${_script_file} ${_robot_name} ${_in_urdf_file} ${PROJECT_SOURCE_DIR}/..
+      COMMAND ${_script_file} ${_robot_name} ${_in_urdf_file} ${euscollada_PACKAGE_PATH}
       DEPENDS ${_in_urdf_file})
   add_custom_target(${_robot_name}_model_generate DEPENDS ${_out_urdf_file})
   list(APPEND compile_${_robot_name}_urdf_robots ${_robot_name}_model_generate)
@@ -410,9 +414,10 @@ macro (attach_sensor_and_endeffector_to_staro_urdf
 endmacro()
 
 if(EXISTS $ENV{CVSDIR}/euslib/rbrain/staro/l_hand_attached_link.dae)
-  find_package(multisense_description)
-  find_package(robotiq_hand_description)
-  if(${multisense_description_FOUND} AND ${robotiq_hand_description_FOUND})
+  find_package(PkgConfig)
+  pkg_check_modules(multisense_description multisense_description QUIET)
+  pkg_check_modules(robotiq_hand_description robotiq_hand_description QUIET)
+  if(multisense_description_FOUND AND robotiq_hand_description_FOUND)
     generate_staro_hand_model(STARO staro)
     generate_hand_attached_staro_model(STARO)
     run_xacro_for_hand_staro_model(STARO)
