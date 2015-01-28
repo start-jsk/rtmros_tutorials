@@ -7,27 +7,11 @@ trap error ERR
 
 ROBOT_MODEL=$1
 INPUT_FILE=$2
-ADDITIONAL_ROS_PACKAGE_PATH=$3
-BODY_FILE=`echo ${INPUT_FILE} | sed "s/.urdf/_body.urdf/g"`
-export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$ADDITIONAL_ROS_PACKAGE_PATH
+EUSCOLLADA_PATH=$3
+BODY_FILE=${INPUT_FILE//.urdf/_body.urdf}
 
-# make tmp file
-cp ${INPUT_FILE} ${BODY_FILE}
-
-# remove HEAD_LINK1
-L_START=`grep -n "<link name=\"HEAD_LINK1\"" -m 1 ${BODY_FILE} -m 1 | cut -f1 -d:`
-L_END=$(sed -n "${L_START},\$p" ${BODY_FILE} | grep -n "<\/gazebo>" -m 1 | cut -f1 -d:) ##
-L_END=`expr ${L_START} + ${L_END} - 1`
-sed -i -e "${L_START},${L_END}d" ${BODY_FILE}
-
-# remove LARM_LINK7
-L_START=`grep -n "<link name=\"LARM_LINK7\"" -m 1 ${BODY_FILE} -m 1 | cut -f1 -d:`
-L_END=$(sed -n "${L_START},\$p" ${BODY_FILE} | grep -n "<\/gazebo>" -m 1 | cut -f1 -d:) ##
-L_END=`expr ${L_START} + ${L_END} - 1`
-sed -i -e "${L_START},${L_END}d" ${BODY_FILE}
-
-# remove RARM_LINK7
-L_START=`grep -n "<link name=\"RARM_LINK7\"" ${BODY_FILE} -m 1 | cut -f1 -d:`
-L_END=$(sed -n "${L_START},\$p" ${BODY_FILE} | grep -n "<\/gazebo>" -m 1 | cut -f1 -d:) ##
-L_END=`expr ${L_START} + ${L_END} - 1`
-sed -i -e "${L_START},${L_END}d" ${BODY_FILE}
+tmp1=`mktemp`
+tmp2=`mktemp`
+${EUSCOLLADA_PATH}/scripts/remove_sensor_from_urdf.py HEAD_LINK1 $INPUT_FILE $tmp1
+${EUSCOLLADA_PATH}/scripts/remove_sensor_from_urdf.py LARM_LINK7 $tmp1 $tmp2
+${EUSCOLLADA_PATH}/scripts/remove_sensor_from_urdf.py RARM_LINK7 $tmp2 $BODY_FILE
