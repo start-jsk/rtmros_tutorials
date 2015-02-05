@@ -64,6 +64,62 @@ larm-end-coords:
   rotate    : [0.0, 1.0, 0.0, 90.0]
   parent : LARM_LINK6
 
+sensors:
+  - sensor_name: lfsensor
+    parent_link: LLEG_LINK5
+    translate: '0 0 -0.105'
+    sensor_type: 'base_force6d'
+  - sensor_name: rfsensor
+    parent_link: RLEG_LINK5
+    translate: '0 0 -0.105'
+    sensor_type: 'base_force6d'
+  - sensor_name: lhsensor
+    parent_link: LARM_LINK6
+    translate: '0 0 -0.077'
+    sensor_type: 'base_force6d'
+  - sensor_name: rhsensor
+    parent_link: RARM_LINK6
+    translate: '0 0 -0.077'
+    sensor_type: 'base_force6d'
+  - sensor_name: CARMINE
+    parent_link: HEAD_LINK1
+    translate: '0.093 0.017 0.131'
+    rotate: '-0.606685 0.62878 -0.486384 126.205'
+    sensor_type: 'camera'
+  - sensor_name: camera_link
+    parent_link: CARMINE
+    translate: '-0.045 0.0 0.0'
+    rotate: '0.577311 -0.577311 0.577429 120.013'
+    sensor_type: 'camera'
+  - sensor_name: camera_rgb_frame
+    parent_link: camera_link
+    translate: '0 -0.045 0'
+    sensor_type: 'camera'
+  - sensor_name: camera_rgb_optical_frame
+    parent_link: camera_rgb_frame
+    translate: '0 0 0'
+    rotate: '-0.577311 0.577429 -0.577311 120.013'
+    sensor_type: 'camera'
+  - sensor_name: camera_depth_frame
+    parent_link: camera_link
+    translate: '0 -0.02 0'
+    sensor_type: 'camera'
+  - sensor_name: camera_depth_optical_frame
+    parent_link: camera_depth_frame
+    tranlsate: '0 0 0'
+    rotate: '-0.577311 0.577429 -0.577311 120.013'
+    sensor_type: 'camera'
+  - sensor_name: LARM_cb_jig
+    parent_link: LARM_LINK6
+    translate: '0 0.2 -0.2'
+    rotate: '0.0 0.0 1.0 90'
+    sensor_type: 'camera'
+  - sensor_name: RARM_cb_jig
+    parent_link: RARM_LINK6
+    translate: '0 -0.2 -0.2'
+    rotate: '0.0 0.0 1.0 90'
+    sensor_type: 'camera'
+
 ##
 ## reset-pose
 ##
