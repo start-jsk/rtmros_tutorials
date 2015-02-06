@@ -26,6 +26,13 @@ if(NOT EXISTS ${hrpsys_ros_bridge_SOURCE_DIR}) # for installed package
   endif(EXISTS ${hrpsys_ros_bridge_SOURCE_PREFIX})
 endif()
 
+find_package(hrpsys QUIET) # on indigo, hrpsys is not ros package
+if(NOT ${hrpsys_FOUND})
+  find_package(PkgConfig)
+  pkg_check_modules(hrpsys hrpsys-base REQUIRED)
+endif()
+
+
 catkin_package(
     DEPENDS
     CATKIN_DEPENDS hrpsys_ros_bridge euscollada
@@ -341,11 +348,14 @@ if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   generate_hand_attached_hrp2_model(HRP2JSKNT)
   generate_hand_attached_hrp2_model(HRP2JSKNTS)
   run_xacro_for_hand_hrp2_model(HRP2JSKNT)
-  run_xacro_for_hand_hrp2_model(HRP2JSKNTS)
   attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNT_WH.urdf
     HRP2JSKNT_WH_SENSORS.urdf hrp2jsknt.yaml)
-  attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNTS_WH.urdf
-    HRP2JSKNTS_WH_SENSORS.urdf hrp2jsknts.yaml)
+  pkg_check_modules(multisense_description multisense_description QUIET)
+  if(multisense_description_FOUND)
+    run_xacro_for_hand_hrp2_model(HRP2JSKNTS)
+    attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNTS_WH.urdf
+      HRP2JSKNTS_WH_SENSORS.urdf hrp2jsknts.yaml)
+  endif(multisense_description_FOUND)
   add_custom_target(all_robots_model_generate ALL DEPENDS ${compile_urdf_robots})
 endif()
 
