@@ -26,6 +26,13 @@ if(NOT EXISTS ${hrpsys_ros_bridge_SOURCE_DIR}) # for installed package
   endif(EXISTS ${hrpsys_ros_bridge_SOURCE_PREFIX})
 endif()
 
+find_package(hrpsys QUIET) # on indigo, hrpsys is not ros package
+if(NOT ${hrpsys_FOUND})
+  find_package(PkgConfig)
+  pkg_check_modules(hrpsys hrpsys-base REQUIRED)
+endif()
+
+
 catkin_package(
     DEPENDS
     CATKIN_DEPENDS hrpsys_ros_bridge euscollada
