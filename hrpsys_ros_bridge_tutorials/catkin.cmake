@@ -440,7 +440,7 @@ endif()
 
 if(EXISTS $ENV{CVSDIR}/euslib/rbrain/jaxon/l_hand_attached_link.dae)
   find_package(multisense_description)
-  if(${multisense_description_FOUND})
+  if(multisense_description_FOUND)
     find_package(jaxon_description)
     if(NOT jaxon_description_SOURCE_DIR AND jaxon_description_SOURCE_PREFIX)
       set(jaxon_description_SOURCE_DIR ${jaxon_description_SOURCE_PREFIX})
