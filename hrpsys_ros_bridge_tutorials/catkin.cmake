@@ -337,6 +337,20 @@ macro (attach_sensor_and_endeffector_to_hrp2jsk_urdf
   list(APPEND compile_urdf_robots ${_out_file}_generate)
 endmacro()
 
+macro (attach_sensor_and_endeffector_to_hrp2w_urdf
+    _urdf_file _out_file _yaml_file)
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  set(_in_urdf_file "${_model_dir}/${_urdf_file}")
+  set(_in_yaml_file "${_model_dir}/${_yaml_file}")
+  set(_out_urdf_file "${_model_dir}/${_out_file}")
+  set(_script_file "${_model_dir}/gen_sensor_attached_hrp2w_model.sh")
+  add_custom_command(OUTPUT ${_out_urdf_file}
+    COMMAND ${_script_file} ${euscollada_PACKAGE_PATH} ${_in_urdf_file} ${_out_urdf_file} ${_in_yaml_file}
+    DEPENDS ${_in_urdf_file} ${_in_yaml_file} ${_script_file})
+  add_custom_target(${_out_file}_generate DEPENDS ${_out_urdf_file})
+  list(APPEND compile_urdf_robots ${_out_file}_generate)
+endmacro()
+
 if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   generate_hand_attached_hrp2_model(HRP2JSKNT)
   generate_hand_attached_hrp2_model(HRP2JSKNTS)
@@ -345,7 +359,10 @@ if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNT_WH.urdf
     HRP2JSKNT_WH_SENSORS.urdf hrp2jsknt.yaml)
   attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNTS_WH.urdf
-    HRP2JSKNTS_WH_SENSORS.urdf hrp2jsknts.yaml)
+    HRP2JSKNTS_WH_SENSORS.urdf hrp2jsknts.yaml)  
+   attach_sensor_and_endeffector_to_hrp2w_urdf(HRP2W.urdf
+    HRP2W_SENSORS.urdf hrp2w.yaml)
+
   add_custom_target(all_robots_model_generate ALL DEPENDS ${compile_urdf_robots})
 endif()
 
