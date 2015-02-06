@@ -26,6 +26,7 @@ notifications:
       - youhei@jsk.t.u-tokyo.ac.jp
       - ueda@jsk.t.u-tokyo.ac.jp
       - noazawa@jsk.t.u-tokyo.ac.jp
+      - iiysaito@opensource-robotics.tokyo.jp
     on_success: always #[always|never|change] # default: change
     on_failure: always #[always|never|change] # default: always
 script: source .travis/travis.sh
