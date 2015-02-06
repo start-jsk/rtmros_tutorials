@@ -304,11 +304,12 @@ macro (generate_hand_attached_hrp2_model _robot_name)
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
   set(_in_urdf_file "${_model_dir}/${_robot_name}.urdf")
   set(_out_urdf_file "${_model_dir}/${_robot_name}_body.urdf")
+  set(_script_file "${euscollada_PACKAGE_PATH}/scripts/remove_sensor_from_urdf.py")
   string(TOLOWER ${_robot_name} _srobot_name)
-  set(_script_file "${PROJECT_SOURCE_DIR}/models/gen_hand_attached_hrp2_model.sh")
   message("generate hand_attached_hrp2_model for ${_robot_name}")
   add_custom_command(OUTPUT ${_out_urdf_file}
-      COMMAND ${_script_file} ${_robot_name} ${_in_urdf_file} ${euscollada_PACKAGE_PATH}
+      COMMAND ${_script_file}
+      LARM_LINK6 RARM_LINK6 ${_in_urdf_file} ${_out_urdf_file}
       DEPENDS ${_in_urdf_file} ${_script_file})
   add_custom_target(${_robot_name}_model_generate DEPENDS ${_out_urdf_file})
   list(APPEND compile_urdf_robots ${_robot_name}_model_generate)
