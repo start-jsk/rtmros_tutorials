@@ -143,6 +143,8 @@ compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,0.0,0.0169,-0.174,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,0.0,-0.0169,-0.174,0.0,1.0,0.0,1.5708,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  --conf-dt-option "0.004"
+  --simulation-timestep-option "0.004"
   )
 
 gen_minmax_table_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK)
@@ -151,17 +153,23 @@ compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSK
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  --conf-dt-option "0.004"
+  --simulation-timestep-option "0.004"
   )
 gen_minmax_table_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSKNT)
 compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  --conf-dt-option "0.004"
+  --simulation-timestep-option "0.004"
   )
 gen_minmax_table_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS)
 compile_openhrp_model_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W
   --conf-file-option "end_effectors: rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  --conf-dt-option "0.004"
+  --simulation-timestep-option "0.004"
   )
 gen_minmax_table_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W)
 # compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_WITH_3HAND HRP2JSKNT_WITH_3HAND
