@@ -447,13 +447,14 @@ if(EXISTS $ENV{CVSDIR}/euslib/rbrain/staro/l_hand_attached_link.dae)
 endif()
 
 if(EXISTS $ENV{CVSDIR}/euslib/rbrain/jaxon/l_hand_attached_link.dae)
-  find_package(multisense_description)
+  find_package(multisense_description QUIET)
+  find_package(jaxon_description QUIET)
   if(multisense_description_FOUND)
     find_package(jaxon_description)
     if(NOT jaxon_description_SOURCE_DIR AND jaxon_description_SOURCE_PREFIX)
       set(jaxon_description_SOURCE_DIR ${jaxon_description_SOURCE_PREFIX})
     endif(NOT jaxon_description_SOURCE_DIR AND jaxon_description_SOURCE_PREFIX)
-    if(NOT jaxon_description_SOURCE_DIR)
+    if(jaxon_description_FOUND AND NOT jaxon_description_SOURCE_DIR)
       execute_process(
         COMMAND rospack find jaxon_description
         OUTPUT_VARIABLE jaxon_description_SOURCE_DIR)
