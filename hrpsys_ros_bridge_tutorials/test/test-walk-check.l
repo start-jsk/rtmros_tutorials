@@ -26,24 +26,28 @@
 
 (defun test-walk-right ()
   "Test program for right ward walking."
-  (send *ri* :go-pos 0 -0.2 0)
+  (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.1 10.0 0.05))
+  (send *ri* :go-pos 0 -0.3 0)
+  (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.05 10.0 0.05))
   )
 
 (defun test-walk-left ()
   "Test program for left ward walking."
-  (send *ri* :go-pos 0 0.2 0)
+  (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.1 10.0 0.05))
+  (send *ri* :go-pos 0 0.3 0)
+  (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.05 10.0 0.05))
   )
 
 (defun test-walk-right-turn ()
   "Test program for right turn."
-  (send *ri* :set-gait-generator-param :stride-parameter #f(0.2 0.05 10.0 0.05))
+  (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.05 15.0 0.05))
   (send *ri* :go-pos 0 0 -90)
   (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.05 10.0 0.05))
   )
 
 (defun test-walk-left-turn ()
   "Test program for left turn."
-  (send *ri* :set-gait-generator-param :stride-parameter #f(0.2 0.05 10.0 0.05))
+  (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.05 15.0 0.05))
   (send *ri* :go-pos 0 0 90)
   (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.05 10.0 0.05))
   )
