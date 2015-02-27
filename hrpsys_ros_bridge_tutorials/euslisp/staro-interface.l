@@ -158,5 +158,4 @@
   (if (not (boundp '*staro*))
       (setq *staro* (instance staro-robot :init)))
   (unless (boundp '*irtviewer*) (make-irtviewer :width 320 :height 320) (send *irtviewer* :change-background #f(0.3 0.5 0.7)))
-  (objects (list *staro*))
   )
