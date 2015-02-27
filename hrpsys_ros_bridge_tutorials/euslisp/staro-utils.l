@@ -1,5 +1,49 @@
 (require :staro "package://hrpsys_ros_bridge_tutorials/models/staro.l")
 
+;; add robotiq hand model to *staro*
+(if (ros::rospack-find "robotiq_s_model_control")
+    (progn (load "package://staro_ros_bridge/euslisp/s-model_articulated.l")
+           ;; STARO-robot has only robotiq model
+           (unless (assoc :init-org (send STARO-robot :methods))
+             (rplaca (assoc :init (send STARO-robot :methods)) :init-org))
+           (defmethod STARO-robot
+             (:init
+              (&rest args)
+              (prog1
+                  (send* self :init-org args)
+                (send self :put :lhand-model (instance s-model_articulated-robot :init))
+                (send self :put :rhand-model (instance s-model_articulated-robot :init))
+                ;; RobotiqHand model is already in wrl of staro
+                ;; (mapcar #'(lambda (l lm)
+                ;;             (send (send self :get lm) :newcoords
+                ;;                   (send (send self l :end-coords :parent) :copy-worldcoords))
+                ;;             (send (send self l :end-coords :parent) :assoc (send self :get lm)))
+                ;;         '(:larm :rarm) '(:lhand-model :rhand-model))
+                ;; (setq bodies (append bodies
+                ;;                      (send (send self :get :lhand-model) :bodies)
+                ;;                      (send (send self :get :rhand-model) :bodies)))
+                ))
+             (:hand (arm &rest args)
+                    (let (target ret)
+                      (case arm
+                        (:larm
+                         (setq target (send self :get :lhand-model))
+                         (setq ret (forward-message-to target args)))
+                        (:rarm
+                         (setq target (send self :get :rhand-model))
+                         (setq ret (forward-message-to target args)))
+                        ((:both :arms)
+                         (setq target (send self :get :lhand-model))
+                         (push (forward-message-to target args) ret)
+                         (setq target (send self :get :rhand-model))
+                         (push (forward-message-to target args) ret))
+                        )
+                      ret))
+             )           
+           )
+  (warn  "~c[33m [WARN] robotiq_s_model_control for RobotiqHand cannnot be found. skip definition for RobotiqHand methods. ~c[m~%" #x1b #x1b) ;; ~c: escape sequence
+  )
+
 ;; add contact end-coords to landing with yukizaki attachment
 (defmethod STARO-robot
   (:limb

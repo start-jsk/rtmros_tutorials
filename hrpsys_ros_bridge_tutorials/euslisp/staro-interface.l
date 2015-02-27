@@ -8,16 +8,15 @@
 (defmethod staro-interface
   (:init
    (&rest args)
-   (prog1
-       (send-super :init :robot staro-robot)
+   (prog1 (send-super :init :robot staro-robot)
      ;; add controller
-     (send self :add-controller :larm-controller :create-actions t)
-     (send self :add-controller :rarm-controller :create-actions t)
-     (send self :add-controller :lleg-controller :create-actions t)
-     (send self :add-controller :rleg-controller :create-actions t)
-     (send self :add-controller :torso-controller :create-actions t)
-     (send self :add-controller :head-controller :create-actions t)
-     ;; add robotiq
+     (send self :add-controller :larm-controller :joint-enable-check t :create-actions t)
+     (send self :add-controller :rarm-controller :joint-enable-check t :create-actions t)
+     (send self :add-controller :lleg-controller :joint-enable-check t :create-actions t)
+     (send self :add-controller :rleg-controller :joint-enable-check t :create-actions t)
+     (send self :add-controller :torso-controller :joint-enable-check t :create-actions t)
+     (send self :add-controller :head-controller :joint-enable-check t :create-actions t)
+     ;; add robotiq-interface to *ri*
      (if (ros::rospack-find "robotiq_s_model_control")
          (progn
            (load "package://staro_ros_bridge/euslisp/robotiq-interface.l")
