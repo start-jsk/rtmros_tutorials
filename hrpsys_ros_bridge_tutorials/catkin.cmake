@@ -357,13 +357,13 @@ if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   generate_hand_attached_hrp2_model(HRP2JSKNT)
   generate_hand_attached_hrp2_model(HRP2JSKNTS)
   run_xacro_for_hand_hrp2_model(HRP2JSKNT)
-  attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNT_WH.urdf
-    HRP2JSKNT_WH_SENSORS.urdf hrp2jsknt.yaml)
   pkg_check_modules(multisense_description multisense_description QUIET)
   if(multisense_description_FOUND)
     run_xacro_for_hand_hrp2_model(HRP2JSKNTS)
     attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNTS_WH.urdf
       HRP2JSKNTS_WH_SENSORS.urdf hrp2jsknts.yaml)
+    attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNT_WH.urdf
+      HRP2JSKNT_WH_SENSORS.urdf hrp2jsknt.yaml)
   endif(multisense_description_FOUND)
   add_custom_target(all_robots_model_generate ALL DEPENDS ${compile_urdf_robots})
 endif()
