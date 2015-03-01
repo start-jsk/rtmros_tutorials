@@ -134,13 +134,13 @@
    (let* ((controller-info (car (send self controller)))
           (groupname (cdr (assoc :group-name controller-info)))
           (jointnames (cdr (assoc :joint-names controller-info)))
-          (current-angle-vector (send self :state :potentio-vector)))
+          (current-reference (send self :state :reference-vector)))
      (warn "sync controller ~A~%" controller)
-     (send self :angle-vector current-angle-vector interpolation-time controller)
+     (send self :angle-vector current-reference interpolation-time controller)
      (when blockp
        (send self :wait-interpolation)
        )
-     (send self :angle-vector current-angle-vector interpolation-time :default-controller)
+     (send self :angle-vector current-reference interpolation-time :default-controller)
      (when blockp
        (send self :wait-interpolation)
        )
