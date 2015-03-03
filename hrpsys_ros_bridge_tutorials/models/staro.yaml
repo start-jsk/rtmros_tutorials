@@ -48,7 +48,7 @@ rleg-end-coords:
   translate : [0.0, 0, -0.096]
 lleg-end-coords:
   translate : [0.0, 0, -0.096]
-# straigh ver
+# straight ver
 rarm-end-coords:
   translate : [0, -0.1893, 0]
   rotate : [0.678598, -0.678598, -0.281085, 148.6]
