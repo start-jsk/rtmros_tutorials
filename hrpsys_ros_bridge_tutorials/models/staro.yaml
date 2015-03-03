@@ -55,9 +55,6 @@ rarm-end-coords:
 larm-end-coords:
   translate : [0, 0.1893, 0]
   rotate : [-0.678598, -0.678598, 0.281085, 148.6]
-# larm-end-coords:
-#   translate : [0, 0.1893, 0]
-#   rotate : [0.281085, 0.678598, -0.678598, 148.6]
 # side version
 # contact-end-coords
 # rarm-end-coords:
