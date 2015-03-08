@@ -252,7 +252,7 @@ compile_rbrain_model_for_closed_robots(JAXON jaxon JAXON
   --simulation-timestep-option "0.002"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
-  --conf-file-option "end_effectors: rarm,RARM_JOINT7,CHEST_JOINT2,-0.055,0.0,-0.237,-0.57735,0.57735,0.57735,2.0944, larm,LARM_JOINT7,CHEST_JOINT2,-0.055,0.0,-0.237,0.57735,0.57735,-0.57735,2.0944, rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0,"
+  --conf-file-option "end_effectors: rarm,RARM_JOINT7,CHEST_JOINT2,-0.055,0.0,-0.237,-0.57735,0.57735,0.57735,2.0944, larm,LARM_JOINT7,CHEST_JOINT2,-0.055,0.0,-0.237,0.57735,0.57735,-0.57735,2.0944, rleg,RLEG_JOINT5,BODY,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,BODY,0.0,0.0,-0.096,0.0,0.0,0.0,0.0,"
 )
 
 if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
