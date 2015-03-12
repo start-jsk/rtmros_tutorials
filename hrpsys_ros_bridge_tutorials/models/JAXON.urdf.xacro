@@ -38,13 +38,13 @@
     <visual>
       <origin xyz="0 0.0 0" rpy="0 -0 0"/>
       <geometry>
-        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_meshes/l_hand_attached_link.dae" scale="0.0254 0.0254 0.0254" />
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_meshes/l_hand_attached_link.dae" scale="1 1 1" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0.0 0" rpy="0 -0 0"/>
       <geometry>
-        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_meshes/l_hand_attached_link.dae" scale="0.0254 0.0254 0.0254" />
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_meshes/l_hand_attached_link.dae" scale="1 1 1" />
       </geometry>
     </collision>
     <inertial> <!-- mass propaties should be corrected -->
@@ -63,13 +63,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 -0 0"/>
       <geometry>
-        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_meshes/r_hand_attached_link.dae" scale="0.0254 0.0254 0.0254" />
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_meshes/r_hand_attached_link.dae" scale="1 1 1" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 -0 0"/>
       <geometry>
-        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_meshes/r_hand_attached_link.dae" scale="0.0254 0.0254 0.0254" />
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_meshes/r_hand_attached_link.dae" scale="1 1 1" />
       </geometry>
     </collision>
     <inertial> <!-- mass propaties should be corrected -->
