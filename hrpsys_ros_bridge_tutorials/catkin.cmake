@@ -356,6 +356,21 @@ macro (attach_sensor_and_endeffector_to_hrp2jsk_urdf
   list(APPEND compile_urdf_robots ${_out_file}_generate)
 endmacro()
 
+# for HRP2JSK + multisense
+pkg_check_modules(multisense_description multisense_description QUIET)
+if(multisense_description_FOUND)
+  # generate HRP2JSK_WH.urdf from HRP2JSK.urdf.xacro
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  add_custom_command(OUTPUT ${_model_dir}/HRP2JSK_WH.urdf
+    COMMAND ${xacro_exe} ${_model_dir}/HRP2JSK.urdf.xacro > ${_model_dir}/HRP2JSK_WH.urdf
+    DEPENDS ${_model_dir}/HRP2JSK.urdf.xacro ${_model_dir}/HRP2JSK.urdf)
+  # generate HRP2JSK_WH_SENSORS.urdf from HRP2JSK_WH.urdf and yaml
+  attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSK_WH.urdf
+    HRP2JSK_WH_SENSORS.urdf hrp2jsk.yaml)
+  add_custom_target(HRP2JSK_model_generate DEPENDS ${_model_dir}/HRP2JSK_WH_SENSORS.urdf)
+  list(APPEND compile_urdf_robots HRP2JSK_model_generate)
+endif(multisense_description_FOUND)
+
 if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   generate_hand_attached_hrp2_model(HRP2JSKNT)
   generate_hand_attached_hrp2_model(HRP2JSKNTS)
