@@ -2,24 +2,6 @@
 ## - collada_joint_name : euslisp_joint_name (start with :)
 ##
 
-rarm:
-  - RARM_JOINT0  : rarm-shoulder-p
-  - RARM_JOINT1  : rarm-shoulder-r
-  - RARM_JOINT2  : rarm-shoulder-y
-  - RARM_JOINT3  : rarm-elbow-y
-  - RARM_JOINT4  : rarm-elbow-p
-  - RARM_JOINT5  : rarm-wrist-y
-  - RARM_JOINT6  : rarm-wrist-r
-  - RARM_JOINT7  : rarm-wrist-p
-larm:
-  - LARM_JOINT0  : larm-shoulder-p
-  - LARM_JOINT1  : larm-shoulder-r
-  - LARM_JOINT2  : larm-shoulder-y
-  - LARM_JOINT3  : larm-elbow-y
-  - LARM_JOINT4  : larm-elbow-p
-  - LARM_JOINT5  : larm-wrist-y
-  - LARM_JOINT6  : larm-wrist-r
-  - LARM_JOINT7  : larm-wrist-p
 rleg:
   - RLEG_JOINT0  : rleg-crotch-y
   - RLEG_JOINT1  : rleg-crotch-r
@@ -34,13 +16,31 @@ lleg:
   - LLEG_JOINT3  : lleg-knee-p
   - LLEG_JOINT4  : lleg-ankle-p
   - LLEG_JOINT5  : lleg-ankle-r
-head:
-  - HEAD_JOINT0  : head-neck-y
-  - HEAD_JOINT1  : head-neck-p
 torso:
   - CHEST_JOINT0 : torso-waist-r
   - CHEST_JOINT1 : torso-waist-p
   - CHEST_JOINT2 : torso-waist-y
+head:
+  - HEAD_JOINT0  : head-neck-y
+  - HEAD_JOINT1  : head-neck-p
+rarm:
+  - RARM_JOINT0  : rarm-shoulder-y
+  - RARM_JOINT1  : rarm-shoulder-p
+  - RARM_JOINT2  : rarm-shoulder-r
+  - RARM_JOINT3  : rarm-elbow-y
+  - RARM_JOINT4  : rarm-elbow-p
+  - RARM_JOINT5  : rarm-wrist-y
+  - RARM_JOINT6  : rarm-wrist-r
+  - RARM_JOINT7  : rarm-wrist-p
+larm:
+  - LARM_JOINT0  : larm-shoulder-y
+  - LARM_JOINT1  : larm-shoulder-p
+  - LARM_JOINT2  : larm-shoulder-r
+  - LARM_JOINT3  : larm-elbow-y
+  - LARM_JOINT4  : larm-elbow-p
+  - LARM_JOINT5  : larm-wrist-y
+  - LARM_JOINT6  : larm-wrist-r
+  - LARM_JOINT7  : larm-wrist-p
 
 ##
 ## end-coords
@@ -70,25 +70,25 @@ lleg-end-coords:
 ## reset-pose
 ##
 angle-vector:
-  reset-pose : [0.0, +40.0, -20.0, -5.0, -80.0, 0.0, 0.0, -20.0,
-                0.0, +40.0, +20.0, +5.0, -80.0, 0.0, 0.0, -20.0,
+  reset-pose : [0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
                 0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
-                0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
+                0.0, 0.0, 0.0,
                 0.0, 0.0,
-                0.0, 0.0, 0.0]
-  reset-servo-off-pose : [0.0, -5.0, -20.0, 0.0, -20.0, 0.0, 0.0, 0.0,
-                          0.0, -5.0, +20.0, 0.0, -20.0, 0.0, 0.0, 0.0,
+                0.0, +40.0, -20.0, -5.0, -80.0, 0.0, 0.0, -20.0,
+                0.0, +40.0, +20.0, +5.0, -80.0, 0.0, 0.0, -20.0]
+  reset-servo-off-pose : [0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
                           0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
-                          0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
+                          0.0, 0.0, 0.0,
                           0.0, 0.0,
-                          0.0, 0.0, 0.0]
+                          0.0, -5.0, -20.0, 0.0, -20.0, 0.0, 0.0, 0.0,
+                          0.0, -5.0, +20.0, 0.0, -20.0, 0.0, 0.0, 0.0]
 ### fix arm pose
-  calib-pose : [0.0, 0.0, -30.0, 180.0, +120.0, 180.0, +60.0, 0.0,
-                0.0, 0.0, +30.0, 180.0, -120.0, 180.0, -60.0, 0.0,
+  calib-pose : [0.0, 0.0, -45.0, 90.0, -45.0, 0.0,
                 0.0, 0.0, -45.0, 90.0, -45.0, 0.0,
-                0.0, 0.0, -45.0, 90.0, -45.0, 0.0,
+                0.0, 0.0, 0.0,
                 0.0, 0.0,
-                0.0, 0.0, 0.0]
+                0.0, 0.0, -30.0, 180.0, +120.0, 180.0, +60.0, 0.0,
+                0.0, 0.0, +30.0, 180.0, -120.0, 180.0, -60.0, 0.0]
 
 ##
 ## sensors
