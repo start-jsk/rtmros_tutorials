@@ -1,0 +1,9 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="HRP2JSKNT" >
+  <xacro:include filename="HRP2JSK.urdf" />
+  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
+  <joint name="hrp2_to_multisense" type="fixed">
+    <parent link="HEAD_LINK1" />
+    <child  link="head_root" /> <!-- for multisense / multisense_description -->
+    <origin xyz="0.0 0.0 0.1" rpy="0 0 0" />
+  </joint>
+</robot>
