@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find hironx_moveit_config)/launch/moveit_rviz.launch" >
+    <arg name="config" default="true" />
+  </include>
+</launch>
