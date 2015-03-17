@@ -152,6 +152,7 @@ gen_minmax_table_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK)
 compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSKNT
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
+  --conf-file-option "#end_effectors: rleg,RLEG_JOINT6,WAIST,-0.079411,-0.01,-0.031,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT6,WAIST,-0.079411,0.01,-0.031,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-dt-option "0.004"
   --simulation-timestep-option "0.004"
@@ -160,6 +161,7 @@ gen_minmax_table_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSKNT)
 compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
+  --conf-file-option "#end_effectors: rleg,RLEG_JOINT6,WAIST,-0.079411,-0.01,-0.031,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT6,WAIST,-0.079411,0.01,-0.031,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-dt-option "0.004"
   --simulation-timestep-option "0.004"
@@ -252,7 +254,7 @@ compile_rbrain_model_for_closed_robots(JAXON jaxon JAXON
   --simulation-timestep-option "0.002"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
-  --conf-file-option "end_effectors: rarm,RARM_JOINT7,CHEST_JOINT2,-0.055,0.0,-0.237,-0.57735,0.57735,0.57735,2.0944, larm,LARM_JOINT7,CHEST_JOINT2,-0.055,0.0,-0.237,0.57735,0.57735,-0.57735,2.0944, rleg,RLEG_JOINT5,BODY,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,BODY,0.0,0.0,-0.096,0.0,0.0,0.0,0.0,"
+  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,BODY,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,BODY,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, rarm,RARM_JOINT7,CHEST_JOINT2,-0.055,0.0,-0.237,-0.57735,0.57735,0.57735,2.0944, larm,LARM_JOINT7,CHEST_JOINT2,-0.055,0.0,-0.237,0.57735,0.57735,-0.57735,2.0944,"
 )
 
 if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
@@ -355,6 +357,21 @@ macro (attach_sensor_and_endeffector_to_hrp2jsk_urdf
   add_custom_target(${_out_file}_generate DEPENDS ${_out_urdf_file})
   list(APPEND compile_urdf_robots ${_out_file}_generate)
 endmacro()
+
+# for HRP2JSK + multisense
+pkg_check_modules(multisense_description multisense_description QUIET)
+if(multisense_description_FOUND)
+  # generate HRP2JSK_WH.urdf from HRP2JSK.urdf.xacro
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  add_custom_command(OUTPUT ${_model_dir}/HRP2JSK_WH.urdf
+    COMMAND ${xacro_exe} ${_model_dir}/HRP2JSK.urdf.xacro > ${_model_dir}/HRP2JSK_WH.urdf
+    DEPENDS ${_model_dir}/HRP2JSK.urdf.xacro ${_model_dir}/HRP2JSK.urdf)
+  # generate HRP2JSK_WH_SENSORS.urdf from HRP2JSK_WH.urdf and yaml
+  attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSK_WH.urdf
+    HRP2JSK_WH_SENSORS.urdf hrp2jsk.yaml)
+  add_custom_target(HRP2JSK_model_generate DEPENDS ${_model_dir}/HRP2JSK_WH_SENSORS.urdf)
+  list(APPEND compile_urdf_robots HRP2JSK_model_generate)
+endif(multisense_description_FOUND)
 
 if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   generate_hand_attached_hrp2_model(HRP2JSKNT)

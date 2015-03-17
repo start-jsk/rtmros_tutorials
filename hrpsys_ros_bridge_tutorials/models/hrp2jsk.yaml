@@ -62,13 +62,27 @@ larm-end-coords:
   rotate    : [0.0, 1.0, 0.0, 90.0]
   parent    : LARM_LINK6
 
+sensors:
+  # checkerboard fix points
+  - sensor_name: LARM_cb_jig
+    parent_link: LARM_LINK6
+    translate: '0 0.2 -0.2'
+    rotate: '0.0 0.0 1.0 90'
+    sensor_type: 'camera'
+  - sensor_name: RARM_cb_jig
+    parent_link: RARM_LINK6
+    translate: '0 -0.2 -0.2'
+    rotate: '0.0 0.0 1.0 90'
+    sensor_type: 'camera'
+
+
 ##
 ## reset-pose
 ##
 angle-vector:
   reset-pose : [0.0, 0, -26, 50, -24,  0,
                 0.0, 0, -26, 50, -24,  0,
-                0.0, 0.0, 
+                0.0, 0.0,
                 0.0, 0.0,
                 10.0, -10.0, 0.0, -25.0, 0.0, 0.0, -10.0,  15.0,
                 10.0,  10.0, 0.0, -25.0, 0.0, 0.0, -10.0, -15.0]
@@ -78,4 +92,3 @@ angle-vector:
                       0.0,  40.0,
                      50.0, -30.0, -10.0, -120.0, -25.0, -5.0, -20.0,  60.0,
                      50.0,  30.0,  10.0, -120.0,  25.0,  5.0, -20.0, -60.0]
-
