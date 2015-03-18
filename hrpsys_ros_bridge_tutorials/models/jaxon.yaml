@@ -70,7 +70,7 @@ lleg-end-coords:
 ## reset-pose
 ##
 angle-vector:
-  init-pose2 : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+  collision-free-init-pose : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
                 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
                 0.0, 0.0, 0.0,
                 0.0, 0.0,
