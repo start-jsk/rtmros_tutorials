@@ -22,6 +22,7 @@
 
   <run_depend>hironx_ros_bridge</run_depend>
   <run_depend>geometry_msgs</run_depend>
+  <run_depend>jsk_tools</run_depend>
   <run_depend>leap_motion</run_depend>
   <run_depend>moveit_commander</run_depend>
   <run_depend>nextage_ros_bridge</run_depend>
