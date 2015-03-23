@@ -67,11 +67,6 @@
    (prog1
     (send-super* :init-ending args)
     (send self :add-additional-body-parts)
-    (send self :put :contact-polygons
-          (list
-           (send self :make-sole-polygon (car (last (send self :rleg :links))) :rleg)
-           (send self :make-sole-polygon (car (last (send self :lleg :links))) :lleg)
-           ))
     
     ;; add contact-end-coords to arms
     (let (rarm-contact-end-coords larm-contact-end-coords)
@@ -130,31 +125,6 @@
        (setq ((elt (send self leg :links) 3) . geo::bodies)
              (append (send (elt (send self leg :links) 3) :bodies) (list b)))
        )))
-  (:contact-polygons
-   ()
-   (send-all (send-all (send self :get :contact-polygons) :body) :worldcoords)
-   (send self :get :contact-polygons))
-  (:contact-polygon
-   (nm)
-   (cond
-    ((consp nm)
-     (make-face-from-vertices
-      (mapcar #'list (quickhull (flatten (mapcar #'(lambda (x) (send (send self :contact-polygon x) :vertices)) nm))))))
-    (t (find-if #'(lambda (x) (eq (send x :name) nm)) (send self :contact-polygons)))))
-  (:make-sole-polygon
-   (sole-link name)
-   (let* ((target-nm (read-from-string (format nil "~A-sole-convex-hull" name)))
-          (b (convex-hull-3d
-              (remove-duplicates
-               (flatten (send-all (send sole-link :bodies) :vertices))
-               :test #'(lambda (x y) (eps-v= x y *epsilon*))))))
-     (send sole-link :assoc b)
-     (send self :put target-nm b)
-     (let ((f (car (find-extreams
-                    (send (send self :get target-nm) :faces)
-                    :key #'(lambda (x) (elt (vector-mean (send x :vertices)) 2)) :bigger #'<))))
-       (send f :name name)
-       f)))
  (:draw-all-limbs
   ()
   (mapcar #'(lambda (limb) (send (send self limb :end-coords) :draw-on :flush t :color #f(0 1 0))) '(:rleg :lleg :rarm :larm)))
