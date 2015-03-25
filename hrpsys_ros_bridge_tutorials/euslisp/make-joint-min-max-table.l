@@ -103,5 +103,6 @@
                      (setq str2 (if (= j 0) (format nil "~A" (round (aref mmt i j))) (format nil "~A,~A" str2 (round (aref mmt i j))))))) ;; min_table:max_table
                  (setq str (if (= i 0) (format nil "~A" str2) (format nil "~A:~A" str str2)))))
              (format of "~A:" str)
-             )))
-       ))))
+             ))))
+     (format of "~%")
+     )))
