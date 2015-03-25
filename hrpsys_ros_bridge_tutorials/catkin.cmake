@@ -207,6 +207,7 @@ compile_openhrp_model_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-dt-option "0.004"
   --simulation-timestep-option "0.004"
+  --simulation-joint-properties-option "RARM_JOINT3.angle,-1.5708,LARM_JOINT3.angle,-1.5708"
   )
 gen_minmax_table_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W)
 # compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_WITH_3HAND HRP2JSKNT_WITH_3HAND
