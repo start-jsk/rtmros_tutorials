@@ -434,22 +434,22 @@ macro (generate_staro_hand_model _robot_name _dir_name)
   set(_out_mesh_dir "${_model_dir}/${_robot_name}_meshes/")
   set(_l_mesh "l_hand_attached_link.dae")
   set(_r_mesh "r_hand_attached_link.dae")
-  set(_h_mesh "HEAD_LINK1_without_camera.dae")
+  # set(_h_mesh "HEAD_LINK1_without_camera.dae")
   add_custom_command(OUTPUT ${_out_mesh_dir}/${_l_mesh}
     COMMAND cp ${_org_model_dir}/${_l_mesh} ${_out_mesh_dir}/${_l_mesh}
     DEPENDS ${_in_urdf_file})
   add_custom_command(OUTPUT ${_out_mesh_dir}/${_r_mesh}
     COMMAND cp ${_org_model_dir}/${_r_mesh} ${_out_mesh_dir}/${_r_mesh}
     DEPENDS ${_in_urdf_file})
-  add_custom_command(OUTPUT ${_out_mesh_dir}/${_h_mesh}
-    COMMAND cp ${_org_model_dir}/${_h_mesh} ${_out_mesh_dir}/${_h_mesh}
-    DEPENDS ${_in_urdf_file})
+  #add_custom_command(OUTPUT ${_out_mesh_dir}/${_h_mesh}
+  #  COMMAND cp ${_org_model_dir}/${_h_mesh} ${_out_mesh_dir}/${_h_mesh}
+  #  DEPENDS ${_in_urdf_file})
   add_custom_target(${_robot_name}_lhand_generate DEPENDS ${_out_mesh_dir}/${_l_mesh})
   add_custom_target(${_robot_name}_rhand_generate DEPENDS ${_out_mesh_dir}/${_r_mesh})
-  add_custom_target(${_robot_name}_head_generate DEPENDS ${_out_mesh_dir}/${_h_mesh})
+  #add_custom_target(${_robot_name}_head_generate DEPENDS ${_out_mesh_dir}/${_h_mesh})
   list(APPEND compile_${_robot_name}_urdf_robots ${_robot_name}_lhand_generate)
   list(APPEND compile_${_robot_name}_urdf_robots ${_robot_name}_rhand_generate)
-  list(APPEND compile_${_robot_name}_urdf_robots ${_robot_name}_head_generate)
+  #list(APPEND compile_${_robot_name}_urdf_robots ${_robot_name}_head_generate)
 endmacro()
 
 macro (generate_hand_attached_staro_model _robot_name)
@@ -506,8 +506,8 @@ if(EXISTS $ENV{CVSDIR}/euslib/rbrain/staro/l_hand_attached_link.dae)
 endif()
 
 if(EXISTS $ENV{CVSDIR}/euslib/rbrain/jaxon/l_hand_attached_link.dae)
+  find_package(PkgConfig)
   find_package(multisense_description QUIET)
-  find_package(jaxon_description QUIET)
   if(multisense_description_FOUND)
     find_package(jaxon_description)
     if(NOT jaxon_description_SOURCE_DIR AND jaxon_description_SOURCE_PREFIX)
