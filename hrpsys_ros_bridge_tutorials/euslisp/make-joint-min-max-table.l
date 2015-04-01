@@ -1,22 +1,3 @@
-#|
-(defun gen-min-max-table (robot yaml-fname)
-  (let ((config-len (read-from-string (car (piped-fork-returns-list (format nil "env python -c 'import yaml;print len(yaml.load(open(\"~A\").read()).get(\"min-max-table-config\"))'" yaml-fname))))))
-    (dotimes (i config-len)
-      (let ((parent-joint
-             (car (piped-fork-returns-list (format nil "env python -c 'import yaml;print yaml.load(open(\"~A\").read()).get(\"min-max-table-config\")[~A][0]'" yaml-fname i))))
-            (child-joint
-             (car (piped-fork-returns-list (format nil "env python -c 'import yaml;print yaml.load(open(\"~A\").read()).get(\"min-max-table-config\")[~A][1]'" yaml-fname i))))
-            (margin
-             (read-from-string (car (piped-fork-returns-list (format nil "env python -c 'import yaml;print yaml.load(open(\"~A\").read()).get(\"min-max-table-config\")[~A][2]'" yaml-fname i))))))
-        (send robot :make-joint-min-max-table
-              (send (send robot :joint parent-joint) :parent-link)
-              (send (send robot :joint child-joint) :child-link)
-              (send robot :joint parent-joint)
-              (send robot :joint child-joint)
-              :margin margin)
-        ))
-    ))
-|#
 
 (defun gen-min-max-table-hrp2
   (robot margin)
@@ -62,8 +43,6 @@
    path is robot model file full path.
    margin is joint limit margin [deg].
    gen-min-max-table-func is function to generate min-max table for each robot."
-  (unless (find-method robot :make-joint-min-max-table)
-    (return-from write-min-max-table nil))
   (when (remove-if-not #'(lambda (j) (send j :joint-min-max-table)) (send robot :joint-list))
     (warn ";; ~A already has min-max table.~%" (send robot :name))
     (return-from write-min-max-table-to-robot-model-file nil))
@@ -116,3 +95,18 @@
              ))))
      (format of "~%")
      )))
+
+#|
+;; How to check robot min-max table
+
+(load "models/hrp2jsk.l")
+(defmethod hrp2jsk-robot (:init-ending () (send-super :init-ending))) ;; Clear current min max table
+(setq *robot* (hrp2jsk))
+(send *robot* :make-joint-min-max-table
+            (send *robot* :torso :waist-y :parent-link)
+            (send *robot* :torso :waist-p :child-link)
+            (send *robot* :torso :waist-y)
+            (send *robot* :torso :waist-p)
+            :margin 1.0)
+(send *robot* :plot-joint-min-max-table (send *robot* :torso :waist-y) (send *robot* :torso :waist-p))
+|#
