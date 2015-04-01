@@ -18,7 +18,11 @@
     ))
 |#
 
-(defun gen-min-max-table (robot margin)
+(defun gen-min-max-table-hrp2
+  (robot margin)
+  "Generate min-max table for hrp2 robots.
+   robot is robot instance.
+   margin is joint limit margin [deg]."
   (dolist (limb '(:rarm :larm))
     (if (send robot limb :wrist-r)
         (send robot :make-joint-min-max-table
@@ -51,14 +55,20 @@
             :margin margin))
   )
 
-;;(defun write-min-max-table (robot path &key (margin 0.0))
-(defun write-min-max-table (robot path &key (margin 1.0))
+(defun write-min-max-table-to-robot-model-file
+  (robot path &key (margin 1.0) (gen-min-max-table-func #'gen-min-max-table-hrp2))
+  "Generate and write min-max to robot model file.
+   robot is robot instance.
+   path is robot model file full path.
+   margin is joint limit margin [deg].
+   gen-min-max-table-func is function to generate min-max table for each robot."
   (unless (find-method robot :make-joint-min-max-table)
     (return-from write-min-max-table nil))
-  (if (remove-if-not #'(lambda (j) (send j :joint-min-max-table)) (send robot :joint-list))
-      (return-from write-min-max-table nil))
+  (when (remove-if-not #'(lambda (j) (send j :joint-min-max-table)) (send robot :joint-list))
+    (warn ";; ~A already has min-max table.~%" (send robot :name))
+    (return-from write-min-max-table-to-robot-model-file nil))
   ;; (gen-min-max-table robot (format nil "~Ayaml" (string-right-trim "l" path)))
-  (gen-min-max-table robot margin)
+  (funcall gen-min-max-table-func robot margin)
   (with-open-file
    (f path :direction :output :if-exists :append)
    (format f "(defmethod ~A~%" (send (class robot) :name))
@@ -79,7 +89,7 @@
        )
      (format f "      )))~%")
      ))
-  )
+  t)
 
 (defun write-min-max-table-to-conf-file
   (robot conf-file-path)
