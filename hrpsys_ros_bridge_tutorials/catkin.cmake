@@ -107,7 +107,7 @@ macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_rob
   if (EXISTS $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
     string(TOLOWER ${_OpenHRP2_robot_name} _sname)
     set(_workdir ${PROJECT_SOURCE_DIR}/models)
-    set(_gen_jointmm_command_arg "\"\\(write-min-max-table \\(${_sname}\\) \\\"${_workdir}/${_sname}.l\\\" :margin 1.0\\)\"")
+    set(_gen_jointmm_command_arg "\"\\(write-min-max-table-to-robot-model-file \\(${_sname}\\) \\\"${_workdir}/${_sname}.l\\\" :margin 1.0\\)\"")
     set(_gen_jointmm_conf_command_arg "\"\\(write-min-max-table-to-conf-file \\(${_sname}\\) \\\"${_workdir}/${_OpenHRP2_robot_name}.conf\\\"\\)\"")
     if(euslisp_SOURCE_DIR)
       set(euslisp_PACKAGE_PATH ${euslisp_SOURCE_DIR})
