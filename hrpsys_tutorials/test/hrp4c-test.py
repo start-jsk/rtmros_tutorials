@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
 PKG = 'hrpsys_tutorials'
-import roslib; roslib.load_manifest(PKG)
+import roslib
 import rospkg
 
 import numpy
 import unittest
 
-from hrpsys_config import HrpsysConfigurator
+from hrpsys.hrpsys_config import HrpsysConfigurator
 
 class TestHRP4C(unittest.TestCase):
 

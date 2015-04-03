@@ -1,0 +1,31 @@
+<package>
+  <name>hrpsys_tutorials</name>
+  <version>0.0.0</version>
+  <description>hrpsys example files</description>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">ROS package is maintained by Kei Okada</maintainer>
+
+  <license>EPL</license>
+
+  <url type="website">http://ros.org/wiki/hrpsys_tutorials</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>AIST</author>
+  <author>ROS package is maintained by Kei Okada</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>hrpsys</build_depend>
+  <build_depend>hrpsys_tools</build_depend>
+  <build_depend>rostest</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>hrpsys</run_depend>
+  <run_depend>hrpsys_tools</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>hrpsys</test_depend> -->
+  <!-- <test_depend>hrpsys_tools</test_depend> -->
+
+</package>

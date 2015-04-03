@@ -1,0 +1,32 @@
+<package>
+  <name>openhrp3_tutorials</name>
+  <version>0.0.0</version>
+  <description>OpenHRP3 : Robot software platform tutorials</description>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/openhrp3_tutorials</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Kei Okada</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Dependencies needed to compile this package. -->
+  <build_depend>openhrp3</build_depend>
+  <build_depend>hrpsys</build_depend>
+  <build_depend>euscollada</build_depend>
+
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>openhrp3</run_depend>
+  <run_depend>hrpsys</run_depend>
+  <run_depend>euscollada</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <!-- <test_depend>openhrp3</test_depend> -->
+  <!-- <test_depend>hrpsys</test_depend> -->
+  <!-- <test_depend>euscollada</test_depend> -->
+
+</package>
