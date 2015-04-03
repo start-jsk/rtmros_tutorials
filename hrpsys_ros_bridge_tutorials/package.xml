@@ -1,7 +1,7 @@
 <package>
   <name>hrpsys_ros_bridge_tutorials</name>
   <version>0.0.0</version>
-  <description>hello
+  <description>tutorial program for hrpsys ros bridge
   </description>
 
   <license>EPL</license>
@@ -26,6 +26,7 @@
   <build_depend>multisense_description</build_depend>
   <build_depend>robotiq_description</build_depend>
   <build_depend>jaxon_description</build_depend>
+  <build_depend>hrp2_models</build_depend> <!-- only jsk people have this package, so if you do not find them, please comment out this -->
 
   <run_depend>hrpsys_ros_bridge</run_depend>
   <run_depend>hrpsys</run_depend>
@@ -36,6 +37,7 @@
   <run_depend>pr2eus</run_depend>
   <run_depend>roseus_msgs</run_depend>
   <run_depend>xacro</run_depend>
+  <run_depend>hrp2_models</run_depend> <!-- only jsk people have this package, so if you do not find them, please comment out this -->
   <!-- <test_depend>openhrp3</test_depend> -->
   <export>
   </export>

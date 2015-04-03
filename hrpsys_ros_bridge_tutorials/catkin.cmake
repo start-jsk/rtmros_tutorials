@@ -5,6 +5,12 @@ project(hrpsys_ros_bridge_tutorials)
 find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest
   euslisp xacro)
 
+find_package(hrp2_models QUIET)
+if(NOT "${hrp2_models_FOUND}")
+  string(ASCII 27 Esc)
+  message(WARNING "${Esc}[1;33mPackage hrp2_models is not found, if you have right to access them please include source code in catkin workspace${Esc}[m")
+endif()
+
 set(PKG_CONFIG_PATH "${openhrp3_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}") # for openrtm3.1.pc
 execute_process(
   COMMAND pkg-config --variable=idl_dir openhrp3.1
@@ -91,7 +97,7 @@ macro(compile_model_for_closed_robots _robot_wrl_file _OpenHRP2_robot_name)
 endmacro()
 macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
   compile_model_for_closed_robots(
-    $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
+    ${hrp2_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
   set(compile_robots ${compile_robots} PARENT_SCOPE)
@@ -104,7 +110,7 @@ macro(compile_rbrain_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2
   set(compile_robots ${compile_robots} PARENT_SCOPE)
 endmacro()
 macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
-  if (EXISTS $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
+  if (EXISTS ${hrp2_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
     string(TOLOWER ${_OpenHRP2_robot_name} _sname)
     set(_workdir ${PROJECT_SOURCE_DIR}/models)
     set(_gen_jointmm_command_arg "\"\\(write-min-max-table-to-robot-model-file \\(${_sname}\\) \\\"${_workdir}/${_sname}.l\\\" :margin 1.0\\)\"")
@@ -234,15 +240,15 @@ compile_openhrp_model_for_closed_robots(HRP4R HRP4R HRP4R
   --conf-file-option "end_effectors: rarm,R_WRIST_R,CHEST_Y,0.0,0.0,-0.1,-1.471962e-17,1.0,-1.471962e-17,1.5708, larm,L_WRIST_R,CHEST_Y,0.0,0.0,-0.1,1.471962e-17,1.0,1.471962e-17,1.5708, rleg,R_ANKLE_R,WAIST,0.0,0.0,-0.091849,0.0,0.0,0.0,0.0, lleg,L_ANKLE_R,WAIST,0.0,0.0,-0.091849,0.0,0.0,0.0,0.0,"
   )
 
-if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_L/HRP3HAND_Lmain.wrl)
+if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_L/HRP3HAND_Lmain.wrl)
   compile_openhrp_model(
-    $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_L/HRP3HAND_Lmain.wrl
+    ${hrp2_models_MODEL_DIR}/HRP3HAND_L/HRP3HAND_Lmain.wrl
     HRP3HAND_L)
 endif()
 
-if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
+if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   compile_openhrp_model(
-    $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl
+    ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl
     HRP3HAND_R)
 endif()
 
@@ -306,7 +312,7 @@ macro (generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots 
   set(_arg_list ${ARGV})
   # remove arguments of this macro
   list(REMOVE_AT _arg_list 0 1)
-  if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
+  if(EXISTS ${hrp2_models_MODEL_DIR}/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
     generate_default_launch_eusinterface_files("$(env CVSDIR)/OpenHRP/etc/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
   endif()
 endmacro ()
@@ -412,7 +418,7 @@ if(multisense_description_FOUND)
   list(APPEND compile_urdf_robots HRP2JSK_model_generate)
 endif(multisense_description_FOUND)
 
-if(EXISTS $ENV{CVSDIR}/OpenHRP/etc/HRP3HAND_R/HRP3HAND_Rmain.wrl)
+if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   generate_hand_attached_hrp2_model(HRP2JSKNT)
   generate_hand_attached_hrp2_model(HRP2JSKNTS)
   run_xacro_for_hand_hrp2_model(HRP2JSKNT)
