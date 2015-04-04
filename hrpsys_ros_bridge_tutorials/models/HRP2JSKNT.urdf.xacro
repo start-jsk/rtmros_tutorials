@@ -2,7 +2,7 @@
   <xacro:include filename="HRP2JSKNT_body.urdf" />
   <xacro:include filename="HRP3HAND_L.urdf" />
   <xacro:include filename="HRP3HAND_R.urdf" />
-  <xacro:include filename="$(find multisense_description)/urdf/multisenseS7.urdf" />
+  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
   <joint name="hrp2_to_multisense" type="fixed">
     <parent link="HEAD_LINK1" />
     <!--child  link="head" /--> <!-- for drcsim / multisense_sl_description -->
