@@ -37,7 +37,7 @@ Open Terminal and run hrpsys-simulator
 rtmlaunch hrpsys_ros_bridge_tutorials hrp2jsknt.launch
 ```
 
-hoge ![](images/hrp2jsknt-hrpsys-simulator-init.png)
+![](images/hrp2jsknt-hrpsys-simulator-init.png)
 
 Launch another terminal and send command to robot by roseus
 ```
@@ -52,7 +52,7 @@ roseus hrp2jsknt-interface.l
 (send *ri* :go-pos 0 0 0)
 ```
 
-hoge ![](images/hrp2jsknt-hrpsys-simulator-go-pos.png)
+![](images/hrp2jsknt-hrpsys-simulator-go-pos.png)
 
 #### hrpsys_gazebo_tutorials
 Open Terminal and run gazebo
