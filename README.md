@@ -30,31 +30,6 @@ echo "source \`rospack find hrpsys_gazebo_tutorials\`/setup.sh" >> ~/.bashrc
 ```
 
 ### Try Sample
-#### hrpsys_ros_bridge_tutorials
-Open Terminal and run hrpsys-simulator
-
-```
-rtmlaunch hrpsys_ros_bridge_tutorials hrp2jsknt.launch
-```
-
-![](images/hrp2jsknt-hrpsys-simulator-init.png)
-
-Launch another terminal and send command to robot by roseus
-```
-roscd hrpsys_ros_bridge_tutorials/euslisp/
-roseus hrp2jsknt-interface.l
-(hrp2jsknt-init)
-(setq *robot* *hrp2jsknt*)
-(objects (list *robot*))
-(send *ri* :angle-vector (send *robot* :angle-vector) 5000)
-(send *robot* :reset-manip-pose)
-(send *ri* :angle-vector (send *robot* :angle-vector) 5000)
-(send *ri* :go-pos 0 0 0)
-```
-
-![](images/hrp2jsknt-hrpsys-simulator-go-pos.png)
-
-#### hrpsys_gazebo_tutorials
 Open Terminal and run gazebo
 
 ```
@@ -69,17 +44,14 @@ Launch another terminal and send command to robot by roseus
 roscd hrpsys_ros_bridge_tutorials/euslisp/
 roseus hrp2jsknt-interface.l
 (hrp2jsknt-init)
-(setq *robot* *hrp2jsknt*)
-(objects (list *robot*))
-(send *ri* :angle-vector (send *robot* :angle-vector) 5000)
-(send *robot* :reset-manip-pose)
-(send *ri* :angle-vector (send *robot* :angle-vector) 5000)
+(send *ri* :angle-vector (send *hrp2jsknt* :reset-pose) 1000)
 (send *ri* :go-pos 0 0 0)
 ```
 
+
 ### Package Description
 
-hrpsys_ros_bridge_tutorials
+hrpsys_ros_bridge_tutorialsls
 --------------
 This is examples and tutorials for [rtmros_common/hrpsys_ros_bridge](https://github.com/start-jsk/rtmros_common). 
 
