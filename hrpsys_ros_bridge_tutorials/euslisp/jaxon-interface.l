@@ -34,12 +34,12 @@
     (:hand-reset
      (&rest args)
      (send* (send self :get :hand-controller) :reset args))
-    (:hand-open
-     (&rest args)
-     (send* (send self :get :hand-controller) :open args))
-    (:hand-close
-     (&rest args)
-     (send* (send self :get :hand-controller) :close args))
+    ;; (:hand-open
+    ;;  (&rest args)
+    ;;  (send* (send self :get :hand-controller) :open args))
+    ;; (:hand-close
+    ;;  (&rest args)
+    ;;  (send* (send self :get :hand-controller) :close args))
     (:hand-stop
      (&rest args)
      (send* (send self :get :hand-controller) :stop args))
