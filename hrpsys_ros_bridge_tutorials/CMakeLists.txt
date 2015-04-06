@@ -110,7 +110,8 @@ macro(compile_rbrain_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2
   set(compile_robots ${compile_robots} PARENT_SCOPE)
 endmacro()
 macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
-  if (EXISTS ${hrp2_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
+  if (EXISTS $ENV{CVSDIR}/OpenHRP/etc/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
+      OR EXISTS $ENV{CVSDIR}/euslib/rbrain/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
     string(TOLOWER ${_OpenHRP2_robot_name} _sname)
     set(_workdir ${PROJECT_SOURCE_DIR}/models)
     set(_gen_jointmm_command_arg "\"\\(write-min-max-table-to-robot-model-file \\(${_sname}\\) \\\"${_workdir}/${_sname}.l\\\" :margin 1.0\\)\"")
