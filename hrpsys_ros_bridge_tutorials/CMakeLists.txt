@@ -302,6 +302,7 @@ compile_rbrain_model_for_closed_robots(JAXON jaxon JAXON
   --conf-file-option "collision_model: convex hull"
   --simulation-joint-properties-option "RARM_JOINT2.angle,-0.191986,LARM_JOINT2.angle,0.191986"
 )
+gen_minmax_table_for_closed_robots(JAXON jaxon JAXON)
 
 if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
   compile_openhrp_model(
