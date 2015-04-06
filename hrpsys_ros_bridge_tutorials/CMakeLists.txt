@@ -280,6 +280,7 @@ compile_rbrain_model_for_closed_robots(STARO staro STARO
   --conf-dt-option "0.002"
   --simulation-timestep-option "0.002"
   )
+gen_minmax_table_for_closed_robots(STARO staro STARO)
 
 # YSTLEG
 compile_rbrain_model_for_closed_robots(YSTLEG ystleg YSTLEG
