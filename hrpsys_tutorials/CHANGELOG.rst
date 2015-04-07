@@ -2,8 +2,8 @@
 Changelog for package hrpsys_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.4 (2015-04-07)
+------------------
 * Remove old manifest.xml files
 * [hrpsys_tutorials] roslib.load_manifest is no longer required
 * [rtmros_tutorials] remove old rosbuild settings

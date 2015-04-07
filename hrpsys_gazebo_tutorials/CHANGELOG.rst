@@ -2,8 +2,8 @@
 Changelog for package hrpsys_gazebo_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.4 (2015-04-07)
+------------------
 * Remove old manifest.xml files
 * [rtmros_tutorials] remove old rosbuild settings
 * [hrpsys_gazebo_tutorials] Fix path for catkin build

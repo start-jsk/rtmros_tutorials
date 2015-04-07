@@ -2,8 +2,8 @@
 Changelog for package openhrp3_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.4 (2015-04-07)
+------------------
 * Remove old manifest.xml files
 * [rtmros_tutorials] remove old rosbuild settings
 * add rosdep names for rosdep install

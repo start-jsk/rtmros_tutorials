@@ -2,8 +2,8 @@
 Changelog for package hrpsys_ros_bridge_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.4 (2015-04-07)
+------------------
 * apply min-max table to STARO
 * apply min-max table to JAXON
 * enable gen_minmax_table_for_closed_robots for rbrain robots
