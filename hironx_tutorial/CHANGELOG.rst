@@ -2,15 +2,12 @@
 Changelog for package hironx_tutorial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.0.27 (2014-11-04)
--------------------
+Forthcoming
+-----------
 * Add more sample scripts (https://github.com/tork-a/hironx_tutorial/pull/10).
 * Contributors: Isaac IY Saito
 
-1.0.26 (2014-10-07)
--------------------
-
-1.0.25 (2014-10-03)
+1.0.3 (2014-10-03)
 -------------------
 * New package hironx_tutorial added.
 * Contributors: Isaac IY Saito
