@@ -46,6 +46,14 @@ catkin_package(
     LIBRARIES # TODO
 )
 
+# Utility macro
+macro(set_parent_if_possible name val)
+  get_directory_property(has_parent PARENT_DIRECTORY)
+  if(has_parent)
+    set(${name} ${val} PARENT_SCOPE)
+  endif()
+endmacro(set_parent_if_possible name val)
+
 if(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
   compile_openhrp_model(
     ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl
@@ -90,7 +98,8 @@ macro(compile_model_for_closed_robots _robot_wrl_file _OpenHRP2_robot_name)
       ${_robot_wrl_file}
       ${_OpenHRP2_robot_name}
       ${ARGN})
-    set(compile_robots ${compile_robots} PARENT_SCOPE)
+
+    set_parent_if_possible(compile_robots ${compile_robots})
   else()
     message("\n\n\n\n ${_robot_wrl_file} is not found..\n\n\n\n")
   endif()
@@ -100,14 +109,14 @@ macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP
     ${hrp2_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
-  set(compile_robots ${compile_robots} PARENT_SCOPE)
+  set_parent_if_possible(compile_robots ${compile_robots})
 endmacro()
 macro(compile_rbrain_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
   compile_model_for_closed_robots(
     $ENV{CVSDIR}/euslib/rbrain/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
-  set(compile_robots ${compile_robots} PARENT_SCOPE)
+  set_parent_if_possible(compile_robots ${compile_robots})
 endmacro()
 macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
   if (EXISTS ${hrp2_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
