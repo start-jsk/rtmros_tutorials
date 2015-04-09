@@ -119,9 +119,9 @@
    (wait-for-rtcs
     (format nil "rtcat -l localhost:~A/HrpsysSeqStateROSBridge0.rtc:rsangle | grep Connected | grep '(Robot)0.rtc:q'" *corbaport*)
     :timeout-count timeout-count)
-   (wait-for-rtcs
-    (format nil "rtcat -l localhost:~A/HrpsysSeqStateROSBridge0.rtc:baseTform | grep Connected | grep 'sh.rtc:baseTformOut'" *corbaport*)
-    :timeout-count timeout-count)
+;   (wait-for-rtcs
+;    (format nil "rtcat -l localhost:~A/HrpsysSeqStateROSBridge0.rtc:baseTform | grep Connected | grep 'sh.rtc:baseTformOut'" *corbaport*)
+;    :timeout-count timeout-count)
    (wait-for-rtcs
     (format nil "rtcat -l localhost:~A/HrpsysSeqStateROSBridge0.rtc:baseRpy | grep Connected | grep 'kf.rtc:rpy'" *corbaport*)
     :timeout-count timeout-count)
