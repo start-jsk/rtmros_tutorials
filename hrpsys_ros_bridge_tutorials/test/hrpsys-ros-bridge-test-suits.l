@@ -16,7 +16,9 @@
   (robot-name
    &key (robot-model-pkg-name "hrpsys_ros_bridge_tutorials")
         (robot-model-pkg-path (ros::resolve-ros-path (format nil "package://~A" robot-model-pkg-name)))
+	(corbaport 15005)
         (use-deftest t))
+  (defvar *corbaport* corbaport)
   (rtshell-cmd-exec "rtdel -z")
   ;; define global variable to use deftest
   (defvar *robot-name* robot-name)
@@ -45,11 +47,13 @@
 (defun run-hrpsys-ros-bridge-test
   (robot-name
    &key (robot-model-pkg-name "hrpsys_ros_bridge_tutorials")
-        (robot-model-pkg-path (ros::resolve-ros-path (format nil "package://~A" robot-model-pkg-name))))
+        (robot-model-pkg-path (ros::resolve-ros-path (format nil "package://~A" robot-model-pkg-name)))
+	(corbaport 15005))
   (setup-hrpsys-ros-test
    robot-name
    :robot-model-pkg-name robot-model-pkg-name
-   :robot-model-pkg-path robot-model-pkg-path)
+   :robot-model-pkg-path robot-model-pkg-path
+   :corbaport corbaport)
   (run-all-tests)
   (exit 0))
 
@@ -61,6 +65,7 @@
    robot-name
    :robot-model-pkg-name robot-model-pkg-name
    :robot-model-pkg-path robot-model-pkg-path
+   :corbaport corbaport
    :use-deftest nil)
   (setq lisp::*exit-on-fatal-error* nil)
   (warn ";; (run-all-tests)~%")
@@ -72,7 +77,8 @@
 
 ;; test for hrpsys-simulator and rosbridge using rtshell
 (defun rtshell-cmd-exec (cmd)
-  (let ((p (piped-fork (format nil "bash -c \". `rospack find openrtm_tools`/scripts/rtshell-setup.sh && ~A\"" cmd))))
+  (warn "RTCTREE_NAMESERVERS=localhost:~A ~A~%" *corbaport* cmd)
+  (let ((p (piped-fork (format nil "RTCTREE_NAMESERVERS=localhost:~A ~A~%" *corbaport* cmd))))
     (prog1
         (let ((ln) (ret))
           (while (setq ln (read-line p nil nil)) (push ln ret))
@@ -93,31 +99,31 @@
 
 (defun wait-for-Simulator (&key (timeout-count 5))
   (wait-for-rtcs
-   (format nil "rtls localhost:15005/ -l | grep -v longfloor | grep '(Robot)0.rtc'")
+   (format nil "rtls localhost:~A/ -l | grep -v longfloor | grep '(Robot)0.rtc'" *corbaport*)
    :timeout-count timeout-count))
 
 (defun wait-for-HrpsysSeqStateROSBridge (&key (timeout-count 5))
   (wait-for-rtcs
-   "rtcat localhost:15005/HrpsysSeqStateROSBridge0.rtc"
+   (format nil "rtcat localhost:~A/HrpsysSeqStateROSBridge0.rtc" *corbaport*)
    :timeout-count timeout-count))
 
 (defun wait-for-ROSBridge-activated (&key (timeout-count 20))
   (mapcar #'(lambda (x)
               (wait-for-rtcs
-               (format nil "rtcat localhost:15005/~A | grep Active" (string-left-trim "0123456789 " x))
+               (format nil "rtcat localhost:~A/~A | grep Active" *corbaport* (string-left-trim "0123456789 " x))
                :timeout-count timeout-count))
-          (rtshell-cmd-exec "rtls localhost:15005/ -l | grep ROSBridge | cut -d/ -f5")))
+          (rtshell-cmd-exec (format nil "rtls localhost:~A/ -l | grep ROSBridge | cut -d/ -f5" *corbaport*))))
 
 (defun wait-for-tf-published (&key (timeout-count 10))
   (and
    (wait-for-rtcs
-    "rtcat -l localhost:15005/HrpsysSeqStateROSBridge0.rtc:rsangle | grep Connected | grep '(Robot)0.rtc:q'"
+    (format nil "rtcat -l localhost:~A/HrpsysSeqStateROSBridge0.rtc:rsangle | grep Connected | grep '(Robot)0.rtc:q'" *corbaport*)
     :timeout-count timeout-count)
    (wait-for-rtcs
-    "rtcat -l localhost:15005/HrpsysSeqStateROSBridge0.rtc:baseTform | grep Connected | grep 'sh.rtc:baseTformOut'"
+    (format nil "rtcat -l localhost:~A/HrpsysSeqStateROSBridge0.rtc:baseTform | grep Connected | grep 'sh.rtc:baseTformOut'" *corbaport*)
     :timeout-count timeout-count)
    (wait-for-rtcs
-    "rtcat -l localhost:15005/HrpsysSeqStateROSBridge0.rtc:baseRpy | grep Connected | grep 'kf.rtc:rpy'"
+    (format nil "rtcat -l localhost:~A/HrpsysSeqStateROSBridge0.rtc:baseRpy | grep Connected | grep 'kf.rtc:rpy'" *corbaport*)
     :timeout-count timeout-count)
    ))
 
