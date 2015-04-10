@@ -47,18 +47,20 @@ larm:
 ##
 rarm-end-coords:
   parent: RARM_LINK7
-# original
-#  translate : [0,  0.055, -0.217]
-#  rotate    : [0.0, 1.0, 0.0, 90.0]
-  translate : [-0.055, 0.0, -0.237]
-  rotate    : [-0.57735, 0.57735, 0.57735, 120]
+# original (--hand1)
+  translate : [0,  0.055, -0.217]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+# --hand3
+#  translate : [-0.055, 0.0, -0.237]
+#  rotate    : [-0.57735, 0.57735, 0.57735, 120]
 larm-end-coords:
   parent: LARM_LINK7
-# original
-#  translate : [0, -0.055, -0.217]
-#  rotate    : [0.0, 1.0, 0.0, 90.0]
-  translate : [-0.055, 0.0, -0.237]
-  rotate    : [0.57735, 0.57735, -0.57735, 120]
+# original (--hand1)
+  translate : [0, -0.055, -0.217]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+# --hand3
+#  translate : [-0.055, 0.0, -0.237]
+#  rotate    : [0.57735, 0.57735, -0.57735, 120]
 rleg-end-coords:
   parent: RLEG_LINK5
   translate : [0, 0, -0.096]
