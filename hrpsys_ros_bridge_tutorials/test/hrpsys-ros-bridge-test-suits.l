@@ -171,7 +171,7 @@
     (forceCalib-for-limbs robot
                           :fname (format nil "/tmp/~A-force-moment-offset.l" (send robot :name))
                           :poses calib-poses)
-    (send *ri* :load-forcemoment-offset-param (format nil "/tmp/~A-force-moment-offset.l" (send robot :name)))
+    (send *ri* :load-forcemoment-offset-param (format nil "/tmp/~A-force-moment-offset.l_~A_~4d~0,2d~0,2d" (send robot :name) (send robot :name) (+ 1900 (elt (unix:localtime) 5)) (+ 1 (elt (unix:localtime) 4)) (elt (unix:localtime) 3)))
     ;;(progn (send *ri* :set-forcemoment-offset-param :rarm :force-offset #f(0 0 0) :moment-offset #f(0 0 0) :link-offset-mass 0 :link-offset-centroid #f(0 0 0)) (send *ri* :set-forcemoment-offset-param :larm :force-offset #f(0 0 0) :moment-offset #f(0 0 0) :link-offset-mass 0 :link-offset-centroid #f(0 0 0)))
     (apply
      #'append
@@ -185,7 +185,7 @@
                 (let ((pc (send robot :copy-worldcoords))
                       (pec
                        (mapcar #'(lambda (x)
-                                   (send (send (send robot :force-sensor x) :parent) :copy-worldcoords))
+                                   (send (send (car (send robot x :force-sensors)) :parent) :copy-worldcoords))
                                limbs)))
                   ;; check hand pos&rot error by ImpedanceController to validate force offset identification
                   (mapcar #'(lambda (x)
@@ -202,9 +202,9 @@
                          (mapcar #'(lambda (x c)
                                      (list
                                       (norm (send c :difference-position
-                                                  (send (send (send robot :force-sensor x) :parent) :worldcoords)))
+                                                  (send (send (car (send robot x :force-sensors)) :parent) :worldcoords)))
                                       (norm (send c :difference-rotation
-                                                  (send (send (send robot :force-sensor x) :parent) :worldcoords)))))
+                                                  (send (send (car (send robot x :force-sensors)) :parent) :worldcoords)))))
                                  limbs pec)))
                     (warn ";; for pose ~A~%" (position av test-poses))
                     (mapcar #'(lambda (x)
