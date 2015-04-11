@@ -65,11 +65,11 @@
                          :number-of-joints 12)))
     (:start-grasp
      (&optional l/r)
-     (warn "have to implement :start-grasp~%")
+     (send self :hand-angle-vector (float-vector 80.0 60.0 0.0 80.0 60.0 0.0 80.0 60.0 0.0 0.0 0.0 0.0) l/r)
      )
     (:stop-grasp
      (&optional l/r)
-     (warn "have to implement :stop-grasp~%")
+     (send self :hand-angle-vector (float-vector 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0) l/r)
      )
     ))
 ;;(warn "~%")
@@ -80,17 +80,21 @@
 
 (defclass hand-command-publisher-class
   :super propertied-object
-  :slots (left-hand-av right-hand-av lhand-com rhand-com lhand-state rhand-state))
+  :slots (number-of-joints
+          left-hand-av right-hand-av
+          lhand-com rhand-com
+          lhand-state rhand-state))
 (defmethod hand-command-publisher-class
   (:init (&key (left-hand-command-topic  "/HRP3HAND_L/joint_command")
                (right-hand-command-topic "/HRP3HAND_R/joint_command")
                (left-hand-state-topic  "/HRP3HAND_L/robot_state")
                (right-hand-state-topic "/HRP3HAND_R/robot_state")
-               (number-of-joints 6))
+               ((:number-of-joints tmp-number-of-joints) 6))
    (setq lhand-com left-hand-command-topic
          rhand-com right-hand-command-topic
          lhand-state left-hand-state-topic
-         rhand-state right-hand-state-topic)
+         rhand-state right-hand-state-topic
+         number-of-joints tmp-number-of-joints)
    (send self :advertise-subscribe-topics)
    ;; (ros::rate 100)
    )
@@ -105,21 +109,21 @@
    (let* (left-av right-av)
      (cond
       ((vectorp av-list)
-       (setq right-av (if (>= (length av-list) number-of-joints)
+       (setq left-av (if (>= (length av-list) number-of-joints)
                           (subseq av-list 0 number-of-joints)))
-       (setq left-av (if (>= (length av-list) (* number-of-joints 2))
+       (setq right-av (if (>= (length av-list) (* number-of-joints 2))
                          (subseq av-list numebr-of-joints (* number-of-joints 2))))
        )
       (t
-       (setq right-av (elt av-list 0))
-       (setq left-av (elt av-list 1))))
+       (setq left-av (elt av-list 0))
+       (setq right-av (elt av-list 1))))
      (setq msg (instance hrpsys_gazebo_msgs::JointCommand :init))
      (when left-av
        (send msg :position (concatenate float-vector (mapcar #'deg2rad (concatenate cons left-av))))
        (ros::publish lhand-com msg))
      (when right-av
        (send msg :position (concatenate float-vector (mapcar #'deg2rad (concatenate cons right-av))))
-       (ros::publish lhand-com msg)))
+       (ros::publish rhand-com msg)))
    )
   (:send-effort-command
    (ef-list)
