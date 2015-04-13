@@ -3,7 +3,7 @@ project(hrpsys_ros_bridge_tutorials)
 
 #find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge hrpsys openhrp3)
 find_package(catkin REQUIRED COMPONENTS hrpsys_ros_bridge euscollada rostest
-  euslisp xacro)
+  euslisp xacro control_msgs roseus)
 
 find_package(hrp2_models QUIET)
 if(NOT "${hrp2_models_FOUND}")
