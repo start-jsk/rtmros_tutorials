@@ -127,6 +127,7 @@
        )
      )
     )
+  )
 
 (defun jaxon-init (&rest args)
   (if (not (boundp '*ri*))
