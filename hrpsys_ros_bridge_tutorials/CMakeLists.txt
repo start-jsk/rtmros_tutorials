@@ -158,7 +158,10 @@ endmacro()
 # old HRP2xx.wrl files should be coverted.
 compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
-  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,0.0,0.0169,-0.174,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,0.0,-0.0169,-0.174,0.0,1.0,0.0,1.5708,"
+  --conf-file-option "# original ankle"
+  --conf-file-option "# end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,0.0,0.0169,-0.174,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,0.0,-0.0169,-0.174,0.0,1.0,0.0,1.5708,"
+  --conf-file-option "# ankle spacer"
+  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,-0.01,-0.115,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.01,-0.115,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,0.0,0.0169,-0.174,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,0.0,-0.0169,-0.174,0.0,1.0,0.0,1.5708,"
   --conf-file-option "# for ThermoEstimator"
   --conf-file-option "motor_heat_params: 0.0075,0.5, 0.003,0.5, 0.003,0.5, 0.003,0.5, 0.003,0.5, 0.0075,0.5, 0.0075,0.5, 0.003,0.5, 0.003,0.5, 0.003,0.5, 0.003,0.5, 0.0075,0.5, 0.003,0.5, 0.003,0.5, 0.2,0.3, 0.2,0.3, 0.003,0.5, 0.003,0.5, 0.02,0.3, 0.003,0.5, 0.2,0.3, 0.2,0.3, 0.2,0.3, 0.2,0.3, 0.003,0.5, 0.003,0.5, 0.02,0.3, 0.003,0.5, 0.2,0.3, 0.2,0.3, 0.2,0.3, 0.2,0.3"
   --conf-file-option "motor_temperature_limit: 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0"
