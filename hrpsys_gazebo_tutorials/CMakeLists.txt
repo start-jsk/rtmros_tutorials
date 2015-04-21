@@ -11,6 +11,9 @@ pkg_check_modules(collada_urdf_jsk_patch collada_urdf_jsk_patch)
 
 catkin_package(CATKIN_DEPENDS euscollada hrpsys_ros_bridge hrpsys_ros_bridge_tutorials hrpsys_gazebo_general)
 
+catkin_add_env_hooks(99.hrpsys_gazebo_tutorials SHELLS bash zsh
+  DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/env-hooks)
+
 if(NOT hrpsys_ros_bridge_tutorials_SOURCE_DIR AND hrpsys_ros_bridge_tutorials_SOURCE_PREFIX)
   set(hrpsys_ros_bridge_tutorials_SOURCE_DIR ${hrpsys_ros_bridge_tutorials_SOURCE_PREFIX})
 endif(NOT hrpsys_ros_bridge_tutorials_SOURCE_DIR AND hrpsys_ros_bridge_tutorials_SOURCE_PREFIX)
