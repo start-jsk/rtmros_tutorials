@@ -31,8 +31,9 @@ msg/_.*\.py$
 .cproject
 
 # Emacs
-.#*
-.~/
+*~
+\#*\#
+.\#*
 
 # Catkin custom files
 CATKIN_IGNORE
