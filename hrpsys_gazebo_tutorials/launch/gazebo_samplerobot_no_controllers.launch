@@ -23,11 +23,11 @@
     <arg name="USE_INSTANCE_NAME" value="true" />
     <arg name="gzname" value="$(arg gzname)" />
 
-    <arg name="MODEL_TRANSLATE_X" default="$(arg MODEL_TRANSLATE_X)" />
-    <arg name="MODEL_TRANSLATE_Y" default="$(arg MODEL_TRANSLATE_Y)" />
-    <arg name="MODEL_TRANSLATE_Z" default="$(arg MODEL_TRANSLATE_Z)" />
-    <arg name="MODEL_ROTATE_R" default="$(arg MODEL_ROTATE_R)" />
-    <arg name="MODEL_ROTATE_P" default="$(arg MODEL_ROTATE_P)" />
-    <arg name="MODEL_ROTATE_Y" default="$(arg MODEL_ROTATE_Y)" />
+    <arg name="MODEL_TRANSLATE_X" value="$(arg MODEL_TRANSLATE_X)" />
+    <arg name="MODEL_TRANSLATE_Y" value="$(arg MODEL_TRANSLATE_Y)" />
+    <arg name="MODEL_TRANSLATE_Z" value="$(arg MODEL_TRANSLATE_Z)" />
+    <arg name="MODEL_ROTATE_R" value="$(arg MODEL_ROTATE_R)" />
+    <arg name="MODEL_ROTATE_P" value="$(arg MODEL_ROTATE_P)" />
+    <arg name="MODEL_ROTATE_Y" value="$(arg MODEL_ROTATE_Y)" />
   </include>
 </launch>

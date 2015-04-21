@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<robot name="DRCTestbedDoor"
+       xmlns:xi="http://www.w3.org/2001/XInclude"
+       >
+  <gazebo>
+    <static>false</static>
+  </gazebo>
+  <link name="ROOT-LINK_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="model://DRCTestbedDoor/meshes/ROOT-LINK_link_mesh.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="model://DRCTestbedDoor/meshes/ROOT-LINK_link_mesh.dae" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.001" />
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <inertia ixx="1e-03" ixy="0" ixz="0" iyy="1e-03" iyz="0" izz="1e-03"/>
+    </inertial>
+  </link>
+  <gazebo reference="ROOT-LINK_link">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <link name="DOOR-PANEL_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="model://DRCTestbedDoor/meshes/DOOR-PANEL_link_mesh.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="model://DRCTestbedDoor/meshes/DOOR-PANEL_link_mesh.dae" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.001" />
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <inertia ixx="1e-03" ixy="0" ixz="0" iyy="1e-03" iyz="0" izz="1e-03"/>
+    </inertial>
+  </link>
+  <gazebo reference="DOOR-PANEL_link">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <link name="DOOR-KNOB_link">
+    <visual>
+      <origin xyz="0 0.816 0.845" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="model://DRCTestbedDoor/meshes/DOOR-KNOB_link_mesh.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.816 0.845" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="model://DRCTestbedDoor/meshes/DOOR-KNOB_link_mesh.dae" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.001" />
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <inertia ixx="1e-03" ixy="0" ixz="0" iyy="1e-03" iyz="0" izz="1e-03"/>
+    </inertial>
+  </link>
+  <gazebo reference="DOOR-KNOB_link">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <joint name="DOOR-HINGE-JOINT" type="revolute">
+    <parent link="ROOT-LINK_link"/>
+    <child  link="DOOR-PANEL_link"/>
+    <origin xyz="0 0 0" rpy="0 -0 0 "/>
+    <axis   xyz="0 0 -1"/>
+    <limit lower="-1.5708" upper="1.5708" effort="100" velocity="0.5" />
+    <dynamics damping="0.2" friction="0" />
+  </joint>
+  <transmission type="pr2_mechanism_model/SimpleTransmission" name="DOOR-HINGE-JOINT_trans" >
+    <actuator name="DOOR-HINGE-JOINT_motor" />
+    <joint name="DOOR-HINGE-JOINT" />
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <gazebo reference="DOOR-HINGE-JOINT">
+    <cfmDamping>0.4</cfmDamping>
+  </gazebo>
+  <joint name="DOOR-KNOB-JOINT" type="revolute">
+    <parent link="DOOR-PANEL_link"/>
+    <child  link="DOOR-KNOB_link"/>
+    <origin xyz="0 0.816 0.845" rpy="0 -0 0 "/>
+    <axis   xyz="-1 0 0"/>
+    <limit lower="-1.5708" upper="1.5708" effort="100" velocity="0.5" />
+    <dynamics damping="0.2" friction="0" />
+  </joint>
+  <transmission type="pr2_mechanism_model/SimpleTransmission" name="DOOR-KNOB-JOINT_trans" >
+    <actuator name="DOOR-KNOB-JOINT_motor" />
+    <joint name="DOOR-KNOB-JOINT" />
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <gazebo reference="DOOR-KNOB-JOINT">
+    <cfmDamping>0.4</cfmDamping>
+  </gazebo>
+</robot>

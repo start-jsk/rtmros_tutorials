@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<robot name="DRCTestbedValve_static"
+       xmlns:xi="http://www.w3.org/2001/XInclude"
+       >
+  <gazebo>
+    <static>true</static>
+  </gazebo>
+  <link name="CRANK-ROOT-LINK_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="model://DRCTestbedValve/meshes/CRANK-ROOT-LINK_link_mesh.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="model://DRCTestbedValve/meshes/CRANK-ROOT-LINK_link_mesh.dae" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.001" />
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <inertia ixx="1e-03" ixy="0" ixz="0" iyy="1e-03" iyz="0" izz="1e-03"/>
+    </inertial>
+  </link>
+  <gazebo reference="CRANK-ROOT-LINK_link">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <link name="VALVE-HANDLE-LINK_link">
+    <visual>
+      <origin xyz="-3.36204e-18 6.31089e-33 0.353" rpy="0 0 -5.55112e-17"/>
+      <geometry>
+        <mesh filename="model://DRCTestbedValve/meshes/VALVE-HANDLE-LINK_link_mesh.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-3.36204e-18 6.31089e-33 0.353" rpy="0 0 -5.55112e-17"/>
+      <geometry>
+        <mesh filename="model://DRCTestbedValve/meshes/VALVE-HANDLE-LINK_link_mesh.dae" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.001" />
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <inertia ixx="1e-09" ixy="-4.16267e-58" ixz="6.37237e-58" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <gazebo reference="VALVE-HANDLE-LINK_link">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <joint name="CRANK-JOINT" type="revolute">
+    <parent link="CRANK-ROOT-LINK_link"/>
+    <child  link="VALVE-HANDLE-LINK_link"/>
+    <origin xyz="-3.36204e-18 6.31089e-33 0.353" rpy="0 0 -5.55112e-17 "/>
+    <axis   xyz="0 0 1"/>
+    <limit lower="-62.8319" upper="62.8319" effort="100" velocity="0.5" />
+    <dynamics damping="0.2" friction="0" />
+  </joint>
+  <transmission type="pr2_mechanism_model/SimpleTransmission" name="CRANK-JOINT_trans" >
+    <actuator name="CRANK-JOINT_motor" />
+    <joint name="CRANK-JOINT" />
+    <mechanicalReduction>1</mechanicalReduction>
+  </transmission>
+  <gazebo reference="CRANK-JOINT">
+    <cfmDamping>0.4</cfmDamping>
+  </gazebo>
+</robot>
