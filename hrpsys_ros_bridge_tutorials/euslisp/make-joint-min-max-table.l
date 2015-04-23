@@ -1,3 +1,16 @@
+(defun min-max-table-error (code msg1 form &optional (msg2))
+   (format *error-output* "~C[1;3~Cm~A FATAL ERROR on make-joint-min-max-table: ~A"
+                #x1b (+ 1 48)   *program-name* msg1)
+   (if msg2 (format *error-output* " ~A" msg2))
+   (if form (format *error-output* " in ~s" form))
+   (format *error-output* ", exitting...~C[0m~%"  #x1b)
+   (format *error-output* "~C[1;3~CmPlease comment in (load \"irteus/irtrobot.l\") in make-joint-min-max-table.l for debug~C[0m~%" #x1b (+ 2 48)  #x1b)
+   (exit 1))
+
+;; (load "irteus/irtrobot.l")
+(setq lisp::*error-handler* 'min-max-table-error)
+
+
 
 (defun gen-min-max-table-hrp2
   (robot margin)
