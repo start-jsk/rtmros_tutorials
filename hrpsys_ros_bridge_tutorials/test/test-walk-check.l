@@ -63,26 +63,20 @@
   )
 
 (defun test-walk-all ()
-  (if (y-or-n-p ";; check (test-walk-0)?")
-      (test-walk-0))
-  (if (y-or-n-p ";; check (test-walk-fwd-0)?")
-      (test-walk-fwd-0))
-  (if (y-or-n-p ";; check (test-walk-bwd)?")
-      (test-walk-bwd))
-  (if (y-or-n-p ";; check (test-walk-fwd-1)?")
-      (test-walk-fwd-1))
-  (if (y-or-n-p ";; check (test-walk-right)?")
-      (test-walk-right))
-  (if (y-or-n-p ";; check (test-walk-left)?")
-      (test-walk-left))
-  (if (y-or-n-p ";; check (test-walk-right-turn)?")
-      (test-walk-right-turn))
-  (if (y-or-n-p ";; check (test-walk-left-turn)?")
-      (test-walk-left-turn))
-  (if (y-or-n-p ";; check (test-walk-right-fwd)?")
-      (test-walk-right-fwd))
-  (if (y-or-n-p ";; check (test-walk-left-fwd)?")
-      (test-walk-left-fwd))
+  (dolist (test-func
+           '(test-walk-0
+             test-walk-fwd-0
+             test-walk-bwd
+             test-walk-fwd-1
+             test-walk-right
+             test-walk-left
+             test-walk-right-turn
+             test-walk-left-turn
+             test-walk-right-fwd
+             test-walk-left-fwd))
+    (if (y-or-n-p ";; check (~A) : ~A ?" test-func (documentation test-func))
+        (funcall test-func))
+    )
   )
 
 (warn ";; (test-walk-0)~%")
