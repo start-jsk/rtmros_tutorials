@@ -55,7 +55,7 @@
   <joint name="head_tip_to_multisense" type="fixed">
     <parent link="HEAD_LINK1" />
     <child  link="head_root" />
-    <origin xyz="0.1005 0 0.05625" rpy="0 0 0"/>
+    <origin rpy="0.004 0.01 0.01" xyz="0.1005 0 0.07625"/>
   </joint>
   <!-- HAND -->
   <xacro:include filename="$(find jaxon_description)/urdf/thk_hand.urdf.xacro" />
