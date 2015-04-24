@@ -11,33 +11,10 @@ if(NOT "${hrp2_models_FOUND}")
   message(WARNING "${Esc}[1;33mPackage hrp2_models is not found, if you have right to access them please include source code in catkin workspace${Esc}[m")
 endif()
 
-set(PKG_CONFIG_PATH "${openhrp3_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}") # for openrtm3.1.pc
-execute_process(
-  COMMAND pkg-config --variable=idl_dir openhrp3.1
-  OUTPUT_VARIABLE OPENHRP_IDL_DIR
-  RESULT_VARIABLE RESULT
-  OUTPUT_STRIP_TRAILING_WHITESPACE)
-if(NOT RESULT EQUAL 0)
-  set(OPENHRP_FOUND FALSE)
-  message("PKG_CONFIG_PATH = $ENV{PKG_CONFIG_PATH}")
-  message(FATAL_ERROR "Could not found openhrp3.1")
-endif()
-set(OPENHRP_SAMPLE_DIR ${OPENHRP_IDL_DIR}/../sample)
-
-if(NOT EXISTS ${hrpsys_ros_bridge_SOURCE_DIR}) # for installed package
-  if(EXISTS ${hrpsys_ros_bridge_SOURCE_PREFIX}) # for installed package
-    set(hrpsys_ros_bridge_SOURCE_DIR ${hrpsys_ros_bridge_SOURCE_PREFIX})
-  else()
-    set(hrpsys_ros_bridge_SOURCE_DIR ${hrpsys_ros_bridge_PREFIX}/share/hrpsys_ros_bridge)
-  endif(EXISTS ${hrpsys_ros_bridge_SOURCE_PREFIX})
-endif()
-
-find_package(hrpsys QUIET) # on indigo, hrpsys is not ros package
-if(NOT ${hrpsys_FOUND})
-  find_package(PkgConfig)
-  pkg_check_modules(hrpsys hrpsys-base REQUIRED)
-endif()
-
+include(FindPkgConfig)
+pkg_check_modules(openhrp3 REQUIRED openhrp3.1)
+set(OPENHRP_SAMPLE_DIR ${openhrp3_PREFIX}/share/OpenHRP-3.1/sample)
+pkg_check_modules(hrpsys hrpsys-base REQUIRED)
 
 catkin_package(
     DEPENDS
@@ -45,14 +22,6 @@ catkin_package(
     INCLUDE_DIRS # TODO include
     LIBRARIES # TODO
 )
-
-# Utility macro
-macro(set_parent_if_possible name val)
-  get_directory_property(has_parent PARENT_DIRECTORY)
-  if(has_parent)
-    set(${name} ${val} PARENT_SCOPE)
-  endif()
-endmacro(set_parent_if_possible name val)
 
 if(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
   compile_openhrp_model(
@@ -98,10 +67,8 @@ macro(compile_model_for_closed_robots _robot_wrl_file _OpenHRP2_robot_name)
       ${_robot_wrl_file}
       ${_OpenHRP2_robot_name}
       ${ARGN})
-
-    set_parent_if_possible(compile_robots ${compile_robots})
   else()
-    message("\n\n\n\n ${_robot_wrl_file} is not found..\n\n\n\n")
+    message(STATUS "\n\n\n\n ${_robot_wrl_file} is not found..\n\n\n\n")
   endif()
 endmacro()
 macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
@@ -109,14 +76,12 @@ macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP
     ${hrp2_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
-  set_parent_if_possible(compile_robots ${compile_robots})
 endmacro()
 macro(compile_rbrain_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
   compile_model_for_closed_robots(
     $ENV{CVSDIR}/euslib/rbrain/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
-  set_parent_if_possible(compile_robots ${compile_robots})
 endmacro()
 macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
   if (EXISTS ${hrp2_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
@@ -125,33 +90,21 @@ macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_rob
     set(_workdir ${PROJECT_SOURCE_DIR}/models)
     set(_gen_jointmm_command_arg "\"\\(write-min-max-table-to-robot-model-file \\(${_sname}\\) \\\"${_workdir}/${_sname}.l\\\" :margin 1.0\\)\"")
     set(_gen_jointmm_conf_command_arg "\"\\(write-min-max-table-to-conf-file \\(${_sname}\\) \\\"${_workdir}/${_OpenHRP2_robot_name}.conf\\\"\\)\"")
-    if(euslisp_SOURCE_DIR)
-      set(euslisp_PACKAGE_PATH ${euslisp_SOURCE_DIR})
-    elseif(euslisp_SOURCE_PREFIX)
-      set(euslisp_PACKAGE_PATH ${euslisp_SOURCE_PREFIX})
-    else(euslisp_SOURCE_PREFIX)
-      set(euslisp_PACKAGE_PATH ${euslisp_PREFIX}/share/euslisp)
-    endif()
 
-    execute_process(
-      COMMAND find ${euslisp_PACKAGE_PATH} -name irteusgl -executable
-      OUTPUT_VARIABLE irteusgl_path
-      RESULT_VARIABLE result_
-      OUTPUT_STRIP_TRAILING_WHITESPACE)
-    if(NOT result_ EQUAL 0)
+    find_program(euslisp_exe irteusgl)
+    if(NOT EXISTS ${euslisp_exe})
       message(FATAL_ERROR "failed to find euslisp, skipping generating min max table")
-    else(NOT result_ EQUAL 0)
-      set(euslisp_exe ${irteusgl_path})
-      message("find euslisp on ${euslisp_exe}")
+    else()
+      message(STATUS "find euslisp on ${euslisp_exe}")
       add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done
       COMMAND DISPLAY= ${euslisp_exe} ${PROJECT_SOURCE_DIR}/euslisp/make-joint-min-max-table.l ${_workdir}/${_sname}.l "\"${_gen_jointmm_command_arg}\"" "\"(exit)\"" && touch ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done
       DEPENDS ${_workdir}/${_sname}.l)
       add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_conf_done
       COMMAND DISPLAY= ${euslisp_exe} ${PROJECT_SOURCE_DIR}/euslisp/make-joint-min-max-table.l ${_workdir}/${_sname}.l "\"${_gen_jointmm_conf_command_arg}\"" "\"(exit)\"" && touch ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_conf_done
       DEPENDS ${_workdir}/${_OpenHRP2_robot_name}.xml ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done)
-    add_custom_target(${_sname}_${PROJECT_NAME}_compile2 DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_conf_done ${_sname}_${PROJECT_NAME}_compile)
-    add_dependencies(${_sname}_${PROJECT_NAME}_compile_all ${_sname}_${PROJECT_NAME}_compile2)
-    endif(NOT result_ EQUAL 0)
+    add_custom_target(${_sname}_${PROJECT_NAME}_compile_joint_minmax DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_done ${CMAKE_CURRENT_BINARY_DIR}/${_sname}_joint_minmax_conf_done ${_sname}_${PROJECT_NAME}_compile)
+    add_dependencies(${_sname}_${PROJECT_NAME}_compile_all ${_sname}_${PROJECT_NAME}_compile_joint_minmax)
+    endif()
   endif()
 endmacro()
 
@@ -361,21 +314,19 @@ generate_default_launch_eusinterface_files(
 generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--use-unstable-hrpsys-config")
 
 # find xacro
-if(EXISTS ${xacro_SOURCE_DIR}/xacro.py)
-  set(xacro_exe ${xacro_SOURCE_DIR}/xacro.py)
-elseif(EXISTS ${xacro_SOURCE_PREFIX}/xacro.py)
+find_package(xacro)
+if(EXISTS ${xacro_SOURCE_PREFIX}/xacro.py)
   set(xacro_exe ${xacro_SOURCE_PREFIX}/xacro.py)
-else(EXISTS ${xacro_SOURCE_DIR}/xacro.py)
+else()
   set(xacro_exe ${xacro_PREFIX}/share/xacro/xacro.py)
-endif(EXISTS ${xacro_SOURCE_DIR}/xacro.py)
+endif()
 
-if (euscollada_SOURCE_DIR)
-  set(euscollada_PACKAGE_PATH ${euscollada_SOURCE_DIR})
-elseif (euscollada_SOURCE_PREFIX)
+find_package(euscollada)
+if (euscollada_SOURCE_PREFIX)
   set(euscollada_PACKAGE_PATH ${euscollada_SOURCE_PREFIX})
-else (euscollada_SOURCE_DIR)
+else ()
   set(euscollada_PACKAGE_PATH ${euscollada_PREFIX}/share/euscollada)
-endif(euscollada_SOURCE_DIR)
+endif()
 
 macro (generate_hand_attached_hrp2_model _robot_name)
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
@@ -538,12 +489,7 @@ if(EXISTS $ENV{CVSDIR}/euslib/rbrain/jaxon/l_hand_attached_link.dae)
     if(NOT jaxon_description_SOURCE_DIR AND jaxon_description_SOURCE_PREFIX)
       set(jaxon_description_SOURCE_DIR ${jaxon_description_SOURCE_PREFIX})
     endif(NOT jaxon_description_SOURCE_DIR AND jaxon_description_SOURCE_PREFIX)
-    if(jaxon_description_FOUND AND NOT jaxon_description_SOURCE_DIR)
-      execute_process(
-        COMMAND rospack find jaxon_description
-        OUTPUT_VARIABLE jaxon_description_SOURCE_DIR)
-      string(REGEX REPLACE "\n" "" jaxon_description_SOURCE_DIR ${jaxon_description_SOURCE_DIR})
-    endif()
+    find_package(jaxon_description)
     if(EXISTS ${jaxon_description_SOURCE_DIR})
       generate_staro_hand_model(JAXON jaxon)
       generate_hand_attached_staro_model(JAXON)
