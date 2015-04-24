@@ -129,27 +129,6 @@
      (cons :action-type pr2_controllers_msgs::JointTrajectoryAction)
      (cons :joint-names (list "HEAD_JOINT0" "HEAD_JOINT1"))))
    )
-  (:sync-controller
-   (controller &optional (interpolation-time 5000) (blockp t))
-   (let* ((controller-info (car (send self controller)))
-          (groupname (cdr (assoc :group-name controller-info)))
-          (jointnames (cdr (assoc :joint-names controller-info)))
-          (current-reference (send self :state :reference-vector)))
-     (warn "sync controller ~A~%" controller)
-     (send self :angle-vector current-reference interpolation-time controller)
-     (when blockp
-       (send self :wait-interpolation)
-       )
-     (send self :angle-vector current-reference interpolation-time :default-controller)
-     (when blockp
-       (send self :wait-interpolation)
-       )
-     (send self :remove-joint-group groupname)
-     (send self :wait-interpolation) ;; wait until removing
-     (send self :add-joint-group groupname jointnames)
-     )
-   )
-  
   )
 
 (defun staro-init (&optional (create-viewer))
