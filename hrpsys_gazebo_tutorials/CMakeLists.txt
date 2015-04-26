@@ -46,8 +46,6 @@ generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP4C
 add_custom_target(all_robots_compile_tutorials ALL DEPENDS ${compile_urdf_robots})
 
 ## install
-install(FILES setup.sh
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 install(DIRECTORY euslisp worlds launch config environment_models DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   PATTERN ".svn" EXCLUDE)
 install(DIRECTORY scripts DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
