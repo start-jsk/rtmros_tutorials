@@ -2,6 +2,15 @@
 Changelog for package hrpsys_gazebo_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [hrpsys_gazebo_tutorials/CMakeLists.txt] setup.sh is removed in #251
+* [hrpsys_gazebo_tutorials] add DRCTestbed environement, world and launch files for gazebo/samplerobot
+* [hrpsys_gazebo_tutorials] use env-hook instead of source setup.sh manually
+* [hrpsys_gazebo_tutorials] add initial pose option for gazebo/samplerobot launch
+* (hrpsys_gazebo_tutorials/euslisp/hand-command-publisher.l): Modified l/r correspondance which was inconsistent. Current consistency is "left is 0 and right is 1".
+* Contributors: Furushchev, Kei Okada, leus
+
 0.1.4 (2015-04-07)
 ------------------
 * Remove old manifest.xml files

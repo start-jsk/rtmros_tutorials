@@ -2,6 +2,45 @@
 Changelog for package hrpsys_ros_bridge_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [hrpsys_ros_bridge_tutorials/package.xml] need hrpsys_ros_bridge 1.2.12
+* [package.xml] set version_gte for hrpsys_ros_bridge and openhrp3
+* [hrpsys_ros_bridge_tutorials/CMakeLists.txt] need to depends on target
+* [hrpsys_ros_bridge_tutorils/CMakeLists.txt] fix cmake for new compile_robot_model.cmake
+* [hrpsys_ros_bridge_tutorials] Update jaxon calibration parameter
+* [euslisp/make-joint-min-max-table.l] add error-handler
+* Add check code for kf test
+* Add printing of documentation for walk check
+* [hrpsys_ros_bridge_tutorials] Remove sync-controller method in individual robots because sync-controller merged into upstream
+* fix joint name from BODY to WAIST
+* fix arm end-effector pos for THK003
+* Fix ankle-r outside limit values near limitter parts
+* Add new line for each mm table. In this commit, mm table values are not changed
+* Add org-min-max-angle for mm table debug
+* add end effector value for JSK foot
+* Add hand-made ankle-r ankle-p min-max table for hrp2jsk measured by real robot encoder values
+* Fix end-coords for ankle spacer
+* modify the number of parenthesis
+* [hrpsys_ros_bridge_tutorisla] Add control_msgs to pass test
+* [hrpsys_ros_bridge_tutorials] Add larm/rarm/lleg/rleg-controller to jaxon-interface.l
+* fix joint name
+  see https://github.com/start-jsk/rtmros_tutorials/issues/233
+* [hrpsys-ros-bridge-test-suits.l] fix :load-forcemoment-offset-param to latest API
+* [robot_hrpsys-ros-bridge_test.launch] extend time limit from 300 to 500
+* [hrpsys_ros_bridge_tutorials/test/samplerobot-hrpsys-ros-bridge-test.l] test-force-offset-imp could not pass the test
+* change arm eef transformation for jaxon
+* CAUTION: rpsysSeqStateROSBridge0.rtc:baseTform not found , I'm do not know why?
+* [hrpsys_ros_bridge_tutorials/CMakeLists.txt] add add_rostest(test/samplerobot_hrpsys-ros-bridge_test.launch)
+* [robot_hrpsys-ros-bridge_test.launch] run rostest in corba prot 2809, disable guis
+* [hrpsys-ros-bridge-test-suits.l] add :corbaport in setup-hrpsys-ros-test
+* [test_hrpsys_samplerobot.launch] run start_omninames.sh for rostest
+* [hrpsys_ros_bridge_tutorials/CMakeLists.txt] do not run compile2 as all but add depend from compile_all to compile2
+* [hrpsys_ros_bridge_tutorials] Check current if scope has parent scope when set
+  variable in PARENT_SCOPE to supress warning messages in cmake
+* add CHEST_JOINT2:L/RARM_JOINT2 to collision_pair for jaxon
+* Contributors: Eisoku Kuroiwa, Kei Okada, Masaki Murooka, Ryohei Ueda, Shunichi Nozawa, Ryo Terasawa, Yohei Kakiuch, Iori Kumagai
+
 0.1.4 (2015-04-07)
 ------------------
 * apply min-max table to STARO

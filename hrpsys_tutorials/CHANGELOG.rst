@@ -2,6 +2,9 @@
 Changelog for package hrpsys_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.4 (2015-04-07)
 ------------------
 * Remove old manifest.xml files
