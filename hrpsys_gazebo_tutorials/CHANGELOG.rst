@@ -2,8 +2,8 @@
 Changelog for package hrpsys_gazebo_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.5 (2015-04-27)
+------------------
 * [hrpsys_gazebo_tutorials/CMakeLists.txt] setup.sh is removed in #251
 * [hrpsys_gazebo_tutorials] add DRCTestbed environement, world and launch files for gazebo/samplerobot
 * [hrpsys_gazebo_tutorials] use env-hook instead of source setup.sh manually

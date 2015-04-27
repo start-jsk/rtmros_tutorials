@@ -1,6 +1,6 @@
 <package>
   <name>hrpsys_tutorials</name>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <description>hrpsys example files</description>
   <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">ROS package is maintained by Kei Okada</maintainer>
 

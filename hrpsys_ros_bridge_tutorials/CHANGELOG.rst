@@ -2,8 +2,8 @@
 Changelog for package hrpsys_ros_bridge_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.5 (2015-04-27)
+------------------
 * [hrpsys_ros_bridge_tutorials/package.xml] need hrpsys_ros_bridge 1.2.12
 * [package.xml] set version_gte for hrpsys_ros_bridge and openhrp3
 * [hrpsys_ros_bridge_tutorials/CMakeLists.txt] need to depends on target
