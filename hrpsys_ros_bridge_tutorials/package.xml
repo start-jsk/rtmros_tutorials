@@ -13,7 +13,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <build_depend version_gte="1.2.11">hrpsys_ros_bridge</build_depend>
+  <build_depend version_gte="1.2.12">hrpsys_ros_bridge</build_depend>
   <build_depend>hrpsys</build_depend>
   <build_depend version_gte="3.1.8">openhrp3</build_depend>
   <build_depend>euscollada</build_depend>
