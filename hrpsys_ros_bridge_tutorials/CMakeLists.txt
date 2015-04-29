@@ -79,13 +79,12 @@ macro(compile_openhrp_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP
 endmacro()
 macro(compile_rbrain_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
   compile_model_for_closed_robots(
-    $ENV{CVSDIR}/euslib/rbrain/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
+    ${hrp2_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
 endmacro()
 macro(gen_minmax_table_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
-  if (EXISTS ${hrp2_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
-      OR EXISTS $ENV{CVSDIR}/euslib/rbrain/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
+  if (EXISTS ${hrp2_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl)
     string(TOLOWER ${_OpenHRP2_robot_name} _sname)
     set(_workdir ${PROJECT_SOURCE_DIR}/models)
     set(_gen_jointmm_command_arg "\"\\(write-min-max-table-to-robot-model-file \\(${_sname}\\) \\\"${_workdir}/${_sname}.l\\\" :margin 1.0\\)\"")
@@ -220,7 +219,7 @@ if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
 endif()
 
 # URATALEG
-compile_rbrain_model_for_closed_robots(URATALEG urataleg URATALEG
+compile_rbrain_model_for_closed_robots(URATALEG URATALEG URATALEG
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.08, 0.0"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0,"
@@ -232,7 +231,7 @@ compile_rbrain_model_for_closed_robots(URATALEG urataleg URATALEG
   )
 
 # STARO
-compile_rbrain_model_for_closed_robots(STARO staro STARO
+compile_rbrain_model_for_closed_robots(STARO STARO STARO
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
   --conf-file-option "end_effectors: rarm,RARM_JOINT7,CHEST_JOINT1,0.0,-0.15701,0.0,0.57735,-0.57735,-0.57735,2.0944, larm,LARM_JOINT7,CHEST_JOINT1,-5.684342e-17,0.15701,-1.136868e-16,-0.57735,-0.57735,0.57735,2.0944, rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0,"
@@ -246,10 +245,10 @@ compile_rbrain_model_for_closed_robots(STARO staro STARO
   --conf-dt-option "0.002"
   --simulation-timestep-option "0.002"
   )
-gen_minmax_table_for_closed_robots(STARO staro STARO)
+gen_minmax_table_for_closed_robots(STARO STARO STARO)
 
 # YSTLEG
-compile_rbrain_model_for_closed_robots(YSTLEG ystleg YSTLEG
+compile_rbrain_model_for_closed_robots(YSTLEG YSTLEG YSTLEG
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.08, 0.0"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0,"
@@ -259,7 +258,7 @@ compile_rbrain_model_for_closed_robots(YSTLEG ystleg YSTLEG
 
 
 # JAXON
-compile_rbrain_model_for_closed_robots(JAXON jaxon JAXON
+compile_rbrain_model_for_closed_robots(JAXON JAXON JAXON
   --conf-dt-option "0.002"
   --simulation-timestep-option "0.002"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
@@ -272,7 +271,7 @@ compile_rbrain_model_for_closed_robots(JAXON jaxon JAXON
   --conf-file-option "collision_model: convex hull"
   --simulation-joint-properties-option "RARM_JOINT2.angle,-0.191986,LARM_JOINT2.angle,0.191986"
 )
-gen_minmax_table_for_closed_robots(JAXON jaxon JAXON)
+gen_minmax_table_for_closed_robots(JAXON JAXON JAXON)
 
 if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
   compile_openhrp_model(
@@ -292,8 +291,8 @@ macro (generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots R
   set(_arg_list ${ARGV})
   # remove arguments of this macro
   list(REMOVE_AT _arg_list 0 1)
-  if(EXISTS $ENV{CVSDIR}/euslib/rbrain/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
-    generate_default_launch_eusinterface_files("$(env CVSDIR)/euslib/rbrain/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
+  if(EXISTS ${hrp2_models_MODEL_DIR}/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
+    generate_default_launch_eusinterface_files("${hrp2_models_MODEL_DIR}/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
   endif()
 endmacro ()
 
@@ -302,10 +301,10 @@ generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSK
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2W_for_OpenHRP3 HRP2W "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
-generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(staro STARO "--use-unstable-hrpsys-config")
-generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(jaxon JAXON "--use-unstable-hrpsys-config")
-generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(urataleg URATALEG "--use-unstable-hrpsys-config")
-generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(ystleg YSTLEG "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(STARO STARO "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXSON JAXON "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(URATALEG URATALEG "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(YSTLEG YSTLEG "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files(
   "$(find hrpsys_ros_bridge_tutorials)/models/TESTMDOFARM.wrl"
   hrpsys_ros_bridge_tutorials
@@ -405,7 +404,7 @@ endif()
 
 macro (generate_staro_hand_model _robot_name _dir_name)
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
-  set(_org_model_dir "$ENV{CVSDIR}/euslib/rbrain/${_dir_name}/")
+  set(_org_model_dir "${hrp2_models_MODEL_DIR}/${_dir_name}/")
   set(_in_urdf_file "${_model_dir}/${_robot_name}.urdf")
   set(_out_mesh_dir "${_model_dir}/${_robot_name}_meshes/")
   set(_l_mesh "l_hand_attached_link.dae")
@@ -468,12 +467,12 @@ macro (attach_sensor_and_endeffector_to_staro_urdf
   list(APPEND compile_${_robot_name}_urdf_robots ${_out_file}_generate)
 endmacro()
 
-if(EXISTS $ENV{CVSDIR}/euslib/rbrain/staro/l_hand_attached_link.dae)
+if(EXISTS ${hrp2_models_MODEL_DIR}/STARO/l_hand_attached_link.dae)
   find_package(PkgConfig)
   pkg_check_modules(multisense_description multisense_description QUIET)
   pkg_check_modules(robotiq_hand_description robotiq_hand_description QUIET)
   if(multisense_description_FOUND AND robotiq_hand_description_FOUND)
-    generate_staro_hand_model(STARO staro)
+    generate_staro_hand_model(STARO STARO)
     generate_hand_attached_staro_model(STARO)
     run_xacro_for_hand_staro_model(STARO)
     attach_sensor_and_endeffector_to_staro_urdf(STARO STARO_WH.urdf STARO_WH_SENSORS.urdf staro.yaml)
@@ -481,7 +480,7 @@ if(EXISTS $ENV{CVSDIR}/euslib/rbrain/staro/l_hand_attached_link.dae)
   endif()
 endif()
 
-if(EXISTS $ENV{CVSDIR}/euslib/rbrain/jaxon/l_hand_attached_link.dae)
+if(EXISTS ${hrp2_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
   find_package(PkgConfig)
   find_package(multisense_description QUIET)
   if(multisense_description_FOUND)
@@ -491,7 +490,7 @@ if(EXISTS $ENV{CVSDIR}/euslib/rbrain/jaxon/l_hand_attached_link.dae)
     endif(NOT jaxon_description_SOURCE_DIR AND jaxon_description_SOURCE_PREFIX)
     find_package(jaxon_description)
     if(EXISTS ${jaxon_description_SOURCE_DIR})
-      generate_staro_hand_model(JAXON jaxon)
+      generate_staro_hand_model(JAXON JAXON)
       generate_hand_attached_staro_model(JAXON)
       run_xacro_for_hand_staro_model(JAXON)
       attach_sensor_and_endeffector_to_staro_urdf(JAXON JAXON_WH.urdf JAXON_WH_SENSORS.urdf jaxon.yaml)
