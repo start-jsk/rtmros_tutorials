@@ -28,6 +28,7 @@
   <build_depend>jaxon_description</build_depend>
   <build_depend>control_msgs</build_depend>
   <build_depend>hrp2_models</build_depend> <!-- only jsk people have this package, so if you do not find them, please comment out this -->
+  <build_depend>jsk_models</build_depend> <!-- only jsk people have this package, so if you do not find them, please comment out this -->
 
   <run_depend>hrpsys_ros_bridge</run_depend>
   <run_depend>hrpsys</run_depend>
@@ -40,6 +41,7 @@
   <run_depend>xacro</run_depend>
   <run_depend>control_msgs</run_depend>
   <run_depend>hrp2_models</run_depend> <!-- only jsk people have this package, so if you do not find them, please comment out this -->
+  <run_depend>jsk_models</run_depend> <!-- only jsk people have this package, so if you do not find them, please comment out this -->
   <!-- <test_depend>openhrp3</test_depend> -->
   <export>
   </export>
