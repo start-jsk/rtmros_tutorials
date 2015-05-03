@@ -235,7 +235,7 @@ compile_rbrain_model_for_closed_robots(URATALEG urataleg URATALEG
 compile_rbrain_model_for_closed_robots(STARO staro STARO
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
-  --conf-file-option "end_effectors: rarm,RARM_JOINT7,CHEST_JOINT1,0.0,-0.15701,0.0,0.57735,-0.57735,-0.57735,2.0944, larm,LARM_JOINT7,CHEST_JOINT1,-5.684342e-17,0.15701,-1.136868e-16,-0.57735,-0.57735,0.57735,2.0944, rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0,"
+  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, rarm,RARM_JOINT7,CHEST_JOINT1,-2.842171e-17,-0.1893,0.0,0.678598,-0.678598,-0.281085,2.59356, larm,LARM_JOINT7,CHEST_JOINT1,-5.684342e-17,0.1893,0.0,-0.678598,-0.678598,0.281085,2.59356,"
   --conf-file-option "torque_offset: 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0"
   --conf-file-option "torque_filter_params: 2, 1.0, 1.88903, -0.89487, 0.0014603, 0.0029206, 0.0014603"
   --conf-file-option "error_to_torque_gain: 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0"
