@@ -410,7 +410,7 @@ endif()
 
 macro (generate_staro_hand_model _robot_name _dir_name)
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
-  set(_org_model_dir "${hrp2_models_MODEL_DIR}/${_dir_name}/")
+  set(_org_model_dir "${jsk_models_MODEL_DIR}/${_dir_name}/")
   set(_in_urdf_file "${_model_dir}/${_robot_name}.urdf")
   set(_out_mesh_dir "${_model_dir}/${_robot_name}_meshes/")
   set(_l_mesh "l_hand_attached_link.dae")
