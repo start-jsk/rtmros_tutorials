@@ -44,10 +44,20 @@ torso:
 ##
 ## end-coords
 ##
+## -------- ##
+# ## KAWADA FOOT
 rleg-end-coords:
   translate : [0.0, 0, -0.096]
 lleg-end-coords:
   translate : [0.0, 0, -0.096]
+## JSK FOOT
+# rleg-end-coords:
+#   parent: RLEG_LINK5
+#   translate : [0, 0, -0.1055]
+# lleg-end-coords:
+#   parent: LLEG_LINK5
+#   translate : [0, 0, -0.1055]
+## -------- ##
 # straight ver
 rarm-end-coords:
   translate : [0, -0.1893, 0]
@@ -70,6 +80,7 @@ larm-end-coords:
 # larm-end-coords:
 #   translate : [-0.063286, 0.146, -0.063286]
 #   rotate : [0.281085, 0.678598, -0.678598, 148.6]
+## -------- ##
 head-end-coords:
   translate : [0.1, 0, 0.2]
   rotate    : [0, 1, 0, 90]
