@@ -75,6 +75,9 @@ rleg-end-coords:
 lleg-end-coords:
   parent: LLEG_LINK5
   translate : [0, 0, -0.1055]
+head-end-coords:
+  translate : [0.1, 0.0, 0.1]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
 
 ##
 ## reset-pose
