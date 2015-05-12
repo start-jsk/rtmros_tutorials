@@ -105,6 +105,12 @@
             (send robot :torso :waist-r)
             (send robot :torso :waist-p)
             :margin 3))
+   (send robot :make-joint-min-max-table
+      (send robot :head :neck-y :parent-link)
+      (send robot :head :neck-p :child-link)
+      (send robot :head :neck-y)
+      (send robot :head :neck-p)
+      :margin margin)
   )
 (defun gen-min-max-table-staro
   (robot margin)
