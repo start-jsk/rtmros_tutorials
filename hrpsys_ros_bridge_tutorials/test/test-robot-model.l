@@ -17,6 +17,8 @@
     (dolist (arm '(:larm :rarm))
       (send robot arm :wrist-p :joint-angle 10)
       (assert (eps= (send robot arm :wrist-p :joint-angle) 10)))
+
+    (assert (null (send robot :self-collision-check)))
     ))
 
 (run-all-tests)
