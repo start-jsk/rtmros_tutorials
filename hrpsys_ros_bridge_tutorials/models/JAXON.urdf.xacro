@@ -58,11 +58,11 @@
     <origin rpy="0.004 0.01 0.01" xyz="0.1005 0 0.07625"/>
   </joint>
   <!-- HAND -->
-  <xacro:include filename="$(find jaxon_description)/urdf/thk_hand002.urdf.xacro" />
+  <xacro:include filename="$(find jaxon_description)/urdf/thk_hand003.urdf.xacro" />
   <xacro:thk_hand prefix="L_" parent="LARM_LINK7" type="revolute">
-    <origin xyz="0 0 -0.085" rpy="0 1.5707963268 0" />
+    <origin xyz="0 0 -0.085" rpy="-1.5707963268 1.5707963268 0" />
   </xacro:thk_hand>
   <xacro:thk_hand prefix="R_" parent="RARM_LINK7" type="revolute">
-    <origin xyz="0 0 -0.085" rpy="0 1.5707963268 0" />
+    <origin xyz="0 0 -0.085" rpy="1.5707963268 1.5707963268 0" />
   </xacro:thk_hand>
 </robot>
