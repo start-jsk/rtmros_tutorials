@@ -116,6 +116,7 @@ endmacro()
 # old HRP2xx.wrl files should be coverted.
 compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
+  --conf-file-option "collision_mask: 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"
   --conf-file-option "# original ankle"
   --conf-file-option "# end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,0.0,0.0169,-0.174,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,0.0,-0.0169,-0.174,0.0,1.0,0.0,1.5708,"
   --conf-file-option "# ankle spacer"
@@ -138,6 +139,7 @@ gen_minmax_table_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK)
 
 compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSKNT
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
+  --conf-file-option "collision_mask: 0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"
   --conf-file-option "#end_effectors: rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT6,WAIST,-0.079411,-0.01,-0.031,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT6,WAIST,-0.079411,0.01,-0.031,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
   --conf-file-option "# for ThermoEstimator"
@@ -154,6 +156,7 @@ compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSK
 gen_minmax_table_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSKNT)
 compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS
   --conf-file-option "abc_leg_offset: 0.0,0.105,0.0"
+  --conf-file-option "collision_mask: 0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"
   --conf-file-option "#end_effectors: rleg,RLEG_JOINT5,WAIST,0.035589,-0.01,-0.105,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.035589,0.01,-0.105,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT6,WAIST,-0.079411,-0.01,-0.031,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT6,WAIST,-0.079411,0.01,-0.031,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT1,-0.0042,0.0392,-0.1245,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,-0.0042,-0.0392,-0.1245,0.0,1.0,0.0,1.5708,"
   --conf-file-option "# for ThermoEstimator"
@@ -240,6 +243,7 @@ compile_rbrain_model_for_closed_robots(URATALEG URATALEG URATALEG
 compile_rbrain_model_for_closed_robots(STARO STARO STARO
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
+  --conf-file-option "collision_mask: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1"
   --conf-file-option "## KAWADA FOOT"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, rarm,RARM_JOINT7,CHEST_JOINT1,-2.842171e-17,-0.1893,0.0,0.678598,-0.678598,-0.281085,2.59356, larm,LARM_JOINT7,CHEST_JOINT1,-5.684342e-17,0.1893,0.0,-0.678598,-0.678598,0.281085,2.59356,"
   --conf-file-option "## JSK FOOT"
@@ -272,6 +276,7 @@ compile_rbrain_model_for_closed_robots(JAXON JAXON JAXON
   --simulation-timestep-option "0.002"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
+  --conf-file-option "collision_mask: 0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"
   ## KAWADA foot
   # --conf-file-option "end_effectors: rleg,RLEG_JOINT5,BODY,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,BODY,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, rarm,RARM_JOINT7,CHEST_JOINT2,0.0,0.055,-0.217,0,1.0,0.0,1.5708, larm,LARM_JOINT7,CHEST_JOINT2,0.0,-0.055,-0.217,0,1.0,0.0,1.5708,"
   ## JSK foot
