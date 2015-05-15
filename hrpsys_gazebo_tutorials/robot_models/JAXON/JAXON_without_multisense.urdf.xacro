@@ -1,5 +1,12 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="JAXON" >
   <xacro:include filename="$(find hrpsys_gazebo_tutorials)/robot_models/JAXON/JAXON.urdf" />
+  <!-- HEAD -->
+  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
+  <joint name="head_tip_to_multisense" type="fixed">
+    <parent link="HEAD_LINK1" />
+    <child  link="head_root" />
+    <origin rpy="0.004 0.01 0.01" xyz="0.1005 0 0.07625"/>
+  </joint>
   <!-- HAND -->
   <xacro:include filename="$(find jaxon_description)/urdf/thk_hand003.urdf.xacro" />
   <xacro:thk_hand prefix="L_" parent="LARM_LINK7" type="revolute">
