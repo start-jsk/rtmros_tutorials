@@ -47,9 +47,15 @@ larm:
 ## end-coords
 ##
 rleg-end-coords:
-  translate : [-0.079411, -0.01, -0.031]
+# Original foot
+#  translate : [-0.079411, -0.01, -0.031]
+# Karasawa sole plate [3mm]
+  translate : [-0.079411, -0.01, -0.034]
 lleg-end-coords:
-  translate : [-0.079411,  0.01, -0.031]
+# Original foot
+#  translate : [-0.079411,  0.01, -0.031]
+# Karasawa sole plate [3mm]
+  translate : [-0.079411,  0.01, -0.034]
 torso-end-coords:
   translate : [-0.032, 0.0, -1.0557]
 head-end-coords:
