@@ -62,19 +62,19 @@ larm-end-coords:
 #  translate : [-0.055, 0.0, -0.237]
 #  rotate    : [0.57735, 0.57735, -0.57735, 120]
 ## KAWADA FOOT
-# rleg-end-coords:
-#   parent: RLEG_LINK5
-#   translate : [0, 0, -0.096]
-# lleg-end-coords:
-#   parent: LLEG_LINK5
-#   translate : [0, 0, -0.096]
-## JSK FOOT
 rleg-end-coords:
   parent: RLEG_LINK5
-  translate : [0, 0, -0.1055]
+  translate : [0, 0, -0.096]
 lleg-end-coords:
   parent: LLEG_LINK5
-  translate : [0, 0, -0.1055]
+  translate : [0, 0, -0.096]
+## JSK FOOT
+# rleg-end-coords:
+#   parent: RLEG_LINK5
+#   translate : [0, 0, -0.1055]
+# lleg-end-coords:
+#   parent: LLEG_LINK5
+#   translate : [0, 0, -0.1055]
 head-end-coords:
   translate : [0.1, 0.0, 0.1]
   rotate    : [0.0, 1.0, 0.0, 90.0]
