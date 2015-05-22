@@ -14,6 +14,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         return self.getRTCListUnstable()
     def init (self, robotname="Robot", url=""):
         HrpsysConfigurator.init(self, robotname, url)
+        print "initialize rtc parameters"
         self.setStAbcParameters()
 
     def defJointGroups (self):
@@ -294,6 +295,15 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.toe_zmp_offset_x = 1e-3*137.525;
         gg.heel_zmp_offset_x = 1e-3*-106.925;
         self.abc_svc.setGaitGeneratorParam(gg)
+
+    def setResetPose(self):
+        self.seq_svc.setJointAngles(self.hrp2ResetPose(), 5.0)
+
+    def setResetManipPose(self):
+        self.seq_svc.setJointAngles(self.hrp2ResetManipPose(), 5.0)
+
+    def setInitPose(self):
+        self.seq_svc.setJointAngles(self.hrp2InitPose(), 5.0)
 
     def __init__(self, robotname=""):
         self.ROBOT_NAME = robotname
