@@ -20,6 +20,7 @@ include(FindPkgConfig)
 pkg_check_modules(openhrp3 REQUIRED openhrp3.1)
 set(OPENHRP_SAMPLE_DIR ${openhrp3_PREFIX}/share/OpenHRP-3.1/sample)
 pkg_check_modules(hrpsys hrpsys-base REQUIRED)
+catkin_python_setup()
 
 catkin_package(
     DEPENDS
