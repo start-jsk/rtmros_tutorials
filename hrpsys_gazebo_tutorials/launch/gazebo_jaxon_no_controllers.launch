@@ -40,7 +40,7 @@
   <!-- for multisense sl gazebo ros plugin -->
   <node name="hokuyo_joint_states_relay"
         pkg="topic_tools" type="relay"
-        args="/multisense/joint_states /joint_states" />
+        args="/multisense_sl/joint_states /joint_states" />
   <node name="hokuyo_spindle_speed_setter"
         pkg="rostopic" type="rostopic"
         args="pub -l /multisense_sl/set_spindle_speed std_msgs/Float64 'data: $(arg SPINDLE_SPEED)'"
