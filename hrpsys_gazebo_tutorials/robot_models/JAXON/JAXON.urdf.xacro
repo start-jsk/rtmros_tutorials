@@ -46,4 +46,65 @@
       </imu>
     </sensor>
   </gazebo>
+  <!-- end-effectors -->
+  <joint name="rfsensor_joint" type="fixed">
+    <origin rpy="3.141593 0.000000 3.141593" xyz="0 0 -0.069"/>
+    <parent link="RLEG_LINK5"/>
+    <child link="rfsensor"/>
+  </joint>
+  <link name="rfsensor"/>
+  <joint name="lfsensor_joint" type="fixed">
+    <origin rpy="3.141593 0.000000 3.141593" xyz="0 0 -0.069"/>
+    <parent link="LLEG_LINK5"/>
+    <child link="lfsensor"/>
+  </joint>
+  <link name="lfsensor"/>
+  <joint name="rhsensor_joint" type="fixed">
+    <origin rpy="-3.141593 -0.000000 2.356196" xyz="0 0 -0.069"/>
+    <parent link="RARM_LINK7"/>
+    <child link="rhsensor"/>
+  </joint>
+  <link name="rhsensor"/>
+  <joint name="lhsensor_joint" type="fixed">
+    <origin rpy="3.141593 -0.000000 -2.356196" xyz="0 0 -0.069"/>
+    <parent link="LARM_LINK7"/>
+    <child link="lhsensor"/>
+  </joint>
+  <link name="lhsensor"/>
+  <joint name="fisheye_joint" type="fixed">
+    <origin rpy="-2.617989 0.000005 -1.570795" xyz="0.147 0 -0.022"/>
+    <parent link="CHEST_LINK2"/>
+    <child link="fisheye"/>
+  </joint>
+  <link name="fisheye"/>
+  <joint name="rleg_end_coords_joint" type="fixed">
+    <origin rpy="0.000000 -0.000000 0.000000" xyz="0 0 -0.1055"/>
+    <parent link="RLEG_LINK5"/>
+    <child link="rleg_end_coords"/>
+  </joint>
+  <link name="rleg_end_coords"/>
+  <joint name="lleg_end_coords_joint" type="fixed">
+    <origin rpy="0.000000 -0.000000 0.000000" xyz="0 0 -0.1055"/>
+    <parent link="LLEG_LINK5"/>
+    <child link="lleg_end_coords"/>
+  </joint>
+  <link name="lleg_end_coords"/>
+  <joint name="rarm_end_coords_joint" type="fixed">
+    <origin rpy="-0.000000 1.570796 0.000000" xyz="0 0 -0.217"/>
+    <parent link="RARM_LINK7"/>
+    <child link="rarm_end_coords"/>
+  </joint>
+  <link name="rarm_end_coords"/>
+  <joint name="larm_end_coords_joint" type="fixed">
+    <origin rpy="-0.000000 1.570796 0.000000" xyz="0 0 -0.217"/>
+    <parent link="LARM_LINK7"/>
+    <child link="larm_end_coords"/>
+  </joint>
+  <link name="larm_end_coords"/>
+  <joint name="head_end_coords_joint" type="fixed">
+    <origin rpy="-0.000000 1.570796 0.000000" xyz="0.1 0.0 0.1"/>
+    <parent link="HEAD_LINK1"/>
+    <child link="head_end_coords"/>
+  </joint>
+  <link name="head_end_coords"/>
 </robot>
