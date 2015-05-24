@@ -13,6 +13,10 @@
   <arg name="MODEL_ROTATE_P" default="0.0" />
   <arg name="MODEL_ROTATE_Y" default="0.0" />
 
+  <!-- initial multisense hokuyo spindle speed -->
+  <arg name="SPINDLE" default="true" />
+  <arg name="SPINDLE_SPEED" default="1.00" />
+
   <include file="$(find hrpsys_gazebo_general)/launch/gazebo_robot_no_controllers.launch">
     <arg name="ROBOT_TYPE" value="JAXON" />
     <arg name="WORLD" value="$(arg WORLD)" />
@@ -32,4 +36,13 @@
     <arg name="MODEL_ROTATE_P" value="$(arg MODEL_ROTATE_P)" />
     <arg name="MODEL_ROTATE_Y" value="$(arg MODEL_ROTATE_Y)" />
   </include>
+
+  <!-- for multisense sl gazebo ros plugin -->
+  <node name="hokuyo_joint_states_relay"
+        pkg="topic_tools" type="relay"
+        args="/multisense/joint_states /joint_states" />
+  <node name="hokuyo_spindle_speed_setter"
+        pkg="rostopic" type="rostopic"
+        args="pub -l /multisense_sl/set_spindle_speed std_msgs/Float64 'data: $(arg SPINDLE_SPEED)'"
+        if="$(arg SPINDLE)"/>
 </launch>
