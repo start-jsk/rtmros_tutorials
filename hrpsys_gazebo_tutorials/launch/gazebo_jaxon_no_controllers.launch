@@ -5,6 +5,14 @@
   <arg name="SYNCHRONIZED" default="false" />
   <arg name="SPAWN_MODEL" default="true" />
 
+  <!-- initial robot pose -->
+  <arg name="MODEL_TRANSLATE_X" default="0.0" />
+  <arg name="MODEL_TRANSLATE_Y" default="0.0" />
+  <arg name="MODEL_TRANSLATE_Z" default="1.025" />
+  <arg name="MODEL_ROTATE_R" default="0.0" />
+  <arg name="MODEL_ROTATE_P" default="0.0" />
+  <arg name="MODEL_ROTATE_Y" default="0.0" />
+
   <include file="$(find hrpsys_gazebo_general)/launch/gazebo_robot_no_controllers.launch">
     <arg name="ROBOT_TYPE" value="JAXON" />
     <arg name="WORLD" value="$(arg WORLD)" />
@@ -15,8 +23,13 @@
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
     <arg name="USE_INSTANCE_NAME" value="true" />
     <arg name="gzname" value="$(arg gzname)" />
-
-    <arg name="MODEL_TRANSLATE_Z" default="1.025" />
     <arg name="SPAWN_MODEL" value="$(arg SPAWN_MODEL)" />
+
+    <arg name="MODEL_TRANSLATE_X" value="$(arg MODEL_TRANSLATE_X)" />
+    <arg name="MODEL_TRANSLATE_Y" value="$(arg MODEL_TRANSLATE_Y)" />
+    <arg name="MODEL_TRANSLATE_Z" value="$(arg MODEL_TRANSLATE_Z)" />
+    <arg name="MODEL_ROTATE_R" value="$(arg MODEL_ROTATE_R)" />
+    <arg name="MODEL_ROTATE_P" value="$(arg MODEL_ROTATE_P)" />
+    <arg name="MODEL_ROTATE_Y" value="$(arg MODEL_ROTATE_Y)" />
   </include>
 </launch>
