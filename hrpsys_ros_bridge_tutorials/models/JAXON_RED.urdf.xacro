@@ -1,0 +1,70 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="JAXON_RED" >
+  <xacro:include filename="JAXON_RED_body.urdf" />
+  <!-- -->
+  <link name="LARM_LINK7">
+    <visual>
+      <origin xyz="0 0.0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_RED_meshes/l_hand_attached_link.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_RED_meshes/l_hand_attached_link.dae" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial> <!-- mass propaties should be corrected -->
+      <mass value="4.219" />
+      <origin xyz="-0.02359 0.12884 -0.02825" rpy="0 -0 0"/>
+      <inertia ixx="0.0527968" ixy="0" ixz="0" iyy="0.057042" iyz="0" izz="0.0492541"/>
+    </inertial>
+  </link>
+  <gazebo reference="LARM_LINK7">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+
+  <!-- -->
+  <link name="RARM_LINK7">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_RED_meshes/r_hand_attached_link.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hrpsys_ros_bridge_tutorials/models/JAXON_RED_meshes/r_hand_attached_link.dae" scale="1 1 1" />
+      </geometry>
+    </collision>
+    <inertial> <!-- mass propaties should be corrected -->
+      <mass value="4.219" />
+      <origin xyz="0.02359 -0.12884 -0.02825" rpy="0 -0 0"/>
+      <inertia ixx="0.0527968" ixy="0" ixz="0" iyy="0.057042" iyz="0" izz="0.0492541"/>
+    </inertial>
+  </link>
+  <gazebo reference="RARM_LINK7">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+
+  <!-- HEAD -->
+  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
+  <joint name="head_tip_to_multisense" type="fixed">
+    <parent link="HEAD_LINK1" />
+    <child  link="head_root" />
+    <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.08 0.01 0.045"/> --> <!-- For leg -->
+    <origin rpy="-0.01 0.01 0.017" xyz="0.09 0.01 0.055"/> <!--middle-->
+    <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.10 0.01 0.065"/> --> <!-- For hand -->
+  </joint>
+  <!-- HAND -->
+  <xacro:include filename="$(find jaxon_description)/urdf/thk_hand003.urdf.xacro" />
+  <xacro:thk_hand prefix="L_" parent="LARM_LINK7" type="revolute">
+    <origin xyz="0 0 -0.085" rpy="-1.5707963268 1.5707963268 0" />
+  </xacro:thk_hand>
+  <xacro:thk_hand prefix="R_" parent="RARM_LINK7" type="revolute">
+    <origin xyz="0 0 -0.085" rpy="1.5707963268 1.5707963268 0" />
+  </xacro:thk_hand>
+</robot>
