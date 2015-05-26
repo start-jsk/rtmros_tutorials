@@ -1,9 +1,14 @@
 <launch>
   <arg name="gzname" default="gazebo"/>
-  <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty_add_cfm.world"/>
+  <arg name="ENABLE_PIN_MODE" default="true" />
+  <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty_add_cfm.world"
+       unless="$(arg ENABLE_PIN_MODE)"/>
+  <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty_add_cfm_pin.world"
+       if="$(arg ENABLE_PIN_MODE)"/>
   <arg name="PAUSED" default="false"/>
   <arg name="SYNCHRONIZED" default="false" />
   <arg name="SPAWN_MODEL" default="true" />
+
 
   <!-- initial robot pose -->
   <arg name="MODEL_TRANSLATE_X" default="0.0" />
@@ -40,7 +45,7 @@
   <!-- for multisense sl gazebo ros plugin -->
   <node name="hokuyo_joint_states_relay"
         pkg="topic_tools" type="relay"
-        args="/multisense/joint_states /joint_states" />
+        args="/multisense_sl/joint_states /joint_states" />
   <node name="hokuyo_spindle_speed_setter"
         pkg="rostopic" type="rostopic"
         args="pub -l /multisense_sl/set_spindle_speed std_msgs/Float64 'data: $(arg SPINDLE_SPEED)'"
