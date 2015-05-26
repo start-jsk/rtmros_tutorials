@@ -1,0 +1,33 @@
+<launch>
+  <arg name="SPINDLE" default="true" />
+  <arg name="SPINDLE_SPEED" default="1.00" />
+  <arg name="STEREO_TO_POINTCLOUD" default="true" />
+  <arg name="LIDER_TO_POINTCLOUD" default="true" />
+
+  <group ns="multisense/camera" if="$(arg STEREO_TO_POINTCLOUD)">
+    <node name="multisense_stereo_nodelet" pkg="nodelet" type="nodelet" args="manager"/>
+    <node name="multisense_stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc">
+      <param name="disparity_range" value="128" />
+    </node>
+  </group>
+
+  <group if="$(arg LIDER_TO_POINTCLOUD)">
+    <node name="laser_scan_internsity_filter"
+          pkg="hrpsys_gazebo_general" type="laser_scan_internsity_filter">
+      <remap from="input" to="/multisense/lider_scan" />
+      <remap from="output" to="/multisense_intensity_filtered/lider_scan" />
+    </node>
+    <include file="$(find jsk_tilt_laser)/launch/multisense_laser_pipeline.launch">
+      <arg name="namespace" value="multisense_intensity_filtered" />
+      <arg name="fixed_frame_id" value="head_root" />
+    </include>
+  </group>
+
+  <node name="hokuyo_joint_states_relay"
+        pkg="topic_tools" type="relay"
+        args="/multisense_sl/joint_states /joint_states" />
+  <node name="hokuyo_spindle_speed_setter"
+        pkg="rostopic" type="rostopic"
+        args="pub -l /multisense_sl/set_spindle_speed std_msgs/Float64 'data: $(arg SPINDLE_SPEED)'"
+        if="$(arg SPINDLE)"/>
+</launch>

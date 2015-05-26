@@ -1,8 +1,10 @@
 <launch>
   <arg name="MODEL_TRANSLATE_X" default="-1.0" />
+  <arg name="ENABLE_MULTISENSE" default="true" />
 
   <include file="$(find hrpsys_gazebo_tutorials)/launch/gazebo_jaxon_no_controllers.launch">
     <arg name="WORLD" value="$(find hrpsys_gazebo_tutorials)/worlds/DRCTestbed.world" />
     <arg name="MODEL_TRANSLATE_X" value="$(arg MODEL_TRANSLATE_X)" />
+    <arg name="ENABLE_MULTISENSE" value="$(arg ENABLE_MULTISENSE)" />
   </include>
 </launch>
