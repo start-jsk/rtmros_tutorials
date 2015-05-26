@@ -1,9 +1,14 @@
 <launch>
   <arg name="gzname" default="gazebo"/>
-  <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty_add_cfm.world"/>
+  <arg name="ENABLE_PIN_MODE" default="true" />
+  <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty_add_cfm.world"
+       unless="$(arg ENABLE_PIN_MODE)"/>
+  <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty_add_cfm_pin.world"
+       if="$(arg ENABLE_PIN_MODE)"/>
   <arg name="PAUSED" default="false"/>
   <arg name="SYNCHRONIZED" default="false" />
   <arg name="SPAWN_MODEL" default="true" />
+
 
   <!-- initial robot pose -->
   <arg name="MODEL_TRANSLATE_X" default="0.0" />
@@ -43,5 +48,4 @@
     <arg name="SPINDLE" value="$(arg SPINDLE)" />
     <arg name="SPINDLE_SPEED" value="$(arg SPINDLE_SPEED)" />
   </include>
-
 </launch>
