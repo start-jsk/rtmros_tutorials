@@ -1,6 +1,6 @@
 <launch>
   <arg name="gzname" default="gazebo"/>
-  <arg name="ENABLE_PIN_MODE" default="true" />
+  <arg name="ENABLE_PIN_MODE" default="false" />
   <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty_add_cfm.world"
        unless="$(arg ENABLE_PIN_MODE)"/>
   <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty_add_cfm_pin.world"
