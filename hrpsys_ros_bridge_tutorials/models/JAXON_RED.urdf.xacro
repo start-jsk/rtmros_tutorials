@@ -57,7 +57,7 @@
     <child  link="head_root" />
     <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.08 0.01 0.045"/> --> <!-- For leg -->
     <!-- <origin rpy="-0.01 0.04 0.017" xyz="0.095 -0.01 0.055"/> for jaxon -->
-    <origin rpy="-0.01 0.04 -0.01" xyz="0.09 0.01 0.1"/> <!--for jaxon red-->
+    <origin rpy="-0.01 0.04 -0.01" xyz="0.09 0.01 0.055"/> <!--for jaxon red-->
     <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.10 0.01 0.065"/> --> <!-- For hand -->
   </joint>
   <!-- HAND -->
