@@ -79,6 +79,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # KF parameters
         kfp=self.kf_svc.getKalmanFilterParam()[1]
         kfp.R_angle=1000
+        kfp.acc_offset=[0.45, 0.125, 0];
+        import math
+        kfp.sensorRPY_offset=map( math.radians , [0.75, -2.75, -2.1])
         self.kf_svc.setKalmanFilterParam(kfp)
         # ST parameters
         stp=self.st_svc.getParameter()
