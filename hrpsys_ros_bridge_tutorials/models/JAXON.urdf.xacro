@@ -56,7 +56,8 @@
     <parent link="HEAD_LINK1" />
     <child  link="head_root" />
     <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.08 0.01 0.045"/> --> <!-- For leg -->
-    <origin rpy="-0.01 0.01 0.017" xyz="0.09 0.01 0.055"/> <!--middle-->
+    <origin rpy="-0.01 0.02 0.017" xyz="0.07 -0.01 0.045"/>
+    <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.09 0.01 0.055"/>  --><!--middle-->
     <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.10 0.01 0.065"/> --> <!-- For hand -->
   </joint>
   <!-- HAND -->
