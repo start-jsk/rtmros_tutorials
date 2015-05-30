@@ -7,8 +7,8 @@
   :super rtm-ros-robot-interface
   :slots ())
 (defmethod jaxon_red-interface
-  (:init (&rest args)
-         (send-super* :init :robot jaxon_red-robot args)))
+  (:init (&rest args &key ((:controller-timeout ct) nil))
+         (send-super* :init :robot jaxon_red-robot :controller-timeout ct args)))
 
 (when (probe-file (ros::resolve-ros-path "package://thk_hand_controller/euslisp/thkhand-simple-controller.l"))
   (load "package://thk_hand_controller/euslisp/thkhand-simple-controller.l")
@@ -16,9 +16,9 @@
     (rplaca (assoc :init (send jaxon_red-interface :methods)) :init-org))
   (defmethod jaxon_red-interface
     (:init
-     (&rest args)
+     (&rest args &key ((:controller-timeout ct) nil))
      (prog1
-         (send* self :init-org args)
+         (send* self :init-org :controller-timeout ct args)
        (print 1)
        (send self :put :hand-controller (instance thkhand-simple-controller :init))
        ;; add controller
