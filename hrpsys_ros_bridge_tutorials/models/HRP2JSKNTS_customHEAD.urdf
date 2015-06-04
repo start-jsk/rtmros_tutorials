@@ -98,7 +98,7 @@
   </gazebo>
   <link name="HEAD_LINK1">
     <visual>
-      <origin rpy="1.57 0 1.57" xyz="-0.07 0 0.18"/>
+      <origin rpy="1.75 0 1.57" xyz="0.03 0 0.19"/>
       <geometry>
         <!-- <mesh filename="package://hrpsys_ros_bridge_tutorials/models/HRP2JSKNTS_meshes/HEAD_LINK1_mesh.dae" scale="1 1 1"/> -->
         <mesh filename="package://hrpsys_ros_bridge_tutorials/models/HRP2JSKNTS_meshes/HEAD_MULTISENSE_CUT.stl" scale="0.001 0.001 0.001"/>
