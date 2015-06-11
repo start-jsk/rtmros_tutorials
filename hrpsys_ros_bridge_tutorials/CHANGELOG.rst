@@ -2,8 +2,8 @@
 Changelog for package hrpsys_ros_bridge_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.6 (2015-06-11)
+------------------
 * [hrpsys_ros_bridge_tutorials] Adjust custom HEAD
 * [hrpsys_ros_bridge_tutorials] Add custom head urdf (multisense cut)
 * [hrpsys_ros_bridge_tutorials] Update jaxon's leg/eye calib param

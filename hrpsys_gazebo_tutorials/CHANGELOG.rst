@@ -2,8 +2,8 @@
 Changelog for package hrpsys_gazebo_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.6 (2015-06-11)
+------------------
 * [hrpsys_gazebo_tutorials] split out gazebo_multisense.launch
 * [hrpsys_gazebo_tutorials] add ENABLE_PIN_MODE option to jaxon launch file
 * [hrpsys_gazebo_tutorials] fix typo in gazebo_jaxon_no_controllers.launch
