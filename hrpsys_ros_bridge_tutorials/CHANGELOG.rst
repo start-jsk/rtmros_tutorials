@@ -2,6 +2,67 @@
 Changelog for package hrpsys_ros_bridge_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [hrpsys_ros_bridge_tutorials] Adjust custom HEAD
+* [hrpsys_ros_bridge_tutorials] Add custom head urdf (multisense cut)
+* [hrpsys_ros_bridge_tutorials] Update jaxon's leg/eye calib param
+* [hrpsys_ros_bridge_tutorials: update jaxon red calib param
+* [hrpsys_ros_bridge_tutorials] Update jaxonred calib param
+* [hrpsys_ros_bridge_tutorials] update jaxon urdf
+* [hrpsys_ros_bridge_tutorials] Use :controller-timeout nil as default fro
+  jaxon for serious network problem
+* Add kf offset for hrp2jsknts
+* [hrpsys_ros_bridge_tutorials] Update calib paraemeter for kawada leg
+* replace sole between jaxon and jaxon_red
+* Add mmtable for hrp2jsknts
+* [hrpsys_ros_bridge_tutorials] Update hand/eye parameter for jaxon red
+* [hrpsys_ros_bridge_tutorials] Update calib parameter for jaxon red
+* Generate hrp2jsknt ankle mm table
+* Update for karasawa sole plate for hrp2jsknt
+* add jaxon red xacro and functions for that
+* use JSK leg instead of KAWADA leg
+* apply min-max table to jaxon_red
+* add jaxon_red interface
+* Move hrp2_hrpsys_config functions from jsk_hrp2_setup
+* Make empty __init__.py
+* Move robot specific hrpsys_config scripts to src directory
+* Move robot specific hrpsys_config scripts to src directory
+* Add files to import python script
+* Add robot specific hrpsys_config.py to use robot specific parameters in simulation (copied from real robot configuration).
+* update JAXON leg end effector coordinate
+* fix root link name
+* add rubber shoes and green bonding
+* change jaxon fisheye rotation
+* change fisheye frame_id rotation for look-at
+* use kawada foot instead of jsk foot
+* [hrpsys_ros_bridge_tutorails] Update hand/eye/leg calib parameter for JAXON by hand
+* [models/{jaxon_red.yaml, JAXON_RED_controller_config.yaml}] add config files for JAXSON_RED
+* [hrpsys_ros_bridge_tutorials] Add limb-controller to hrp2jsknts
+* add jaxon_red
+* straight wrist pitch
+* move only arms
+* add narrow-width-pose
+* Fix for karasawa sole plate for hrp2jsknts
+* add fisheye tf to hrp2jsknt and hrp2jsknts
+* check invalid range of motion
+* apply min-max table to neck joint for hoist point
+* [test/test-robot-model.l] add test code to check self-collision-check, see https://github.com/start-jsk/rtmros_hrp2/issues/144
+* [test/test_robot_model.test] add test code to check colosed robot model
+* update jaxon hand type from 002 to 003
+* fix by cad
+* fix jaxon fisheye config
+* [models/jaxon.yaml] add dummy head_end_coords
+* add fisheye transformation in jaxon.yaml
+* [hrpsys_ros_bridge_tutorials] Depends on lisp file instead of ${_sname}_${PROJECT_NAME}_compile_lisp
+* [CMakeLists.txt] fix generate_staro_hand_model, to use models under jsk_models
+* [CMakeLists.txt] fix typo JAXSON -> JAXON
+* add jsk foot end-coords
+* [CMakeLists.txt] use staro/jaxon model under rtmros_hrp2, not rbrain
+* change the search method about robotiq_hand_description
+* fix typo
+* Contributors: Eisoku Kuroiwa, HRP2, JAXON, Kei Okada, Kentaro Wada, Masaki Murooka, Ryohei Ueda, Shunichi Nozawa, Yohei Kakiuchi, Iori Kumagai, Ryo Terasawa
+
 0.1.5 (2015-04-27)
 ------------------
 * [hrpsys_ros_bridge_tutorials/package.xml] need hrpsys_ros_bridge 1.2.12

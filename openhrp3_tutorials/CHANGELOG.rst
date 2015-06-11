@@ -2,6 +2,9 @@
 Changelog for package openhrp3_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.5 (2015-04-27)
 ------------------
 

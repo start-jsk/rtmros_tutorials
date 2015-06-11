@@ -2,6 +2,20 @@
 Changelog for package hrpsys_gazebo_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [hrpsys_gazebo_tutorials] split out gazebo_multisense.launch
+* [hrpsys_gazebo_tutorials] add ENABLE_PIN_MODE option to jaxon launch file
+* [hrpsys_gazebo_tutorials] fix typo in gazebo_jaxon_no_controllers.launch
+* [hrpsys_gazebo_tutorials] add launch that enables hokuyo of multisense
+* apply end effector changes from JAXON_without_multisense to JAXON
+* add arguments to initial robot pose for jaxon
+* add instruction to launch JAXON teleop
+* add end-effector joint and links to jaxon xacro. these are added automatically from yaml files in hrpsys_ros_bridge_tutorials, so this change is temporary, and we should use that model.
+* add multisense urdf of real robot to jaxon_without_multisense xacro
+* fix gazebo files for jaxon simulation
+* Contributors: Masaki Murooka, Ryohei Ueda, Yuki Furuta
+
 0.1.5 (2015-04-27)
 ------------------
 * [hrpsys_gazebo_tutorials/CMakeLists.txt] setup.sh is removed in #251

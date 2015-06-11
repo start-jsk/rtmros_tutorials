@@ -2,6 +2,9 @@
 Changelog for package hrpsys_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 0.1.5 (2015-04-27)
 ------------------
 
