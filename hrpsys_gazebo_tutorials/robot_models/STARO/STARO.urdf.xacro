@@ -32,4 +32,11 @@
       </imu>
     </sensor>
   </gazebo>
+  <!-- add SetVelPlugin -->
+  <gazebo>
+    <plugin filename="libSetVelPlugin.so" name="set_vel_plugin" >
+      <objname>ROBOT</objname>
+      <linkname>BODY</linkname>
+    </plugin>
+  </gazebo>
 </robot>

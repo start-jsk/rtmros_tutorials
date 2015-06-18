@@ -107,4 +107,11 @@
     <child link="head_end_coords"/>
   </joint>
   <link name="head_end_coords"/>
+  <!-- add SetVelPlugin -->
+  <gazebo>
+    <plugin filename="libSetVelPlugin.so" name="set_vel_plugin" >
+      <objname>ROBOT</objname>
+      <linkname>BODY</linkname>
+    </plugin>
+  </gazebo>
 </robot>
