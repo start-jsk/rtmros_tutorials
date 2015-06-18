@@ -44,4 +44,11 @@
   <gazebo reference="RARM_JOINT6">
     <provideFeedback>1</provideFeedback>
   </gazebo>
+  <!-- add SetVelPlugin -->
+  <gazebo>
+    <plugin filename="libSetVelPlugin.so" name="set_vel_plugin" >
+      <objname>ROBOT</objname>
+      <linkname>BODY</linkname>
+    </plugin>
+  </gazebo>
 </robot>
