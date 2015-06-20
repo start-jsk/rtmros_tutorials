@@ -74,19 +74,12 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         abcp=self.abc_svc.getAutoBalancerParam()[1]
         #abcp.default_zmp_offsets = [[0.015, -0.01, 0], [0.015, 0.01, 0]]
         abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0]]
-        abcp.move_base_gain = 0.8
         self.abc_svc.setAutoBalancerParam(abcp)
-        # KF parameters
-        kfp=self.kf_svc.getKalmanFilterParam()[1]
-        kfp.R_angle=1000
-        kfp.acc_offset=[0.45, 0.125, 0];
-        import math
-        kfp.sensorRPY_offset=map( math.radians , [0.75, -2.75, -2.1])
-        self.kf_svc.setKalmanFilterParam(kfp)
         # ST parameters
         stp=self.st_svc.getParameter()
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFM
+        #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
         #stp.st_algorithm=OpenHRP.StabilizerService.TPCC
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
         #   eefm st params
         #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
@@ -156,15 +149,11 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0]]
         abcp.default_zmp_offsets = [[0.010, 0.01, 0], [0.010, -0.01, 0]]
         #abcp.default_zmp_offsets = [[0.01, 0.035, 0], [0.01, -0.035, 0]]
-        abcp.move_base_gain = 0.8
         self.abc_svc.setAutoBalancerParam(abcp)
-        # KF parameters
-        kfp=self.kf_svc.getKalmanFilterParam()[1]
-        kfp.R_angle=1000
-        self.kf_svc.setKalmanFilterParam(kfp)
         # ST parameters
         stp=self.st_svc.getParameter()
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFM
+        #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
         #   eefm st params
         #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
@@ -231,15 +220,11 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0]]
         abcp.default_zmp_offsets = [[0.010, 0.01, 0], [0.010, -0.01, 0]]
         #abcp.default_zmp_offsets = [[0.01, 0.035, 0], [0.01, -0.035, 0]]
-        abcp.move_base_gain = 0.8
         self.abc_svc.setAutoBalancerParam(abcp)
-        # KF parameters
-        kfp=self.kf_svc.getKalmanFilterParam()[1]
-        kfp.R_angle=1000
-        self.kf_svc.setKalmanFilterParam(kfp)
         # ST parameters
         stp=self.st_svc.getParameter()
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFM
+        #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
         #   eefm st params
         #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
