@@ -377,8 +377,6 @@ macro (generate_hand_attached_hrp2_model _robot_name)
       COMMAND ${_script_file}
       LARM_LINK6 RARM_LINK6 ${_in_urdf_file} ${_out_urdf_file}
       DEPENDS ${_in_urdf_file} ${_script_file})
-  add_custom_target(${_robot_name}_model_generate DEPENDS ${_out_urdf_file})
-  list(APPEND compile_urdf_robots ${_robot_name}_model_generate)
 endmacro()
 
 macro (run_xacro_for_hand_hrp2_model _robot_name)
@@ -392,8 +390,6 @@ macro (run_xacro_for_hand_hrp2_model _robot_name)
       COMMAND ${xacro_exe} ${_in_xacro_file} > ${_out_urdf_file}
       DEPENDS ${_in_xacro_file} ${_in_body_urdf}
       ${_in_hand_l_urdf} ${_in_hand_r_urdf})
-  add_custom_target(${_robot_name}_xacro_model_generate DEPENDS ${_out_urdf_file})
-  list(APPEND compile_urdf_robots ${_robot_name}_xacro_model_generate)
 endmacro()
 
 macro (attach_sensor_and_endeffector_to_hrp2jsk_urdf
@@ -476,8 +472,6 @@ macro (generate_hand_attached_staro_model _robot_name)
   add_custom_command(OUTPUT ${_out_urdf_file}
       COMMAND ${_script_file} ${_robot_name} ${_in_urdf_file} ${euscollada_PACKAGE_PATH}
       DEPENDS ${_in_urdf_file})
-  add_custom_target(${_robot_name}_model_generate DEPENDS ${_out_urdf_file})
-  list(APPEND compile_${_robot_name}_urdf_robots ${_robot_name}_model_generate)
 endmacro()
 
 macro (run_xacro_for_hand_staro_model _robot_name)
@@ -488,8 +482,6 @@ macro (run_xacro_for_hand_staro_model _robot_name)
   add_custom_command(OUTPUT ${_out_urdf_file}
       COMMAND ${xacro_exe} ${_in_xacro_file} > ${_out_urdf_file}
       DEPENDS ${_in_xacro_file} ${_in_body_urdf})
-  add_custom_target(${_robot_name}_xacro_model_generate DEPENDS ${_out_urdf_file})
-  list(APPEND compile_${_robot_name}_urdf_robots ${_robot_name}_xacro_model_generate)
 endmacro()
 
 macro (attach_sensor_and_endeffector_to_staro_urdf
