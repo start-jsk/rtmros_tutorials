@@ -393,7 +393,7 @@ macro (run_xacro_for_hand_hrp2_model _robot_name)
 endmacro()
 
 macro (attach_sensor_and_endeffector_to_hrp2jsk_urdf
-    _urdf_file _out_file _yaml_file)
+    _robot_name _urdf_file _out_file _yaml_file)
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
   set(_in_urdf_file "${_model_dir}/${_urdf_file}")
   set(_in_yaml_file "${_model_dir}/${_yaml_file}")
@@ -404,7 +404,7 @@ macro (attach_sensor_and_endeffector_to_hrp2jsk_urdf
     ${_in_urdf_file} -O ${_out_urdf_file} -C ${_in_yaml_file}
     DEPENDS ${_in_urdf_file} ${_in_yaml_file} ${_script_file})
   add_custom_target(${_out_file}_generate DEPENDS ${_out_urdf_file})
-  list(APPEND compile_urdf_robots ${_out_file}_generate)
+  list(APPEND compile_${_robot_name}_urdf_robots ${_out_file}_generate)
 endmacro()
 
 # for HRP2JSK + multisense
@@ -416,10 +416,9 @@ if(multisense_description_FOUND)
     COMMAND ${xacro_exe} ${_model_dir}/HRP2JSK.urdf.xacro > ${_model_dir}/HRP2JSK_WH.urdf
     DEPENDS ${_model_dir}/HRP2JSK.urdf.xacro ${_model_dir}/HRP2JSK.urdf)
   # generate HRP2JSK_WH_SENSORS.urdf from HRP2JSK_WH.urdf and yaml
-  attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSK_WH.urdf
+  attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSK HRP2JSK_WH.urdf
     HRP2JSK_WH_SENSORS.urdf hrp2jsk.yaml)
-  add_custom_target(HRP2JSK_model_generate DEPENDS ${_model_dir}/HRP2JSK_WH_SENSORS.urdf)
-  list(APPEND compile_urdf_robots HRP2JSK_model_generate)
+  add_custom_target(all_hrp2jsk_model_generate ALL DEPENDS ${compile_HRP2JSK_urdf_robots})
 endif(multisense_description_FOUND)
 
 if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
@@ -429,12 +428,13 @@ if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   pkg_check_modules(multisense_description multisense_description QUIET)
   if(multisense_description_FOUND)
     run_xacro_for_hand_hrp2_model(HRP2JSKNTS)
-    attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNTS_WH.urdf
+    attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNTS HRP2JSKNTS_WH.urdf
       HRP2JSKNTS_WH_SENSORS.urdf hrp2jsknts.yaml)
-    attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNT_WH.urdf
+    attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNT HRP2JSKNT_WH.urdf
       HRP2JSKNT_WH_SENSORS.urdf hrp2jsknt.yaml)
   endif(multisense_description_FOUND)
-  add_custom_target(all_robots_model_generate ALL DEPENDS ${compile_urdf_robots})
+  add_custom_target(all_hrp2jsknt_model_generate ALL DEPENDS ${compile_HRP2JSKNT_urdf_robots})
+  add_custom_target(all_hrp2jsknts_model_generate ALL DEPENDS ${compile_HRP2JSKNTS_urdf_robots})
 endif()
 
 macro (generate_staro_hand_model _robot_name _dir_name)
