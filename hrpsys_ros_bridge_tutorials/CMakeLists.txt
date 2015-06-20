@@ -29,6 +29,11 @@ catkin_package(
     LIBRARIES # TODO
 )
 
+################################
+## compile_openhrp_model
+##  Generate OpenHRP3 .xml and .conf file.
+##  Convert .wrl, .dae, and .l files
+################################
 if(EXISTS ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl)
   compile_openhrp_model(
     ${hrpsys_PREFIX}/share/hrpsys/samples/HRP4C/HRP4Cmain.wrl
@@ -317,6 +322,10 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
     TESTMDOFARM)
 endif()
 
+
+################################
+## Generate default simulation launch files and euslisp interface files
+################################
 macro (generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots ROBOT_DIR ROBOT_NAME)
   set(_arg_list ${ARGV})
   # remove arguments of this macro
@@ -351,6 +360,13 @@ generate_default_launch_eusinterface_files(
   "--no-euslisp")
 generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--use-unstable-hrpsys-config")
 
+################################
+## Generate and modify .urdf files
+##   Org file : ROBOT.urdf, ROBOT.urdf.xacro
+##   generate_hand_attached_xx_model : Generate ROBOT_body.urdf from ROBOT.urdf, ROBOT.urdf.xacro
+##   run_xacro_for_hand_hrp2_model : Generate ROBOT_WH.urdf from ROBOT_body.urdf
+##   attach_sensor_and_endeffector_to_hrp2jsk_urdf : Generate ROBOT_WH_SESNROS.urdf from ROBOT_WR.urdf
+################################
 # find xacro
 find_package(xacro)
 if(EXISTS ${xacro_SOURCE_PREFIX}/xacro.py)
