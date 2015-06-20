@@ -425,7 +425,7 @@ endmacro()
 
 # for HRP2JSK + multisense
 pkg_check_modules(multisense_description multisense_description QUIET)
-if(multisense_description_FOUND)
+if(${hrp2_models_FOUND} AND multisense_description_FOUND)
   # generate HRP2JSK_WH.urdf from HRP2JSK.urdf.xacro
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
   add_custom_command(OUTPUT ${_model_dir}/HRP2JSK_WH.urdf
@@ -558,7 +558,9 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
     endif()
   endif()
 endif()
-add_custom_target(all_urdf_model_generate ALL DEPENDS ${compile_urdf_robots})
+if (DEFINED compile_urdf_robots)
+  add_custom_target(all_urdf_model_generate ALL DEPENDS ${compile_urdf_robots})
+endif()
 
 install(DIRECTORY euslisp launch scripts models test DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
 install(CODE
