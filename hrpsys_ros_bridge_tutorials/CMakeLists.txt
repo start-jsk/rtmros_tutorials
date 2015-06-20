@@ -404,7 +404,7 @@ macro (attach_sensor_and_endeffector_to_hrp2jsk_urdf
     ${_in_urdf_file} -O ${_out_urdf_file} -C ${_in_yaml_file}
     DEPENDS ${_in_urdf_file} ${_in_yaml_file} ${_script_file})
   add_custom_target(${_out_file}_generate DEPENDS ${_out_urdf_file})
-  list(APPEND compile_${_robot_name}_urdf_robots ${_out_file}_generate)
+  list(APPEND compile_urdf_robots ${_out_file}_generate)
 endmacro()
 
 # for HRP2JSK + multisense
@@ -418,7 +418,6 @@ if(multisense_description_FOUND)
   # generate HRP2JSK_WH_SENSORS.urdf from HRP2JSK_WH.urdf and yaml
   attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSK HRP2JSK_WH.urdf
     HRP2JSK_WH_SENSORS.urdf hrp2jsk.yaml)
-  add_custom_target(all_hrp2jsk_model_generate ALL DEPENDS ${compile_HRP2JSK_urdf_robots})
 endif(multisense_description_FOUND)
 
 if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
@@ -433,8 +432,6 @@ if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
     attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSKNT HRP2JSKNT_WH.urdf
       HRP2JSKNT_WH_SENSORS.urdf hrp2jsknt.yaml)
   endif(multisense_description_FOUND)
-  add_custom_target(all_hrp2jsknt_model_generate ALL DEPENDS ${compile_HRP2JSKNT_urdf_robots})
-  add_custom_target(all_hrp2jsknts_model_generate ALL DEPENDS ${compile_HRP2JSKNTS_urdf_robots})
 endif()
 
 macro (generate_staro_hand_model _robot_name _dir_name)
@@ -495,7 +492,7 @@ macro (attach_sensor_and_endeffector_to_staro_urdf
     COMMAND ${_script_file} ${_robot_name} ${euscollada_PACKAGE_PATH} ${_in_urdf_file} ${_out_urdf_file} ${_in_yaml_file}
     DEPENDS ${_in_urdf_file} ${_in_yaml_file} ${_script_file})
   add_custom_target(${_out_file}_generate DEPENDS ${_out_urdf_file})
-  list(APPEND compile_${_robot_name}_urdf_robots ${_out_file}_generate)
+  list(APPEND compile_urdf_robots ${_out_file}_generate)
 endmacro()
 
 if(EXISTS ${jsk_models_MODEL_DIR}/STARO/l_hand_attached_link.dae)
@@ -507,7 +504,6 @@ if(EXISTS ${jsk_models_MODEL_DIR}/STARO/l_hand_attached_link.dae)
     generate_hand_attached_staro_model(STARO)
     run_xacro_for_hand_staro_model(STARO)
     attach_sensor_and_endeffector_to_staro_urdf(STARO STARO_WH.urdf STARO_WH_SENSORS.urdf staro.yaml)
-    add_custom_target(all_staro_model_generate ALL DEPENDS ${compile_STARO_urdf_robots})
   endif()
 endif()
 
@@ -525,7 +521,6 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
       generate_hand_attached_staro_model(JAXON)
       run_xacro_for_hand_staro_model(JAXON)
       attach_sensor_and_endeffector_to_staro_urdf(JAXON JAXON_WH.urdf JAXON_WH_SENSORS.urdf jaxon.yaml)
-      add_custom_target(all_jaxon_model_generate ALL DEPENDS ${compile_JAXON_urdf_robots})
     endif()
   endif()
 endif()
@@ -544,10 +539,10 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
       generate_hand_attached_staro_model(JAXON_RED)
       run_xacro_for_hand_staro_model(JAXON_RED)
       attach_sensor_and_endeffector_to_staro_urdf(JAXON_RED JAXON_RED_WH.urdf JAXON_RED_WH_SENSORS.urdf jaxon_red.yaml)
-      add_custom_target(all_jaxon_red_model_generate ALL DEPENDS ${compile_JAXON_RED_urdf_robots})
     endif()
   endif()
 endif()
+add_custom_target(all_urdf_model_generate ALL DEPENDS ${compile_urdf_robots})
 
 install(DIRECTORY euslisp launch scripts models test DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
 install(CODE
