@@ -9,6 +9,7 @@
     <arg name="CONF_DIR" value="$(find hrpsys_ros_bridge_tutorials)/models" />
     <arg name="USE_INSTANCE_NAME" value="true" />
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
-    <arg name="HRPSYS_PY_ARGS" value="--use-unstable-rtc" />
+    <arg name="HRPSYS_PY_PKG" value="hrpsys_ros_bridge_tutorials"/>
+    <arg name="HRPSYS_PY_NAME" default="staro_hrpsys_config.py"/>
   </include>
 </launch>
