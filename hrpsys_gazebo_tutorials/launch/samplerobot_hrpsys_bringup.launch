@@ -24,5 +24,6 @@
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
     <arg name="HRPSYS_PY_ARGS" value="--use-unstable-rtc" />
     <arg name="KINEMATICS_MODE" value="$(arg KINEMATICS_MODE)"/>
+    <arg name="BASE_LINK" value="WAIST_LINK0" />
   </include>
 </launch>
