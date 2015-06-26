@@ -298,6 +298,7 @@ compile_rbrain_model_for_closed_robots(JAXON JAXON JAXON
 )
 gen_minmax_table_for_closed_robots(JAXON JAXON JAXON)
 
+if(NOT ($ENV{TRAVIS_JOB_ID} GREATER 0))
 # JAXON_RED
 compile_rbrain_model_for_closed_robots(JAXON_RED JAXON_RED JAXON_RED
   --conf-dt-option "0.002"
@@ -315,6 +316,7 @@ compile_rbrain_model_for_closed_robots(JAXON_RED JAXON_RED JAXON_RED
   --simulation-joint-properties-option "RARM_JOINT2.angle,-0.191986,LARM_JOINT2.angle,0.191986"
 )
 gen_minmax_table_for_closed_robots(JAXON_RED JAXON_RED JAXON_RED)
+endif()
 
 if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
   compile_openhrp_model(
@@ -350,7 +352,9 @@ generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2W_f
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(STARO STARO "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXON JAXON "--use-robot-hrpsys-config")
+if(NOT ($ENV{TRAVIS_JOB_ID} GREATER 0))
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXON_RED JAXON_RED "--use-robot-hrpsys-config")
+endif()
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(URATALEG URATALEG "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(YSTLEG YSTLEG "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files(
@@ -541,6 +545,7 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
   endif()
 endif()
 
+if(NOT ($ENV{TRAVIS_JOB_ID} GREATER 0))
 if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
   find_package(PkgConfig)
   find_package(multisense_description QUIET)
@@ -558,6 +563,8 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
     endif()
   endif()
 endif()
+endif()
+
 if (DEFINED compile_urdf_robots)
   add_custom_target(all_urdf_model_generate ALL DEPENDS ${compile_urdf_robots})
 endif()
