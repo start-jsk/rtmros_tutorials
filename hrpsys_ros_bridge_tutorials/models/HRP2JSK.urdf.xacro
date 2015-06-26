@@ -1,4 +1,4 @@
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="HRP2JSKNT" >
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="HRP2JSK" >
   <xacro:include filename="HRP2JSK.urdf" />
   <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
   <joint name="hrp2_to_multisense" type="fixed">

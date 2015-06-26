@@ -46,6 +46,19 @@
       </imu>
     </sensor>
   </gazebo>
+  <!-- add force sensor -->
+  <gazebo reference="LLEG_JOINT5">
+    <provideFeedback>1</provideFeedback>
+  </gazebo>
+  <gazebo reference="RLEG_JOINT5">
+    <provideFeedback>1</provideFeedback>
+  </gazebo>
+  <gazebo reference="LARM_JOINT7">
+    <provideFeedback>1</provideFeedback>
+  </gazebo>
+  <gazebo reference="RARM_JOINT7">
+    <provideFeedback>1</provideFeedback>
+  </gazebo>
   <!-- end-effectors -->
   <joint name="rfsensor_joint" type="fixed">
     <origin rpy="3.141593 0.000000 3.141593" xyz="0 0 -0.069"/>
@@ -107,4 +120,11 @@
     <child link="head_end_coords"/>
   </joint>
   <link name="head_end_coords"/>
+  <!-- add SetVelPlugin -->
+  <gazebo>
+    <plugin filename="libSetVelPlugin.so" name="set_vel_plugin" >
+      <objname>ROBOT</objname>
+      <linkname>BODY</linkname>
+    </plugin>
+  </gazebo>
 </robot>

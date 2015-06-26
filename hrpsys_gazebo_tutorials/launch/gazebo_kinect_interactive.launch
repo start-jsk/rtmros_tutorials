@@ -1,0 +1,15 @@
+<launch>
+  <arg name="RUN_RVIZ" default="true" />
+
+  <node pkg="jsk_interactive_marker" type="transformable_server_sample" name="transformable_interactive_server">
+    <param name="display_interactive_manipulator" value="true"/>
+  </node>
+  <node pkg="hrpsys_gazebo_tutorials" type="insert_kinect_interactive_model.py" name="insert_kinect_interactive_model" />
+
+  <include file="$(find hrpsys_gazebo_general)/launch/gazebo_kinect.launch" />
+
+  <group if="$(arg RUN_RVIZ)" >
+    <node name="hrp2jsknt_rviz" pkg="rviz" type="rviz" respawn="true"
+          args="-sync -d $(find hrpsys_gazebo_tutorials)/launch/gazebo_kinect_interactive.rviz" />
+  </group>
+</launch>
