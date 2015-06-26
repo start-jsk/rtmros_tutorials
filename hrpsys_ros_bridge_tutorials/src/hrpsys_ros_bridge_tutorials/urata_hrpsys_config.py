@@ -264,4 +264,4 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         if self.ROBOT_NAME == "STARO":
             self.seq_svc.setJointAngles(self.staroResetServoOffPose(), 10.0)
         elif self.ROBOT_NAME.find("JAXON") == 0:
-            self.seq_svc.setJointAngles(self.jaxonCollisionFreeInitPose(), 10.0)
+            self.seq_svc.setJointAngles(self.jaxonCollisionFreeResetPose(), 10.0)
