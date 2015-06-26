@@ -240,9 +240,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
 
     def setResetPose(self):
         if self.ROBOT_NAME == "STARO":
-            self.seq_svc.setJointAngles(self.staroResetPose(), 10.0)
+            self.seq_svc.setJointAngles(self.staroResetPose(), 5.0)
         elif self.ROBOT_NAME.find("JAXON") == 0:
-            self.seq_svc.setJointAngles(self.jaxonResetPose(), 10.0)
+            self.seq_svc.setJointAngles(self.jaxonResetPose(), 5.0)
 
     def setResetManipPose(self):
         if self.ROBOT_NAME == "STARO":
@@ -258,4 +258,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
 
     def setCollisionFreeInitPose(self):
         if self.ROBOT_NAME.find("JAXON") == 0:
+            self.seq_svc.setJointAngles(self.jaxonCollisionFreeInitPose(), 10.0)
+
+    def setCollisionFreeResetPose(self):
+        if self.ROBOT_NAME == "STARO":
+            self.seq_svc.setJointAngles(self.staroResetServoOffPose(), 10.0)
+        elif self.ROBOT_NAME.find("JAXON") == 0:
             self.seq_svc.setJointAngles(self.jaxonCollisionFreeInitPose(), 10.0)
