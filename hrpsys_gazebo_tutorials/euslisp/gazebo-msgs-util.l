@@ -72,14 +72,23 @@ topic
                        ;; :izz
                        )))
     (ros::service-call "/gazebo/set_link_properties" srv)))
-(defun gazebo-set-physics-properties ()
-  (let ((srv (instance gazebo_msgs::SetPhysicsPropertiesRequest :init
-                       ;; :time_step
-                       ;; :max_update_rate
-                       ;; :gravity
-                       ;; :ode_config (instance gazebo_msgs::ODEPhysics :init)
-                       )))
-    (ros::service-call "/gazebo/set_physics_properties" srv)))
+(defun gazebo-set-physics-properties (&key (time-step) (max-update-rate) (gravity) (ode-config))
+  (let ((ret (gazebo-get-physics-properties)))
+    (let ((srv (instance gazebo_msgs::SetPhysicsPropertiesRequest :init
+                         :time_step
+                         (if time-step time-step (send ret :time_step))
+                         :max_update_rate
+                         (if max-update-rate max-update-rate (send ret :max_update_rate))
+                         :gravity
+                         (if gravity gravity (send ret :gravity))
+                         :ode_config
+                         (if ode-config ode-config (send ret :ode_config))
+                         )))
+      (gazebo-pause-physics)
+      (prog1
+          (ros::service-call "/gazebo/set_physics_properties" srv)
+        (gazebo-unpause-physics))
+      )))
 
 ;;
 ;; get properties service
