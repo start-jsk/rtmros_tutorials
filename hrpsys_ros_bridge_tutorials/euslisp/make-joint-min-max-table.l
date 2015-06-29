@@ -104,7 +104,7 @@
             (send robot :torso :waist-p :child-link)
             (send robot :torso :waist-r)
             (send robot :torso :waist-p)
-            :margin 3))
+            :margin 2))
    (send robot :make-joint-min-max-table
       (send robot :head :neck-y :parent-link)
       (send robot :head :neck-p :child-link)
