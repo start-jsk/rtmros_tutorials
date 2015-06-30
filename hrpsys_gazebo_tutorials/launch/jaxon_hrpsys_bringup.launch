@@ -12,7 +12,6 @@
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
     <arg name="HRPSYS_PY_PKG" value="hrpsys_ros_bridge_tutorials"/>
     <arg name="HRPSYS_PY_NAME" value="jaxon_hrpsys_config.py"/>
-    <arg name="HRPSYS_RATE" value="500" />
     <arg name="KINEMATICS_MODE" value="$(arg KINEMATICS_MODE)"/>
   </include>
 </launch>
