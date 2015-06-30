@@ -1,13 +1,18 @@
 hrpsys_gazebo_configuration:
-## velocity feedback for joint control, use parameter gains/joint_name/p_v
+### velocity feedback for joint control, use parameter gains/joint_name/p_v
   use_velocity_feedback: true
-## synchronized hrpsys and gazebo
+  use_joint_effort: true
+# iob_rate: 200
+### loose synchronization default true
+# use_loose_synchronized: false
+### synchronized hrpsys and gazebo
 # use_synchronized_command: false
-# name of robot (using for namespace)
+# iob_substeps: 5
+### name of robot (using for namespace)
   robotname: SampleRobot
-# joint_id (order) conversion from gazebo to hrpsys, joint_id_list[gazebo_id] := hrpsys_id
+### joint_id (order) conversion from gazebo to hrpsys, joint_id_list[gazebo_id] := hrpsys_id
   joint_id_list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
-# joints list used in gazebo, sizeof(joint_id_list) == sizeof(joints)
+### joints : list used in gazebo, sizeof(joint_id_list) == sizeof(joints)
   joints:
     - RLEG_HIP_R
     - RLEG_HIP_P

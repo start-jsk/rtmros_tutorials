@@ -8,6 +8,5 @@
     <arg name="LOOPBACK"     value="$(arg LOOPBACK)" />
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
     <arg name="IOB_SUBSTEPS" value="5" />
-    <arg name="HRPSYS_RATE"  value="200" />
   </include>
 </launch>
