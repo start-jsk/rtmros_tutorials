@@ -110,6 +110,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_leg_rear_margin=0.105
         #   margined foot edge
         stp.eefm_leg_inside_margin=0.062
+        stp.eefm_leg_outside_margin=0.062
         stp.eefm_leg_front_margin=0.130
         stp.eefm_leg_rear_margin=0.095
         #   tpcc st params
@@ -175,6 +176,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_leg_rear_margin=0.105
         #   margined foot edge
         stp.eefm_leg_inside_margin=0.062
+        stp.eefm_leg_outside_margin=0.062
         stp.eefm_leg_front_margin=0.130
         stp.eefm_leg_rear_margin=0.095
         stp.eefm_pos_transition_time=0.01
@@ -246,6 +248,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_leg_rear_margin=0.105
         #   margined foot edge
         stp.eefm_leg_inside_margin=0.062
+        stp.eefm_leg_outside_margin=0.062
         stp.eefm_leg_front_margin=0.125
         stp.eefm_leg_rear_margin=0.095
         stp.eefm_pos_transition_time=0.01
