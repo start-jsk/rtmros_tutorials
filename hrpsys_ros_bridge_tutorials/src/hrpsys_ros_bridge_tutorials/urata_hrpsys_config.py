@@ -207,7 +207,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             icp.D_r = 150
             icp.K_r = 200
             icp.ik_optional_weight_vector = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-            if os.environ["ROBOT"] == "JAXON_RED":
+            if self.ROBOT_NAME == "JAXON_RED":
                 icp.reference_gain = 0.05
             self.ic_svc.setImpedanceControllerParam(l, icp)
 
