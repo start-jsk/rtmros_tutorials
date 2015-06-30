@@ -79,6 +79,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # foot margin param
         #   mechanical param is => inside 0.055, front 0.13, rear 0.1
         stp.eefm_leg_inside_margin=0.05
+        stp.eefm_leg_outside_margin=0.05
         #stp.eefm_leg_inside_margin=0.04
         stp.eefm_leg_front_margin=0.12
         stp.eefm_leg_rear_margin=0.09
@@ -159,11 +160,13 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         if foot == "KAWADA":
             ## KAWADA foot : mechanical param is => inside 0.055, front 0.13, rear 0.1
             stp.eefm_leg_inside_margin=0.05
+            stp.eefm_leg_outside_margin=0.05
             stp.eefm_leg_front_margin=0.12
             stp.eefm_leg_rear_margin=0.09
         elif foot == "JSK":
             ## JSK foot : mechanical param is -> inside 0.075, front 0.11, rear 0.11
             stp.eefm_leg_inside_margin=0.07
+            stp.eefm_leg_outside_margin=0.07
             stp.eefm_leg_front_margin=0.1
             stp.eefm_leg_rear_margin=0.1
         stp.eefm_cogvel_cutoff_freq = 4.0
