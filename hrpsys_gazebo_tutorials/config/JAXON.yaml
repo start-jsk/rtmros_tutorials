@@ -87,10 +87,10 @@ hrpsys_gazebo_configuration:
     - rhsensor
     - lhsensor
   force_torque_sensors_config:
-    lfsensor: {joint_name: 'LLEG_JOINT5', frame_id: 'LLEG_LINK5', translation: [0, 0, -0.069], rotation: [0, 0, 1, 3.14159]}
-    rfsensor: {joint_name: 'RLEG_JOINT5', frame_id: 'RLEG_LINK5', translation: [0, 0, -0.069], rotation: [0, 0, 1, 3.14159]}
-    lhsensor: {joint_name: 'LARM_JOINT7', frame_id: 'LARM_LINK7', translation: [0, 0, -0.069], rotation: [-0.382683, -0.92388, 0, 3.14159]}
-    rhsensor: {joint_name: 'RARM_JOINT7', frame_id: 'RARM_LINK7', translation: [0, 0, -0.069], rotation: [-0.382683, -0.92388, 0, 3.14159]}
+    rfsensor: {joint_name: 'RLEG_JOINT5', frame_id: 'RLEG_LINK5', translation: [0, 0, -0.069], rotation: [0, 0, 1, 0]}
+    lfsensor: {joint_name: 'LLEG_JOINT5', frame_id: 'LLEG_LINK5', translation: [0, 0, -0.069], rotation: [0, 0, 1, 0]}
+    rhsensor: {joint_name: 'RARM_JOINT7', frame_id: 'RARM_LINK7', translation: [0, 0, -0.069], rotation: [0,  0.382683, 0.92388, 0.0]}
+    lhsensor: {joint_name: 'LARM_JOINT7', frame_id: 'LARM_LINK7', translation: [0, 0, -0.069], rotation: [0, -0.382683, 0.92388, 0.0]}
   imu_sensors:
     - imu_sensor0
   imu_sensors_config:
