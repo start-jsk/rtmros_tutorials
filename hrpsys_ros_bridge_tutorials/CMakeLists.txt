@@ -52,10 +52,13 @@ endif(EXISTS ${OPENHRP_SAMPLE_DIR}/model/PA10/pa10.main.wrl)
 if(EXISTS ${OPENHRP_SAMPLE_DIR}/model/sample1.wrl)
 compile_openhrp_model(
   ${OPENHRP_SAMPLE_DIR}/model/sample1.wrl SampleRobot
+  --conf-dt-option "0.002"
+  --simulation-timestep-option "0.002"
   --conf-file-option "abc_leg_offset: 0,0.09,0"
   --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
   --conf-file-option "end_effectors: lleg,LLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, rleg,RLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, larm,LARM_WRIST_P,CHEST,0.0,0,-0.12,0,1.0,0.0,1.5708, rarm,RARM_WRIST_P,CHEST,0.0,0,-0.12,0,1.0,0.0,1.5708,"
   --conf-file-option "collision_pair: RARM_WRIST_P:WAIST LARM_WRIST_P:WAIST RARM_WRIST_P:RLEG_HIP_R LARM_WRIST_P:LLEG_HIP_R RARM_WRIST_R:RLEG_HIP_R LARM_WRIST_R:LLEG_HIP_R"
+  --conf-file-option "pdgains_sim.file_name: ${hrpsys_PREFIX}/share/hrpsys/samples/SampleRobot/SampleRobot.PDgain.dat"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
 else()
@@ -298,6 +301,7 @@ compile_rbrain_model_for_closed_robots(JAXON JAXON JAXON
 )
 gen_minmax_table_for_closed_robots(JAXON JAXON JAXON)
 
+if(NOT ($ENV{TRAVIS_JOB_ID} GREATER 0))
 # JAXON_RED
 compile_rbrain_model_for_closed_robots(JAXON_RED JAXON_RED JAXON_RED
   --conf-dt-option "0.002"
@@ -315,6 +319,7 @@ compile_rbrain_model_for_closed_robots(JAXON_RED JAXON_RED JAXON_RED
   --simulation-joint-properties-option "RARM_JOINT2.angle,-0.191986,LARM_JOINT2.angle,0.191986"
 )
 gen_minmax_table_for_closed_robots(JAXON_RED JAXON_RED JAXON_RED)
+endif()
 
 if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
   compile_openhrp_model(
@@ -350,7 +355,9 @@ endmacro ()
 # generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(STARO STARO "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXON JAXON "--use-robot-hrpsys-config")
+if(NOT ($ENV{TRAVIS_JOB_ID} GREATER 0))
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXON_RED JAXON_RED "--use-robot-hrpsys-config")
+endif()
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(URATALEG URATALEG "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(YSTLEG YSTLEG "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files(
@@ -358,7 +365,7 @@ generate_default_launch_eusinterface_files(
   hrpsys_ros_bridge_tutorials
   TESTMDOFARM
   "--no-euslisp")
-generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--use-robot-hrpsys-config")
 
 ################################
 ## Generate and modify .urdf files
@@ -541,6 +548,7 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
   endif()
 endif()
 
+if(NOT ($ENV{TRAVIS_JOB_ID} GREATER 0))
 if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
   find_package(PkgConfig)
   find_package(multisense_description QUIET)
@@ -558,6 +566,8 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
     endif()
   endif()
 endif()
+endif()
+
 if (DEFINED compile_urdf_robots)
   add_custom_target(all_urdf_model_generate ALL DEPENDS ${compile_urdf_robots})
 endif()

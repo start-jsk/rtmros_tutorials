@@ -6,6 +6,7 @@ hrpsys_gazebo_configuration:
 #  use_velocity_feedback: true
 ## synchronized hrpsys and gazebo
 # use_synchronized_command: false
+  use_loose_synchronized: false
 # name of robot (using for namespace)
   robotname: HRP3HAND_L
 # joint_id (order) conversion from gazebo to hrpsys, joint_id_list[gazebo_id] := hrpsys_id
