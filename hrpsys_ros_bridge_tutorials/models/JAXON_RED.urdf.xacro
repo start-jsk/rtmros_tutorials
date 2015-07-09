@@ -55,11 +55,8 @@
   <joint name="head_tip_to_multisense" type="fixed">
     <parent link="HEAD_LINK1" />
     <child  link="head_root" />
-    <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.08 0.01 0.045"/> --> <!-- For leg -->
-    <!-- <origin rpy="-0.01 0.04 0.017" xyz="0.095 -0.01 0.055"/> for jaxon -->
-    <!-- <origin rpy="-0.01 0.04 -0.01" xyz="0.09 0.01 0.055"/> --> <!--for jaxon red, for jsk leg-->
-    <origin rpy="-0.01 0.04 -0.01" xyz="0.1 0.01 0.065"/>
-    <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.10 0.01 0.065"/> --> <!-- For hand -->
+    <!-- <origin rpy="-0.01 0.04 -0.01" xyz="0.1 0.01 0.65"/> -->
+    <origin rpy="-0.01 0.02 -0.01" xyz="0.1 0.01 0.08"/>
   </joint>
   <!-- HAND -->
   <xacro:include filename="$(find jaxon_description)/urdf/thk_hand003.urdf.xacro" />
