@@ -300,7 +300,7 @@ compile_rbrain_model_for_closed_robots(JAXON JAXON JAXON
 )
 gen_minmax_table_for_closed_robots(JAXON JAXON JAXON)
 
-if(NOT $ENV{TRAVIS_JOB_ID})
+if(NOT ENV{TRAVIS_JOB_ID})
 # JAXON_RED
 compile_rbrain_model_for_closed_robots(JAXON_RED JAXON_RED JAXON_RED
   --conf-dt-option "0.002"
@@ -354,7 +354,7 @@ generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2W_f
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(STARO STARO "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXON JAXON "--use-robot-hrpsys-config")
-if(NOT $ENV{TRAVIS_JOB_ID})
+if(NOT ENV{TRAVIS_JOB_ID})
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXON_RED JAXON_RED "--use-robot-hrpsys-config")
 endif()
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(URATALEG URATALEG "--use-unstable-hrpsys-config")
@@ -440,7 +440,7 @@ if(${hrp2_models_FOUND} AND multisense_description_FOUND)
   # generate HRP2JSK_WH_SENSORS.urdf from HRP2JSK_WH.urdf and yaml
   attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSK HRP2JSK_WH.urdf
     HRP2JSK_WH_SENSORS.urdf hrp2jsk.yaml)
-endif(multisense_description_FOUND)
+endif(${hrp2_models_FOUND} AND multisense_description_FOUND)
 
 if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   generate_hand_attached_hrp2_model(HRP2JSKNT)
@@ -547,7 +547,7 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
   endif()
 endif()
 
-if(NOT $ENV{TRAVIS_JOB_ID})
+if(NOT ENV{TRAVIS_JOB_ID})
 if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
   find_package(PkgConfig)
   find_package(multisense_description QUIET)
