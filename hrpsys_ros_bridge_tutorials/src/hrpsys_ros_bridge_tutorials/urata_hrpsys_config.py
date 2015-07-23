@@ -50,6 +50,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # st setting
         stp=self.st_svc.getParameter()
         stp.st_algorithm=OpenHRP.StabilizerService.EEFM
+        #stp.emergency_check_mode=OpenHRP.StabilizerService.CP
+        #stp.cp_check_margin=80*1e-3
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
@@ -139,6 +141,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp=self.st_svc.getParameter()
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
         stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        #stp.emergency_check_mode=OpenHRP.StabilizerService.CP
+        #stp.cp_check_margin=80*1e-3
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
         #stp.eefm_body_attitude_control_gain=[0, 0.5]
@@ -146,12 +150,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_body_attitude_control_time_const=[1000, 1000]
         if self.ROBOT_NAME == "JAXON":
             stp.eefm_rot_damping_gain=20*1.6*1.1*1.5*1.2
-            stp.eefm_pos_damping_gain=[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5*1.2]
+            stp.eefm_pos_damping_gain=[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2]
         elif self.ROBOT_NAME == "JAXON_RED":
             stp.eefm_rot_damping_gain=20*1.6*1.1*1.5
-            stp.eefm_pos_damping_gain=[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5]
+            stp.eefm_pos_damping_gain=[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5]
         stp.eefm_rot_time_const=1.5/1.1
-        stp.eefm_pos_time_const_support=[1.5/1.1, 1.5/1.1, 1.5/1.1]
+        stp.eefm_pos_time_const_support=[3.0/1.1, 3.0/1.1, 1.5/1.1]
         stp.eefm_wrench_alpha_blending=0.7
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
