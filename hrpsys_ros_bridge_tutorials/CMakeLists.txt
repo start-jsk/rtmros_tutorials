@@ -300,7 +300,7 @@ compile_rbrain_model_for_closed_robots(JAXON JAXON JAXON
 )
 gen_minmax_table_for_closed_robots(JAXON JAXON JAXON)
 
-if(NOT ENV{TRAVIS_JOB_ID})
+if("$ENV{TRAVIS_JOB_ID}" STREQUAL "")
 # JAXON_RED
 compile_rbrain_model_for_closed_robots(JAXON_RED JAXON_RED JAXON_RED
   --conf-dt-option "0.002"
@@ -354,7 +354,7 @@ generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2W_f
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(STARO STARO "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXON JAXON "--use-robot-hrpsys-config")
-if(NOT ENV{TRAVIS_JOB_ID})
+if("$ENV{TRAVIS_JOB_ID}" STREQUAL "")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXON_RED JAXON_RED "--use-robot-hrpsys-config")
 endif()
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(URATALEG URATALEG "--use-unstable-hrpsys-config")
@@ -547,7 +547,7 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
   endif()
 endif()
 
-if(NOT ENV{TRAVIS_JOB_ID})
+if("$ENV{TRAVIS_JOB_ID}" STREQUAL "")
 if(EXISTS ${jsk_models_MODEL_DIR}/JAXON_RED/l_hand_attached_link.dae)
   find_package(PkgConfig)
   find_package(multisense_description QUIET)
