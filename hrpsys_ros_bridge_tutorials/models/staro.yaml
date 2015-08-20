@@ -116,3 +116,41 @@ sensors:
   - {sensor_name: 'lasensor', sensor_type: 'base_force6d', parent_link: 'LARM_LINK7', translate: '0  0.05755 0', rotate: '1 0 0 -90'}
   - {sensor_name: 'rfsensor', sensor_type: 'base_force6d', parent_link: 'RLEG_LINK5', translate: '0 0 -0.069', rotate: '0 1 0 180'}
   - {sensor_name: 'lfsensor', sensor_type: 'base_force6d', parent_link: 'LLEG_LINK5', translate: '0 0 -0.069', rotate: '0 1 0 180'}
+
+# for gazebo simulation
+replace_xmls:
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LLEG_LINK5
+    replaced_xml: '<gazebo reference="LLEG_LINK5">\n    <kp>1000000.0</kp>\n    <kd>100.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RLEG_LINK5
+    replaced_xml: '<gazebo reference="RLEG_LINK5">\n    <kp>1000000.0</kp>\n    <kd>100.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: collision
+      sub_tag: mesh
+      sub_attribute_name: filename
+      sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/RLEG_LINK5_mesh.dae
+    replaced_xml: '<collision>\n      <origin xyz="0.015 -0.010 -0.0709961" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.23 0.13 0.05" />'
+  - match_rule:
+      tag: collision
+      sub_tag: mesh
+      sub_attribute_name: filename
+      sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/LLEG_LINK5_mesh.dae
+    replaced_xml: '<collision>\n      <origin xyz="0.015 0.010 -0.0709961" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.23 0.13 0.05" />'
+  - match_rule:
+      tag: collision
+      sub_tag: mesh
+      sub_attribute_name: filename
+      sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/BODY_mesh.dae
+    replaced_xml: '<collision>\n      <origin xyz="0 0 0.145" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.235 0.5 0.29" />'
+  - match_rule:
+      tag: collision
+      sub_tag: mesh
+      sub_attribute_name: filename
+      sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/CHEST_LINK1_mesh.dae
+    replaced_xml: '<collision>\n      <origin xyz="-0.05 0 -0.01" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.18 0.55 0.16" />'
+b

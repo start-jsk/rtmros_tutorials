@@ -39,7 +39,6 @@ hrpsys_gazebo_configuration:
     - RARM_JOINT4
     - RARM_JOINT5
     - RARM_JOINT6
-    - RARM_JOINT7
     - LARM_JOINT0
     - LARM_JOINT1
     - LARM_JOINT2
@@ -47,7 +46,6 @@ hrpsys_gazebo_configuration:
     - LARM_JOINT4
     - LARM_JOINT5
     - LARM_JOINT6
-    - LARM_JOINT7
 ## jointid:
   gains:
     CHEST_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0}
@@ -61,7 +59,6 @@ hrpsys_gazebo_configuration:
     LARM_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
     LARM_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
     LARM_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    LARM_JOINT7: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
     RARM_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
     RARM_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
     RARM_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
@@ -69,7 +66,6 @@ hrpsys_gazebo_configuration:
     RARM_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
     RARM_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
     RARM_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    RARM_JOINT7: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
     LLEG_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0} # CRTOCH-Y
     LLEG_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0} # CRTOCH-R
     LLEG_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 325.0} # CRTOCH-P
