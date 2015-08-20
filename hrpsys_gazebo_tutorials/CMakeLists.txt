@@ -14,37 +14,6 @@ catkin_package(CATKIN_DEPENDS euscollada hrpsys_ros_bridge hrpsys_ros_bridge_tut
 catkin_add_env_hooks(99.hrpsys_gazebo_tutorials SHELLS bash zsh
   DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/env-hooks)
 
-if(NOT hrpsys_ros_bridge_tutorials_SOURCE_DIR AND hrpsys_ros_bridge_tutorials_SOURCE_PREFIX)
-  set(hrpsys_ros_bridge_tutorials_SOURCE_DIR ${hrpsys_ros_bridge_tutorials_SOURCE_PREFIX})
-endif(NOT hrpsys_ros_bridge_tutorials_SOURCE_DIR AND hrpsys_ros_bridge_tutorials_SOURCE_PREFIX)
-
-if(NOT hrpsys_ros_bridge_tutorials_SOURCE_DIR)
-  execute_process(
-    COMMAND rospack find hrpsys_ros_bridge_tutorials
-    OUTPUT_VARIABLE hrpsys_ros_bridge_tutorials_SOURCE_DIR)
-  string(REGEX REPLACE "\n" "" hrpsys_ros_bridge_tutorials_SOURCE_DIR ${hrpsys_ros_bridge_tutorials_SOURCE_DIR})
-endif()
-
-## Convert robot models
-if(EXISTS ${hrpsys_gazebo_general_SOURCE_DIR})
-  set(hrpsys_gazebo_general_PACKAGE_PATH ${hrpsys_gazebo_general_SOURCE_DIR})
-elseif(EXISTS ${hrpsys_gazebo_general_SOURCE_PREFIX})
-  set(hrpsys_gazebo_general_PACKAGE_PATH ${hrpsys_gazebo_general_SOURCE_PREFIX})
-else()
-  set(hrpsys_gazebo_general_PACKAGE_PATH ${hrpsys_gazebo_general_PREFIX}/share/hrpsys_gazebo_general)
-endif()
-include(${hrpsys_gazebo_general_PACKAGE_PATH}/cmake/compile_robot_model_for_gazebo.cmake)
-generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/SampleRobot.dae)
-generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP3HAND_L.dae)
-generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP3HAND_R.dae)
-generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP2JSK.dae)
-generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP2JSKNT.dae)
-generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP2JSKNTS.dae)
-generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/STARO.dae)
-generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/JAXON.dae JAXON)
-generate_gazebo_urdf_file(${hrpsys_ros_bridge_tutorials_SOURCE_DIR}/models/HRP4C.dae)
-add_custom_target(all_robots_compile_tutorials ALL DEPENDS ${compile_urdf_robots})
-
 ## install
 install(DIRECTORY euslisp worlds launch config environment_models DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   PATTERN ".svn" EXCLUDE)
