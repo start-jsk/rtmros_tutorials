@@ -153,4 +153,3 @@ replace_xmls:
       sub_attribute_name: filename
       sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/CHEST_LINK1_mesh.dae
     replaced_xml: '<collision>\n      <origin xyz="-0.05 0 -0.01" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.18 0.55 0.16" />'
-b

@@ -180,10 +180,12 @@ replace_xmls:
       attribute_value: RLEG_LINK6
     replaced_xml: '<gazebo reference="RLEG_LINK6">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
   - match_rule:
+      tag: limit
       attribute_name: velocity
       attribute_value: 0.5
     replaced_attribute_value: 10.0
   - match_rule:
+      tag: limit
       attribute_name: effort
       attribute_value: 100
     replaced_attribute_value: 1000
