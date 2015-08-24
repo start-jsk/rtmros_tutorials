@@ -42,10 +42,4 @@
     <arg name="MODEL_ROTATE_P" value="$(arg MODEL_ROTATE_P)" />
     <arg name="MODEL_ROTATE_Y" value="$(arg MODEL_ROTATE_Y)" />
   </include>
-
-  <include file="$(find hrpsys_gazebo_tutorials)/launch/gazebo_multisense_sl.launch"
-           if="$(arg ENABLE_MULTISENSE)" >
-    <arg name="SPINDLE" value="$(arg SPINDLE)" />
-    <arg name="SPINDLE_SPEED" value="$(arg SPINDLE_SPEED)" />
-  </include>
 </launch>
