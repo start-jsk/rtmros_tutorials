@@ -134,22 +134,22 @@ replace_xmls:
       sub_tag: mesh
       sub_attribute_name: filename
       sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/RLEG_LINK5_mesh.dae
-    replaced_xml: '<collision>\n      <origin xyz="0.015 -0.010 -0.0709961" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.23 0.13 0.05" />'
+    replaced_xml: '<collision>\n      <origin xyz="0.015 -0.010 -0.0709961" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.23 0.13 0.05" /> </geometry> </collision>'
   - match_rule:
       tag: collision
       sub_tag: mesh
       sub_attribute_name: filename
       sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/LLEG_LINK5_mesh.dae
-    replaced_xml: '<collision>\n      <origin xyz="0.015 0.010 -0.0709961" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.23 0.13 0.05" />'
+    replaced_xml: '<collision>\n      <origin xyz="0.015 0.010 -0.0709961" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.23 0.13 0.05" />  </geometry> </collision>'
   - match_rule:
       tag: collision
       sub_tag: mesh
       sub_attribute_name: filename
       sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/BODY_mesh.dae
-    replaced_xml: '<collision>\n      <origin xyz="0 0 0.145" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.235 0.5 0.29" />'
+    replaced_xml: '<collision>\n      <origin xyz="0 0 0.145" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.235 0.5 0.29" />  </geometry> </collision>'
   - match_rule:
       tag: collision
       sub_tag: mesh
       sub_attribute_name: filename
       sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/STARO_meshes/CHEST_LINK1_mesh.dae
-    replaced_xml: '<collision>\n      <origin xyz="-0.05 0 -0.01" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.18 0.55 0.16" />'
+    replaced_xml: '<collision>\n      <origin xyz="-0.05 0 -0.01" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.18 0.55 0.16" />  </geometry> </collision>'
