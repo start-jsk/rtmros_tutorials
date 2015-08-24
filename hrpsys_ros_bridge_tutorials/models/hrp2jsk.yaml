@@ -124,6 +124,7 @@ replace_xmls:
       sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/HRP2JSK_meshes/LLEG_LINK5_mesh.dae
     replaced_xml: '<collision>\n      <origin xyz="0.015 0.010 -0.08" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.240 0.138 0.07"/></geometry></collision>'
   - match_rule:
+      tag: limit
       attribute_name: velocity
       attribute_value: 0.5
     replaced_attribute_value: 10.0
