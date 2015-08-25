@@ -584,6 +584,7 @@ install(CODE
 add_rostest(test/test_hrpsys_pa10.launch)
 add_rostest(test/test_hrpsys_samplerobot.launch)
 add_rostest(test/samplerobot_hrpsys-ros-bridge_test.launch)
+add_rostest(test/hrpsys-samples/test_samplerobot_euslisp_unittests.launch)
 if(${hrp2_models_FOUND})
   add_rostest(test/test_robot_model.launch)
 endif()
