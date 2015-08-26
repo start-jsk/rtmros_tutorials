@@ -18,7 +18,7 @@ def insert_marker(shape_type=TransformableMarkerOperate.BOX, name='default_name'
 
 def insert_kinect_interactive_model():
     global kinect_pose_pub, req_marker_operate_srv, set_pose_srv
-    rospy.Subscriber('/transformable_interactive_server/pose', PoseStamped, kinect_marker_pose_cb)
+    rospy.Subscriber('/transformable_interactive_server/pose_with_name', PoseStampedWithName, kinect_marker_pose_cb)
     kinect_pose_pub = rospy.Publisher('/Kinect/SetVelPlugin/PoseCommand', Pose)
     set_control_relative_pose_pub = rospy.Publisher('/transformable_interactive_server/set_control_relative_pose', Pose)
     req_marker_operate_srv = rospy.ServiceProxy('/transformable_interactive_server/request_marker_operate', RequestMarkerOperate)
@@ -31,7 +31,8 @@ def insert_kinect_interactive_model():
     set_pose_srv(pose_stamped=PoseStamped(std_msgs.msg.Header(stamp=rospy.Time.now(), frame_id="camera_link"), Pose(orientation=Quaternion(0, 0, 0, 1))))
 
 def kinect_marker_pose_cb(msg):
-    kinect_pose_pub.publish(msg.pose)
+    if msg.name == 'kinect_marker':
+        kinect_pose_pub.publish(msg.pose.pose)
 
 if __name__ == '__main__':
     rospy.init_node('insert_kinect_interactive_model')
