@@ -1,0 +1,9 @@
+<launch>
+  <arg name="RUN_RVIZ" default="true" />
+
+  <node pkg="hrpsys_gazebo_tutorials" type="insert_cube_interactive_model.py" name="insert_cube_interactive_model" />
+
+  <include file="$(find hrpsys_gazebo_tutorials)/launch/gazebo_kinect_interactive.launch">
+    <arg name="RUN_RVIZ" value="$(arg RUN_RVIZ)"/>
+  </include>
+</launch>
