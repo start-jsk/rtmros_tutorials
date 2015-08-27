@@ -169,3 +169,18 @@ replace_xmls:
       attribute_name: velocity
       attribute_value: 0.5
     replaced_attribute_value: 10.0
+  - match_rule:
+      tag: link
+      attribute_name: name
+      attribute_value: left_camera_optical_frame
+    replaced_xml: '<link name="left_camera_optical_frame">\n		<inertial>\n			<mass value="0.1"/>\n			<origin xyz="0 0 0"/>\n			<inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>\n		</inertial>\n	</link>'
+  - match_rule:
+      tag: link
+      attribute_name: name
+      attribute_value: motor
+    replaced_xml: '<link name="motor">\n		<inertial>\n			<mass value="0.1"/>\n			<origin xyz="0 0 0"/>\n			<inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>\n		</inertial>\n	</link>'
+  - match_rule:
+      tag: link
+      attribute_name: name
+      attribute_value: spindle
+    replaced_xml: '<link name="spindle">\n		<inertial>\n			<mass value="0.1"/>\n			<origin xyz="0 0 0"/>\n			<inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>\n		</inertial>\n	</link>'
