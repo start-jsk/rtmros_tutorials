@@ -169,3 +169,33 @@ replace_xmls:
       attribute_name: velocity
       attribute_value: 0.5
     replaced_attribute_value: 10.0
+  - match_rule:
+      tag: link
+      attribute_name: name
+      attribute_value: left_camera_optical_frame
+    replaced_xml: '<link name="left_camera_optical_frame">\n		<inertial>\n			<mass value="0.1"/>\n			<origin xyz="0 0 0"/>\n			<inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>\n		</inertial>\n	</link>'
+  - match_rule:
+      tag: link
+      attribute_name: name
+      attribute_value: motor
+    replaced_xml: '<link name="motor">\n		<inertial>\n			<mass value="0.1"/>\n			<origin xyz="0 0 0"/>\n			<inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>\n		</inertial>\n	</link>'
+  - match_rule:
+      tag: link
+      attribute_name: name
+      attribute_value: spindle
+    replaced_xml: '<link name="spindle">\n		<inertial>\n			<mass value="0.1"/>\n			<origin xyz="0 0 0"/>\n			<inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>\n		</inertial>\n	</link>'
+  - match_rule:
+      tag: joint
+      attribute_name: name
+      attribute_value: left_camera_optical_joint
+    replaced_xml: '<joint name="left_camera_optical_joint" type="continuous">\n		<parent link="left_camera_optical_frame"/>\n		<child link="motor"/>\n        <origin xyz="0.031 -0.081 -0.002" rpy="0.009 -0.002 -1.044"/>\n	</joint>'
+  - match_rule:
+      tag: joint
+      attribute_name: name
+      attribute_value: motor_joint
+    replaced_xml: '<joint name="motor_joint" type="continuous">\n		<parent link="motor"/>\n		<child link="spindle"/>\n        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>\n		<axis xyz="0 0 1"/>\n	</joint>'
+  - match_rule:
+      tag: joint
+      attribute_name: name
+      attribute_value: spindle_joint
+    replaced_xml: '<joint name="spindle_joint" type="continuous">\n		<parent link="spindle"/>\n		<child link="hokuyo_link"/>\n        <origin xyz="0.001 0.020 0.0" rpy="0.001 -0.012 -0.000"/>\n	</joint>'
