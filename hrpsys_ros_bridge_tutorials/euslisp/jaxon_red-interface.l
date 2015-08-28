@@ -5,107 +5,129 @@
 
 (defclass jaxon_red-interface
   :super rtm-ros-robot-interface
-  :slots ())
+  :slots (hand-enable))
 (defmethod jaxon_red-interface
-  (:init (&rest args &key ((:controller-timeout ct) nil))
-         (send-super* :init :robot jaxon_red-robot :controller-timeout ct args)))
+  (:init
+   (&rest args &key ((:controller-timeout ct) nil))
+   (prog1
+       (send-super* :init :robot jaxon_red-robot :controller-timeout ct args)
+     (print 1)
+     (setq hand-enable (send self :set-hand-controller))
+     (when (and (ros::get-param "/use_sim_time")
+                (probe-file (ros::resolve-ros-path "package://hrpsys_ros_bridge_jvrc/euslisp/jvrc-hand-interface.l")))
+       (load "package://hrpsys_ros_bridge_jvrc/euslisp/jvrc-hand-interface.l")
+       (send self :put :hand-controller (instance jvrc-hand-controller :init))
+       (setq hand-enable t))
+     ;; add controller
+     (send self :add-controller :larm-controller :joint-enable-check t :create-actions t)
+     (send self :add-controller :rarm-controller :joint-enable-check t :create-actions t)
+     (send self :add-controller :lleg-controller :joint-enable-check t :create-actions t)
+     (send self :add-controller :rleg-controller :joint-enable-check t :create-actions t)
+     )
+   )
+  (:set-hand-controller () nil)
+  ;; controller group configuration
+  (:larm-controller
+   ()
+   (list
+    (list
+     (cons :group-name "larm")
+     (cons :controller-action "larm_controller/joint_trajectory_action")
+     (cons :controller-state "larm_controller/state")
+     (cons :action-type pr2_controllers_msgs::JointTrajectoryAction)
+     (cons :joint-names (list "LARM_JOINT0" "LARM_JOINT1" "LARM_JOINT2" "LARM_JOINT3"
+                              "LARM_JOINT4" "LARM_JOINT5" "LARM_JOINT6" "LARM_JOINT7"))))
+   )
+  (:rarm-controller
+   ()
+   (list
+    (list
+     (cons :group-name "rarm")
+     (cons :controller-action "rarm_controller/joint_trajectory_action")
+     (cons :controller-state "rarm_controller/state")
+     (cons :action-type pr2_controllers_msgs::JointTrajectoryAction)
+     (cons :joint-names (list "RARM_JOINT0" "RARM_JOINT1" "RARM_JOINT2" "RARM_JOINT3"
+                              "RARM_JOINT4" "RARM_JOINT5" "RARM_JOINT6" "RARM_JOINT7"))))
+   )
+  (:lleg-controller
+   ()
+   (list
+    (list
+     (cons :group-name "lleg")
+     (cons :controller-action "lleg_controller/joint_trajectory_action")
+     (cons :controller-state "lleg_controller/state")
+     (cons :action-type pr2_controllers_msgs::JointTrajectoryAction)
+     (cons :joint-names (list "LLEG_JOINT0" "LLEG_JOINT1" "LLEG_JOINT2"
+                              "LLEG_JOINT3" "LLEG_JOINT4" "LLEG_JOINT5"))))
+   )
+  (:rleg-controller
+   ()
+   (list
+    (list
+     (cons :group-name "rleg")
+     (cons :controller-action "rleg_controller/joint_trajectory_action")
+     (cons :controller-state "rleg_controller/state")
+     (cons :action-type pr2_controllers_msgs::JointTrajectoryAction)
+     (cons :joint-names (list "RLEG_JOINT0" "RLEG_JOINT1" "RLEG_JOINT2"
+                              "RLEG_JOINT3" "RLEG_JOINT4" "RLEG_JOINT5"))))
+   )
+  (:move-gripper
+   (&rest args)
+   (if hand-enable
+       (send* (send self :get :hand-controller) :move-gripper args)
+     (warn ";; can not use hand~%")))
+  (:start-grasp
+   (&rest args)
+   (if hand-enable
+       (send* (send self :get :hand-controller) :start-grasp args)
+     (warn ";; can not use hand~%")))
+  (:stop-grasp
+   (&rest args)
+   (if hand-enable
+       (send* (send self :get :hand-controller) :stop-grasp args)
+     (warn ";; can not use hand~%")))
+  (:hand-reset
+   (&rest args)
+   (if hand-enable
+       (send* (send self :get :hand-controller) :reset args)
+     (warn ";; can not use hand~%")))
+  ;; (:hand-open
+  ;;  (&rest args)
+  ;;  (send* (send self :get :hand-controller) :open args))
+  ;; (:hand-close
+  ;;  (&rest args)
+  ;;  (send* (send self :get :hand-controller) :close args))
+  (:hand-stop
+   (&rest args)
+   (if hand-enable
+       (send* (send self :get :hand-controller) :stop args)
+     (warn ";; can not use hand~%")))
+  (:hand-resume
+   (&rest args)
+   (if hand-enable
+       (send* (send self :get :hand-controller) :resume args)
+     (warn ";; can not use hand~%")))
+  (:get-joint-angle
+   (&rest args)
+   (if hand-enable
+       (send* (send self :get :hand-controller) :get-joint-angle args)
+     (warn ";; can not use hand~%")))
+  (:get-joint-velocity
+   (&rest args)
+   (if hand-enable
+       (send* (send self :get :hand-controller) :get-joint-velocity args)
+     (warn ";; can not use hand~%")))
+  (:get-joint-effort
+   (&rest args)
+   (if hand-enable
+       (send* (send self :get :hand-controller) :get-joint-effort args)
+     (warn ";; can not use hand~%")))
+  )
 
 (when (probe-file (ros::resolve-ros-path "package://thk_hand_controller/euslisp/thkhand-simple-controller.l"))
   (load "package://thk_hand_controller/euslisp/thkhand-simple-controller.l")
-  (unless (assoc :init-org (send jaxon_red-interface :methods))
-    (rplaca (assoc :init (send jaxon_red-interface :methods)) :init-org))
   (defmethod jaxon_red-interface
-    (:init
-     (&rest args &key ((:controller-timeout ct) nil))
-     (prog1
-         (send* self :init-org :controller-timeout ct args)
-       (print 1)
-       (send self :put :hand-controller (instance thkhand-simple-controller :init))
-       ;; add controller
-       (send self :add-controller :larm-controller :joint-enable-check t :create-actions t)
-       (send self :add-controller :rarm-controller :joint-enable-check t :create-actions t)
-       (send self :add-controller :lleg-controller :joint-enable-check t :create-actions t)
-       (send self :add-controller :rleg-controller :joint-enable-check t :create-actions t)
-       )
-     )
-    (:move-gripper
-     (&rest args)
-     (send* (send self :get :hand-controller) :move-gripper args))
-    (:start-grasp
-     (&rest args)
-     (send* (send self :get :hand-controller) :start-grasp args))
-    (:stop-grasp
-     (&rest args)
-     (send* (send self :get :hand-controller) :stop-grasp args))
-    (:hand-reset
-     (&rest args)
-     (send* (send self :get :hand-controller) :reset args))
-    ;; (:hand-open
-    ;;  (&rest args)
-    ;;  (send* (send self :get :hand-controller) :open args))
-    ;; (:hand-close
-    ;;  (&rest args)
-    ;;  (send* (send self :get :hand-controller) :close args))
-    (:hand-stop
-     (&rest args)
-     (send* (send self :get :hand-controller) :stop args))
-    (:hand-resume
-     (&rest args)
-     (send* (send self :get :hand-controller) :resume args))
-    (:get-joint-angle
-     (&rest args)
-     (send* (send self :get :hand-controller) :get-joint-angle args))
-    (:get-joint-velocity
-     (&rest args)
-     (send* (send self :get :hand-controller) :get-joint-velocity args))
-    (:get-joint-effort
-     (&rest args)
-     (send* (send self :get :hand-controller) :get-joint-effort args))
-    ;; controller group configuration
-    (:larm-controller
-     ()
-     (list
-      (list
-       (cons :group-name "larm")
-       (cons :controller-action "larm_controller/joint_trajectory_action")
-       (cons :controller-state "larm_controller/state")
-       (cons :action-type pr2_controllers_msgs::JointTrajectoryAction)
-       (cons :joint-names (list "LARM_JOINT0" "LARM_JOINT1" "LARM_JOINT2" "LARM_JOINT3"
-                                "LARM_JOINT4" "LARM_JOINT5" "LARM_JOINT6" "LARM_JOINT7"))))
-     )
-    (:rarm-controller
-     ()
-     (list
-      (list
-       (cons :group-name "rarm")
-       (cons :controller-action "rarm_controller/joint_trajectory_action")
-       (cons :controller-state "rarm_controller/state")
-       (cons :action-type pr2_controllers_msgs::JointTrajectoryAction)
-       (cons :joint-names (list "RARM_JOINT0" "RARM_JOINT1" "RARM_JOINT2" "RARM_JOINT3"
-                                "RARM_JOINT4" "RARM_JOINT5" "RARM_JOINT6" "RARM_JOINT7"))))
-     )
-    (:lleg-controller
-     ()
-     (list
-      (list
-       (cons :group-name "lleg")
-       (cons :controller-action "lleg_controller/joint_trajectory_action")
-       (cons :controller-state "lleg_controller/state")
-       (cons :action-type pr2_controllers_msgs::JointTrajectoryAction)
-       (cons :joint-names (list "LLEG_JOINT0" "LLEG_JOINT1" "LLEG_JOINT2"
-                                "LLEG_JOINT3" "LLEG_JOINT4" "LLEG_JOINT5"))))
-     )
-    (:rleg-controller
-     ()
-     (list
-      (list
-       (cons :group-name "rleg")
-       (cons :controller-action "rleg_controller/joint_trajectory_action")
-       (cons :controller-state "rleg_controller/state")
-       (cons :action-type pr2_controllers_msgs::JointTrajectoryAction)
-       (cons :joint-names (list "RLEG_JOINT0" "RLEG_JOINT1" "RLEG_JOINT2"
-                                "RLEG_JOINT3" "RLEG_JOINT4" "RLEG_JOINT5"))))
-     )
+    (:set-hand-controller () (send self :put :hand-controller (instance thkhand-simple-controller :init)) t)
     )
   )
 
