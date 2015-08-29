@@ -400,7 +400,7 @@ macro (run_xacro_for_hand_hrp2_model _robot_name)
   set(_in_hand_r_urdf "${_model_dir}/HRP3HAND_R.urdf")
   set(_out_urdf_file "${_model_dir}/${_robot_name}_WH.urdf")
   add_custom_command(OUTPUT ${_out_urdf_file}
-      COMMAND ${xacro_exe} ${_in_xacro_file} > ${_out_urdf_file}
+      COMMAND ${xacro_exe} ${_in_xacro_file} -o ${_out_urdf_file}
       DEPENDS ${_in_xacro_file} ${_in_body_urdf}
       ${_in_hand_l_urdf} ${_in_hand_r_urdf})
   add_custom_target(${_robot_name}_xacro_model_generate DEPENDS ${_out_urdf_file})
@@ -428,7 +428,7 @@ if(multisense_description_FOUND)
   # generate HRP2JSK_WH.urdf from HRP2JSK.urdf.xacro
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
   add_custom_command(OUTPUT ${_model_dir}/HRP2JSK_WH.urdf
-    COMMAND ${xacro_exe} ${_model_dir}/HRP2JSK.urdf.xacro > ${_model_dir}/HRP2JSK_WH.urdf
+    COMMAND ${xacro_exe} ${_model_dir}/HRP2JSK.urdf.xacro -o ${_model_dir}/HRP2JSK_WH.urdf
     DEPENDS ${_model_dir}/HRP2JSK.urdf.xacro ${_model_dir}/HRP2JSK.urdf)
   # generate HRP2JSK_WH_SENSORS.urdf from HRP2JSK_WH.urdf and yaml
   attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2JSK_WH.urdf
@@ -497,7 +497,7 @@ macro (run_xacro_for_hand_staro_model _robot_name)
   set(_in_body_urdf "${_model_dir}/${_robot_name}_body.urdf")
   set(_out_urdf_file "${_model_dir}/${_robot_name}_WH.urdf")
   add_custom_command(OUTPUT ${_out_urdf_file}
-      COMMAND ${xacro_exe} ${_in_xacro_file} > ${_out_urdf_file}
+      COMMAND ${xacro_exe} ${_in_xacro_file} -o ${_out_urdf_file}
       DEPENDS ${_in_xacro_file} ${_in_body_urdf})
   add_custom_target(${_robot_name}_xacro_model_generate DEPENDS ${_out_urdf_file})
   list(APPEND compile_${_robot_name}_urdf_robots ${_robot_name}_xacro_model_generate)
