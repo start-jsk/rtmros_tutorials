@@ -425,8 +425,7 @@ macro (attach_sensor_and_endeffector_to_hrp2jsk_urdf
     COMMAND ${_script_file}
     ${_in_urdf_file} -O ${_out_urdf_file} -C ${_in_yaml_file}
     DEPENDS ${_in_urdf_file} ${_in_yaml_file} ${_script_file})
-  add_custom_target(${_out_file}_generate DEPENDS ${_out_urdf_file})
-  list(APPEND compile_urdf_robots ${_out_file}_generate)
+  list(APPEND compile_urdf_robots ${_out_urdf_file})
 endmacro()
 
 # for HRP2JSK + multisense
@@ -473,8 +472,6 @@ macro (generate_staro_hand_model _robot_name _dir_name)
   #add_custom_command(OUTPUT ${_out_mesh_dir}/${_h_mesh}
   #  COMMAND cp ${_org_model_dir}/${_h_mesh} ${_out_mesh_dir}/${_h_mesh}
   #  DEPENDS ${_in_urdf_file})
-  add_custom_target(${_robot_name}_lhand_generate DEPENDS ${_out_mesh_dir}/${_l_mesh})
-  add_custom_target(${_robot_name}_rhand_generate DEPENDS ${_out_mesh_dir}/${_r_mesh})
   #add_custom_target(${_robot_name}_head_generate DEPENDS ${_out_mesh_dir}/${_h_mesh})
   list(APPEND compile_urdf_robots ${_out_mesh_dir}/${_l_mesh})
   list(APPEND compile_urdf_robots ${_out_mesh_dir}/${_r_mesh})
@@ -513,8 +510,7 @@ macro (attach_sensor_and_endeffector_to_staro_urdf
   add_custom_command(OUTPUT ${_out_urdf_file}
     COMMAND ${_script_file} ${_robot_name} ${euscollada_PACKAGE_PATH} ${_in_urdf_file} ${_out_urdf_file} ${_in_yaml_file}
     DEPENDS ${_in_urdf_file} ${_in_yaml_file} ${_script_file})
-  add_custom_target(${_out_file}_generate DEPENDS ${_out_urdf_file})
-  list(APPEND compile_urdf_robots ${_out_file}_generate)
+  list(APPEND compile_urdf_robots ${_out_urdf_file})
 endmacro()
 
 if(EXISTS ${jsk_models_MODEL_DIR}/STARO/l_hand_attached_link.dae)
@@ -567,8 +563,20 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON_RED/l_hand_attached_link.dae)
 endif()
 endif()
 
+# Define dependency for urdf conversion to avoid parallel cmake problem (https://github.com/start-jsk/rtmros_tutorials/issues/373)
 if (DEFINED compile_urdf_robots)
-  add_custom_target(all_urdf_model_generate ALL DEPENDS ${compile_urdf_robots})
+  set(prev_urdf_generated)
+  set(gen_urdf_idx 0)
+  foreach(_compile_urdf_one ${compile_urdf_robots})
+    if (NOT "${prev_compile_urdf_one}" STREQUAL "")
+      add_custom_target(urdf_generated_${gen_urdf_idx} DEPENDS ${_compile_urdf_one} ${prev_urdf_generated})
+    else()
+      add_custom_target(urdf_generated_${gen_urdf_idx} DEPENDS ${_compile_urdf_one})
+    endif()
+    set(prev_urdf_generated urdf_generated_${gen_urdf_idx})
+    math(EXPR gen_urdf_idx "${gen_urdf_idx}+1")
+  endforeach()
+  add_custom_target(all_urdf_model_generate ALL DEPENDS ${prev_urdf_generated})
 endif()
 
 install(DIRECTORY euslisp launch scripts models test DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
