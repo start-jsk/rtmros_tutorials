@@ -16,7 +16,7 @@
     <arg name="ROBOT_TYPE" value="SampleRobot" />
     <arg name="WORLD" value="$(arg WORLD)" />
     <arg name="HRPSYS_GAZEBO_CONFIG" default="$(find hrpsys_gazebo_tutorials)/config/SampleRobot.yaml" />
-    <arg name="ROBOT_MODEL" default="$(find hrpsys_gazebo_tutorials)/robot_models/SampleRobot/SampleRobot.urdf.xacro" />
+    <arg name="ROBOT_MODEL" default="$(find hrpsys_gazebo_general)/robot_models/SampleRobot/SampleRobot.urdf.xacro" />
 
     <arg name="PAUSED" value="$(arg PAUSED)"/>
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
