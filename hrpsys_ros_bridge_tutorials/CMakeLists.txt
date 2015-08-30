@@ -599,6 +599,10 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON_RED/l_hand_attached_link.dae)
 endif()
 endif()
 
+# for SampleRobot
+attach_sensor_and_endeffector_to_hrp2jsk_urdf(SampleRobot SampleRobot.urdf
+  SampleRobot_WH_SENSORS.urdf samplerobot.yaml)
+
 # Define dependency for urdf conversion to avoid parallel cmake problem (https://github.com/start-jsk/rtmros_tutorials/issues/373)
 if (DEFINED compile_urdf_robots)
   add_custom_target(all_urdf_model_generate ALL DEPENDS ${compile_urdf_robots})
