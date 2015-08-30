@@ -21,13 +21,18 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         self.setStAbcParameters()
 
     def defJointGroups (self):
-        rarm_group = ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'RARM_JOINT6', 'RARM_JOINT7']]
-        larm_group = ['larm', ['LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'LARM_JOINT6', 'LARM_JOINT7']]
-        rleg_group = ['rleg', ['RLEG_JOINT0', 'RLEG_JOINT1', 'RLEG_JOINT2', 'RLEG_JOINT3', 'RLEG_JOINT4', 'RLEG_JOINT5']]
-        lleg_group = ['lleg', ['LLEG_JOINT0', 'LLEG_JOINT1', 'LLEG_JOINT2', 'LLEG_JOINT3', 'LLEG_JOINT4', 'LLEG_JOINT5']]
-        head_group = ['head', ['HEAD_JOINT0', 'HEAD_JOINT1']]
-        torso_group = ['torso', ['CHEST_JOINT0', 'CHEST_JOINT1', 'CHEST_JOINT2']]
-        self.Groups = [rarm_group, larm_group, rleg_group, lleg_group, head_group, torso_group]
+        if self.ROBOT_NAME == "URATALEG":
+            rleg_group = ['rleg', ['RLEG_JOINT0', 'RLEG_JOINT1', 'RLEG_JOINT2', 'RLEG_JOINT3', 'RLEG_JOINT4', 'RLEG_JOINT5']]
+            lleg_group = ['lleg', ['LLEG_JOINT0', 'LLEG_JOINT1', 'LLEG_JOINT2', 'LLEG_JOINT3', 'LLEG_JOINT4', 'LLEG_JOINT5']]
+            self.Groups = [rleg_group, lleg_group]
+        else:
+            rarm_group = ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'RARM_JOINT6', 'RARM_JOINT7']]
+            larm_group = ['larm', ['LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'LARM_JOINT6', 'LARM_JOINT7']]
+            rleg_group = ['rleg', ['RLEG_JOINT0', 'RLEG_JOINT1', 'RLEG_JOINT2', 'RLEG_JOINT3', 'RLEG_JOINT4', 'RLEG_JOINT5']]
+            lleg_group = ['lleg', ['LLEG_JOINT0', 'LLEG_JOINT1', 'LLEG_JOINT2', 'LLEG_JOINT3', 'LLEG_JOINT4', 'LLEG_JOINT5']]
+            head_group = ['head', ['HEAD_JOINT0', 'HEAD_JOINT1']]
+            torso_group = ['torso', ['CHEST_JOINT0', 'CHEST_JOINT1', 'CHEST_JOINT2']]
+            self.Groups = [rarm_group, larm_group, rleg_group, lleg_group, head_group, torso_group]
 
     def setStAbcParameters (self):
         if self.ROBOT_NAME == "STARO":
@@ -36,6 +41,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.setStAbcIcParametersJAXON(foot="KAWADA")
         elif self.ROBOT_NAME == "JAXON_RED":
             self.setStAbcIcParametersJAXON(foot="KAWADA")
+        elif self.ROBOT_NAME == "URATALEG":
+            self.setStAbcParametersURATALEG()
 
     def setStAbcParametersSTARO (self):
         # abc setting
@@ -217,6 +224,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             if self.ROBOT_NAME == "JAXON_RED":
                 icp.reference_gain = 0.05
             self.ic_svc.setImpedanceControllerParam(l, icp)
+
+    def setStAbcParametersURATALEG (self):
+        print "Not implemented yet"
 
     def jaxonResetPose (self):
         return [0.0,0.0,-0.349066,0.698132,-0.349066,0.0,0.0,0.0,-0.349066,0.698132,-0.349066,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.698132,-0.349066,-0.087266,-1.39626,0.0,0.0,-0.349066,0.0,0.698132,0.349066,0.087266,-1.39626,0.0,0.0,-0.349066]
