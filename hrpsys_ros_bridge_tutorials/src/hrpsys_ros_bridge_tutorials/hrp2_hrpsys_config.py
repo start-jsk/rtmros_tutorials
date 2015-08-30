@@ -91,11 +91,12 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_rot_damping_gain=20*2.5
         #stp.eefm_pos_damping_gain=3500*2.5
         #stp.eefm_rot_damping_gain=20*1.4
-        stp.eefm_rot_damping_gain=20*1.6
         #stp.eefm_pos_damping_gain=3500*1.0
-        stp.eefm_pos_damping_gain=[3500*50, 3500*50, 3500*1.0]
-        stp.eefm_rot_time_const=1.5
-        stp.eefm_pos_time_const_support=[1.5, 1.5, 1.5]
+        # EEFM parameters for 4 limbs
+        stp.eefm_rot_damping_gain = [[20*1.6, 20*1.6, 1e5]]*4
+        stp.eefm_pos_damping_gain = [[3500*50, 3500*50, 3500*1.0]]*4
+        stp.eefm_rot_time_const = [[1.5, 1.5, 1.5]]*4
+        stp.eefm_pos_time_const_support = [[1.5, 1.5, 1.5]]*4
         stp.eefm_wrench_alpha_blending = 0.6
         stp.eefm_pos_time_const_swing=0.08
         stp.eefm_pos_transition_time=0.01
@@ -163,12 +164,13 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_pos_damping_gain=3500*3
         #stp.eefm_rot_damping_gain=20*2.1
         #stp.eefm_pos_damping_gain=3500*2.1
-        stp.eefm_rot_damping_gain=20*1.1
         #stp.eefm_pos_damping_gain=3500*1.1
-        stp.eefm_pos_damping_gain=[3500*50, 3500*50, 3500*1.1]
         stp.eefm_wrench_alpha_blending = 0.75
-        stp.eefm_rot_time_const=1.5
-        stp.eefm_pos_time_const_support=[1.5, 1.5, 1.5]
+        # EEFM parameters for 4 limbs
+        stp.eefm_rot_damping_gain = [[20*1.1, 20*1.1, 1e5]]*4
+        stp.eefm_pos_damping_gain = [[3500*50, 3500*50, 3500*1.1]]*4
+        stp.eefm_rot_time_const = [[1.5, 1.5, 1.5]]*4
+        stp.eefm_pos_time_const_support = [[1.5, 1.5, 1.5]]*4
         stp.eefm_pos_time_const_swing=0.08
         #   mechanical foot edge
         #stp.eefm_leg_inside_margin=0.065
@@ -235,12 +237,13 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_pos_damping_gain=3500*3
         #stp.eefm_rot_damping_gain=20*2.1
         #stp.eefm_pos_damping_gain=3500*2.1
-        stp.eefm_rot_damping_gain=20*1.1
         #stp.eefm_pos_damping_gain=3500*1.1
-        stp.eefm_pos_damping_gain=[3500*50, 3500*50, 3500*1.1]
         stp.eefm_wrench_alpha_blending = 0.7
-        stp.eefm_rot_time_const=1.5
-        stp.eefm_pos_time_const_support=[1.5, 1.5, 1.5]
+        # EEFM parameters for 4 limbs
+        stp.eefm_rot_damping_gain = [[20*1.1, 20*1.1, 1e5]]*4
+        stp.eefm_pos_damping_gain = [[3500*50, 3500*50, 3500*1.1]]*4
+        stp.eefm_rot_time_const = [[1.5, 1.5, 1.5]]*4
+        stp.eefm_pos_time_const_support = [[1.5, 1.5, 1.5]]*4
         stp.eefm_pos_time_const_swing=0.08
         #   mechanical foot edge
         #stp.eefm_leg_inside_margin=0.07

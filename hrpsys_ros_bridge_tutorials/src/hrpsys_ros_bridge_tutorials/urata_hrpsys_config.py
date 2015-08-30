@@ -64,15 +64,15 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # new, servo-off-walking-pose
         #stp.eefm_rot_damping_gain=20*1.75
         # new, reset-manip-psoe
-        stp.eefm_rot_damping_gain=20*2.0
+        stp.eefm_rot_damping_gain = [[20*2.0, 20*2.0, 1e5]]*4
         #stp.eefm_rot_damping_gain=100
         #stp.eefm_pos_damping_gain=3500*2.5
         #stp.eefm_pos_damping_gain=7800
-        stp.eefm_pos_damping_gain=[3500*1.6*3, 3500*1.6*3*0.07, 3500*1.6]
+        stp.eefm_pos_damping_gain = [[3500*1.6*3, 3500*1.6*3*0.07, 3500*1.6]]*4
         #stp.eefm_rot_time_const=1.0
         #stp.eefm_pos_time_const_support=1.0
-        stp.eefm_rot_time_const=1.5
-        stp.eefm_pos_time_const_support=[1.5, 1.5, 1.5]
+        stp.eefm_rot_time_const = [[1.5, 1.5, 1.5]]*4
+        stp.eefm_pos_time_const_support = [[1.5, 1.5, 1.5]]*4
         stp.eefm_wrench_alpha_blending=0.7
         #stp.eefm_pos_time_const_swing=0.03
         stp.eefm_pos_time_const_swing=0.06
@@ -149,13 +149,13 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
         stp.eefm_body_attitude_control_time_const=[1000, 1000]
         if self.ROBOT_NAME == "JAXON":
-            stp.eefm_rot_damping_gain=20*1.6*1.1*1.5*1.2
-            stp.eefm_pos_damping_gain=[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2]
+            stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]]*4
+            stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2]]*4
         elif self.ROBOT_NAME == "JAXON_RED":
-            stp.eefm_rot_damping_gain=20*1.6*1.1*1.5
-            stp.eefm_pos_damping_gain=[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5]
-        stp.eefm_rot_time_const=1.5/1.1
-        stp.eefm_pos_time_const_support=[3.0/1.1, 3.0/1.1, 1.5/1.1]
+            stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5]]*4
+            stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5]]*4
+        stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
+        stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
         stp.eefm_wrench_alpha_blending=0.7
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
