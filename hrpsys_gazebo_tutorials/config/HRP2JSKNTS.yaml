@@ -2,7 +2,7 @@ hrpsys_gazebo_configuration:
 ### velocity feedback for joint control, use parameter gains/joint_name/p_v
   use_velocity_feedback: true
   use_joint_effort: true
-# iob_rate: 200
+  iob_rate: 250
 ### loose synchronization default true
 # use_loose_synchronized: false
 ### synchronized hrpsys and gazebo
