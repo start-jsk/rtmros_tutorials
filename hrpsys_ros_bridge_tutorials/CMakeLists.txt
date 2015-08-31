@@ -398,7 +398,7 @@ macro (generate_hand_attached_hrp2_model _robot_name)
   add_custom_command(OUTPUT ${_out_urdf_file}
       COMMAND ${_script_file}
       LARM_LINK6 RARM_LINK6 ${_in_urdf_file} ${_out_urdf_file}
-      DEPENDS ${_in_urdf_file} ${_script_file})
+      DEPENDS ${_in_urdf_file} ${_script_file} ${_srobot_name}_${PROJECT_NAME}_compile_urdf)
 endmacro()
 
 macro (run_xacro_for_hand_hrp2_model _robot_name)
@@ -487,7 +487,7 @@ macro (generate_hand_attached_staro_model _robot_name)
   message("generate hand_attached_staro_model for ${_robot_name}")
   add_custom_command(OUTPUT ${_out_urdf_file}
       COMMAND ${_script_file} ${_robot_name} ${_in_urdf_file} ${euscollada_PACKAGE_PATH}
-      DEPENDS ${_in_urdf_file})
+      DEPENDS ${_in_urdf_file} ${_srobot_name}_${PROJECT_NAME}_compile_urdf)
 endmacro()
 
 macro (run_xacro_for_hand_staro_model _robot_name)
@@ -565,18 +565,7 @@ endif()
 
 # Define dependency for urdf conversion to avoid parallel cmake problem (https://github.com/start-jsk/rtmros_tutorials/issues/373)
 if (DEFINED compile_urdf_robots)
-  set(prev_urdf_generated)
-  set(gen_urdf_idx 0)
-  foreach(_compile_urdf_one ${compile_urdf_robots})
-    if (NOT "${prev_compile_urdf_one}" STREQUAL "")
-      add_custom_target(urdf_generated_${gen_urdf_idx} DEPENDS ${_compile_urdf_one} ${prev_urdf_generated})
-    else()
-      add_custom_target(urdf_generated_${gen_urdf_idx} DEPENDS ${_compile_urdf_one})
-    endif()
-    set(prev_urdf_generated urdf_generated_${gen_urdf_idx})
-    math(EXPR gen_urdf_idx "${gen_urdf_idx}+1")
-  endforeach()
-  add_custom_target(all_urdf_model_generate ALL DEPENDS ${prev_urdf_generated})
+  add_custom_target(all_urdf_model_generate ALL DEPENDS ${compile_urdf_robots})
 endif()
 
 install(DIRECTORY euslisp launch scripts models test DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
