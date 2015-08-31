@@ -226,7 +226,41 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.ic_svc.setImpedanceControllerParam(l, icp)
 
     def setStAbcParametersURATALEG (self):
-        print "Not implemented yet"
+        # kf setting
+        kfp=self.kf_svc.getKalmanFilterParam()[1]
+        kfp.R_angle=1000
+        self.kf_svc.setKalmanFilterParam(kfp)
+        # st setting
+        stp=self.st_svc.getParameter()
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFM
+        stp.k_brot_p=[0, 0]
+        stp.k_brot_tc=[1000, 1000]
+        stp.eefm_body_attitude_control_gain=[0.5, 0.5]
+        stp.eefm_body_attitude_control_time_const=[1000, 1000]
+        stp.eefm_rot_damping_gain=[[20*1.4*5, 20*1.4*5, 1e5]]*2
+        stp.eefm_pos_damping_gain=[[3500*10, 3500*10, 3500*1.1*5]]*2
+        stp.eefm_rot_time_const=[[1.5, 1.5, 1.5]]*2
+        stp.eefm_pos_time_const_support=[[1.5, 1.5, 1.5]]*2
+        stp.eefm_wrench_alpha_blending=0.8
+        stp.eefm_pos_time_const_swing=0.06
+        stp.eefm_pos_transition_time=0.01
+        stp.eefm_pos_margin_time=0.02
+        # foot margin param
+        #   mechanical param is => inside 0.055, front 0.13, rear 0.1
+        ## kawada ashi
+        # stp.eefm_leg_inside_margin=0.05
+        # stp.eefm_leg_front_margin=0.12
+        # stp.eefm_leg_rear_margin=0.09
+        ## leptrino ashi
+        stp.eefm_leg_inside_margin=0.135*0.5
+        stp.eefm_leg_front_margin=0.16
+        stp.eefm_leg_rear_margin=0.1
+        stp.eefm_zmp_delay_time_const=[0.055, 0.055]
+        stp.eefm_cogvel_cutoff_freq = 4.25
+        stp.eefm_k1=[-1.38077, -1.38077]
+        stp.eefm_k2=[-0.364652, -0.364652]
+        stp.eefm_k3=[-0.168538, -0.168538]
+        self.st_svc.setParameter(stp)
 
     def jaxonResetPose (self):
         return [0.0,0.0,-0.349066,0.698132,-0.349066,0.0,0.0,0.0,-0.349066,0.698132,-0.349066,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.698132,-0.349066,-0.087266,-1.39626,0.0,0.0,-0.349066,0.0,0.698132,0.349066,0.087266,-1.39626,0.0,0.0,-0.349066]
