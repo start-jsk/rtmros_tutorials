@@ -72,8 +72,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
     def setStAbcParametershrp2017c(self):
         # ABC parameters
         abcp=self.abc_svc.getAutoBalancerParam()[1]
-        #abcp.default_zmp_offsets = [[0.015, -0.01, 0], [0.015, 0.01, 0]]
-        abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0]]
+        #abcp.default_zmp_offsets = [[0.015, -0.01, 0], [0.015, 0.01, 0], [0, 0, 0], [0, 0, 0]]
+        abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.st_svc.getParameter()
@@ -148,9 +148,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
     def setStAbcParametershrp2016c (self):
         # ABC parameters
         abcp=self.abc_svc.getAutoBalancerParam()[1]
-        #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0]]
-        abcp.default_zmp_offsets = [[0.010, 0.01, 0], [0.010, -0.01, 0]]
-        #abcp.default_zmp_offsets = [[0.01, 0.035, 0], [0.01, -0.035, 0]]
+        #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
+        abcp.default_zmp_offsets = [[0.010, 0.01, 0], [0.010, -0.01, 0], [0, 0, 0], [0, 0, 0]]
+        #abcp.default_zmp_offsets = [[0.01, 0.035, 0], [0.01, -0.035, 0], [0, 0, 0], [0, 0, 0]]
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.st_svc.getParameter()
@@ -221,9 +221,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
     def setStAbcParametershrp2007c (self):
         # ABC parameters
         abcp=self.abc_svc.getAutoBalancerParam()[1]
-        #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0]]
-        abcp.default_zmp_offsets = [[0.010, 0.01, 0], [0.010, -0.01, 0]]
-        #abcp.default_zmp_offsets = [[0.01, 0.035, 0], [0.01, -0.035, 0]]
+        #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
+        abcp.default_zmp_offsets = [[0.010, 0.01, 0], [0.010, -0.01, 0], [0, 0, 0], [0, 0, 0]]
+        #abcp.default_zmp_offsets = [[0.01, 0.035, 0], [0.01, -0.035, 0], [0, 0, 0], [0, 0, 0]]
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.st_svc.getParameter()

@@ -53,7 +53,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def setStAbcParametersSTARO (self):
         # abc setting
         abcp=self.abc_svc.getAutoBalancerParam()[1]
-        abcp.default_zmp_offsets=[[0.00, 0.0, 0.0], [0.00, 0.0, 0.0]];
+        abcp.default_zmp_offsets=[[0.00, 0.0, 0.0], [0.00, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
@@ -142,8 +142,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def setStAbcIcParametersJAXON(self, foot="KAWADA"):
         # abc setting
         abcp=self.abc_svc.getAutoBalancerParam()[1]
-        #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0]];
-        abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]];
+        #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+        abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
