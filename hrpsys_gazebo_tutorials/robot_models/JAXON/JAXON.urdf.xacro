@@ -301,4 +301,17 @@
       <linkname>BODY</linkname>
     </plugin>
   </gazebo>
+  <!-- publish ground_truth_odom -->
+  <gazebo>  
+    <plugin filename="libgazebo_ros_p3d.so" name="gazebo_ros_p3d_plugin">
+      <bodyName>BODY</bodyName>
+      <topicName>/ground_truth_odom</topicName>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>30.0</updateRate>
+      <gaussianNoise>0.0</gaussianNoise>
+      <frameName>world</frameName>
+      <xyzOffset>0 0 0</xyzOffset>
+      <rpyOffset>0 0 0</rpyOffset>
+    </plugin>
+  </gazebo>
 </robot>
