@@ -277,6 +277,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def staroResetPose(self):
         return [0.174533, 2.0944, 1.5708, 1.5708, -1.0472, 0.0, 0.0, 0.785398, -0.174533, -1.0472, 1.5708, -1.5708, 1.0472, 0.0, 0.0, 0.785398, 0.0, 0.0, -0.349066, 0.698132, -0.349066, 0.0, 0.0, 0.0, -0.349066, 0.698132, -0.349066, 0.0, 0.0, 0.0, 0.0, 0.0]
 
+    def uratalegResetPose(self):
+        return [0.0, 0.0, -0.733038, 1.25664, -0.523599, 0.0, 0.0, 0.0, -0.733038, 1.25664, -0.523599, 0.0]
+
     def jaxonResetManipPose (self):
         return [0.0,0.0,-0.349066,0.698132,-0.349066,0.0,0.0,0.0,-0.349066,0.698132,-0.349066,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.959931,-0.349066,-0.261799,-1.74533,-0.436332,0.0,-0.785398,0.0,0.959931,0.349066,0.261799,-1.74533,0.436332,0.0,-0.785398]
 
@@ -288,6 +291,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
 
     def staroInitPose (self):
         return [0]*len(self.staroResetPose())
+
+    def uratalegInitPose (self):
+        return [0]*len(self.uratalegResetPose())
 
     def jaxonCollisionFreeInitPose (self):
         return [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-0.261799,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.261799,0.0,0.0,0.0,0.0,0.0]
@@ -303,6 +309,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.staroResetPose(), 5.0)
         elif self.ROBOT_NAME.find("JAXON") == 0:
             self.seq_svc.setJointAngles(self.jaxonResetPose(), 5.0)
+        elif self.ROBOT_NAME == "URATALEG":
+            self.seq_svc.setJointAngles(self.uratalegResetPose(), 5.0)
 
     def setResetManipPose(self):
         if self.ROBOT_NAME == "STARO":
@@ -315,6 +323,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.staroInitPose(), 10.0)
         elif self.ROBOT_NAME.find("JAXON") == 0:
             self.seq_svc.setJointAngles(self.jaxonInitPose(), 10.0)
+        elif self.ROBOT_NAME == "URATALEG":
+            self.seq_svc.setJointAngles(self.uratalegInitPose(), 10.0)
 
     def setCollisionFreeInitPose(self):
         if self.ROBOT_NAME.find("JAXON") == 0:
