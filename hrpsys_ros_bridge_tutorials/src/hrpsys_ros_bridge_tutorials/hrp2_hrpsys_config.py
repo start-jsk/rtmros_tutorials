@@ -126,6 +126,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k1=[-1.272861, -1.272861]
         stp.eefm_k2=[-0.36367379999999999, -0.36367379999999999]
         stp.eefm_k3=[-0.16200000000000001, -0.16200000000000001]
+        # for estop
+        stp.emergency_check_mode=OpenHRP.StabilizerService.CP;
+        stp.cp_check_margin=80*1e-3;
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
@@ -144,6 +147,10 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.heel_zmp_offset_x = 1e-3*-105.784;
         gg.use_toe_joint = True
         self.abc_svc.setGaitGeneratorParam(gg)
+        # Estop
+        esp=self.es_svc.getEmergencyStopperParam()[1]
+        esp.default_retrieve_time=1.0 # [s]
+        self.es_svc.setEmergencyStopperParam(esp)
 
     def setStAbcParametershrp2016c (self):
         # ABC parameters
@@ -199,6 +206,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k1=[-1.272861, -1.272861]
         stp.eefm_k2=[-0.36367379999999999, -0.36367379999999999]
         stp.eefm_k3=[-0.16200000000000001, -0.16200000000000001]
+        # for estop
+        stp.emergency_check_mode=OpenHRP.StabilizerService.CP;
+        stp.cp_check_margin=80*1e-3;
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
@@ -217,6 +227,10 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.heel_zmp_offset_x = 1e-3*-105.784;
         gg.use_toe_joint = True
         self.abc_svc.setGaitGeneratorParam(gg)
+        # Estop
+        esp=self.es_svc.getEmergencyStopperParam()[1]
+        esp.default_retrieve_time=1.0 # [s]
+        self.es_svc.setEmergencyStopperParam(esp)
 
     def setStAbcParametershrp2007c (self):
         # ABC parameters
@@ -272,6 +286,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k1=[-1.272861, -1.272861]
         stp.eefm_k2=[-0.36367379999999999, -0.36367379999999999]
         stp.eefm_k3=[-0.16200000000000001, -0.16200000000000001]
+        # for estop
+        stp.emergency_check_mode=OpenHRP.StabilizerService.CP;
+        stp.cp_check_margin=80*1e-3;
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
@@ -289,6 +306,10 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.toe_zmp_offset_x = 1e-3*137.525;
         gg.heel_zmp_offset_x = 1e-3*-106.925;
         self.abc_svc.setGaitGeneratorParam(gg)
+        # Estop
+        esp=self.es_svc.getEmergencyStopperParam()[1]
+        esp.default_retrieve_time=1.0 # [s]
+        self.es_svc.setEmergencyStopperParam(esp)
 
     def setResetPose(self):
         self.seq_svc.setJointAngles(self.hrp2ResetPose(), 5.0)
