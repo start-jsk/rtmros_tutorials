@@ -1,10 +1,85 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="JAXON" >
   <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/JAXON_WH_SENSORS.urdf" />
 
-  <!-- for multisense -->
+  <!-- depth camera: from https://github.com/ros-simulation/gazebo_ros_pkgs/issues/210 -->
+  <gazebo reference="left_camera_frame">
+    <sensor name="openni_depth_camera" type="depth">
+      <update_rate>20</update_rate>
+      <camera>
+        <horizontal_fov>1.09606677025</horizontal_fov>
+        <image>
+          <format>R8G8B8</format>
+          <width>1024</width>
+          <height>544</height>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin filename="libgazebo_ros_openni_kinect.so" name="depth_camera_controller">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>20</updateRate>
+        <cameraName>multisense</cameraName>
+        <frameName>left_camera_optical_frame</frameName>
+        <depthImageTopicName>depth</depthImageTopicName>
+        <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+        <pointCloudTopicName>organized_image_points2_color</pointCloudTopicName>
+        <!-- prevent from conflicting topic name -->
+        <imageTopicName>depth_camera/rgb/image_raw</imageTopicName>
+        <cameraInfoTopicName>depth_camera/rgb/camera_info</cameraInfoTopicName>
+        <pointCloudCutoff>0.001</pointCloudCutoff>
+        <distortion_k1>0.0</distortion_k1>
+        <distortion_k2>0.0</distortion_k2>
+        <distortion_k3>0.0</distortion_k3>
+        <distortion_t1>0.0</distortion_t1>
+        <distortion_t2>0.0</distortion_t2>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <!-- <gazebo reference="left_camera_frame"> -->
+  <!--   <sensor type='depth' name='depth_camera'> -->
+  <!--     <camera name='head'> -->
+  <!--       <updateRate>30.0</updateRate>         -->
+  <!--       <horizontal_fov>1.39626</horizontal_fov> -->
+  <!--       <image> -->
+  <!--         <width>1024</width> -->
+  <!--         <height>544</height> -->
+  <!--         <format>R8G8B8</format> -->
+  <!--       </image> -->
+  <!--       <clip> -->
+  <!--         <near>0.02</near> -->
+  <!--         <far>300</far> -->
+  <!--       </clip> -->
+  <!--       <depth_camera> -->
+  <!--         <output>depthImage</output> -->
+  <!--       </depth_camera> -->
+  <!--       <noise> -->
+  <!--         <type>gaussian</type> -->
+  <!--         <mean>0</mean> -->
+  <!--         <stddev>0.007</stddev> -->
+  <!--       </noise> -->
+  <!--     </camera> -->
+  <!--     <plugin name='depth_camera_plugin' filename='libgazebo_ros_depth_camera.so'> -->
+  <!--       <alwaysOn>true</alwaysOn> -->
+  <!--       <updateRate>0.0</updateRate> -->
+  <!--       <depthImageTopicName>depth</depthImageTopicName> -->
+  <!--       <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName> -->
+  <!--       <cameraName>multisense</cameraName> -->
+  <!--       <frameName>left_camera_optical_frame</frameName> -->
+  <!--       <pointCloudCutoff>0.001</pointCloudCutoff> -->
+  <!--       <imageTopicName>depth_camera/image_raw</imageTopicName> -->
+  <!--       <pointCloudTopicName>depth_camera/pointCloud</pointCloudTopicName> -->
+  <!--       <colorImageTopic>depth_camera/rgb/image_color</colorImageTopic> -->
+  <!--       <depthMapTopic>depth_camera/depth_registered/image_rect</depthMapTopic> -->
+  <!--     </plugin> -->
+  <!--   </sensor> -->
+  <!-- </gazebo> -->
+  
+
+  <!-- for multisense: from jsk-ros-pkg/trans_system/multisense_sl_description/urdf/multisense_sl_v4.urdf -->
   <gazebo reference="head_hokuyo_frame">
     <sensor type="gpu_ray" name="head_hokuyo_sensor">
-      <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
       <update_rate>40</update_rate>
       <ray>
@@ -94,8 +169,8 @@
       <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
-        <cameraName>multisense/camera</cameraName>
-        <imageTopicName>image_raw</imageTopicName>
+        <cameraName>multisense</cameraName>
+        <imageTopicName>image_rect_color</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>left_camera_optical_frame</frameName>
         <!--<rightFrameName>right_camera_optical_frame</rightFrameName>-->
@@ -224,6 +299,19 @@
     <plugin filename="libSetVelPlugin.so" name="set_vel_plugin" >
       <objname>ROBOT</objname>
       <linkname>BODY</linkname>
+    </plugin>
+  </gazebo>
+  <!-- publish ground_truth_odom -->
+  <gazebo>  
+    <plugin filename="libgazebo_ros_p3d.so" name="gazebo_ros_p3d_plugin">
+      <bodyName>BODY</bodyName>
+      <topicName>/ground_truth_odom</topicName>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>30.0</updateRate>
+      <gaussianNoise>0.0</gaussianNoise>
+      <frameName>world</frameName>
+      <xyzOffset>0 0 0</xyzOffset>
+      <rpyOffset>0 0 0</rpyOffset>
     </plugin>
   </gazebo>
 </robot>
