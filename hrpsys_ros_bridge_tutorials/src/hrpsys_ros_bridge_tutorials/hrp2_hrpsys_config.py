@@ -110,10 +110,25 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_leg_front_margin=0.140
         #stp.eefm_leg_rear_margin=0.105
         #   margined foot edge
-        stp.eefm_leg_inside_margin=0.062
-        stp.eefm_leg_outside_margin=0.062
-        stp.eefm_leg_front_margin=0.130
-        stp.eefm_leg_rear_margin=0.095
+        tmp_leg_inside_margin=0.062
+        tmp_leg_outside_margin=0.062
+        tmp_leg_front_margin=0.130
+        tmp_leg_rear_margin=0.095
+        stp.eefm_leg_inside_margin=tmp_leg_inside_margin
+        stp.eefm_leg_outside_margin=tmp_leg_outside_margin
+        stp.eefm_leg_front_margin=tmp_leg_front_margin
+        stp.eefm_leg_rear_margin=tmp_leg_rear_margin
+        rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_inside_margin])]
+        lleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
+        rarm_vertices = rleg_vertices
+        larm_vertices = lleg_vertices
+        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
@@ -184,10 +199,25 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_leg_front_margin=0.140
         #stp.eefm_leg_rear_margin=0.105
         #   margined foot edge
-        stp.eefm_leg_inside_margin=0.062
-        stp.eefm_leg_outside_margin=0.062
-        stp.eefm_leg_front_margin=0.130
-        stp.eefm_leg_rear_margin=0.095
+        tmp_leg_inside_margin=0.062
+        tmp_leg_outside_margin=0.062
+        tmp_leg_front_margin=0.130
+        tmp_leg_rear_margin=0.095
+        stp.eefm_leg_inside_margin=tmp_leg_inside_margin
+        stp.eefm_leg_outside_margin=tmp_leg_outside_margin
+        stp.eefm_leg_front_margin=tmp_leg_front_margin
+        stp.eefm_leg_rear_margin=tmp_leg_rear_margin
+        rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_inside_margin])]
+        lleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
+        rarm_vertices = rleg_vertices
+        larm_vertices = lleg_vertices
+        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
         stp.eefm_pos_transition_time=0.01
         stp.eefm_pos_margin_time=0.02
         #stp.eefm_zmp_delay_time_const=[0.04, 0.04]
@@ -264,10 +294,25 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_leg_front_margin=0.135
         #stp.eefm_leg_rear_margin=0.105
         #   margined foot edge
-        stp.eefm_leg_inside_margin=0.062
-        stp.eefm_leg_outside_margin=0.062
-        stp.eefm_leg_front_margin=0.125
-        stp.eefm_leg_rear_margin=0.095
+        tmp_leg_inside_margin=0.062
+        tmp_leg_outside_margin=0.062
+        tmp_leg_front_margin=0.125
+        tmp_leg_rear_margin=0.095
+        stp.eefm_leg_inside_margin=tmp_leg_inside_margin
+        stp.eefm_leg_outside_margin=tmp_leg_outside_margin
+        stp.eefm_leg_front_margin=tmp_leg_front_margin
+        stp.eefm_leg_rear_margin=tmp_leg_rear_margin
+        rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_inside_margin])]
+        lleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
+        rarm_vertices = rleg_vertices
+        larm_vertices = lleg_vertices
+        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
         stp.eefm_pos_transition_time=0.01
         stp.eefm_pos_margin_time=0.02
         #stp.eefm_zmp_delay_time_const=[0.04, 0.04]
