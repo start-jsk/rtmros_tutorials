@@ -332,9 +332,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices])
-         # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
-         stp.eefm_cogvel_cutoff_freq = 4.0
-         stp.eefm_k1=[-1.48412,-1.48412]
+        # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
+        stp.eefm_cogvel_cutoff_freq = 4.0
+        stp.eefm_k1=[-1.48412,-1.48412]
 
         # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         stp.eefm_cogvel_cutoff_freq = 4.0
