@@ -37,10 +37,10 @@ class CHIDORIHrpsysConfigurator(HrpsysConfigurator):
         stp.k_brot_tc=[1000, 1000]
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
         stp.eefm_body_attitude_control_time_const=[1000, 1000]
-        stp.eefm_rot_damping_gain=20*1.6*1.1*1.5
-        stp.eefm_pos_damping_gain=[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5]
-        stp.eefm_rot_time_const=1.5/1.1
-        stp.eefm_pos_time_const_support=1.5/1.1
+        stp.eefm_rot_damping_gain=[[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5]]*2
+        stp.eefm_pos_damping_gain=[[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5]]*2
+        stp.eefm_rot_time_const=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
+        stp.eefm_pos_time_const_support=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
         stp.eefm_wrench_alpha_blending=0.7
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
@@ -48,15 +48,32 @@ class CHIDORIHrpsysConfigurator(HrpsysConfigurator):
         # foot margin param
         ## KAWADA foot
         #   mechanical param is => inside 0.055, front 0.13, rear 0.1
-        stp.eefm_leg_inside_margin=0.05
-        #stp.eefm_leg_inside_margin=0.04
-        stp.eefm_leg_front_margin=0.12
-        stp.eefm_leg_rear_margin=0.09
+        #stp.eefm_leg_inside_margin=0.05
+        ##stp.eefm_leg_inside_margin=0.04
+        #stp.eefm_leg_front_margin=0.12
+        #stp.eefm_leg_rear_margin=0.09
+        tmp_leg_inside_margin=0.05
+        tmp_leg_outside_margin=0.05
+        tmp_leg_front_margin=0.12
+        tmp_leg_rear_margin=0.09
         ## JSK foot
         # # mechanical param is -> inside 0.075, front 0.11, rear 0.11
         # stp.eefm_leg_inside_margin=0.07
         # stp.eefm_leg_front_margin=0.1
         # stp.eefm_leg_rear_margin=0.1
+        stp.eefm_leg_inside_margin=tmp_leg_inside_margin
+        stp.eefm_leg_outside_margin=tmp_leg_outside_margin
+        stp.eefm_leg_front_margin=tmp_leg_front_margin
+        stp.eefm_leg_rear_margin=tmp_leg_rear_margin
+        rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_inside_margin])]
+        lleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_outside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
+        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices])
         # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         stp.eefm_cogvel_cutoff_freq = 4.0
         stp.eefm_k1=[-1.48412,-1.48412]
