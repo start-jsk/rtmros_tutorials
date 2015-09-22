@@ -103,3 +103,8 @@ replace_xmls:
       attribute_name: velocity
       attribute_value: 0.5
     replaced_attribute_value: 6.0
+  - match_rule:
+      tag: joint
+      attribute_name: type
+      attribute_value: continuous
+    replaced_attribute_value: revolute
