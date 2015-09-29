@@ -9,37 +9,12 @@
 (defmethod hrp2jsk-interface
   (:init (&rest args)
          (send-super* :init :robot hrp2jsk-robot args))
+  (:get-hand-config-list () (list (list :larm "LHAND" "LARM_JOINT7") (list :rarm "RHAND" "RARM_JOINT7")))
   (:start-grasp
-   (limb &key (target-error 0.15) (gain-percentage 5) &rest args)
-   (case limb
-     (:larm
-      (send* self :set-servo-gain-percentage
-	     "LARM_JOINT7" gain-percentage args)
-      (send* self :graspcontrollerservice_startgrasp
-	     :name "LHAND"
-	     :target_error target-error args))
-     (:rarm
-      (send* self :set-servo-gain-percentage
-	     "RARM_JOINT7" gain-percentage args)
-      (send* self :graspcontrollerservice_startgrasp
-	     :name "RHAND"
-	     :target_error target-error args))
-     )
+   (limb &key (target-error 0.15) (gain-percentage 5))
+   (send-super :start-grasp limb :target-error target-error :gain-percentage gain-percentage)
    )
-  (:stop-grasp
-   (limb &rest args)
-   (case limb
-     (:larm
-      (send* self :set-servo-gain-percentage "LARM_JOINT7" 100 args)
-      (send* self :graspcontrollerservice_stopgrasp
-	     :name "LHAND"
-	     args))
-     (:rarm
-      (send* self :set-servo-gain-percentage "RARM_JOINT7" 100 args)
-      (send* self :graspcontrollerservice_stopgrasp
-	     :name "RHAND"
-	     args))
-     )))
+  )
 
 (defun hrp2jsk-init (&rest args)
   (if (not (boundp '*ri*))
