@@ -29,7 +29,35 @@
     (send self :angle-vector (float-vector  90 90 -20 10 20 60)))
   (:grasp-pose ()
     (send self :angle-vector (float-vector 77.9709 -11.4732 8.28742 -16.3569 106.185 86.0974)))
-    )
+  ;;
+  ;; def index avoid methods
+  ;;  index avoid methods -> does not use index finger to avoid overload ;; index finger maximum torque is very low.
+  ;;  User can customize index finger joint angles by using index-angle-vector argument
+  ;;  Currently we prepare index avoid method for :hook-pose, :reset-pose, :hook-pose2, :distal-pose2
+  (:def-index-avoid-pose-methods
+   ()
+   ;;
+   ;;
+   (dolist (pose (list :hook-pose :reset-pose :hook-pose2 :distal-pose2))
+     (eval
+      `(defmethod ,(send (class self) :name)
+         (,(read-from-string (format nil ":index-avoid-~A" (string-downcase pose)))
+          (&optional (index-angle-vector (float-vector -10 -10 -40)))
+          (send self ,pose)
+          (send self :f1-1r :joint-angle (elt index-angle-vector 0))
+          (send self :f1-1p :joint-angle (elt index-angle-vector 1))
+          (send self :f1-2r :joint-angle (elt index-angle-vector 2))
+          (send self :angle-vector)
+          ))))
+   )
+  ;;
+  (:f1-1r (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-f1-1r" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
+  (:f1-1p (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-f1-1p" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
+  (:f1-2r (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-f1-2r" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
+  (:f2-2r (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-f2-2r" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
+  (:t1-y (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-t1-y" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
+  (:t1-p (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-t1-p" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
+  )
   )
 
 (defun get-hrp2-with-hand-class-methods ()
@@ -40,6 +68,8 @@
        (send* self :init-org args)
      (send self :put :lhand-model (instance hrp3hand_l-robot :init))
      (send self :put :rhand-model (instance hrp3hand_r-robot :init))
+     (dolist (h (list (send self :get :lhand-model) (send self :get :rhand-model)))
+       (send h :def-index-avoid-pose-methods))
      (mapcar #'(lambda (l lm)
                  (send (send self :get lm) :newcoords
                        (send (send self l :end-coords :parent) :copy-worldcoords))

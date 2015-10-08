@@ -7,7 +7,7 @@ rarm:
   - R_THUMBCM_P  : rarm-t-1p
   - R_INDEXMP_R  : rarm-f1-1r
   - R_INDEXMP_P  : rarm-f1-1p
-  - R_INDEXPIP_R  : rarm-f1-2p
+  - R_INDEXPIP_R  : rarm-f1-2r
   - R_MIDDLEPIP_R : rarm-f2-2r
 
 ##
