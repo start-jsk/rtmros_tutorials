@@ -29,6 +29,9 @@
     (send self :angle-vector (float-vector  90 90 -20 10 20 60)))
   (:grasp-pose ()
     (send self :angle-vector (float-vector 77.9709 -11.4732 8.28742 -16.3569 106.185 86.0974)))
+  (:index-avoid-extention-pose2
+   ()
+   (send self :angle-vector (float-vector 90.0 -30.0 -10.0 10.0 -40.0 -40.0)))
   ;;
   ;; def index avoid methods
   ;;  index avoid methods -> does not use index finger to avoid overload ;; index finger maximum torque is very low.
@@ -38,7 +41,7 @@
    ()
    ;;
    ;;
-   (dolist (pose (list :hook-pose :reset-pose :hook-pose2 :distal-pose2))
+   (dolist (pose (list :hook-pose :reset-pose :hook-pose2 :distal-pose2 :grasp-pose))
      (eval
       `(defmethod ,(send (class self) :name)
          (,(read-from-string (format nil ":index-avoid-~A" (string-downcase pose)))
