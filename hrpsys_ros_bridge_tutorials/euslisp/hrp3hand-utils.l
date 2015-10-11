@@ -58,8 +58,8 @@
   (:f1-1p (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-f1-1p" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
   (:f1-2r (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-f1-2r" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
   (:f2-2r (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-f2-2r" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
-  (:t1-y (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-t1-y" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
-  (:t1-p (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-t1-p" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
+  (:t-1y (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-t-1y" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
+  (:t-1p (&rest args) (forward-message-to (send self (read-from-string (format nil "~A-t-1p" (find-if #'(lambda (x) (send self x)) '(:rarm :larm))))) args))
   )
   )
 
