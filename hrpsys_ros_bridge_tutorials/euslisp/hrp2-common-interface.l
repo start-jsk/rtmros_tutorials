@@ -47,4 +47,10 @@
        (send self :hrp3handcontrollerservice_handjointcalib)
      (warn ";; :hrp3handcontrollerservice_handjointcalib is not implemented!~%"))
    )
+  (:hand-state
+   ()
+   (if (find-method self :hrp3handcontrollerservice_getRobotState)
+       (send self :hrp3handcontrollerservice_getRobotState)
+     (warn ";; :hrp3handcontrollerservice_getRobotState is not implemented!~%"))
+   )
   )
