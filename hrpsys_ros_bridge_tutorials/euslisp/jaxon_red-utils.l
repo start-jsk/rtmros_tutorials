@@ -4,13 +4,13 @@
   (:init-ending
    (&rest args)
    (prog1
-    (send-super* :init-ending args)
-    (send self :add-shin-cushion-parts)
-    (send self :add-shin-contact-coords)
-    (send self :add-thk-contact-coords)
-    (send self :add-wrist-contact-coords)
-    (send self :add-hip-contact-coords)
-    ))
+       (send-super* :init-ending args)
+     (send self :add-shin-cushion-parts)
+     (send self :add-shin-contact-coords)
+     (send self :add-thk-contact-coords)
+     (send self :add-wrist-contact-coords)
+     (send self :add-hip-contact-coords)
+     ))
   (:add-shin-cushion-parts
    (&key (angle 6))
    (dolist (leg '(:rleg :lleg))
