@@ -9,6 +9,7 @@
     (send self :add-shin-contact-coords)
     (send self :add-thk-contact-coords)
     (send self :add-wrist-contact-coords)
+    (send self :add-hip-contact-coords)
     ))
   (:add-shin-cushion-parts
    (&key (angle 6))
@@ -82,4 +83,21 @@
                  (send self :put n tmpcec)
                  (send (elt (send self l :links) 6) :assoc (send self :get n)))
              limb name (list +1 -1))))
+  (:add-hip-contact-coords
+   (&key (offset (float-vector -252 0 -175))) ; calculated from CAD data
+   (let* ((name :hip-contact-coords)
+          tmpcec)
+     (setq tmpcec
+           (make-cascoords
+            :init :link-list :parent (car (send self :links))
+            :coords
+            (send
+             (make-coords
+              :pos (send (send (car (send self :links)) :copy-worldcoords) :worldpos)
+              :rot (send (send (car (send self :links)) :copy-worldcoords) :worldrot))
+             :translate offset :local)
+            :name name))
+     (send self :put name tmpcec)
+     (send (car (send self :links)) :assoc (send self :get name))
+     ))
   )
