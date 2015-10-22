@@ -68,6 +68,25 @@ else()
   message(FATAL_ERROR "${OPENHRP_SAMPLE_DIR}/model/sample1.wrl not found")
 endif(EXISTS ${OPENHRP_SAMPLE_DIR}/model/sample1.wrl)
 
+if(EXISTS ${OPENHRP_SAMPLE_DIR}/model/sample_4leg_robot.wrl)
+compile_openhrp_model(
+  ${OPENHRP_SAMPLE_DIR}/model/sample_4leg_robot.wrl Sample4LegRobot
+  --conf-dt-option "0.002"
+  --simulation-timestep-option "0.002"
+  --conf-file-option "abc_leg_offset: 0,0.19,0"
+  --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
+  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, rarm,RARM_JOINT5,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, larm,LARM_JOINT5,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0,"
+  --conf-file-option "pdgains_sim_file_name: ${hrpsys_PREFIX}/share/hrpsys/samples/Sample4LegRobot/Sample4LegRobot.PDgain.dat"
+  --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  )
+else()
+  get_cmake_property(_variableNames VARIABLES)
+  foreach (_variableName ${_variableNames})
+    message(STATUS "${_variableName}=${${_variableName}}")
+  endforeach()
+  message(FATAL_ERROR "${OPENHRP_SAMPLE_DIR}/model/sample_4leg_robot.wrl not found")
+endif(EXISTS ${OPENHRP_SAMPLE_DIR}/model/sample_4leg_robot.wrl)
+
 # collada_robots
 # webots_simulator
 # yaskawa
@@ -401,6 +420,7 @@ generate_default_launch_eusinterface_files(
   TESTMDOFARM
   "--no-euslisp")
 generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample1.wrl" hrpsys_ros_bridge_tutorials SampleRobot "--use-robot-hrpsys-config")
+generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/sample/model/sample_4leg_robot.wrl" hrpsys_ros_bridge_tutorials Sample4LegRobot "--use-robot-hrpsys-config")
 
 ################################
 ## Generate and modify .urdf files

@@ -48,6 +48,7 @@ class SampleHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_rot_damping_gain=[[20*1.6*10, 20*1.6*10, 1e5]]*4 # Stiff parameter for simulation
         stp.eefm_pos_damping_gain=[[3500*50, 3500*50, 3500*1.0*5]]*4 # Stiff parameter for simulation
         if self.ROBOT_NAME == "Sample4LegRobot":
+            stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
             rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, stp.eefm_leg_inside_margin]),
                              OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_outside_margin]),
                              OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_outside_margin]),
@@ -75,7 +76,7 @@ class SampleHrpsysConfigurator(HrpsysConfigurator):
         if self.ROBOT_NAME == "Sample4LegRobot":
             abcp.leg_names = ['rleg', 'lleg', 'rarm', 'larm']
             ggp.zmp_weight_map = [1.0]*4
-            ggp.default_step_height = 0.05
+            ggp.default_step_height = 0.009
         self.abc_svc.setAutoBalancerParam(abcp)
         self.abc_svc.setGaitGeneratorParam(ggp)
 
