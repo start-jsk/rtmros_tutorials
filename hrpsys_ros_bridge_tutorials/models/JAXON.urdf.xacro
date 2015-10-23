@@ -56,10 +56,11 @@
     <parent link="HEAD_LINK1" />
     <child  link="head_root" />
     <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.08 0.01 0.045"/> --> <!-- For leg -->
-    <origin rpy="-0.01 0.035 -0.005" xyz="0.085 0.01 0.065"/>
     <!-- <rigin rpy="-0.01 0.02 0.017" xyz="0.07 -0.01 0.045"/> old -->
     <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.09 0.01 0.055"/>  --><!--middle-->
-    <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.10 0.01 0.065"/> --> <!-- For hand -->
+    <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.10 0.01 0.065"/> --> <!-- For hand --> 
+    <!-- <origin rpy="-0.01 0.035 -0.005" xyz="0.085 0.01 0.065"/> --> <!-- old head in 20151022 -->
+    <origin rpy="-0.004 0.275 -0.01" xyz="0.1 0.01 0.085"/> <!-- new head in 20151022 -->
   </joint>
   <!-- HAND -->
   <xacro:include filename="$(find jaxon_description)/urdf/thk_hand003.urdf.xacro" />
