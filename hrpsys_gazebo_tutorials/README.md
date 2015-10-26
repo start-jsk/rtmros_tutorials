@@ -15,3 +15,28 @@ Do not forget to type ```pkill gzserver``` in addition to Ctrl-c in order to kil
 
 Do not forget to type ```pkill gzserver``` in addition to Ctrl-c in order to kill gazebo.
 Force sensor value is not valid.
+
+## Launch gazebo with kinematics mode
+Fix the base link of the robot in the reference position of hrpsys.
+set `KINEMATICS_MODE` as true in xxx_hrpsys_bringup.launch
+
+e.g.
+```
+rtmlaunch hrpsys_gazebo_general samplerobot_hrpsys_bringup.launch KINEMATICS_MODE:=true
+```
+
+## Kinect interactive mode
+![](images/gazebo_kinect_inteructive.png)
+
+Kinect is spawned to gazebo and movable with interactive marker in rviz.
+```
+roslaunch hrpsys_gazebo_tutorials gazebo_kinect_interactive.launch
+```
+
+## Kinect Cube interactive mode
+![](images/gazebo_kinect_cube_inteructive.png)
+
+Kinect and cube are spawned to gazebo and movable with interactive marker in rviz.
+```
+roslaunch hrpsys_gazebo_tutorials gazebo_kinect_cube_interactive.launc
+```
