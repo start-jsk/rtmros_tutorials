@@ -1,4 +1,5 @@
 (require :jaxon "package://hrpsys_ros_bridge_tutorials/models/jaxon.l")
+(require :thkhand-utils "package://hrpsys_ros_bridge_tutorials/euslisp/thkhand-utils.l")
 
 (defmethod JAXON-robot
   (:init-ending
@@ -10,6 +11,8 @@
      (send self :add-thk-contact-coords)
      (send self :add-wrist-contact-coords)
      (send self :add-hip-contact-coords)
+     (send self :put :lhand-model (instance dummy-thk-hand-robot :init :name :l-thk-hand))
+     (send self :put :rhand-model (instance dummy-thk-hand-robot :init :name :r-thk-hand))
      ))
   (:add-shin-cushion-parts
    (&key (angle 6))
@@ -101,3 +104,7 @@
      (send (car (send self :links)) :assoc (send self :get name))
      ))
   )
+
+(eval
+ `(defmethod jaxon-robot
+    ,@(get-jaxon-with-thk-hand-class-methods)))
