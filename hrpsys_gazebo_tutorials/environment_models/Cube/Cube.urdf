@@ -19,13 +19,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 -0 0"/>
       <geometry>
-        <mesh filename="model://Cube/meshes/nil_link_mesh.dae" scale="1 1 1" />
+        <mesh filename="package://hrpsys_gazebo_tutorials/environment_models/Cube/meshes/nil_link_mesh.dae" scale="1 1 1" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 -0 0"/>
       <geometry>
-        <mesh filename="model://Cube/meshes/nil_link_mesh.dae" scale="1 1 1" />
+        <mesh filename="package://hrpsys_gazebo_tutorials/environment_models/Cube/meshes/nil_link_mesh.dae" scale="1 1 1" />
       </geometry>
     </collision>
     <inertial>
