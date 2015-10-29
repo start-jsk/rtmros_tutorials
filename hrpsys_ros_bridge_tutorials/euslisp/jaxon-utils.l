@@ -48,7 +48,7 @@
                  (send (elt (send self l :links) 3) :assoc (send self :get n)))
              limb name)))
   (:add-thk-contact-coords
-   (&key (offset (float-vector 15 0 0)))
+   (&key (offset (float-vector (+ 15 3) 0 0)))
    (let* ((limb (list :rarm :larm))
           (name (list :rhand-contact-coords :lhand-contact-coords))
           tmpcec)
