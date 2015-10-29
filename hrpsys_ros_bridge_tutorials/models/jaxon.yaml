@@ -48,7 +48,8 @@ larm:
 rarm-end-coords:
   parent: RARM_LINK7
 # original (--hand1)
-  translate : [0,  0, -0.217]
+  # translate : [0,  0, -0.217]
+  translate : [0,  0, -0.220]   # + 3mm for rubber bush
   rotate    : [0.0, 1.0, 0.0, 90.0]
 # --hand3
 #  translate : [-0.055, 0.0, -0.237]
@@ -56,7 +57,8 @@ rarm-end-coords:
 larm-end-coords:
   parent: LARM_LINK7
 # original (--hand1)
-  translate : [0, 0, -0.217]
+  # translate : [0, 0, -0.217]
+  translate : [0,  0, -0.220]   # + 3mm for rubber bush
   rotate    : [0.0, 1.0, 0.0, 90.0]
 # --hand3
 #  translate : [-0.055, 0.0, -0.237]
@@ -64,12 +66,10 @@ larm-end-coords:
 ## KAWADA FOOT
 rleg-end-coords:
   parent: RLEG_LINK5
-  # translate : [0, 0, -0.096]
-  translate : [0, 0, -0.099]    # 3mm rubber
+  translate : [0, 0, -0.096]
 lleg-end-coords:
   parent: LLEG_LINK5
-  # translate : [0, 0, -0.096]
-  translate : [0, 0, -0.099]    # 3mm rubber
+  translate : [0, 0, -0.096]
 ## KAWADA FOOT : CAD -> -0.096; gomugutsu+midori -> -0.004
 # rleg-end-coords:
 #   parent: RLEG_LINK5
