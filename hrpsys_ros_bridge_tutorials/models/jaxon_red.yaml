@@ -48,7 +48,7 @@ larm:
 rarm-end-coords:
   parent: RARM_LINK7
 # original (--hand1)
-  translate : [0,  0, -0.217]
+  translate : [0,  0, -0.220]
   rotate    : [0.0, 1.0, 0.0, 90.0]
 # --hand3
 #  translate : [-0.055, 0.0, -0.237]
@@ -56,7 +56,7 @@ rarm-end-coords:
 larm-end-coords:
   parent: LARM_LINK7
 # original (--hand1)
-  translate : [0, 0, -0.217]
+  translate : [0, 0, -0.220]
   rotate    : [0.0, 1.0, 0.0, 90.0]
 # --hand3
 #  translate : [-0.055, 0.0, -0.237]
