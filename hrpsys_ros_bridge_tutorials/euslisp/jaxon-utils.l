@@ -6,6 +6,7 @@
    (&rest args)
    (prog1
        (send-super* :init-ending args)
+     (send self :add-hoist-point-coords)
      (send self :add-shin-cushion-parts)
      (send self :add-shin-contact-coords)
      (send self :add-thk-contact-coords)
@@ -14,6 +15,19 @@
      (send self :put :lhand-model (instance dummy-thk-hand-robot :init :name :l-thk-hand))
      (send self :put :rhand-model (instance dummy-thk-hand-robot :init :name :r-thk-hand))
      ))
+  (:add-hoist-point-coords
+   ()
+   (let ((hoist-link (send self :link "CHEST_LINK2"))
+         (tmp))
+     (setq tmp
+           (make-cascoords :init
+                           :link-list
+                           :parent hoist-link
+                           :coords (send (send hoist-link :copy-worldcoords) :translate (float-vector 70 0 100) :world)
+                           :name :hoist-coords))
+     (send self :put :hoist-coords tmp)
+     (send hoist-link :assoc (send self :get :hoist-coords)))
+   )
   (:add-shin-cushion-parts
    (&key (angle 6))
    (dolist (leg '(:rleg :lleg))
@@ -103,6 +117,32 @@
      (send self :put name tmpcec)
      (send (car (send self :links)) :assoc (send self :get name))
      ))
+  (:reset-landing-pose
+   (&key (default-pose (send self :reset-pose)))
+   (send self :angle-vector default-pose)
+   (send self :fix-leg-to-coords (make-coords))
+   (let ((tc (list (send self :rleg :end-coords :copy-worldcoords)
+                   (send self :lleg :end-coords :copy-worldcoords)
+                   (send (send (send self :foot-midcoords) :copy-worldcoords)
+                         :translate
+                         (float-vector 0 0 (elt
+                                            (send (send (send (send self :foot-midcoords) :copy-worldcoords)
+                                                        :transformation (send (send self :get :hoist-coords) :copy-worldcoords) :local) :worldpos)
+                                            2))
+                         :local)))
+         (ll (list (send self :rleg :end-coords)
+                   (send self :lleg :end-coords)
+                   (send self :get :hoist-coords))))
+     (send self
+           :fullbody-inverse-kinematics tc
+           :move-target ll
+           :link-list (mapcar #'(lambda (l) (send self :link-list (send l :parent))) ll)
+           :translation-axis (list t t :z)
+           :rotation-axis (list t t :y)
+           :additional-weight-list (list (list (send self :rleg :knee-p :child-link) 0.1)
+                                         (list (send self :lleg :knee-p :child-link) 0.1))
+           :debug-view :no-message))
+   )
   )
 
 (eval
