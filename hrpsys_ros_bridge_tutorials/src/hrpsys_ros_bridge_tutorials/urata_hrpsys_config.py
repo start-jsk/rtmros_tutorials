@@ -409,6 +409,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def chidoriInitPose (self):
         return [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
 
+    # (mapcar #'deg2rad (concatenate cons (send *robot* :reset-landing-pose)))
+    def jaxonResetLandingPose (self):
+        return [0.004318,0.005074,-0.134838,1.18092,-0.803855,-0.001463,0.004313,0.005079,-0.133569,1.18206,-0.806262,-0.001469,0.003782,-0.034907,0.004684,0.0,0.0,0.0,0.698132,-0.349066,-0.087266,-1.39626,0.0,0.0,-0.349066,0.0,0.698132,0.349066,0.087266,-1.39626,0.0,0.0,-0.349066]
+
     def setResetPose(self):
         if self.ROBOT_NAME == "STARO":
             self.seq_svc.setJointAngles(self.staroResetPose(), 5.0)
@@ -444,3 +448,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.staroResetServoOffPose(), 10.0)
         elif self.ROBOT_NAME.find("JAXON") == 0:
             self.seq_svc.setJointAngles(self.jaxonCollisionFreeResetPose(), 10.0)
+
+    def setResetLandingPose(self):
+        if self.ROBOT_NAME.find("JAXON") == 0:
+            self.seq_svc.setJointAngles(self.jaxonResetLandingPose(), 5.0)
