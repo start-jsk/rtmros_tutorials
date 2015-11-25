@@ -150,6 +150,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         abcp=self.abc_svc.getAutoBalancerParam()[1]
         #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+        if self.ROBOT_NAME == "JAXON":
+            abcp.default_zmp_offsets=[[-0.02, 0.0, 0.0], [-0.02, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
@@ -168,8 +170,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
         stp.eefm_body_attitude_control_time_const=[1000, 1000]
         if self.ROBOT_NAME == "JAXON":
-            stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]]*4
-            stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2]]*4
+            stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5*1.2*1.65*1.1, 20*1.6*1.1*1.5*1.2*1.65*1.1, 1e5]]*4
+            stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2*1.1]]*4
         elif self.ROBOT_NAME == "JAXON_RED":
             stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5]]*4
             stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5]]*4
