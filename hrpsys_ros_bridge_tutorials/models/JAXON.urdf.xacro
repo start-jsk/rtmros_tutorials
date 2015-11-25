@@ -60,7 +60,8 @@
     <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.09 0.01 0.055"/>  --><!--middle-->
     <!-- <origin rpy="-0.01 0.01 0.017" xyz="0.10 0.01 0.065"/> --> <!-- For hand --> 
     <!-- <origin rpy="-0.01 0.035 -0.005" xyz="0.085 0.01 0.065"/> --> <!-- old head in 20151022 -->
-    <origin rpy="-0.004 0.275 -0.01" xyz="0.1 0.01 0.085"/> <!-- new head in 20151022 -->
+    <!-- <origin rpy="-0.004 0.275 -0.01" xyz="0.1 0.01 0.085"/> --> <!-- new head in 20151022 -->
+    <origin rpy="0.003 0.255 -0.02" xyz="0.1 0.01 0.085"/> <!-- new head in 20151125 -->
   </joint>
   <!-- HAND -->
   <xacro:include filename="$(find jaxon_description)/urdf/thk_hand003.urdf.xacro" />
