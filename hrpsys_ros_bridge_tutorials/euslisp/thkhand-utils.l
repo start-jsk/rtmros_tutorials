@@ -1,7 +1,7 @@
 ;; Dummy thk hand model for joint
 (defclass dummy-thk-hand-robot
   :super robot-model
-  :slots ()
+  :slots (hand-joint)
   )
 (defmethod dummy-thk-hand-robot
   (:init
@@ -12,11 +12,13 @@
                        (instance bodyset-link :init (make-cascoords) :name :gripper-link)))
      (send self :assoc (car links))
      (send (car links) :assoc (cadr links))
-     (setq joint-list (list (instance rotational-joint :init :name :hand-joint
-                                      :parent-link (car links) :child-link (cadr links)
-                                      :min 0.0 :max 1.0)))
+     (setq hand-joint (instance rotational-joint :init :name :hand-joint
+                                :parent-link (car links) :child-link (cadr links)
+                                :min 0.0 :max 1.0))
+     (setq joint-list (list hand-joint))
      )
    )
+  (:hand-joint () hand-joint)
   )
 
 (defun get-jaxon-with-thk-hand-class-methods ()
