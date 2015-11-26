@@ -7,7 +7,7 @@
    (format *error-output* "~C[1;3~CmPlease comment in (load \"irteus/irtrobot.l\") in make-joint-min-max-table.l for debug~C[0m~%" #x1b (+ 2 48)  #x1b)
    (exit 1))
 
-;; (load "irteus/irtrobot.l")
+(load "irteus/irtrobot.l")
 (setq lisp::*error-handler* 'min-max-table-error)
 
 
@@ -105,12 +105,28 @@
             (send robot :torso :waist-r)
             (send robot :torso :waist-p)
             :margin 2))
-   (send robot :make-joint-min-max-table
-      (send robot :head :neck-y :parent-link)
-      (send robot :head :neck-p :child-link)
-      (send robot :head :neck-y)
-      (send robot :head :neck-p)
-      :margin margin)
+  (send (send robot :joint "HEAD_JOINT0") :put :org-min-angle -23.0)
+  (send (send robot :joint "HEAD_JOINT0") :put :org-max-angle 23.0)
+  (send (send robot :joint "HEAD_JOINT1") :put :org-min-angle -32.0)
+  (send (send robot :joint "HEAD_JOINT1") :put :org-max-angle 39.0)
+  (send (send robot :joint "HEAD_JOINT0") :joint-min-max-table
+        '#2f((-32 -31 -30 -29 -28 -27 -26 -25 -24 -23 -22 -21 -20 -19 -18 -17 -16 -15 -14 -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39)
+             (-23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23 -23.4562 -23.4562 -23.4562 -23 -23 -23.4562 -23 -23 -23.4562 -23.4562 -23.4562 -23.4562 -22.5437 -21.8812 -21.3375 -20.5875 -20.5875 -20.3562 -20.3187 -20.3187 -20.2312 -20.1937 -20.15 -20.15 -20.1 -20.0687 -20.0625 -15.3125 -13.45 -11.6937 -11.2312 -10.8062 -10.8062)
+             (23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23 23.4562 23.4562 23.4562 23 23 23.4562 23 23 23.4562 23.4562 23.4562 23.4562 22.5437 21.8812 21.3375 20.5875 20.5875 20.3562 20.3187 20.3187 20.2312 20.1937 20.15 20.15 20.1 20.0687 20.0625 15.3125 13.45 11.6937 11.2312 10.8062 10.8062))
+        )
+  (send (send robot :joint "HEAD_JOINT0") :joint-min-max-target (send robot :joint "HEAD_JOINT1"))
+  (send (send robot :joint "HEAD_JOINT1") :joint-min-max-table
+        '#2f((-23 -22 -21 -20 -19 -18 -17 -16 -15 -14 -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23)
+             (-32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32 -32)
+             (19.2812 19.9625 21.5812 33.4312 33.4625 33.4625 33.4625 33.4625 33.7187 33.9625 35.4625 36.25 37.525 39 39 39 39 39 39 39 39 39 39 39 39 39 39 39 39 39 39 39 39 39 37.525 36.25 35.4625 33.9625 33.7187 33.4625 33.4625 33.4625 33.4625 33.4312 21.5812 19.9625 19.2812))
+        )
+  (send (send robot :joint "HEAD_JOINT1") :joint-min-max-target (send robot :joint "HEAD_JOINT0"))
+   ;; (send robot :make-joint-min-max-table
+   ;;    (send robot :head :neck-y :parent-link)
+   ;;    (send robot :head :neck-p :child-link)
+   ;;    (send robot :head :neck-y)
+   ;;    (send robot :head :neck-p)
+   ;;    :margin margin)
   )
 (defun gen-min-max-table-staro
   (robot margin)
