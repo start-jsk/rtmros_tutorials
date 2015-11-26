@@ -162,8 +162,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp=self.st_svc.getParameter()
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
         stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
-        #stp.emergency_check_mode=OpenHRP.StabilizerService.CP
-        #stp.cp_check_margin=80*1e-3
+        stp.emergency_check_mode=OpenHRP.StabilizerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
+        stp.cp_check_margin=[0.045, 0, 0.095]
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
         #stp.eefm_body_attitude_control_gain=[0, 0.5]
@@ -243,6 +243,11 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             if self.ROBOT_NAME == "JAXON_RED":
                 icp.reference_gain = 0.05
             self.ic_svc.setImpedanceControllerParam(l, icp)
+        # Estop
+        esp=self.es_svc.getEmergencyStopperParam()[1]
+        esp.default_recover_time=10.0 # [s]
+        esp.default_retrieve_time=1.0 # [s]
+        self.es_svc.setEmergencyStopperParam(esp)
 
     def setStAbcParametersURATALEG (self):
         # abc setting

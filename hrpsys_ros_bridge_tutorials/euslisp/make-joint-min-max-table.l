@@ -7,7 +7,7 @@
    (format *error-output* "~C[1;3~CmPlease comment in (load \"irteus/irtrobot.l\") in make-joint-min-max-table.l for debug~C[0m~%" #x1b (+ 2 48)  #x1b)
    (exit 1))
 
-;; (load "irteus/irtrobot.l")
+(load "irteus/irtrobot.l")
 (setq lisp::*error-handler* 'min-max-table-error)
 
 
