@@ -46,7 +46,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         if self.ROBOT_NAME == "STARO":
             self.setStAbcParametersSTARO()
         elif self.ROBOT_NAME == "JAXON":
-            self.setStAbcIcParametersJAXON(foot="REPTRINO")
+            self.setStAbcIcParametersJAXON(foot="LEPTRINO")
         elif self.ROBOT_NAME == "JAXON_RED":
             self.setStAbcIcParametersJAXON(foot="KAWADA")
         elif self.ROBOT_NAME == "URATALEG":
@@ -194,7 +194,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             stp.eefm_leg_outside_margin=0.07
             stp.eefm_leg_front_margin=0.1
             stp.eefm_leg_rear_margin=0.1
-        elif foot == "REPTRINO":
+        elif foot == "LEPTRINO":
             stp.eefm_leg_inside_margin=0.05
             stp.eefm_leg_outside_margin=0.05
             stp.eefm_leg_front_margin=0.115
