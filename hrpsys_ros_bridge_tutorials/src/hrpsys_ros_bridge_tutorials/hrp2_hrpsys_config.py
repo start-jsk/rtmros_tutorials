@@ -143,7 +143,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k3=[-0.16200000000000001, -0.16200000000000001]
         # for estop
         stp.emergency_check_mode=OpenHRP.StabilizerService.CP;
-        stp.cp_check_margin=[45*1e-3, 0, 100*1e-3];
+        stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
@@ -164,6 +164,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setGaitGeneratorParam(gg)
         # Estop
         esp=self.es_svc.getEmergencyStopperParam()[1]
+        esp.default_recover_time=10.0 # [s]
         esp.default_retrieve_time=1.0 # [s]
         self.es_svc.setEmergencyStopperParam(esp)
 
@@ -238,7 +239,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k3=[-0.16200000000000001, -0.16200000000000001]
         # for estop
         stp.emergency_check_mode=OpenHRP.StabilizerService.CP;
-        stp.cp_check_margin=[45*1e-3, 0, 100*1e-3];
+        stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
@@ -259,6 +260,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setGaitGeneratorParam(gg)
         # Estop
         esp=self.es_svc.getEmergencyStopperParam()[1]
+        esp.default_recover_time=10.0 # [s]
         esp.default_retrieve_time=1.0 # [s]
         self.es_svc.setEmergencyStopperParam(esp)
 
@@ -333,7 +335,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k3=[-0.16200000000000001, -0.16200000000000001]
         # for estop
         stp.emergency_check_mode=OpenHRP.StabilizerService.CP;
-        stp.cp_check_margin=[45*1e-3, 0, 100*1e-3];
+        stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
@@ -353,6 +355,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setGaitGeneratorParam(gg)
         # Estop
         esp=self.es_svc.getEmergencyStopperParam()[1]
+        esp.default_recover_time=10.0 # [s]
         esp.default_retrieve_time=1.0 # [s]
         self.es_svc.setEmergencyStopperParam(esp)
 
