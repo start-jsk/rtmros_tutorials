@@ -308,8 +308,10 @@ compile_rbrain_model_for_closed_robots(JAXON JAXON JAXON
   --simulation-timestep-option "0.002"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
+  ## Leptrino foot
+  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.11,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.11,0.0,0.0,0.0,0.0, rarm,RARM_JOINT7,CHEST_JOINT2,0.0,0.0,-0.220,0.0,1.0,0.0,1.5708, larm,LARM_JOINT7,CHEST_JOINT2,0.0,0.0,-0.220,0.0,1.0,0.0,1.5708,"
   ## KAWADA foot
-  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, rarm,RARM_JOINT7,CHEST_JOINT2,0.0,0.0,-0.220,0.0,1.0,0.0,1.5708, larm,LARM_JOINT7,CHEST_JOINT2,0.0,0.0,-0.220,0.0,1.0,0.0,1.5708,"
+  --conf-file-option "# end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, rarm,RARM_JOINT7,CHEST_JOINT2,0.0,0.0,-0.220,0.0,1.0,0.0,1.5708, larm,LARM_JOINT7,CHEST_JOINT2,0.0,0.0,-0.220,0.0,1.0,0.0,1.5708,"
   ## KAWADA foot + hand contact end-coords
   --conf-file-option "# end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, rarm,RARM_JOINT7,CHEST_JOINT2,0.0,0.0,-0.238,0.0,0.0,-1.0,1.5708, larm,LARM_JOINT7,CHEST_JOINT2,0.0,0.0,-0.238,0.0,0.0,1.0,1.5708,# KAWADA foot + hand contact end-coords"
   ## KAWADA foot with rubber shoes
