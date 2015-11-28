@@ -6,6 +6,7 @@ imp.find_module(pkg)
 
 from hrpsys.hrpsys_config import *
 import OpenHRP
+import math
 
 class URATAHrpsysConfigurator(HrpsysConfigurator):
     def __init__(self, robotname=""):
@@ -173,8 +174,16 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5*1.2*1.65*1.1, 20*1.6*1.1*1.5*1.2*1.65*1.1, 1e5]]*4
             stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2*1.1]]*4
         elif self.ROBOT_NAME == "JAXON_RED":
-            stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5]]*4
-            stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5]]*4
+            stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
+                                         [20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
+                                         [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5],
+                                         [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]]
+            stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
+                                         [3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
+                                         [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8],
+                                         [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8]]
+            stp.eefm_rot_compensation_limit = [math.radians(10), math.radians(10), math.radians(10), math.radians(10)]
+            stp.eefm_pos_compensation_limit = [0.025, 0.025, 0.050, 0.050]
         stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
         stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
         stp.eefm_wrench_alpha_blending=0.7
