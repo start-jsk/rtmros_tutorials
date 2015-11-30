@@ -72,7 +72,9 @@
                         :init :link-list
                         :parent (send self l :end-coords)
                         :coords (send (send (send (send self l :end-coords :copy-worldcoords)
-                                                  :translate offset)
+                                                  :translate (cond ((eq l :rarm) (v- offset (float-vector 20 0 0))) ; based on real robot measurement
+                                                                   ((eq l :larm) (v- offset (float-vector 10 0 0))) ; based on real robot measurement
+                                                                   ))
                                             :rotate -pi/2 :y)
                                       :rotate (* sgn -pi/2) :z)
                         :name n))
