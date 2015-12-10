@@ -56,8 +56,19 @@
     <parent link="HEAD_LINK1" />
     <child  link="head_root" />
     <!-- <origin rpy="-0.01 0.04 -0.01" xyz="0.1 0.01 0.65"/> -->
-    <origin rpy="-0.025 0.055 0.01" xyz="0.1 -0.015 0.08"/> <!-- 2015.11.24 kakiuchi -->
+    <!-- 2015.11.24 kakiuchi -->
+    <!-- origin rpy="-0.025 0.055 0.01" xyz="0.1 -0.015 0.08"/-->
+    <!-- calibration at 2015.12.09 with jaxon_calibration -->
+    <origin xyz="0.097542410 -0.000296955 0.063307448" rpy="-0.007600616 0.046755703 -0.015569626" />
   </joint>
+  <!-- for calibration / original offset of camera_frame
+  <link name="left_camera_optical_frame" />
+  <joint name="left_camera_optical_frame_joint" type="fixed">
+    <parent link="HEAD_LINK1" />
+    <child  link="left_camera_optical_frame" />
+    <origin xyz="0.08 0.035 0.067" rpy="-1.5707960129 0 -1.5707960129"/>
+  </joint>
+  -->
   <!-- HAND -->
   <xacro:include filename="$(find jaxon_description)/urdf/thk_hand003.urdf.xacro" />
   <xacro:thk_hand prefix="L_" parent="LARM_LINK7" type="revolute">
