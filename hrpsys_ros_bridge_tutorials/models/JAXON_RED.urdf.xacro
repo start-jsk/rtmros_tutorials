@@ -56,7 +56,10 @@
     <parent link="HEAD_LINK1" />
     <child  link="head_root" />
     <!-- <origin rpy="-0.01 0.04 -0.01" xyz="0.1 0.01 0.65"/> -->
-    <origin rpy="-0.025 0.055 0.01" xyz="0.1 -0.015 0.08"/> <!-- 2015.11.24 kakiuchi -->
+    <!-- 2015.11.24 kakiuchi -->
+    <!-- origin rpy="-0.025 0.055 0.01" xyz="0.1 -0.015 0.08"/-->
+    <!-- calibration at 2015.12.09 with jaxon_calibration -->
+    <origin xyz="0.097542410 -0.000296955 0.063307448" rpy="-0.007600616 0.046755703 -0.015569626" />
   </joint>
   <!-- for calibration / original offset of camera_frame
   <link name="left_camera_optical_frame" />
