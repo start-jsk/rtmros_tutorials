@@ -55,19 +55,50 @@
      (warn ";; can not use hand~%")))
   (:get-joint-angle
    (&rest args)
+   (warning-message 1 ";;!!!!!!!!~%;; (send *ri* :get-joint-angle) METHOD IS DEPRECATED!!~%;; Please use (send *ri* :state :gripper :arms :angle-vector)~%;;!!!!!!!!~%")
    (if hand-enable
        (send* (send self :get :hand-controller) :get-joint-angle args)
      (warn ";; can not use hand~%")))
   (:get-joint-velocity
    (&rest args)
+   (warning-message 1 ";;!!!!!!!!~%;; (send *ri* :get-joint-velocity) METHOD IS DEPRECATED!!~%;; Please use (send *ri* :state :gripper :arms :velocity-vector)~%;;!!!!!!!!~%")
    (if hand-enable
        (send* (send self :get :hand-controller) :get-joint-velocity args)
      (warn ";; can not use hand~%")))
   (:get-joint-effort
    (&rest args)
+   (warning-message 1 ";;!!!!!!!!~%;; (send *ri* :get-joint-effort) METHOD IS DEPRECATED!!~%;; Please use (send *ri* :state :gripper :arms :effort-vector)~%;;!!!!!!!!~%")
    (if hand-enable
        (send* (send self :get :hand-controller) :get-joint-effort args)
      (warn ";; can not use hand~%")))
+  (:gripper
+   (arm method)
+   (if (memq arm '(:rarm :larm :arms))
+       (case
+        method
+        (:angle-vector
+         (if hand-enable
+             (send* (send self :get :hand-controller) :get-joint-angle (if (eq arm :arms) arm (list arm)))
+           (warn ";; can not use hand~%")))
+        (:velocity-vector
+         (if hand-enable
+             (send* (send self :get :hand-controller) :get-joint-velocity (if (eq arm :arms) arm (list arm)))
+           (warn ";; can not use hand~%")))
+        (:torque-vector
+         (if hand-enable
+             (send* (send self :get :hand-controller) :get-joint-effort (if (eq arm :arms) arm (list arm)))
+           (warn ";; can not use hand~%")))
+        (t )
+        )
+     (error ";; no such arm in :gripper ~A~%" arm))
+   )
+  (:state (&rest args) ;; overwrite for gripper
+   (case
+    (car args)
+    (:gripper
+     (send* self :gripper (cdr args)))
+    (t
+     (send-super* :state args))))
   ;; controller group configuration
   (:larm-controller
    ()
