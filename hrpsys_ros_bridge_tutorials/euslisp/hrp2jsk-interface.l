@@ -8,7 +8,12 @@
   :slots ())
 (defmethod hrp2jsk-interface
   (:init (&rest args)
-         (send-super* :init :robot hrp2jsk-robot args))
+         (prog1
+             (send-super* :init :robot hrp2jsk-robot args)
+           ;; add controller
+           (dolist (limb '(:rarm :larm :rleg :lleg :head :torso))
+             (send self :def-limb-controller-method limb)
+             (send self :add-controller (read-from-string (format nil "~A-controller" limb)) :joint-enable-check t :create-actions t))))
   (:get-hand-config-list () (list (list :larm "LHAND" "LARM_JOINT7") (list :rarm "RHAND" "RARM_JOINT7")))
   (:start-grasp
    (limb &key (target-error 0.15) (gain-percentage 5))
