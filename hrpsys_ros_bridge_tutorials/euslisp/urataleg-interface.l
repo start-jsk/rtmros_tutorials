@@ -16,6 +16,10 @@
            :k-brot-tc #f(0.1 0.1))
      (send self :set-auto-balancer-param
            :default-zmp-offsets (list (float-vector 20 -15 0) (float-vector 20 15 0)))
+      ;; add controller
+      (dolist (limb '(:rleg :lleg))
+        (send self :def-limb-controller-method limb)
+        (send self :add-controller (read-from-string (format nil "~A-controller" limb)) :joint-enable-check t :create-actions t))
      ))
   )
 
