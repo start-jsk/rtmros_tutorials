@@ -152,7 +152,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         if self.ROBOT_NAME == "JAXON":
-            abcp.default_zmp_offsets=[[-0.02, 0.0, 0.0], [-0.02, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+            # abcp.default_zmp_offsets=[[-0.02, 0.0, 0.0], [-0.02, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+            abcp.default_zmp_offsets=[[-0.045, 0.0, 0.0], [-0.045, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
