@@ -153,6 +153,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         if self.ROBOT_NAME == "JAXON":
             abcp.default_zmp_offsets=[[-0.02, 0.0, 0.0], [-0.02, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+        elif self.ROBOT_NAME == "JAXON_RED":
+            abcp.default_zmp_offsets=[[0.0, 0.01, 0.0], [0.0, -0.01, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
@@ -184,6 +186,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                                          [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8]]
             stp.eefm_rot_compensation_limit = [math.radians(10), math.radians(10), math.radians(10), math.radians(10)]
             stp.eefm_pos_compensation_limit = [0.025, 0.025, 0.050, 0.050]
+        stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
         stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
         stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
         stp.eefm_wrench_alpha_blending=0.7
