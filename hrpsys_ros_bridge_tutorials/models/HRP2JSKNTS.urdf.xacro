@@ -2,12 +2,10 @@
   <xacro:include filename="HRP2JSKNTS_body.urdf" />
   <xacro:include filename="HRP3HAND_L.urdf" />
   <xacro:include filename="HRP3HAND_R.urdf" />
-  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
-  <joint name="hrp2_to_multisense" type="fixed">
-    <parent link="HEAD_LINK1" />
-    <!--child  link="head" /--> <!-- for drcsim / multisense_sl_description -->
-    <child  link="head_root" /> <!-- for multisense / multisense_description -->
-    <!--origin xyz="0.07595 0 0.19825" rpy="0 0 0"/-->
-    <origin xyz="0.0 0.0 0.1" rpy="0 0 0" /> <!-- calibrated 2015.01.21-->
-  </joint>
+  <!-- <joint name="hrp2_to_multisense" type="fixed"> -->
+  <!--   <parent link="HEAD_LINK1" /> -->
+  <!--   <child  link="camera_rgb_optical_frame" /> -->
+  <!--   <origin xyz="0.053 0.052 0.119" rpy="0.006 0.308 -0.021" /> -->
+  <!-- </joint> -->
+  <!-- <link name="camera_rgb_optical_frame" /> -->
 </robot>
