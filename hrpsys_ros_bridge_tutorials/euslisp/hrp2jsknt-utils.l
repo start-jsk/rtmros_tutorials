@@ -13,6 +13,7 @@
    (prog1
        (send-super* :init-ending args)
      (send self :set-additional-end-coords)
+     (send self :define-min-max-table)
      ))
   (:inverse-kinematics
    (target-coords

@@ -165,6 +165,10 @@
    (format f "    ()~%")
    (format f "    (prog1~%")
    (format f "      (send-super :init-ending)~%")
+   (format f "     (send self :define-min-max-table)~%")
+   (format f "    ))~%")
+   (format f "  (:define-min-max-table~%")
+   (format f "    ()~%")
    (labels
        ((gen-string-name
          (j)
@@ -176,7 +180,7 @@
        (format f "      (send (send self :joint ~A) :joint-min-max-target (send self :joint ~A))~%"
                (gen-string-name j) (gen-string-name (send j :joint-min-max-target)))
        )
-     (format f "      )))~%")
+     (format f "      ))~%")
      ))
   t)
 
