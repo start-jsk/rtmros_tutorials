@@ -40,3 +40,12 @@ Kinect and cube are spawned to gazebo and movable with interactive marker in rvi
 ```
 roslaunch hrpsys_gazebo_tutorials gazebo_kinect_cube_interactive.launc
 ```
+
+## LIP simulation
+![](images/gazebo_lip.png)
+
+LIP (Linear Inverted Pendulum) is the simple dynamic model of humanoid robot.
+```
+roslaunch hrpsys_gazebo_tutorials gazebo_lip.launch
+
+```
