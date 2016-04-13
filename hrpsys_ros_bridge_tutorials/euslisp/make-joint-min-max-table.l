@@ -49,7 +49,7 @@
             :margin margin))
   ;; Hand made ankle-r ankle-p min-max table measured by real robot encoder values.
   ;;  This is for kawasaki-san ankle spacer.
-  (when (or (string= (send robot :name) "HRP2JSK") (string= (send robot :name) "HRP2JSKNT"))
+  (when (string= (send robot :name) "HRP2JSKNT")
     ;; set org-min-angle and org-max-angle for debug
     (send (send robot :joint "RLEG_JOINT5") :put :org-min-angle -29.0)
     (send (send robot :joint "RLEG_JOINT5") :put :org-max-angle 45.0)
