@@ -46,14 +46,14 @@ larm:
 ##
 rleg-end-coords:
 # original ankle
-#  translate : [0.0, -0.01, -0.105]
+  translate : [0.0, -0.01, -0.105]
 # ankle spacer
-  translate : [0.0, -0.01, -0.115]
+#  translate : [0.0, -0.01, -0.115]
 lleg-end-coords:
 # original ankle
-#  translate : [0.0,  0.01, -0.105]
+  translate : [0.0,  0.01, -0.105]
 # ankle spacer
-  translate : [0.0,  0.01, -0.115]
+#  translate : [0.0,  0.01, -0.115]
 torso-end-coords:
   translate : [-0.032, 0.0, -1.0557]
 head-end-coords:
