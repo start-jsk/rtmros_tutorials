@@ -11,9 +11,10 @@
     (prog1
         (send-super* :init :robot hrp2w-robot args)
       ;; add controller
-      (dolist (limb '(:rarm :larm :head :torso))
-        (send self :def-limb-controller-method limb)
-        (send self :add-controller (read-from-string (format nil "~A-controller" limb)) :joint-enable-check t :create-actions t)))))
+      (when (find-method self :def-limb-controller-method)
+        (dolist (limb '(:rarm :larm :head :torso))
+          (send self :def-limb-controller-method limb)
+          (send self :add-controller (read-from-string (format nil "~A-controller" limb)) :joint-enable-check t :create-actions t))))))
 
 ;; methods for grasp controller
 (defmethod hrp2w-interface
