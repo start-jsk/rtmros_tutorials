@@ -46,5 +46,14 @@
   <!-- <test_depend>openhrp3</test_depend> -->
   <run_depend>collada_urdf_jsk_patch</run_depend>
   <export>
+    <pr2eus robot-name="hrp2jsk" interface-file="${prefix}/euslisp/hrp2jsk-interface.l" />
+    <pr2eus robot-name="hrp2jsknt" interface-file="${prefix}/euslisp/hrp2jsknt-interface.l" />
+    <pr2eus robot-name="hrp2jsknts" interface-file="${prefix}/euslisp/hrp2jsknts-interface.l" />
+    <pr2eus robot-name="hrp4r" interface-file="${prefix}/euslisp/hrp4r-interface.l" />
+    <pr2eus robot-name="jaxon" interface-file="${prefix}/euslisp/jaxon-interface.l" />
+    <pr2eus robot-name="jaxon_red" interface-file="${prefix}/euslisp/jaxon_red-interface.l" />
+    <pr2eus robot-name="urataleg" interface-file="${prefix}/euslisp/urataleg-interface.l" />
+    <pr2eus robot-name="chidori" interface-file="${prefix}/euslisp/chidori-interface.l" />
+    <pr2eus robot-name="ystleg" interface-file="${prefix}/euslisp/ystleg-interface.l" />
   </export>
 </package>
