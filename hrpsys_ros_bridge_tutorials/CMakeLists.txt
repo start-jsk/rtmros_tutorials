@@ -378,7 +378,7 @@ macro (generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots 
   # remove arguments of this macro
   list(REMOVE_AT _arg_list 0 1)
   if(EXISTS ${hrp2_models_MODEL_DIR}/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
-    generate_default_launch_eusinterface_files("${hrp2_models_MODEL_DIR}/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
+    generate_default_launch_eusinterface_files("$(find hrp2_models)/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
   endif()
 endmacro ()
 macro (generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots ROBOT_DIR ROBOT_NAME)
@@ -386,7 +386,7 @@ macro (generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots R
   # remove arguments of this macro
   list(REMOVE_AT _arg_list 0 1)
   if(EXISTS ${jsk_models_MODEL_DIR}/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
-    generate_default_launch_eusinterface_files("${jsk_models_MODEL_DIR}/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
+    generate_default_launch_eusinterface_files("$(find jsk_models)/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
   endif()
 endmacro ()
 
