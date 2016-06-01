@@ -59,7 +59,9 @@
     <!-- 2015.11.24 kakiuchi -->
     <!-- origin rpy="-0.025 0.055 0.01" xyz="0.1 -0.015 0.08"/-->
     <!-- calibration at 2015.12.09 with jaxon_calibration -->
-    <origin xyz="0.097542410 -0.000296955 0.063307448" rpy="-0.007600616 0.046755703 -0.015569626" />
+    <!-- <origin xyz="0.097542410 -0.000296955 0.063307448" rpy="-0.007600616 0.046755703 -0.015569626" /> -->
+    <!-- 2016.6.1 tamura kumagai by modification of mount frame -->
+    <origin rpy="-0.005 0.048 -0.020569626" xyz="0.095 0.003596955 0.075307448"/>
   </joint>
   <!-- for calibration / original offset of camera_frame
   <link name="left_camera_optical_frame" />
