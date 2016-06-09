@@ -34,6 +34,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             rleg_group = ['rleg', ['RLEG_JOINT0', 'RLEG_JOINT1', 'RLEG_JOINT2', 'RLEG_JOINT3', 'RLEG_JOINT4', 'RLEG_JOINT5']]
             lleg_group = ['lleg', ['LLEG_JOINT0', 'LLEG_JOINT1', 'LLEG_JOINT2', 'LLEG_JOINT3', 'LLEG_JOINT4', 'LLEG_JOINT5']]
             self.Groups = [rleg_group, lleg_group]
+        elif self.ROBOT_NAME == "TQLEG0":
+            rleg_group = ['rleg', ['RLEG_JOINT0', 'RLEG_JOINT1', 'RLEG_JOINT2', 'RLEG_JOINT3', 'RLEG_JOINT4', 'RLEG_JOINT5']]
+            lleg_group = ['lleg', ['LLEG_JOINT0', 'LLEG_JOINT1', 'LLEG_JOINT2', 'LLEG_JOINT3', 'LLEG_JOINT4', 'LLEG_JOINT5']]
+            self.Groups = [rleg_group, lleg_group]
         else:
             rarm_group = ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'RARM_JOINT6', 'RARM_JOINT7']]
             larm_group = ['larm', ['LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'LARM_JOINT6', 'LARM_JOINT7']]
@@ -56,6 +60,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.setStAbcParametersYSTLEG()
         elif self.ROBOT_NAME == "CHIDORI":
             self.setStAbcParametersCHIDORI()
+        elif self.ROBOT_NAME == "TQLEG0":
+            self.setStAbcParametersTQLEG0()
 
     def setStAbcParametersSTARO (self):
         # abc setting
@@ -393,6 +399,53 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.heel_zmp_offset_x = 1e-3*-116.342;
         self.abc_svc.setGaitGeneratorParam(gg)
 
+    def setStAbcParametersTQLEG0 (self):
+        # abc setting
+        abcp=self.abc_svc.getAutoBalancerParam()[1]
+        #abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]];
+        abcp.default_zmp_offsets=[[0.0, 0.045, 0.0], [0.0, -0.045, 0.0]];
+        abcp.move_base_gain=0.8
+        self.abc_svc.setAutoBalancerParam(abcp)
+        # kf setting
+        kfp=self.kf_svc.getKalmanFilterParam()[1]
+        kfp.R_angle=1000
+        self.kf_svc.setKalmanFilterParam(kfp)
+        # st setting
+        stp=self.st_svc.getParameter()
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFM
+        #####stp.is_ankle_torque_enable=[True,False]
+        stp.k_brot_p=[0, 0]
+        stp.k_brot_tc=[1000, 1000]
+        stp.eefm_body_attitude_control_gain=[0.5, 0.5]
+        stp.eefm_body_attitude_control_time_const=[1000, 1000]
+        stp.eefm_rot_damping_gain=[[20*1.4*5, 20*1.4*5, 1e5]]*2
+        stp.eefm_pos_damping_gain=[[3500*10, 3500*10, 3500*1.1*1.5]]*2
+        stp.eefm_rot_time_const=[[1.5, 1.5, 1.5]]*2
+        stp.eefm_pos_time_const_support=[[1.5, 1.5, 1.5]]*2
+        stp.eefm_wrench_alpha_blending=0.8
+        stp.eefm_pos_time_const_swing=0.06
+        stp.eefm_pos_transition_time=0.01
+        stp.eefm_pos_margin_time=0.02
+        # foot margin param
+        #   mechanical param is => inside 0.055, front 0.13, rear 0.1
+        ## kawada ashi
+        # stp.eefm_leg_inside_margin=0.05
+        # stp.eefm_leg_front_margin=0.12
+        # stp.eefm_leg_rear_margin=0.09
+        ## leptrino ashi
+        stp.eefm_leg_inside_margin=0.135*0.5
+        stp.eefm_leg_front_margin=0.16
+        stp.eefm_leg_rear_margin=0.1
+        stp.eefm_zmp_delay_time_const=[0.055, 0.055]
+        stp.eefm_cogvel_cutoff_freq = 4.25
+        stp.eefm_k1=[-1.38077, -1.38077]
+        stp.eefm_k2=[-0.364652, -0.364652]
+        stp.eefm_k3=[-0.168538, -0.168538]
+        self.st_svc.setParameter(stp)
+        # el setting
+        # remove soft-error-limit for torque controlled robot ( ONLY FOR THIS ROBOT !!! )
+        self.el_svc.setServoErrorLimit("ALL", 100000)
+
 
     def jaxonResetPose (self):
         return [0.0,0.0,-0.349066,0.698132,-0.349066,0.0,0.0,0.0,-0.349066,0.698132,-0.349066,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.698132,-0.349066,-0.087266,-1.39626,0.0,0.0,-0.349066,0.0,0.698132,0.349066,0.087266,-1.39626,0.0,0.0,-0.349066]
@@ -433,6 +486,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def chidoriInitPose (self):
         return [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
 
+    def tqleg0ResetPose(self):
+        return [0.0, 0.0, -0.733038, 1.25664, -0.523599, 0.0, 0.0, 0.0, -0.733038, 1.25664, -0.523599, 0.0]
+
+    def tqleg0InitPose (self):
+        return [0]*len(self.tqleg0ResetPose())
+
     # (mapcar #'deg2rad (concatenate cons (send *robot* :reset-landing-pose)))
     def jaxonResetLandingPose (self):
         return [0.004318,0.005074,-0.134838,1.18092,-0.803855,-0.001463,0.004313,0.005079,-0.133569,1.18206,-0.806262,-0.001469,0.003782,-0.034907,0.004684,0.0,0.0,0.0,0.698132,-0.349066,-0.087266,-1.39626,0.0,0.0,-0.349066,0.0,0.698132,0.349066,0.087266,-1.39626,0.0,0.0,-0.349066]
@@ -446,6 +505,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.uratalegResetPose(), 5.0)
         elif self.ROBOT_NAME == "CHIDORI":
             self.seq_svc.setJointAngles(self.chidoriResetPose(), 5.0)
+        elif self.ROBOT_NAME == "TQLEG0":
+            self.seq_svc.setJointAngles(self.tqleg0ResetPose(), 5.0)
 
     def setResetManipPose(self):
         if self.ROBOT_NAME == "STARO":
@@ -462,6 +523,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.uratalegInitPose(), 10.0)
         elif self.ROBOT_NAME == "CHIDORI":
             self.seq_svc.setJointAnbles(self.chidoriInitpose(), 10.0)
+        elif self.ROBOT_NAME == "TQLEG0":
+            self.seq_svc.setJointAnbles(self.tqleg0Initpose(), 10.0)
 
     def setCollisionFreeInitPose(self):
         if self.ROBOT_NAME.find("JAXON") == 0:
