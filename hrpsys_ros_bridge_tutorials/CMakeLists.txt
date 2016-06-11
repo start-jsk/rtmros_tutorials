@@ -625,9 +625,6 @@ endif()
 attach_sensor_and_endeffector_to_hrp2jsk_urdf(SampleRobot SampleRobot.urdf
   SampleRobot_WH_SENSORS.urdf samplerobot.yaml)
 
-attach_sensor_and_endeffector_to_staro_urdf(TQLEG0 TQLEG0.urdf
-  TQLEG0_WH_SENSORS.urdf tqleg0.yaml)
-
 # Define dependency for urdf conversion to avoid parallel cmake problem (https://github.com/start-jsk/rtmros_tutorials/issues/373)
 if (DEFINED compile_urdf_robots)
   add_custom_target(all_urdf_model_generate ALL DEPENDS ${compile_urdf_robots})
