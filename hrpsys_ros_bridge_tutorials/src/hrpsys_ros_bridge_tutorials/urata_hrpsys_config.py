@@ -522,9 +522,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         elif self.ROBOT_NAME == "URATALEG":
             self.seq_svc.setJointAngles(self.uratalegInitPose(), 10.0)
         elif self.ROBOT_NAME == "CHIDORI":
-            self.seq_svc.setJointAnbles(self.chidoriInitpose(), 10.0)
+            self.seq_svc.setJointAngles(self.chidoriInitpose(), 10.0)
         elif self.ROBOT_NAME == "TQLEG0":
-            self.seq_svc.setJointAnbles(self.tqleg0Initpose(), 10.0)
+            self.seq_svc.setJointAngles(self.tqleg0Initpose(), 10.0)
 
     def setCollisionFreeInitPose(self):
         if self.ROBOT_NAME.find("JAXON") == 0:
