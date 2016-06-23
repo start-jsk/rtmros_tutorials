@@ -502,6 +502,20 @@ if(${hrp2_models_FOUND} AND multisense_description_FOUND)
     HRP2JSK_WH_SENSORS.urdf hrp2jsk.yaml)
 endif(${hrp2_models_FOUND} AND multisense_description_FOUND)
 
+# for HRP2W + multisense
+pkg_check_modules(multisense_description multisense_description QUIET)
+if(${hrp2_models_FOUND} AND multisense_description_FOUND)
+  # generate HRP2W_WH.urdf from HRP2W.urdf.xacro
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  add_custom_command(OUTPUT ${_model_dir}/HRP2W_WH.urdf
+    COMMAND ${xacro_exe} ${_model_dir}/HRP2W.urdf.xacro -o ${_model_dir}/HRP2W_WH.urdf
+    DEPENDS ${_model_dir}/HRP2W.urdf.xacro ${_model_dir}/HRP2W.urdf)
+  # generate HRP2W_WH_SENSORS.urdf from HRP2W_WH.urdf and yaml
+  attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2W HRP2W_WH.urdf
+    HRP2W_WH_SENSORS.urdf hrp2w.yaml)
+endif(${hrp2_models_FOUND} AND multisense_description_FOUND)
+
+# for HRP2JSKNT, HRP2JSKNTS + multisense
 if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   generate_hand_attached_hrp2_model(HRP2JSKNT)
   generate_hand_attached_hrp2_model(HRP2JSKNTS)
