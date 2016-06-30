@@ -220,6 +220,27 @@ compile_openhrp_model_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W
   --simulation-joint-properties-option "RARM_JOINT3.angle,-1.5708,LARM_JOINT3.angle,-1.5708"
   )
 gen_minmax_table_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W)
+compile_openhrp_model_for_closed_robots(HRP2W_MBZIRC HRP2W_MBZIRC_for_OpenHRP3 HRP2W_MBZIRC
+  --conf-file-option "end_effectors: rarm,RARM_JOINT6,CHEST_JOINT1,0.0,0.0169,-0.174,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,0.0,-0.0169,-0.174,0.0,1.0,0.0,1.5708"
+  --conf-file-option "# for ThermoEstimator"
+  --conf-file-option "motor_heat_params: 0.003,0.5, 0.003,0.5, 0.2,0.3, 0.2,0.3, 0.003,0.5, 0.003,0.5, 0.02,0.3, 0.003,0.5, 0.2,0.3, 0.2,0.3, 0.2,0.3, 0.2,0.3, 0.003,0.5, 0.003,0.5, 0.02,0.3, 0.003,0.5, 0.2,0.3, 0.2,0.3, 0.2,0.3, 0.2,0.3"
+  --conf-file-option "motor_temperature_limit: 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0, 60.0"
+  --conf-file-option "alarm_ratio: 0.75"
+  --conf-file-option "# for collision detector"
+  --conf-file-option "collision_pair: CHEST_JOINT1:RARM_JOINT2 CHEST_JOINT1:RARM_JOINT3 CHEST_JOINT1:RARM_JOINT4 CHEST_JOINT1:RARM_JOINT5 CHEST_JOINT1:RARM_JOINT6 CHEST_JOINT1:LARM_JOINT2 CHEST_JOINT1:LARM_JOINT3 CHEST_JOINT1:LARM_JOINT4 CHEST_JOINT1:LARM_JOINT5 CHEST_JOINT1:LARM_JOINT6 HEAD_JOINT1:RARM_JOINT3 HEAD_JOINT1:RARM_JOINT4 HEAD_JOINT1:RARM_JOINT5 HEAD_JOINT1:RARM_JOINT6 HEAD_JOINT1:LARM_JOINT3 HEAD_JOINT1:LARM_JOINT4 HEAD_JOINT1:LARM_JOINT5 HEAD_JOINT1:LARM_JOINT6 RARM_JOINT0:LARM_JOINT4 RARM_JOINT0:LARM_JOINT5 RARM_JOINT0:LARM_JOINT6 RARM_JOINT2:LARM_JOINT4 RARM_JOINT2:LARM_JOINT5 RARM_JOINT2:LARM_JOINT6 RARM_JOINT2:WAIST RARM_JOINT3:LARM_JOINT3 RARM_JOINT3:LARM_JOINT4 RARM_JOINT3:LARM_JOINT5 RARM_JOINT3:LARM_JOINT6 RARM_JOINT3:WAIST RARM_JOINT4:LARM_JOINT0 RARM_JOINT4:LARM_JOINT2 RARM_JOINT4:LARM_JOINT3 RARM_JOINT4:LARM_JOINT4 RARM_JOINT4:LARM_JOINT5 RARM_JOINT4:LARM_JOINT6 RARM_JOINT4:WAIST RARM_JOINT5:LARM_JOINT0 RARM_JOINT5:LARM_JOINT2 RARM_JOINT5:LARM_JOINT3 RARM_JOINT5:LARM_JOINT4 RARM_JOINT5:LARM_JOINT5 RARM_JOINT5:LARM_JOINT6 RARM_JOINT5:WAIST RARM_JOINT6:LARM_JOINT0 RARM_JOINT6:LARM_JOINT2 RARM_JOINT6:LARM_JOINT3 RARM_JOINT6:LARM_JOINT4 RARM_JOINT6:LARM_JOINT5 RARM_JOINT6:LARM_JOINT6 RARM_JOINT6:WAIST LARM_JOINT2:WAIST LARM_JOINT3:WAIST LARM_JOINT4:WAIST LARM_JOINT5:WAIST LARM_JOINT6:WAIST"
+  --conf-file-option "collision_model: convex hull"
+  --conf-file-option "# GraspController"
+  --conf-file-option "grasp_joint_groups : LHAND : LARM_JOINT7, 1, RHAND : RARM_JOINT7, -1"
+  --conf-file-option "# for CollisionDetector"
+  --conf-file-option "collision_pair: CHEST_JOINT1:RARM_JOINT2 CHEST_JOINT1:RARM_JOINT3 CHEST_JOINT1:RARM_JOINT4 CHEST_JOINT1:RARM_JOINT5 CHEST_JOINT1:RARM_JOINT6 CHEST_JOINT1:LARM_JOINT2 CHEST_JOINT1:LARM_JOINT3 CHEST_JOINT1:LARM_JOINT4 CHEST_JOINT1:LARM_JOINT5 CHEST_JOINT1:LARM_JOINT6 HEAD_JOINT1:RARM_JOINT3 HEAD_JOINT1:RARM_JOINT4 HEAD_JOINT1:RARM_JOINT5 HEAD_JOINT1:RARM_JOINT6 HEAD_JOINT1:LARM_JOINT3 HEAD_JOINT1:LARM_JOINT4 HEAD_JOINT1:LARM_JOINT5 HEAD_JOINT1:LARM_JOINT6 RARM_JOINT0:LARM_JOINT4 RARM_JOINT0:LARM_JOINT5 RARM_JOINT0:LARM_JOINT6 RARM_JOINT2:LARM_JOINT4 RARM_JOINT2:LARM_JOINT5 RARM_JOINT2:LARM_JOINT6 RARM_JOINT2:WAIST RARM_JOINT3:LARM_JOINT3 RARM_JOINT3:LARM_JOINT4 RARM_JOINT3:LARM_JOINT5 RARM_JOINT3:LARM_JOINT6 RARM_JOINT3:WAIST RARM_JOINT4:LARM_JOINT0 RARM_JOINT4:LARM_JOINT2 RARM_JOINT4:LARM_JOINT3 RARM_JOINT4:LARM_JOINT4 RARM_JOINT4:LARM_JOINT5 RARM_JOINT4:LARM_JOINT6 RARM_JOINT4:WAIST RARM_JOINT5:LARM_JOINT0 RARM_JOINT5:LARM_JOINT2 RARM_JOINT5:LARM_JOINT3 RARM_JOINT5:LARM_JOINT4 RARM_JOINT5:LARM_JOINT5 RARM_JOINT5:LARM_JOINT6 RARM_JOINT5:WAIST RARM_JOINT6:LARM_JOINT0 RARM_JOINT6:LARM_JOINT2 RARM_JOINT6:LARM_JOINT3 RARM_JOINT6:LARM_JOINT4 RARM_JOINT6:LARM_JOINT5 RARM_JOINT6:LARM_JOINT6 RARM_JOINT6:WAIST LARM_JOINT2:WAIST LARM_JOINT3:WAIST LARM_JOINT4:WAIST LARM_JOINT5:WAIST LARM_JOINT6:WAIST"
+  --conf-file-option "collision_model: convex hull"
+  --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  --conf-file-option "pdgains_sim_file_name: ${PROJECT_SOURCE_DIR}/models/HRP2JSKNTS.PDgain.dat"
+  --conf-dt-option "0.004"
+  --simulation-timestep-option "0.004"
+  --simulation-joint-properties-option "RARM_JOINT3.angle,-1.5708,LARM_JOINT3.angle,-1.5708"
+  )
+gen_minmax_table_for_closed_robots(HRP2W_MBZIRC HRP2W_MBZIRC_for_OpenHRP3 HRP2W_MBZIRC)
 # compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_WITH_3HAND HRP2JSKNT_WITH_3HAND
 #  -a leftarm,CHEST_LINK1,LARM_LINK6,-0.0042,-0.0392,-0.1245,-3.373247e-18,1.0,9.813081e-18,1.5708,L_THUMBCM_Y,0,L_THUMBCM_P,1,L_INDEXMP_R,0,L_INDEXMP_P,0,L_INDEXPIP_R,-1,L_MIDDLEPIP_R,-1
 #  -a leftarm_torso,BODY,LARM_LINK6,-0.0042,-0.0392,-0.1245,-3.373247e-18,1.0,9.813081e-18,1.5708,L_THUMBCM_Y,0,L_THUMBCM_P,1,L_INDEXMP_R,0,L_INDEXMP_P,0,L_INDEXPIP_R,-1,L_MIDDLEPIP_R,-1
@@ -410,6 +431,7 @@ generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSK
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSKNT_for_OpenHRP3 HRP2JSKNT "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2W_for_OpenHRP3 HRP2W "--use-robot-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2W_MBZIRC_for_OpenHRP3 HRP2W_MBZIRC "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(STARO STARO "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXON JAXON "--use-robot-hrpsys-config")
@@ -513,6 +535,19 @@ if(${hrp2_models_FOUND} AND multisense_description_FOUND)
   # generate HRP2W_WH_SENSORS.urdf from HRP2W_WH.urdf and yaml
   attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2W HRP2W_WH.urdf
     HRP2W_WH_SENSORS.urdf hrp2w.yaml)
+endif(${hrp2_models_FOUND} AND multisense_description_FOUND)
+
+# for HRP2W_MBZIRC + multisense
+pkg_check_modules(multisense_description multisense_description QUIET)
+if(${hrp2_models_FOUND} AND multisense_description_FOUND)
+  # generate HRP2W_MBZIRC_WH.urdf from HRP2W_MBZIRC.urdf.xacro
+  set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
+  add_custom_command(OUTPUT ${_model_dir}/HRP2W_MBZIRC_WH.urdf
+    COMMAND ${xacro_exe} ${_model_dir}/HRP2W_MBZIRC.urdf.xacro -o ${_model_dir}/HRP2W_MBZIRC_WH.urdf
+    DEPENDS ${_model_dir}/HRP2W_MBZIRC.urdf.xacro ${_model_dir}/HRP2W_MBZIRC.urdf)
+  # generate HRP2W_MBZIRC_WH_SENSORS.urdf from HRP2W_MBZIRC_WH.urdf and yaml
+  attach_sensor_and_endeffector_to_hrp2jsk_urdf(HRP2W_MBZIRC HRP2W_MBZIRC_WH.urdf
+    HRP2W_MBZIRC_WH_SENSORS.urdf hrp2w_mbzirc.yaml)
 endif(${hrp2_models_FOUND} AND multisense_description_FOUND)
 
 # for HRP2JSKNT, HRP2JSKNTS + multisense
