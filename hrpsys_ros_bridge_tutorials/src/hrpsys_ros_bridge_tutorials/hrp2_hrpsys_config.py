@@ -73,13 +73,14 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # ABC parameters
         abcp=self.abc_svc.getAutoBalancerParam()[1]
         #abcp.default_zmp_offsets = [[0.015, -0.01, 0], [0.015, 0.01, 0], [0, 0, 0], [0, 0, 0]]
-        abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
+        #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
+        abcp.default_zmp_offsets = [[0.01, 0.01, 0], [0.01, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.st_svc.getParameter()
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
         #stp.st_algorithm=OpenHRP.StabilizerService.TPCC
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
         #   eefm st params
         #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
@@ -93,8 +94,10 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_rot_damping_gain=20*1.4
         #stp.eefm_pos_damping_gain=3500*1.0
         # EEFM parameters for 4 limbs
-        stp.eefm_rot_damping_gain = [[20*1.6, 20*1.6, 1e5]]*4
-        stp.eefm_pos_damping_gain = [[3500*50, 3500*50, 3500*1.0]]*4
+        #stp.eefm_rot_damping_gain = [[20*1.6, 20*1.6, 1e5]]*4
+        #stp.eefm_pos_damping_gain = [[3500*50, 3500*50, 3500*1.0]]*4
+        stp.eefm_rot_damping_gain = [[35, 35, 1e5]]*4
+        stp.eefm_pos_damping_gain = [[3500*50, 3500*50, 3700*1.0]]*4
         stp.eefm_rot_time_const = [[1.5, 1.5, 1.5]]*4
         stp.eefm_pos_time_const_support = [[1.5, 1.5, 1.5]]*4
         stp.eefm_wrench_alpha_blending = 0.6
