@@ -181,7 +181,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # ST parameters
         stp=self.st_svc.getParameter()
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
         #   eefm st params
         #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
@@ -277,7 +278,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # ST parameters
         stp=self.st_svc.getParameter()
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
         #   eefm st params
         #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
