@@ -30,7 +30,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
             self.Groups = [rleg_7dof_group, lleg_7dof_group, torso_group, head_group, rarm_group, larm_group]
         elif self.ROBOT_NAME == "HRP2JSK":
             self.Groups = [rleg_6dof_group, lleg_6dof_group, torso_group, head_group, rarm_group, larm_group]
-        else: # HRP2W, HRP2W_MBZIRC
+        else: # HRP2W, HRP2G
             self.Groups = [torso_group, head_group, rarm_group, larm_group]
 
     def hrp2ResetPose (self):
