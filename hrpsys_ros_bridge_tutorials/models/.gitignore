@@ -1,0 +1,8 @@
+*.dae
+*.urdf
+
+# .urdf files must be listed here to control the version
+# but adding .urdf is not recommended and converting .wrl file
+# to .urdf is recommended.
+!HRP2JSKNTS_body_customHEAD.urdf
+!HRP2JSKNTS_customHEAD.urdf
