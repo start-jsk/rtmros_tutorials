@@ -170,7 +170,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # st setting
         stp=self.st_svc.getParameter()
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
         stp.emergency_check_mode=OpenHRP.StabilizerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
         stp.cp_check_margin=[0.05, 0.045, 0, 0.095]
         stp.k_brot_p=[0, 0]
