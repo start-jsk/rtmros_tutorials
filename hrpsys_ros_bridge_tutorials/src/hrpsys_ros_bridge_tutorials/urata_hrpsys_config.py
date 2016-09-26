@@ -170,7 +170,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # st setting
         stp=self.st_svc.getParameter()
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
         stp.emergency_check_mode=OpenHRP.StabilizerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
         stp.cp_check_margin=[0.05, 0.045, 0, 0.095]
         stp.k_brot_p=[0, 0]
@@ -496,6 +497,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def jaxonResetLandingPose (self):
         return [0.004318,0.005074,-0.134838,1.18092,-0.803855,-0.001463,0.004313,0.005079,-0.133569,1.18206,-0.806262,-0.001469,0.003782,-0.034907,0.004684,0.0,0.0,0.0,0.698132,-0.349066,-0.087266,-1.39626,0.0,0.0,-0.349066,0.0,0.698132,0.349066,0.087266,-1.39626,0.0,0.0,-0.349066]
 
+    # handmade
+    def chidoriResetLandingPose (self):
+        return [0.0,0.0,-0.698132,1.39626,-0.698132,0.0,0.0,0.0,-0.698132,1.39626,-0.698132,0.0]
+
     def setResetPose(self):
         if self.ROBOT_NAME == "STARO":
             self.seq_svc.setJointAngles(self.staroResetPose(), 5.0)
@@ -539,3 +544,5 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def setResetLandingPose(self):
         if self.ROBOT_NAME.find("JAXON") == 0:
             self.seq_svc.setJointAngles(self.jaxonResetLandingPose(), 5.0)
+        if self.ROBOT_NAME.find("CHIDORI") == 0:
+            self.seq_svc.setJointAngles(self.chidoriResetLandingPose(), 5.0)
