@@ -157,7 +157,13 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #gg.swing_trajectory_delay_time_offset=0.35
         gg.swing_trajectory_delay_time_offset=0.2
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
-        gg.swing_trajectory_final_distance_weight=3.0
+        #  Orbit time parameters for delayhoffarbib (simultaneous xy and z landing)
+        #gg.swing_trajectory_final_distance_weight=3.0
+        #gg.swing_trajectory_time_offset_xy2z=0.0
+        #  Orbit time parameters for delayhoffarbib (xy is faster than z)
+        gg.swing_trajectory_final_distance_weight=1.5
+        gg.swing_trajectory_time_offset_xy2z=0.1 # [s]
+        #
         gg.default_orbit_type = OpenHRP.AutoBalancerService.CYCLOIDDELAY
         gg.toe_pos_offset_x = 1e-3*142.869;
         gg.heel_pos_offset_x = 1e-3*-105.784;
@@ -254,7 +260,13 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #gg.swing_trajectory_delay_time_offset=0.35
         gg.swing_trajectory_delay_time_offset=0.2
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
-        gg.swing_trajectory_final_distance_weight=3.0
+        #  Orbit time parameters for delayhoffarbib (simultaneous xy and z landing)
+        #gg.swing_trajectory_final_distance_weight=3.0
+        #gg.swing_trajectory_time_offset_xy2z=0.0
+        #  Orbit time parameters for delayhoffarbib (xy is faster than z)
+        gg.swing_trajectory_final_distance_weight=1.5
+        gg.swing_trajectory_time_offset_xy2z=0.1 # [s]
+        #
         gg.default_orbit_type = OpenHRP.AutoBalancerService.CYCLOIDDELAY
         gg.toe_pos_offset_x = 1e-3*142.869;
         gg.heel_pos_offset_x = 1e-3*-105.784;
@@ -351,7 +363,13 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #gg.swing_trajectory_delay_time_offset=0.35
         gg.swing_trajectory_delay_time_offset=0.2
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
-        gg.swing_trajectory_final_distance_weight=3.0
+        #  Orbit time parameters for delayhoffarbib (simultaneous xy and z landing)
+        #gg.swing_trajectory_final_distance_weight=3.0
+        #gg.swing_trajectory_time_offset_xy2z=0.0
+        #  Orbit time parameters for delayhoffarbib (xy is faster than z)
+        gg.swing_trajectory_final_distance_weight=1.5
+        gg.swing_trajectory_time_offset_xy2z=0.1 # [s]
+        #
         gg.default_orbit_type = OpenHRP.AutoBalancerService.CYCLOIDDELAY
         gg.toe_pos_offset_x = 1e-3*137.525;
         gg.heel_pos_offset_x = 1e-3*-106.925;
