@@ -100,6 +100,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_pos_damping_gain = [[3500*50, 3500*50, 3700*1.0]]*4
         stp.eefm_rot_time_const = [[1.5, 1.5, 1.5]]*4
         stp.eefm_pos_time_const_support = [[1.5, 1.5, 1.5]]*4
+        stp.eefm_swing_pos_damping_gain=stp.eefm_pos_damping_gain[0]
+        stp.eefm_swing_rot_damping_gain=stp.eefm_rot_damping_gain[0]
+        stp.eefm_use_swing_damping=True
         stp.eefm_wrench_alpha_blending = 0.6
         stp.eefm_pos_time_const_swing=0.08
         stp.eefm_pos_transition_time=0.01
