@@ -384,9 +384,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
 
         # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         stp.eefm_cogvel_cutoff_freq = 4.0
-        stp.eefm_k1=[-1.48412,-1.48412]
-        stp.eefm_k2=[-0.486727,-0.486727]
-        stp.eefm_k3=[-0.198033,-0.198033]
+        # calculated by calculate-eefm-st-state-feedback-default-gain-from-robot *chidori*
+        stp.eefm_k1=[-1.38444,-1.38444]
+        stp.eefm_k2=[-0.368975,-0.368975]
+        stp.eefm_k3=[-0.169915,-0.169915]
         self.st_svc.setParameter(stp)
         # Abc setting
         #gg=self.abc_svc.getGaitGeneratorParam()[1]
