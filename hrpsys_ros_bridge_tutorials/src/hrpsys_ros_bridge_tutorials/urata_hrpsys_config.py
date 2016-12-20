@@ -20,6 +20,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def init (self, robotname="Robot", url=""):
         HrpsysConfigurator.init(self, robotname, url)
         self.setStAbcParameters()
+        self.loadForceMomentOffsetFile()
 
     def defJointGroups (self):
         if self.ROBOT_NAME == "URATALEG":
@@ -557,3 +558,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.jaxonResetLandingPose(), 5.0)
         if self.ROBOT_NAME.find("CHIDORI") == 0:
             self.seq_svc.setJointAngles(self.chidoriResetLandingPose(), 5.0)
+
+    def loadForceMomentOffsetFile (self):
+        import rospkg
+        if self.ROBOT_NAME == "JAXON":
+            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_THK003_CLOSE_JAXON")
+        elif self.ROBOT_NAME == "JAXON_RED":
+            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_JAXON_RED")
+        else:
+            print "No force moment offset file"

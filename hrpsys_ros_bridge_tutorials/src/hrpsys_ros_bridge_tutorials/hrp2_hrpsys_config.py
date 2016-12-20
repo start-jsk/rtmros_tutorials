@@ -16,6 +16,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         HrpsysConfigurator.init(self, robotname, url)
         print "initialize rtc parameters"
         self.setStAbcParameters()
+        self.loadForceMomentOffsetFile()
 
     def defJointGroups (self):
         rleg_6dof_group = ['rleg', ['RLEG_JOINT0', 'RLEG_JOINT1', 'RLEG_JOINT2', 'RLEG_JOINT3', 'RLEG_JOINT4', 'RLEG_JOINT5']]
@@ -396,6 +397,17 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
 
     def setInitPose(self):
         self.seq_svc.setJointAngles(self.hrp2InitPose(), 5.0)
+
+    def loadForceMomentOffsetFile (self):
+        import rospkg
+        if self.ROBOT_NAME == "HRP2JSKNT":
+            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_HRP2JSKNT")
+        elif self.ROBOT_NAME == "HRP2JSKNTS":
+            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_HRP2JSKNTS")
+        elif self.ROBOT_NAME == "HRP2JSK":
+            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_thumb_60deg_HRP2JSK")
+        else:
+            print "No force moment offset file"
 
     def __init__(self, robotname=""):
         self.ROBOT_NAME = robotname
