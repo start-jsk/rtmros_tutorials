@@ -20,6 +20,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def init (self, robotname="Robot", url=""):
         HrpsysConfigurator.init(self, robotname, url)
         self.setStAbcParameters()
+        self.loadForceMomentOffsetFile()
 
     def defJointGroups (self):
         if self.ROBOT_NAME == "URATALEG":
@@ -158,7 +159,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         if self.ROBOT_NAME == "JAXON":
-            abcp.default_zmp_offsets=[[-0.02, 0.0, 0.0], [-0.02, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+            abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         elif self.ROBOT_NAME == "JAXON_RED":
             abcp.default_zmp_offsets=[[0.0, 0.01, 0.0], [0.0, -0.01, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
@@ -182,6 +183,13 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         if self.ROBOT_NAME == "JAXON":
             stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5*1.2*1.65*1.1, 20*1.6*1.1*1.5*1.2*1.65*1.1, 1e5]]*4
             stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2*1.1]]*4
+            stp.eefm_swing_rot_damping_gain=[20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]
+            stp.eefm_swing_pos_damping_gain=[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.4]
+            stp.eefm_swing_damping_force_thre=200
+            stp.eefm_swing_damping_moment_thre=15
+            stp.eefm_use_swing_damping=True
+            stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
+            stp.eefm_pos_compensation_limit = [0.06, 0.06, 0.050, 0.050]
         elif self.ROBOT_NAME == "JAXON_RED":
             stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
                                          [20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
@@ -193,6 +201,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                                          [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8]]
             stp.eefm_rot_compensation_limit = [math.radians(10), math.radians(10), math.radians(10), math.radians(10)]
             stp.eefm_pos_compensation_limit = [0.025, 0.025, 0.050, 0.050]
+        stp.eefm_ee_error_cutoff_freq=20.0
+        stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*4
+        stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*4
         stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
         stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
         stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
@@ -374,9 +385,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
 
         # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         stp.eefm_cogvel_cutoff_freq = 4.0
-        stp.eefm_k1=[-1.48412,-1.48412]
-        stp.eefm_k2=[-0.486727,-0.486727]
-        stp.eefm_k3=[-0.198033,-0.198033]
+        # calculated by calculate-eefm-st-state-feedback-default-gain-from-robot *chidori*
+        stp.eefm_k1=[-1.38444,-1.38444]
+        stp.eefm_k2=[-0.368975,-0.368975]
+        stp.eefm_k3=[-0.169915,-0.169915]
         self.st_svc.setParameter(stp)
         # Abc setting
         #gg=self.abc_svc.getGaitGeneratorParam()[1]
@@ -546,3 +558,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.jaxonResetLandingPose(), 5.0)
         if self.ROBOT_NAME.find("CHIDORI") == 0:
             self.seq_svc.setJointAngles(self.chidoriResetLandingPose(), 5.0)
+
+    def loadForceMomentOffsetFile (self):
+        import rospkg
+        if self.ROBOT_NAME == "JAXON":
+            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_THK003_CLOSE_JAXON")
+        elif self.ROBOT_NAME == "JAXON_RED":
+            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_JAXON_RED")
+        else:
+            print "No force moment offset file"

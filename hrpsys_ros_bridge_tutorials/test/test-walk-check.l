@@ -19,7 +19,7 @@
   (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.05 10.0 0.05))
   )
 
-(defun test-walk-bwd ()
+(defun test-walk-bwd-0 ()
   "Test program for 0.4[m] bwd walking."
   (send *ri* :go-pos -0.4 0 0)
   )
