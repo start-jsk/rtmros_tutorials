@@ -200,6 +200,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
+        stp.eefm_use_swing_damping=True
         #stp.eefm_rot_damping_gain=20*3
         #stp.eefm_pos_damping_gain=3500*3
         #stp.eefm_rot_damping_gain=20*2.1
@@ -212,6 +213,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_rot_time_const = [[1.5, 1.5, 1.5]]*4
         stp.eefm_pos_time_const_support = [[1.5, 1.5, 1.5]]*4
         stp.eefm_pos_time_const_swing=0.08
+        stp.eefm_swing_pos_damping_gain=stp.eefm_pos_damping_gain[0]
+        stp.eefm_swing_rot_damping_gain=stp.eefm_rot_damping_gain[0]
         #   mechanical foot edge
         #stp.eefm_leg_inside_margin=0.065
         #stp.eefm_leg_front_margin=0.140
@@ -257,6 +260,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # for estop
         stp.emergency_check_mode=OpenHRP.StabilizerService.CP;
         stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
+        # for swing
+        stp.eefm_swing_pos_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
+        stp.eefm_swing_rot_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
@@ -303,6 +309,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
+        stp.eefm_use_swing_damping=True
         #stp.eefm_rot_damping_gain=20*3
         #stp.eefm_pos_damping_gain=3500*3
         #stp.eefm_rot_damping_gain=20*2.1
@@ -315,6 +322,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_rot_time_const = [[1.5, 1.5, 1.5]]*4
         stp.eefm_pos_time_const_support = [[1.5, 1.5, 1.5]]*4
         stp.eefm_pos_time_const_swing=0.08
+        stp.eefm_swing_pos_damping_gain=stp.eefm_pos_damping_gain[0]
+        stp.eefm_swing_rot_damping_gain=stp.eefm_rot_damping_gain[0]
         #   mechanical foot edge
         #stp.eefm_leg_inside_margin=0.07
         #stp.eefm_leg_front_margin=0.135
@@ -360,6 +369,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # for estop
         stp.emergency_check_mode=OpenHRP.StabilizerService.CP;
         stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
+        # for swing
+        stp.eefm_swing_pos_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
+        stp.eefm_swing_rot_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
