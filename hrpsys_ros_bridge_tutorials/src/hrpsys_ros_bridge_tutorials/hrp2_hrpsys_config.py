@@ -79,21 +79,10 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.st_svc.getParameter()
-        #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
-        #stp.st_algorithm=OpenHRP.StabilizerService.TPCC
         stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
         #   eefm st params
-        #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
-        #stp.eefm_rot_damping_gain=20*3
-        #stp.eefm_pos_damping_gain=3500*3
-        #stp.eefm_rot_time_const=1.0
-        #stp.eefm_pos_time_const_support=1.0
-        #stp.eefm_rot_damping_gain=20*2.5
-        #stp.eefm_pos_damping_gain=3500*2.5
-        #stp.eefm_rot_damping_gain=20*1.4
-        #stp.eefm_pos_damping_gain=3500*1.0
         # EEFM parameters for 4 limbs
         #stp.eefm_rot_damping_gain = [[20*1.6, 20*1.6, 1e5]]*4
         #stp.eefm_pos_damping_gain = [[3500*50, 3500*50, 3500*1.0]]*4
@@ -109,8 +98,6 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_pos_transition_time=0.01
         stp.eefm_pos_margin_time=0.02
         stp.eefm_zmp_delay_time_const=[0.055, 0.055]
-        #stp.eefm_cogvel_cutoff_freq=3.181
-        #stp.eefm_cogvel_cutoff_freq=4.0
         stp.eefm_cogvel_cutoff_freq=6.0
         #   mechanical foot edge
         #stp.eefm_leg_inside_margin=0.065
@@ -159,8 +146,6 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg=self.abc_svc.getGaitGeneratorParam()[1]
         gg.default_step_time=1.1
         gg.default_double_support_ratio=0.32
-        #gg.stride_parameter=[0.1,0.05,10.0]
-        #gg.default_step_time=1.0
         #gg.swing_trajectory_delay_time_offset=0.35
         gg.swing_trajectory_delay_time_offset=0.2
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
@@ -193,19 +178,11 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.st_svc.getParameter()
-        #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
-        #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
         stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
         #   eefm st params
-        #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
         stp.eefm_use_swing_damping=True
-        #stp.eefm_rot_damping_gain=20*3
-        #stp.eefm_pos_damping_gain=3500*3
-        #stp.eefm_rot_damping_gain=20*2.1
-        #stp.eefm_pos_damping_gain=3500*2.1
-        #stp.eefm_pos_damping_gain=3500*1.1
         stp.eefm_wrench_alpha_blending = 0.75
         # EEFM parameters for 4 limbs
         stp.eefm_rot_damping_gain = [[20*1.1, 20*1.1, 1e5]]*4
@@ -241,9 +218,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
         stp.eefm_pos_transition_time=0.01
         stp.eefm_pos_margin_time=0.02
-        #stp.eefm_zmp_delay_time_const=[0.04, 0.04]
         stp.eefm_zmp_delay_time_const=[0.055, 0.055]
-        #stp.eefm_cogvel_cutoff_freq=3.181
         stp.eefm_cogvel_cutoff_freq=6.0
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
@@ -266,8 +241,6 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
-        #gg.stride_parameter=[0.1,0.05,10.0]
-        #gg.default_step_time=1.0
         gg.default_step_time=1.1
         gg.default_double_support_ratio=0.32
         #gg.swing_trajectory_delay_time_offset=0.35
@@ -302,19 +275,11 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.st_svc.getParameter()
-        #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
-        #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
         stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
         #   eefm st params
-        #stp.eefm_body_attitude_control_gain=[5, 5]
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
         stp.eefm_use_swing_damping=True
-        #stp.eefm_rot_damping_gain=20*3
-        #stp.eefm_pos_damping_gain=3500*3
-        #stp.eefm_rot_damping_gain=20*2.1
-        #stp.eefm_pos_damping_gain=3500*2.1
-        #stp.eefm_pos_damping_gain=3500*1.1
         stp.eefm_wrench_alpha_blending = 0.7
         # EEFM parameters for 4 limbs
         stp.eefm_rot_damping_gain = [[20*1.1, 20*1.1, 1e5]]*4
@@ -350,9 +315,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
         stp.eefm_pos_transition_time=0.01
         stp.eefm_pos_margin_time=0.02
-        #stp.eefm_zmp_delay_time_const=[0.04, 0.04]
         stp.eefm_zmp_delay_time_const=[0.055, 0.055]
-        #stp.eefm_cogvel_cutoff_freq=3.181
         stp.eefm_cogvel_cutoff_freq=6.0
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
@@ -375,8 +338,6 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
-        #gg.stride_parameter=[0.1,0.05,10.0]
-        #gg.default_step_time=1.0
         gg.default_step_time=1.1
         gg.default_double_support_ratio=0.32
         #gg.swing_trajectory_delay_time_offset=0.35
