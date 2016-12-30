@@ -182,16 +182,20 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #   eefm st params
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
-        stp.eefm_use_swing_damping=True
-        stp.eefm_wrench_alpha_blending = 0.75
         # EEFM parameters for 4 limbs
         stp.eefm_rot_damping_gain = [[20*1.1, 20*1.1, 1e5]]*4
         stp.eefm_pos_damping_gain = [[3500*50, 3500*50, 3500*1.1]]*4
         stp.eefm_rot_time_const = [[1.5, 1.5, 1.5]]*4
         stp.eefm_pos_time_const_support = [[1.5, 1.5, 1.5]]*4
-        stp.eefm_pos_time_const_swing=0.08
         stp.eefm_swing_pos_damping_gain=stp.eefm_pos_damping_gain[0]
         stp.eefm_swing_rot_damping_gain=stp.eefm_rot_damping_gain[0]
+        stp.eefm_use_swing_damping=True
+        stp.eefm_wrench_alpha_blending = 0.75
+        stp.eefm_pos_time_const_swing=0.08
+        stp.eefm_pos_transition_time=0.01
+        stp.eefm_pos_margin_time=0.02
+        stp.eefm_zmp_delay_time_const=[0.055, 0.055]
+        stp.eefm_cogvel_cutoff_freq=6.0
         #   mechanical foot edge
         #stp.eefm_leg_inside_margin=0.065
         #stp.eefm_leg_front_margin=0.140
@@ -216,10 +220,6 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
         stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
-        stp.eefm_pos_transition_time=0.01
-        stp.eefm_pos_margin_time=0.02
-        stp.eefm_zmp_delay_time_const=[0.055, 0.055]
-        stp.eefm_cogvel_cutoff_freq=6.0
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
@@ -279,16 +279,20 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #   eefm st params
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
-        stp.eefm_use_swing_damping=True
-        stp.eefm_wrench_alpha_blending = 0.7
         # EEFM parameters for 4 limbs
         stp.eefm_rot_damping_gain = [[20*1.1, 20*1.1, 1e5]]*4
         stp.eefm_pos_damping_gain = [[3500*50, 3500*50, 3500*1.1]]*4
         stp.eefm_rot_time_const = [[1.5, 1.5, 1.5]]*4
         stp.eefm_pos_time_const_support = [[1.5, 1.5, 1.5]]*4
-        stp.eefm_pos_time_const_swing=0.08
         stp.eefm_swing_pos_damping_gain=stp.eefm_pos_damping_gain[0]
         stp.eefm_swing_rot_damping_gain=stp.eefm_rot_damping_gain[0]
+        stp.eefm_use_swing_damping=True
+        stp.eefm_wrench_alpha_blending = 0.7
+        stp.eefm_pos_time_const_swing=0.08
+        stp.eefm_pos_transition_time=0.01
+        stp.eefm_pos_margin_time=0.02
+        stp.eefm_zmp_delay_time_const=[0.055, 0.055]
+        stp.eefm_cogvel_cutoff_freq=6.0
         #   mechanical foot edge
         #stp.eefm_leg_inside_margin=0.07
         #stp.eefm_leg_front_margin=0.135
@@ -313,10 +317,6 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
         stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
-        stp.eefm_pos_transition_time=0.01
-        stp.eefm_pos_margin_time=0.02
-        stp.eefm_zmp_delay_time_const=[0.055, 0.055]
-        stp.eefm_cogvel_cutoff_freq=6.0
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
