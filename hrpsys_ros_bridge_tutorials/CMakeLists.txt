@@ -654,7 +654,7 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
 endif()
 
 if("$ENV{TRAVIS_JOB_ID}" STREQUAL "")
-if(EXISTS ${jsk_models_MODEL_DIR}/JAXON_RED/l_hand_attached_link.dae)
+if(EXISTS ${jsk_models_MODEL_DIR}/JAXON/l_hand_attached_link.dae)
   find_package(PkgConfig)
   find_package(multisense_description QUIET)
   if(multisense_description_FOUND)
