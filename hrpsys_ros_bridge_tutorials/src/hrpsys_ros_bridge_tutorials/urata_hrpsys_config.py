@@ -233,6 +233,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k1=[-1.48412,-1.48412]
         stp.eefm_k2=[-0.486727,-0.486727]
         stp.eefm_k3=[-0.198033,-0.198033]
+        stp.eefm_rot_compensation_limit = [math.radians(10), math.radians(10), math.radians(15), math.radians(15)]
         self.st_svc.setParameter(stp)
         # Abc setting
         #gg=self.abc_svc.getGaitGeneratorParam()[1]
