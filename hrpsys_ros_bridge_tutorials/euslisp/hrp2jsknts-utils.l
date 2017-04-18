@@ -8,6 +8,12 @@
     ,@(get-hrp2-with-hand-class-methods)))
 
 (defmethod hrp2jsknts-robot
+  (:init-ending
+   ()
+   (prog1
+       (send-super :init-ending)
+     (send self :define-min-max-table)
+     ))
   (:inverse-kinematics
    (target-coords
     &rest args

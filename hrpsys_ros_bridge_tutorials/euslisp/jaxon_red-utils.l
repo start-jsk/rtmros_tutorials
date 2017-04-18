@@ -14,6 +14,7 @@
      (send self :add-hip-contact-coords)
      (send self :put :lhand-model (instance dummy-thk-hand-robot :init :name :l-thk-hand))
      (send self :put :rhand-model (instance dummy-thk-hand-robot :init :name :r-thk-hand))
+     (send self :define-min-max-table)
      ))
   (:add-hoist-point-coords
    ()
