@@ -6,6 +6,8 @@
    (&rest args)
    (prog1
        (send-super* :init-ending args)
+     (when (member :define-min-max-table (send self :methods))
+       (send self :define-min-max-table))
      (send self :add-hoist-point-coords)
      (send self :add-shin-cushion-parts)
      (send self :add-shin-contact-coords)
