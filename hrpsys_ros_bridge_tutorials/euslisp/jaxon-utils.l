@@ -5,7 +5,7 @@
   (rplaca (assoc :init-ending (send JAXON-robot :methods)) :init-ending-org))
 (defmethod JAXON-robot
   (:init-ending
-   (&rest args)
+   ()
    (prog1
        (send self :init-ending-org)
      (send self :add-hoist-point-coords)

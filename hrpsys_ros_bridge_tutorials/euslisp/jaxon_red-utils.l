@@ -6,7 +6,7 @@
 
 (defmethod JAXON_RED-robot
   (:init-ending
-   (&rest args)
+   ()
    (prog1
        (send self :init-ending-org)
      (send self :add-hoist-point-coords)

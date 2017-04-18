@@ -65,7 +65,7 @@
   (rplaca (assoc :init-ending (send STARO-robot :methods)) :init-ending-org))
 (defmethod STARO-robot
   (:init-ending
-   (&rest args)
+   ()
    (prog1
     (send self :init-ending-org)
     (send self :add-additional-body-parts)
