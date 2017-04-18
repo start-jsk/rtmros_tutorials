@@ -1,11 +1,14 @@
 (require :jaxon "package://hrpsys_ros_bridge_tutorials/models/jaxon_red.l")
 (require :thkhand-utils "package://hrpsys_ros_bridge_tutorials/euslisp/thkhand-utils.l")
 
+(unless (assoc :init-ending-org (send JAXON_RED-robot :methods))
+  (rplaca (assoc :init-ending (send JAXON_RED-robot :methods)) :init-ending-org))
+
 (defmethod JAXON_RED-robot
   (:init-ending
    (&rest args)
    (prog1
-       (send-super* :init-ending args)
+       (send self :init-ending-org)
      (send self :add-hoist-point-coords)
      (send self :add-shin-cushion-parts)
      (send self :add-shin-contact-coords)

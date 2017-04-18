@@ -1,5 +1,8 @@
 (require :hrp4r "package://hrpsys_ros_bridge_tutorials/models/hrp4r.l")
 
+;; If you overwrite :init-ending in hrp4r.l, comment in the following:
+;; (unless (assoc :init-ending-org (send hrp4r-robot :methods))
+;;   (rplaca (assoc :init-ending (send hrp4r-robot :methods)) :init-ending-org))
 (defmethod hrp4r-robot
   (:init-ending
    ()
