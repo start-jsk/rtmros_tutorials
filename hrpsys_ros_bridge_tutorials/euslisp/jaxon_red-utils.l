@@ -3,9 +3,9 @@
 
 (defmethod JAXON_RED-robot
   (:init-ending
-   (&rest args)
+   ()
    (prog1
-       (send-super* :init-ending args)
+       (send-super :init-ending)
      (send self :add-hoist-point-coords)
      (send self :add-shin-cushion-parts)
      (send self :add-shin-contact-coords)

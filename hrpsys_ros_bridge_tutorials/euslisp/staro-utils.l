@@ -63,9 +63,9 @@
 
 (defmethod STARO-robot
   (:init-ending
-   (&rest args)
+   ()
    (prog1
-    (send-super* :init-ending args)
+    (send-super :init-ending)
     (send self :add-additional-body-parts)
     (send self :define-min-max-table)
     
