@@ -3,6 +3,8 @@
 
 (unless (assoc :init-org (send hrp2jsknt-robot :methods))
   (rplaca (assoc :init (send hrp2jsknt-robot :methods)) :init-org))
+(unless (assoc :init-ending-org (send hrp2jsknt-robot :methods))
+  (rplaca (assoc :init-ending (send hrp2jsknt-robot :methods)) :init-ending-org))
 (eval
  `(defmethod hrp2jsknt-robot
     ,@(get-hrp2-with-hand-class-methods)))
@@ -11,9 +13,8 @@
   (:init-ending
    (&rest args)
    (prog1
-       (send-super* :init-ending args)
+       (send* self :init-ending-org args)
      (send self :set-additional-end-coords)
-     (send self :define-min-max-table)
      ))
   (:inverse-kinematics
    (target-coords
