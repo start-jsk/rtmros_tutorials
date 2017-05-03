@@ -262,16 +262,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         limbs = ['rarm', 'larm']
         for l in limbs:
             icp = self.ic_svc.getImpedanceControllerParam(l)[1]
-            icp.M_p = 0
-            icp.D_p = 2000
-            icp.K_p = 4000
-            icp.moment_gain = [1.0, 1.0, 1.0]
-            icp.M_r = 0
-            icp.D_r = 150
-            icp.K_r = 200
-            icp.ik_optional_weight_vector = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-            if self.ROBOT_NAME == "JAXON_RED":
-                icp.reference_gain = 0.05
+            icp.D_p = 600
+            icp.D_r = 200
             self.ic_svc.setImpedanceControllerParam(l, icp)
         # Estop
         esp=self.es_svc.getEmergencyStopperParam()[1]
