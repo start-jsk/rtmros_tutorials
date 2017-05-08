@@ -3,9 +3,9 @@
 
 (defmethod JAXON-robot
   (:init-ending
-   (&rest args)
+   ()
    (prog1
-       (send-super* :init-ending args)
+       (send-super :init-ending)
      (send self :add-hoist-point-coords)
      (send self :add-shin-cushion-parts)
      (send self :add-shin-contact-coords)
@@ -14,6 +14,7 @@
      (send self :add-hip-contact-coords)
      (send self :put :lhand-model (instance dummy-thk-hand-robot :init :name :l-thk-hand))
      (send self :put :rhand-model (instance dummy-thk-hand-robot :init :name :r-thk-hand))
+     (send self :define-min-max-table)
      ))
   (:add-hoist-point-coords
    ()

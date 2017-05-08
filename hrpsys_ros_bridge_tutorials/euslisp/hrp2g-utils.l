@@ -1,3 +1,11 @@
+(defmethod hrp2g-robot
+  (:init-ending
+   ()
+   (prog1
+       (send-super :init-ending)
+     (send self :define-min-max-table)
+     )))
+
 ;; stop and start grasp
 (defun hrp2g-stop-grasp (limb)
   (when (boundp '*hrp2g*)

@@ -161,14 +161,9 @@
   (with-open-file
    (f path :direction :output :if-exists :append)
    (format f "(defmethod ~A~%" (send (class robot) :name))
-   (format f "  (:init-ending~%")
-   (format f "    ()~%")
-   (format f "    (prog1~%")
-   (format f "      (send-super :init-ending)~%")
-   (format f "     (send self :define-min-max-table)~%")
-   (format f "    ))~%")
    (format f "  (:define-min-max-table~%")
    (format f "    ()~%")
+   (format f "    \"This method should be called in :init-ending.\"~%")
    (labels
        ((gen-string-name
          (j)
