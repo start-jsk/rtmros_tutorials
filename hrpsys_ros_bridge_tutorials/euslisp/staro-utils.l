@@ -61,11 +61,13 @@
    )
   )
 
+(unless (assoc :init-ending-org (send STARO-robot :methods))
+  (rplaca (assoc :init-ending (send STARO-robot :methods)) :init-ending-org))
 (defmethod STARO-robot
   (:init-ending
-   (&rest args)
+   ()
    (prog1
-    (send-super* :init-ending args)
+    (send self :init-ending-org)
     (send self :add-additional-body-parts)
     
     ;; add contact-end-coords to arms
