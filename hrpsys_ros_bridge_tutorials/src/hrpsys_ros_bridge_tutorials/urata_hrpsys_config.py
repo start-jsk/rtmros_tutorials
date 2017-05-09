@@ -19,8 +19,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
 
     def init (self, robotname="Robot", url=""):
         HrpsysConfigurator.init(self, robotname, url)
-        self.setStAbcParameters()
-        self.loadForceMomentOffsetFile()
+        if self.st and self.abc and self.kf and self.ic and self.es and self.el:
+            self.setStAbcParameters()
+        if self.rmfo:
+            self.loadForceMomentOffsetFile()
 
     def defJointGroups (self):
         if self.ROBOT_NAME == "URATALEG":
