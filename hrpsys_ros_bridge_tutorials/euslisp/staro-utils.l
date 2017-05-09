@@ -66,6 +66,8 @@
    (&rest args)
    (prog1
     (send-super* :init-ending args)
+    (when (member :define-min-max-table (send self :methods))
+      (send self :define-min-max-table))
     (send self :add-additional-body-parts)
     
     ;; add contact-end-coords to arms
