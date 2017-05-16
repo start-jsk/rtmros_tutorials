@@ -165,6 +165,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         elif self.ROBOT_NAME == "JAXON_RED":
             abcp.default_zmp_offsets=[[0.0, 0.01, 0.0], [0.0, -0.01, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
+        abcp.transition_time=5.0
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
         kfp=self.kf_svc.getKalmanFilterParam()[1]
