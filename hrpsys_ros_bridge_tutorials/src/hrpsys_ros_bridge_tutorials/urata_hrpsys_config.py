@@ -333,15 +333,23 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         self.kf_svc.setKalmanFilterParam(kfp)
         # st setting
         stp=self.st_svc.getParameter()
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFM
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
         stp.eefm_body_attitude_control_time_const=[1000, 1000]
-        stp.eefm_rot_damping_gain=[[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5]]*2
-        stp.eefm_pos_damping_gain=[[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5]]*2
+        stp.eefm_rot_damping_gain=[[20*1.6*1.1*1.5*0.5, 20*1.6*1.1*1.5*0.5, 1e5]]*2
+        stp.eefm_pos_damping_gain=[[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5*0.5]]*2
         stp.eefm_rot_time_const=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
         stp.eefm_pos_time_const_support=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
+        stp.eefm_use_swing_damping=True
+        stp.eefm_swing_pos_damping_gain = stp.eefm_pos_damping_gain[0]
+        stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0]
+        stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30)]
+        stp.eefm_pos_compensation_limit = [0.05, 0.05]
+        stp.eefm_ee_error_cutoff_freq=20.0
+        stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*2
+        stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*2
         stp.eefm_wrench_alpha_blending=0.7
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
