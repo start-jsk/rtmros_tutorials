@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(hrpsys_tutorials)
 
-find_package(catkin REQUIRED COMPONENTS rostest)
-catkin_package()
+find_package(catkin REQUIRED COMPONENTS rostest roslib roslint)
+
+catkin_python_setup()
 
 configure_file(models/SampleRobot.conf.in ${PROJECT_SOURCE_DIR}/models/SampleRobot.conf)
 configure_file(models/SampleRobot.xml.in  ${PROJECT_SOURCE_DIR}/models/SampleRobot.xml)
@@ -16,4 +17,6 @@ configure_file(models/JAXON_JVRC.xml.in  ${PROJECT_SOURCE_DIR}/models/JAXON_JVRC
 #endif()
 add_rostest(test/pa10-test.launch)
 add_rostest(test/samplerobot-test.launch)
+
+roslint_python(scripts/jaxon.py src/hrpsys_tutorials/jaxon_client.py)
 

@@ -7,7 +7,7 @@
     <arg name="SIMULATOR_NAME" value="JAXON(Robot)0" />
     <arg name="GUI" default="$(arg GUI)" />
     <arg name="HRPSYS_PY_PKG"  default='hrpsys_tutorials' />
-    <arg name="HRPSYS_PY_NAME" default='jaxon_client.py' />
+    <arg name="HRPSYS_PY_NAME" default='jaxon.py' />
     <arg name="HRPSYS_PY_ARGS" default='' />
   </include>
 </launch>
