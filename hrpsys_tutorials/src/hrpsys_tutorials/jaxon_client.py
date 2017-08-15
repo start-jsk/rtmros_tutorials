@@ -23,7 +23,7 @@ class JaxonConfigurator(HrpsysConfigurator):
             ['ic', "ImpedanceController"],
             ['abc', "AutoBalancer"],
             ['st', "Stabilizer"],
-            # ['co', "CollisionDetector"],
+            ['co', "CollisionDetector"],
             ['tc', "TorqueController"],
             ['te', "ThermoEstimator"],
             ['hes', "EmergencyStopper"],
