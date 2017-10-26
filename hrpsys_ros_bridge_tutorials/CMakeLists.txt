@@ -14,6 +14,11 @@ if(NOT "${jsk_models_FOUND}")
   string(ASCII 27 Esc)
   message(WARNING "${Esc}[1;33mPackage jsk_models is not found, if you have right to access them please include source code in catkin workspace${Esc}[m")
 endif()
+find_package(kondo_models QUIET)
+if(NOT "${kondo_models_FOUND}")
+  string(ASCII 27 Esc)
+  message(WARNING "${Esc}[1;33mPackage kondo_models is not found, if you have right to access them please include source code in catkin workspace${Esc}[m")
+endif()
 
 include(FindPkgConfig)
 pkg_check_modules(openhrp3 REQUIRED openhrp3.1)
@@ -93,6 +98,12 @@ endmacro()
 macro(compile_rbrain_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
   compile_model_for_closed_robots(
     ${jsk_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
+    ${_OpenHRP2_robot_name}
+    ${ARGN})
+endmacro()
+macro(compile_kondo_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
+  compile_model_for_closed_robots(
+    ${kondo_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
 endmacro()
@@ -430,8 +441,9 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
     TESTMDOFARM)
 endif()
 
+# Kondo Kagaku KXR series
 # KXRL2W2L6A4H2
-compile_openhrp_model_for_closed_robots(KXRL2W2L6A4H2 KXRL2W2L6A4H2 KXRL2W2L6A4H2
+compile_kondo_model_for_closed_robots(KXRL2W2L6A4H2 KXRL2W2L6A4H2 KXRL2W2L6A4H2
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   ## do not use CHIDORI.conf for real robot
   --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/KXRL2W2L6A4H2.PDgains.sav"
