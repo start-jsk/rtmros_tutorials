@@ -477,6 +477,14 @@ macro (generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots R
     generate_default_launch_eusinterface_files("$(find jsk_models)/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
   endif()
 endmacro ()
+macro (generate_default_launch_eusinterface_files_for_closed_kondo_robots ROBOT_DIR ROBOT_NAME)
+  set(_arg_list ${ARGV})
+  # remove arguments of this macro
+  list(REMOVE_AT _arg_list 0 1)
+  if(EXISTS ${kondo_models_MODEL_DIR}/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
+    generate_default_launch_eusinterface_files("$(find kondo_models)/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
+  endif()
+endmacro ()
 
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSK_for_OpenHRP3 HRP2JSK "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSKNT_for_OpenHRP3 HRP2JSKNT "--use-robot-hrpsys-config")
@@ -494,7 +502,7 @@ generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(URATALEG
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(YSTLEG YSTLEG "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(CHIDORI CHIDORI "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(TQLEG0 TQLEG0 "--use-robot-hrpsys-config")
-generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(KXRL2W2L6A4H2 KXRL2W2L6A4H2 "--use-robot-hrpsys-config")
+generate_default_launch_eusinterface_files_for_closed_kondo_robots(KXRL2W2L6A4H2 KXRL2W2L6A4H2 "--use-robot-hrpsys-config")
 
 generate_default_launch_eusinterface_files(
   "$(find hrpsys_ros_bridge_tutorials)/models/TESTMDOFARM.wrl"
