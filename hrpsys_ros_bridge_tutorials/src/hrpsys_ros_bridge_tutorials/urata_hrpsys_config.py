@@ -320,7 +320,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
         stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
-        stp.emergency_check_mode=OpenHRP.StabilizerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
+        stp.emergency_check_mode=OpenHRP.StabilizerService.CP
         stp.cp_check_margin=[0.05, 0.045, 0, 0.095]
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
@@ -355,8 +355,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # foot margin param
         stp.eefm_leg_inside_margin=0.05
         stp.eefm_leg_outside_margin=0.05
-        stp.eefm_leg_front_margin=0.12
-        stp.eefm_leg_rear_margin=0.09
+        stp.eefm_leg_front_margin=0.16
+        stp.eefm_leg_rear_margin=0.06
         rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, stp.eefm_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_outside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_outside_margin]),
