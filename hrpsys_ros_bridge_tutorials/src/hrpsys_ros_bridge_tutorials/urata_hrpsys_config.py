@@ -327,24 +327,24 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_body_attitude_control_gain=[0, 0.5]
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
         stp.eefm_body_attitude_control_time_const=[1000, 1000]
-        stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
-                                     [20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
-                                     [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5],
-                                     [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]]
-        stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
-                                     [3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
-                                     [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8],
-                                     [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8]]
-        stp.eefm_swing_pos_damping_gain = stp.eefm_pos_damping_gain[0]
-        stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0]
+        stp.eefm_rot_damping_gain = [[25, 25, 1e5], # modification with kojio
+                                     [25, 25, 1e5],
+                                     [63.36, 63.36, 1e5],
+                                     [63.36, 63.36, 1e5]]
+        stp.eefm_pos_damping_gain = [[33600.0, 33600.0, 3234.0], # modification with kojio xy=10000?
+                                     [33600.0, 33600.0, 3234.0],
+                                     [26880.0, 26880.0, 7392.0],
+                                     [26880.0, 26880.0, 7392.0]]
+        stp.eefm_swing_pos_damping_gain = stp.eefm_pos_damping_gain[0] # same with support leg
+        stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0] # same with support leg
         stp.eefm_rot_compensation_limit = [math.radians(10), math.radians(10), math.radians(10), math.radians(10)]
         stp.eefm_pos_compensation_limit = [0.025, 0.025, 0.050, 0.050]
         stp.eefm_swing_damping_force_thre=[200]*3
         stp.eefm_swing_damping_moment_thre=[15]*3
         stp.eefm_use_swing_damping=True
         stp.eefm_ee_error_cutoff_freq=20.0
-        stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*4
-        stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*4
+        # stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*4
+        # stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*4
         stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
         stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
         stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
