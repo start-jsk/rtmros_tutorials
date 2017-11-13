@@ -369,9 +369,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         larm_vertices = lleg_vertices
         stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
         stp.eefm_cogvel_cutoff_freq = 4.0
-        stp.eefm_k1=[-1.48412,-1.48412]
-        stp.eefm_k2=[-0.486727,-0.486727]
-        stp.eefm_k3=[-0.198033,-0.198033]
+        # for only leg
+        stp.eefm_k1=[-1.36334,-1.36334]
+        stp.eefm_k2=[-0.343983,-0.343983]
+        stp.eefm_k3=[-0.161465,-0.161465]
         self.st_svc.setParameter(stp)
         # Abc setting
         #gg=self.abc_svc.getGaitGeneratorParam()[1]
