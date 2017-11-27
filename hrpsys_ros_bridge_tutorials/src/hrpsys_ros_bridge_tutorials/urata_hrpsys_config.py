@@ -308,7 +308,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def setStAbcIcParametersJAXON_BLUE(self, foot="KAWADA"):
         # abc setting
         abcp=self.abc_svc.getAutoBalancerParam()[1]
-        abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+        abcp.default_zmp_offsets=[[0.05, 0.0, 0.0], [0.05, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
@@ -320,31 +320,31 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
         stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
-        stp.emergency_check_mode=OpenHRP.StabilizerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
+        stp.emergency_check_mode=OpenHRP.StabilizerService.CP
         stp.cp_check_margin=[0.05, 0.045, 0, 0.095]
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
         #stp.eefm_body_attitude_control_gain=[0, 0.5]
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
         stp.eefm_body_attitude_control_time_const=[1000, 1000]
-        stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
-                                     [20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
-                                     [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5],
-                                     [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]]
-        stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
-                                     [3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
-                                     [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8],
-                                     [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8]]
-        stp.eefm_swing_pos_damping_gain = stp.eefm_pos_damping_gain[0]
-        stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0]
+        stp.eefm_rot_damping_gain = [[25, 25, 1e5], # modification with kojio
+                                     [25, 25, 1e5],
+                                     [63.36, 63.36, 1e5],
+                                     [63.36, 63.36, 1e5]]
+        stp.eefm_pos_damping_gain = [[33600.0, 33600.0, 3234.0], # modification with kojio xy=10000?
+                                     [33600.0, 33600.0, 3234.0],
+                                     [26880.0, 26880.0, 7392.0],
+                                     [26880.0, 26880.0, 7392.0]]
+        stp.eefm_swing_pos_damping_gain = stp.eefm_pos_damping_gain[0] # same with support leg
+        stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0] # same with support leg
         stp.eefm_rot_compensation_limit = [math.radians(10), math.radians(10), math.radians(10), math.radians(10)]
         stp.eefm_pos_compensation_limit = [0.025, 0.025, 0.050, 0.050]
         stp.eefm_swing_damping_force_thre=[200]*3
         stp.eefm_swing_damping_moment_thre=[15]*3
         stp.eefm_use_swing_damping=True
         stp.eefm_ee_error_cutoff_freq=20.0
-        stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*4
-        stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*4
+        # stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*4
+        # stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*4
         stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
         stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
         stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
@@ -355,8 +355,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # foot margin param
         stp.eefm_leg_inside_margin=0.05
         stp.eefm_leg_outside_margin=0.05
-        stp.eefm_leg_front_margin=0.12
-        stp.eefm_leg_rear_margin=0.09
+        stp.eefm_leg_front_margin=0.16
+        stp.eefm_leg_rear_margin=0.06
         rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, stp.eefm_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_outside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_outside_margin]),
@@ -369,9 +369,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         larm_vertices = lleg_vertices
         stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
         stp.eefm_cogvel_cutoff_freq = 4.0
-        stp.eefm_k1=[-1.48412,-1.48412]
-        stp.eefm_k2=[-0.486727,-0.486727]
-        stp.eefm_k3=[-0.198033,-0.198033]
+        # for only leg
+        stp.eefm_k1=[-1.36334,-1.36334]
+        stp.eefm_k2=[-0.343983,-0.343983]
+        stp.eefm_k3=[-0.161465,-0.161465]
         self.st_svc.setParameter(stp)
         # Abc setting
         #gg=self.abc_svc.getGaitGeneratorParam()[1]
