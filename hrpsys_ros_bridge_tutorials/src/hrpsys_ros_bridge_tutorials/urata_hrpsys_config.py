@@ -723,7 +723,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         return [0]*len(self.tqleg0ResetPose())
 
     def kxrl2w2l6a4h2ResetPose(self):
-        return [0.0, 0.0, 0.0, 0.4, 0.8, 0.4, 0.0, 0.0, 0.0, 0.0, 0.4, 0.8, 0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.57, 0.0, 0.0, 0.0, 0.0, -1.57, 0.0]
+        return [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.45, 0.45, 0.9, 0.9, 0.45, 0.45, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
     # (mapcar #'deg2rad (concatenate cons (send *robot* :reset-landing-pose)))
     def jaxonResetLandingPose (self):
