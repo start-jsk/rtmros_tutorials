@@ -314,6 +314,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # kf setting
         kfp=self.kf_svc.getKalmanFilterParam()[1]
         kfp.R_angle=1000
+        kfp.sensorRPY_offset=[0.7*3.14/180, 0, 0]
         self.kf_svc.setKalmanFilterParam(kfp)
         # st setting
         stp=self.st_svc.getParameter()
