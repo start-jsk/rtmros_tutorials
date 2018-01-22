@@ -308,7 +308,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def setStAbcIcParametersJAXON_BLUE(self, foot="KAWADA"):
         # abc setting
         abcp=self.abc_svc.getAutoBalancerParam()[1]
-        abcp.default_zmp_offsets=[[0.05, 0.0, 0.0], [0.05, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+        abcp.default_zmp_offsets=[[0.05, 0.02, 0.0], [0.05, -0.02, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
