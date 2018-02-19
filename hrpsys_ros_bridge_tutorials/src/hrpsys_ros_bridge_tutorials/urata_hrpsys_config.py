@@ -374,6 +374,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k1=[-1.36334,-1.36334]
         stp.eefm_k2=[-0.343983,-0.343983]
         stp.eefm_k3=[-0.161465,-0.161465]
+        stp.swing2landing_transition_time = 0.05
+        stp.landing_phase_time = 0.1
+        stp.landing2support_transition_time = 0.5
+        leg_gains = {"support_pgain":[5,30,10,5,0.5,0.1], "support_dgain":[70,70,50,10,1,3], "landing_pgain":[5,30,10,1,0.5,0.1], "landing_dgain":[70,70,50,10,1,3]}
+        arm_gains = {"support_pgain":[100,100,100,100,100,100,100], "support_dgain":[100,100,100,100,100,100,100], "landing_pgain":[100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100]}
+        stp.joint_servo_control_parameters = map (lambda x : OpenHRP.StabilizerService.JointServoControlParameter(**x), [leg_gains,leg_gains,arm_gains,arm_gains])
         self.st_svc.setParameter(stp)
         # Abc setting
         #gg=self.abc_svc.getGaitGeneratorParam()[1]
