@@ -1,13 +1,26 @@
 ## How to move SampleRobot in Gazebo with hrpsys-base
 Confirm if there is a SampleRobot.urdf in ```hrpsys_gazebo_tutorials/robot_models/SampleRobot```
 ```
-source `rospack find hrpsys_gazebo_tutorials`/setup.sh; roslaunch hrpsys_gazebo_tutorials gazebo_samplerobot_no_controllers.launch
+roslaunch hrpsys_gazebo_tutorials gazebo_samplerobot_no_controllers.launch
 rtmlaunch hrpsys_gazebo_tutorials samplerobot_hrpsys_bringup.launch
 roscd hrpsys_ros_bridge_tutorials/euslisp
 roseus samplerobot-interface.l
 (samplerobot-init)
 (objects (list *sr*))
 (send *ri* :angle-vector (send *sr* :angle-vector) 5000)
+```
+Do not forget to type ```pkill gzserver``` in addition to Ctrl-c in order to kill gazebo.
+
+## How to move HRP2JSKNTS in Gazebo with hrpsys-base
+![](images/gazebo_hrp2jsknts.png)
+```
+roslaunch hrpsys_gazebo_tutorials gazebo_hrp2jsknts_no_controllers.launch
+rtmlaunch hrpsys_gazebo_tutorials hrp2jsknts_hrpsys_bringup.launch
+roscd hrpsys_ros_bridge_tutorials/euslisp
+roseus hrp2jsknts-interface.l
+(hrp2jsknts-init)
+(objects (list *hrp2jsknts*))
+(send *ri* :angle-vector (send *hrp2jsknts* :angle-vector) 5000)
 ```
 Do not forget to type ```pkill gzserver``` in addition to Ctrl-c in order to kill gazebo.
 
