@@ -198,7 +198,7 @@ compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2J
   --conf-dt-option "0.004"
   --simulation-timestep-option "0.004"
   )
-gen_minmax_table_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS)
+# gen_minmax_table_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2JSKNTS)
 compile_openhrp_model_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W
   --conf-file-option "end_effectors: rarm,RARM_JOINT6,CHEST_JOINT1,0.0,0.0169,-0.174,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,0.0,-0.0169,-0.174,0.0,1.0,0.0,1.5708"
   --conf-file-option "# for ThermoEstimator"
@@ -481,7 +481,7 @@ generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/s
 ##   Org file : ROBOT.urdf, ROBOT.urdf.xacro
 ##   generate_hand_attached_xx_model : Generate ROBOT_body.urdf from ROBOT.urdf, ROBOT.urdf.xacro
 ##   run_xacro_for_hand_hrp2_model : Generate ROBOT_WH.urdf from ROBOT_body.urdf
-##   attach_sensor_and_endeffector_to_hrp2jsk_urdf : Generate ROBOT_WH_SESNROS.urdf from ROBOT_WR.urdf
+##   attach_sensor_and_endeffector_to_hrp2jsk_urdf : Generate ROBOT_WH_SESNROS.urdf from ROBOT_WH.urdf
 ################################
 # find xacro
 find_package(xacro)
