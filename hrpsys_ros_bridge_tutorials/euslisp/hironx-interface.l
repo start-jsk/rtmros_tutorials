@@ -25,26 +25,17 @@
 
 ;; ImpedanceControllerService
 ;; Based on hironx_client.py in hironx_ros_bridge and rtm-ros-robot-interface.l.
-;; Methods executable with old impedance controller.
+;; Enable methods executable with old impedance controller and disable others.
 ;; The reason why I don't use def-set-get-param-method is that
 ;; OpenHRP_ImpedanceControllerService_setImpedanceControllerParam.srv has element "name" inside i_param,
 ;; while OpenHRP_ImpedanceControllerService_getImpedanceControllerParam.srv has that element directly.
 ;; Set optional-args as (list :name 'name) -> multiple declaration of variable "name" in set-param-method.
-;; Set optional-args as nil -> pass nothing in service call of get-param-method
+;; Set optional-args as nil -> pass nothing in service call of get-param-method.
 (defmethod hironx-interface
-  (:get-impedance-controller-param (limb)
-    (let (sensor-name)
-      (cond ((eq limb :rarm)
-             (setq sensor-name "rhsensor"))
-            ((eq limb :larm)
-             (setq sensor-name "lhsensor"))
-            ((eq limb :arms)
-             (return-from :get-impedance-controller-param
-                          (mapcar #'(lambda (l) (send self :get-impedance-controller-param l))
-                                  '(:rarm :larm))))
-            (t (error ";; No such limb: ~A~%." limb)))
-      (send (send self :impedancecontrollerservice_getimpedancecontrollerparam :name sensor-name)
-            :i_param)))
+  (:raw-set-impedance-controller-param (&rest args)
+    (error ";; :raw-set-impedance-controller-param cannot be used with hironx~%"))
+  (:raw-get-impedance-controller-param (&rest args)
+    (error ";; :raw-get-impedance-controller-param cannot be used with hironx~%"))
   (:start-impedance
     (limb &rest args &key (m-p 100) (d-p 100) (k-p 100) (m-r 100) (d-r 2000) (k-r 2000)
           (ref-force #f(0 0 0)) (force-gain #f(1 1 1)) (ref-moment #f(0 0 0))
@@ -69,6 +60,10 @@
                       :force_gain force-gain :ref_moment ref-moment :moment_gain moment-gain
                       :sr_gain sr-gain :avoid_gain avoid-gain :reference_gain reference-gain
                       :manipulability_limit manipulability-limit))))
+  (:raw-start-impedance (&rest args)
+    (error ";; :raw-start-impedance cannot be used with hironx~%"))
+  (:start-impedance-no-wait (&rest args)
+    (error ";; :start-impedance-no-wait cannot be used with hironx~%"))
   (:stop-impedance (limb)
     "Stop impedance controller mode.
      limb should be limb symbol name such as :rarm, :larm, or :arms."
@@ -94,7 +89,28 @@
                           (mapcar #'(lambda (l) (send self :stop-impedance-no-wait l))
                                   '(:rarm :larm))))
             (t (error ";; No such limb: ~A~%." limb)))
-      (send self :impedancecontrollerservice_deleteimpedancecontroller :name sensor-name))))
+      (send self :impedancecontrollerservice_deleteimpedancecontroller :name sensor-name)))
+  (:wait-impedance-controller-transition (&rest args)
+    (error ";; :wait-impedance-controller-transition cannot be used with hironx~%"))
+  (:set-impedance-controller-param (&rest args)
+    (error ";; In hironx, we cannot tell :set-impedance-controller-param from :start-impedance~%"))
+  (:get-impedance-controller-param (limb)
+    (let (sensor-name)
+      (cond ((eq limb :rarm)
+             (setq sensor-name "rhsensor"))
+            ((eq limb :larm)
+             (setq sensor-name "lhsensor"))
+            ((eq limb :arms)
+             (return-from :get-impedance-controller-param
+                          (mapcar #'(lambda (l) (send self :get-impedance-controller-param l))
+                                  '(:rarm :larm))))
+            (t (error ";; No such limb: ~A~%." limb)))
+      (send (send self :impedancecontrollerservice_getimpedancecontrollerparam :name sensor-name)
+            :i_param)))
+  (:get-impedance-controller-controller-mode (&rest args)
+    (error ";; :get-impedance-controller-controller-mode cannot be used with hironx~%"))
+  (:force-sensor-method (&rest args)
+    (error ";; :force-sensor-method cannot be used with hironx~%")))
 
 (defun hironx-init (&rest args)
   (if (not (boundp '*ri*))
