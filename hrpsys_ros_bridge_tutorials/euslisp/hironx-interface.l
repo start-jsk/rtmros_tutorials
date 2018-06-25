@@ -11,8 +11,15 @@
 
 ;; Initialize
 (defmethod hironx-interface
+  ;; Based on hrp2jsknts-interface.l
   (:init (&rest args)
-         (send-super* :init :robot hironx-robot args))
+    (prog1
+      (send-super* :init :robot hironx-robot args)
+      ;; add controller
+      (dolist (limb '(:rarm :larm :head :torso))
+        (send self :def-limb-controller-method limb)
+        (send self :add-controller (read-from-string (format nil "~A-controller" limb))
+              :joint-enable-check t :create-actions t))))
   (:define-all-ROSBridge-srv-methods
     (&key (debug-view nil) (ros-pkg-name "hrpsys_ros_bridge"))
     ;; First, define ROSBridge method for old impedance controller
