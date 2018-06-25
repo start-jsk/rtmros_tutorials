@@ -41,6 +41,5 @@ head-end-coords:
 angle-vector:
   reset-pose : [0.0, -40.0, -90.0, 0.0, 0.0, 0.0, 0.0, -40.0, -90.0, 0.0, 0.0, 0.0, 0.0, 0.0, 30.0]
   off-pose : [0.0,-140.0,-158.0, 0.0, 0.0, 0.0, 0.0,-140.0,-158.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-
-
-
+  ## _InitialPose in hironx_client.py in hironx_ros_bridge (used in goInitial())
+  reset-manip-pose : [-0.6, 0.0, -100.0, 15.2, 9.4, 3.2, 0.6, 0.0, -100.0, -15.2, 9.4, -3.2, 0.0, 0.0, 0.0]
