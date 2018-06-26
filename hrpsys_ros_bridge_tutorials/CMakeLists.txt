@@ -277,6 +277,11 @@ if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
     HRP3HAND_R)
 endif()
 
+# HIRONXJSK
+compile_openhrp_model_for_closed_robots(HIRONXJSK HIRONXJSK HIRONXJSK
+  --conf-file-option "end_effectors: rarm,RARM_JOINT5,CHEST_JOINT0,-0.05,0,0,0,1,0,1.5708, larm,LARM_JOINT5,CHEST_JOINT0,-0.05,0,0,0,1,0,1.5708,"
+  )
+
 # URATALEG
 compile_rbrain_model_for_closed_robots(URATALEG URATALEG URATALEG
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
