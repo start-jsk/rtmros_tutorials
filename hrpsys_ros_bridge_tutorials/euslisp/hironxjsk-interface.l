@@ -1,0 +1,183 @@
+(load "package://hrpsys_ros_bridge/euslisp/rtm-ros-robot-interface.l")
+(require :hironxjsk "package://hrpsys_ros_bridge_tutorials/models/hironxjsk.l")
+(when (probe-file (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials/euslisp/hironxjsk-utils.l"))
+  (require :hironxjsk-utils "package://hrpsys_ros_bridge_tutorials/euslisp/hironxjsk-utils.l"))
+(if (ros::resolve-ros-path "package://hironx_ros_bridge")
+  (ros::load-ros-manifest "hironx_ros_bridge"))
+
+(defclass hironxjsk-interface
+  :super rtm-ros-robot-interface
+  :slots ())
+
+;; Initialize
+(defmethod hironxjsk-interface
+  ;; Based on hrp2jsknts-interface.l
+  (:init (&rest args)
+    (prog1
+      (send-super* :init :robot hironxjsk-robot args)
+      ;; add controller
+      (dolist (limb '(:rarm :larm :head :torso))
+        (send self :def-limb-controller-method limb)
+        (send self :add-controller (read-from-string (format nil "~A-controller" limb))
+              :joint-enable-check t :create-actions t))))
+  (:define-all-ROSBridge-srv-methods
+    (&key (debug-view nil) (ros-pkg-name "hrpsys_ros_bridge"))
+    ;; First, define ROSBridge method for old impedance controller
+    (if (ros::resolve-ros-path "package://hironx_ros_bridge")
+      (send-super :define-all-ROSBridge-srv-methods :ros-pkg-name "hironx_ros_bridge"))
+    ;; Second, define ROSBridge method based on hrpsys_ros_bridge
+    ;; Method created already is not overwritten, so we can keep using old impedance controller
+    ;; See :get-ROSBridge-method-def-macro
+    (send-super :define-all-ROSBridge-srv-methods)))
+
+;; ImpedanceControllerService
+;; Based on hironx_client.py in hironx_ros_bridge and rtm-ros-robot-interface.l.
+;; Enable methods executable with old impedance controller and disable others.
+;; The reason why I don't use def-set-get-param-method is that
+;; OpenHRP_ImpedanceControllerService_setImpedanceControllerParam.srv has element "name" inside i_param,
+;; while OpenHRP_ImpedanceControllerService_getImpedanceControllerParam.srv has that element directly.
+;; Set optional-args as (list :name 'name) -> multiple declaration of variable "name" in set-param-method.
+;; Set optional-args as nil -> pass nothing in service call of get-param-method.
+(defmethod hironxjsk-interface
+  (:raw-set-impedance-controller-param (&rest args)
+    (error ";; :raw-set-impedance-controller-param cannot be used with hironx~%"))
+  (:raw-get-impedance-controller-param (&rest args)
+    (error ";; :raw-get-impedance-controller-param cannot be used with hironx~%"))
+  (:start-impedance
+    (limb &rest args &key (m-p 100) (d-p 100) (k-p 100) (m-r 100) (d-r 2000) (k-r 2000)
+          (ref-force #f(0 0 0)) (force-gain #f(1 1 1)) (ref-moment #f(0 0 0))
+          (moment-gain #f(0 0 0)) (sr-gain 1) (avoid-gain 0) (reference-gain 0)
+          (manipulability-limit 0.1))
+    "Start impedance controller mode.
+     limb should be limb symbol name such as :rarm, :larm, or :arms."
+    (let (sensor-name target-name)
+      (cond ((eq limb :rarm)
+             (setq sensor-name "rhsensor" target-name "RARM_JOINT5"))
+            ((eq limb :larm)
+             (setq sensor-name "lhsensor" target-name "LARM_JOINT5"))
+            ((eq limb :arms)
+             (return-from :start-impedance
+                          (mapcar #'(lambda (l) (send* self :start-impedance l args))
+                                  '(:rarm :larm))))
+            (t (error ";; No such limb: ~A~%." limb)))
+      (send self :impedancecontrollerservice_setimpedancecontrollerparam :i_param
+            (instance hironx_ros_bridge::OpenHRP_ImpedanceControllerService_impedanceParam :init
+                      :name sensor-name :base_name "CHEST_JOINT0" :target_name target-name
+                      :m_p m-p :d_p d-p :k_p k-p :m_r m-r :d_r d-r :k_r k-r :ref_force ref-force
+                      :force_gain force-gain :ref_moment ref-moment :moment_gain moment-gain
+                      :sr_gain sr-gain :avoid_gain avoid-gain :reference_gain reference-gain
+                      :manipulability_limit manipulability-limit))))
+  (:raw-start-impedance (&rest args)
+    (error ";; :raw-start-impedance cannot be used with hironx~%"))
+  (:start-impedance-no-wait (&rest args)
+    (error ";; :start-impedance-no-wait cannot be used with hironx~%"))
+  (:stop-impedance (limb)
+    "Stop impedance controller mode.
+     limb should be limb symbol name such as :rarm, :larm, or :arms."
+    (let (sensor-name)
+      (cond ((eq limb :rarm)
+             (setq sensor-name "rhsensor"))
+            ((eq limb :larm)
+             (setq sensor-name "lhsensor"))
+            ((eq limb :arms)
+             (return-from :stop-impedance
+                          (mapcar #'(lambda (l) (send self :stop-impedance l))
+                                  '(:rarm :larm))))
+            (t (error ";; No such limb: ~A~%." limb)))
+      (send self :impedancecontrollerservice_deleteimpedancecontrollerandwait :name sensor-name)))
+  (:stop-impedance-no-wait (limb)
+    (let (sensor-name)
+      (cond ((eq limb :rarm)
+             (setq sensor-name "rhsensor"))
+            ((eq limb :larm)
+             (setq sensor-name "lhsensor"))
+            ((eq limb :arms)
+             (return-from :stop-impedance-no-wait
+                          (mapcar #'(lambda (l) (send self :stop-impedance-no-wait l))
+                                  '(:rarm :larm))))
+            (t (error ";; No such limb: ~A~%." limb)))
+      (send self :impedancecontrollerservice_deleteimpedancecontroller :name sensor-name)))
+  (:wait-impedance-controller-transition (&rest args)
+    (error ";; :wait-impedance-controller-transition cannot be used with hironx~%"))
+  (:set-impedance-controller-param (&rest args)
+    (error ";; In hironx, we cannot tell :set-impedance-controller-param from :start-impedance~%"))
+  (:get-impedance-controller-param (limb)
+    (let (sensor-name)
+      (cond ((eq limb :rarm)
+             (setq sensor-name "rhsensor"))
+            ((eq limb :larm)
+             (setq sensor-name "lhsensor"))
+            ((eq limb :arms)
+             (return-from :get-impedance-controller-param
+                          (mapcar #'(lambda (l) (send self :get-impedance-controller-param l))
+                                  '(:rarm :larm))))
+            (t (error ";; No such limb: ~A~%." limb)))
+      (send (send self :impedancecontrollerservice_getimpedancecontrollerparam :name sensor-name)
+            :i_param)))
+  (:get-impedance-controller-controller-mode (&rest args)
+    (error ";; :get-impedance-controller-controller-mode cannot be used with hironx~%"))
+  (:force-sensor-method (&rest args)
+    (error ";; :force-sensor-method cannot be used with hironx~%")))
+
+;; ServoControllerService for hand
+;; Based on hironx_client.py in hironx_ros_bridge and hrp2-common-interface.l
+(defmethod hironxjsk-interface
+  (:hand-angle-vector
+    (av &optional (tm 1000) (hand :hands))
+    (let (av-rad-list)
+      ;; Convert deg float-vector (or list) to rad list
+      (dotimes (i (length av))
+        (push (deg2rad (elt av i)) av-rad-list))
+      (setq av-rad-list (reverse av-rad-list))
+      (cond ((eq hand :hands)
+             (send self :servocontrollerservice_setjointangles :jvs av-rad-list :tm (/ tm 1000.0)))
+            ((or (eq hand :rhand) (eq hand :lhand))
+             (send self :servocontrollerservice_setjointanglesofgroup
+                   :gname (string-downcase hand) :jvs av-rad-list :tm (/ tm 1000.0)))
+            (t (error ";; No such hand: ~A~%." hand)))))
+  (:hand-servo-on ()
+    (send self :servocontrollerservice_servoon))
+  (:hand-servo-off ()
+    (send self :servocontrollerservice_servooff))
+  (:set-hand-effort (&optional (effort 100))
+    "effort is percentage"
+    (dolist (id (list 2 3 4 5 6 7 8 9))
+      (send self :servocontrollerservice_setmaxtorque :id id :percentage effort)))
+  (:hand-width2angles (width)
+    (let ((safetymargin 3) (l1 41.9) (l2 19) xpos a2pos a1radh a1rad a1deg)
+      (when (or (< width 0) (> width (* (- (+ l1 l2) safetymargin) 2)))
+        (return-from :hand-width2angles nil))
+      (setq xpos (+ (/ width 2.0) safetymargin))
+      (setq a2pos (- xpos l2))
+      (setq a1radh (acos (/ a2pos l1)))
+      (setq a1rad (- (/ pi 2.0) a1radh))
+      (setq a1deg (rad2deg a1rad))
+      (float-vector a1deg (- a1deg) (- a1deg) a1deg)))
+  (:set-hand-width (hand width &key (tm 1000) effort)
+    (when effort
+      (send self :set-hand-effort effort))
+    (send self :hand-angle-vector (send self :hand-width2angles width) tm hand))
+  (:start-grasp (&optional (arm :arms) &key effort)
+    (cond ((eq arm :rarm)
+           (send self :set-hand-width :rhand 0 :effort effort))
+          ((eq arm :larm)
+           (send self :set-hand-width :lhand 0 :effort effort))
+          ((eq arm :arms)
+           (send self :set-hand-width :rhand 0 :effort effort)
+           (send self :set-hand-width :lhand 0 :effort effort))
+          (t (error ";; No such arm: ~A~%." arm))))
+  (:stop-grasp (&optional (arm :arms) &key effort)
+    (cond ((eq arm :rarm)
+           (send self :set-hand-width :rhand 100 :effort effort))
+          ((eq arm :larm)
+           (send self :set-hand-width :lhand 100 :effort effort))
+          ((eq arm :arms)
+           (send self :set-hand-width :rhand 100 :effort effort)
+           (send self :set-hand-width :lhand 100 :effort effort))
+          (t (error ";; No such arm: ~A~%." arm)))))
+
+(defun hironxjsk-init (&rest args)
+  (if (not (boundp '*ri*))
+      (setq *ri* (instance* hironxjsk-interface :init args)))
+  (if (not (boundp '*hironxjsk*))
+      (setq *hironxjsk* (instance hironxjsk-robot :init))))
