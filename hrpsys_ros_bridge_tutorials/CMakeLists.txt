@@ -277,6 +277,18 @@ if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
     HRP3HAND_R)
 endif()
 
+# KHR
+compile_openhrp_model_for_closed_robots(KHR KHR KHR
+  --conf-dt-option "0.002"
+  --simulation-timestep-option "0.002"
+  --conf-file-option "abc_leg_offset: 0,0.09,0"
+  --conf-file-option "abc_stride_parameter: 0.15,0.05,10"
+  --conf-file-option "end_effectors: lleg,LLEG_LINK4,WAIST,0.0,0.0,0.0,0.0,0.0,0.0,0.0, rleg,RLEG_LINK4,WAIST,0.0,0.0,0.0,0.0,0.0,0.0,0.0"
+  --conf-file-option "collision_pair: HEAD_LINK0:LARM_LINK2"
+  --conf-file-option "pdgains_sim_file_name: ${PROJECT_SOURCE_DIR}/models/KHR.PDgain.dat"
+  --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+)
+
 # URATALEG
 compile_rbrain_model_for_closed_robots(URATALEG URATALEG URATALEG
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
@@ -459,6 +471,7 @@ generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSK
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2W_for_OpenHRP3 HRP2W "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2G_for_OpenHRP3 HRP2G "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP4R HRP4R "--use-unstable-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(KHR KHR "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(STARO STARO "--use-unstable-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(JAXON JAXON "--use-robot-hrpsys-config")
 if("$ENV{TRAVIS_JOB_ID}" STREQUAL "")
