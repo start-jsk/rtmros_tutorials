@@ -1,0 +1,140 @@
+##
+## - collada_joint_name : euslisp_joint_name (start with :)
+##
+
+rleg:
+  - RLEG_JOINT0  : rleg-hip-y
+  - RLEG_JOINT1  : rleg-hip-r
+  - RLEG_JOINT2  : rleg-hip-p
+  - RLEG_JOINT3  : rleg-knee-p
+  - RLEG_JOINT4  : rleg-ankle-p
+  - RLEG_JOINT5  : rleg-ankle-r
+lleg:
+  - LLEG_JOINT0  : lleg-hip-y
+  - LLEG_JOINT1  : lleg-hip-r
+  - LLEG_JOINT2  : lleg-hip-p
+  - LLEG_JOINT3  : lleg-knee-p
+  - LLEG_JOINT4  : lleg-ankle-p
+  - LLEG_JOINT5  : lleg-ankle-r
+torso:
+  - CHEST_JOINT0 : torso-waist-r
+  - CHEST_JOINT1 : torso-waist-p
+  - CHEST_JOINT2 : torso-waist-y
+head:
+  - HEAD_JOINT0  : head-neck-y
+  - HEAD_JOINT1  : head-neck-p
+rarm:
+  - RARM_JOINT0  : rarm-shoulder-p
+  - RARM_JOINT1  : rarm-shoulder-r
+  - RARM_JOINT2  : rarm-shoulder-y
+  - RARM_JOINT3  : rarm-elbow-p
+  - RARM_JOINT4  : rarm-wrist-y
+  - RARM_JOINT5  : rarm-wrist-r
+  - RARM_JOINT6  : rarm-wrist-p
+larm:
+  - LARM_JOINT0  : larm-shoulder-p
+  - LARM_JOINT1  : larm-shoulder-r
+  - LARM_JOINT2  : larm-shoulder-y
+  - LARM_JOINT3  : larm-elbow-p
+  - LARM_JOINT4  : larm-wrist-y
+  - LARM_JOINT5  : larm-wrist-r
+  - LARM_JOINT6  : larm-wrist-p
+
+##
+## end-coords
+##
+rarm-end-coords:
+  parent: RARM_LINK6
+# original (--hand1)
+  translate : [0,  0, -0.220]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+# --hand3
+#  translate : [-0.055, 0.0, -0.237]
+#  rotate    : [-0.57735, 0.57735, 0.57735, 120]
+larm-end-coords:
+  parent: LARM_LINK6
+# original (--hand1)
+  translate : [0, 0, -0.220]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+# --hand3
+#  translate : [-0.055, 0.0, -0.237]
+#  rotate    : [0.57735, 0.57735, -0.57735, 120]
+## KAWADA FOOT
+# rleg-end-coords:
+#   parent: RLEG_LINK5
+#   translate : [0, 0, -0.096]
+# lleg-end-coords:
+#   parent: LLEG_LINK5
+#   translate : [0, 0, -0.096]
+## KAWADA FOOT : CAD -> -0.096; gomugutsu+midori -> -0.004
+rleg-end-coords:
+  parent: RLEG_LINK5
+  translate : [0, 0, -0.100]
+lleg-end-coords:
+  parent: LLEG_LINK5
+  translate : [0, 0, -0.100]
+## JSK FOOT
+# rleg-end-coords:
+#   parent: RLEG_LINK5
+#   translate : [0, 0, -0.1055]
+# lleg-end-coords:
+#   parent: LLEG_LINK5
+#   translate : [0, 0, -0.1055]
+head-end-coords:
+  translate : [0.1, 0.0, 0.1]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+
+##
+## reset-pose
+##
+angle-vector:
+  collision-free-init-pose : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                              0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                              0.0, 0.0, 0.0,
+                              0.0, 0.0,
+                              0.0, -15.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                              0.0,  15.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  reset-pose : [0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
+                0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
+                0.0, 0.0, 0.0,
+                0.0, 0.0,
+                +40.0, -20.0, -5.0, -80.0, 0.0, 0.0, 0.0,
+                +40.0, +20.0, +5.0, -80.0, 0.0, 0.0, 0.0]
+  reset-servo-off-pose : [0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
+                          0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
+                          0.0, 0.0, 0.0,
+                          0.0, 0.0,
+                          -5.0, -20.0, 0.0, -20.0, 0.0, 0.0, 0.0,
+                          -5.0, +20.0, 0.0, -20.0, 0.0, 0.0, 0.0]
+  reset-manip-pose : [0.00,   0.00, -20.00,  40.00, -20.00,   0.00,
+                      0.00,   0.00, -20.00,  40.00, -20.00,   0.00,
+                      0.00,   0.00,   0.00,
+                      0.00,   30.00,
+                      55.00, -20.00, -15.00, -100.00, -25.00,   -45.00, 0,
+                      55.00,  20.00,  15.00, -100.00,  25.00,   -45.00, 0]
+
+  calib-pose : [0.0, 0.0, -45.0, 90.0, -45.0, 0.0,
+                0.0, 0.0, -45.0, 90.0, -45.0, 0.0,
+                0.0, 0.0, 0.0,
+                0.0, 0.0,
+                0.0, -30.0, -90.0, -120.0, -90.0, -60.0, 0.0,
+                0.0, +30.0, +90.0, -120.0, +90.0, +60.0, 0.0]
+  narrow-width-pose : [0.0, 0.0, -20.0, +40.0, -20.0, 0.0,
+                       0.0, 0.0, -20.0, +40.0, -20.0, 0.0,
+                       0.0, 0.0, 0.0,
+                       0.0, 0.0,
+                       -40.0, -30.0, -30.0, -100.0, +90.0, 0.0, 0.0,
+                       -40.0, +30.0, +30.0, -100.0, -90.0, 0.0, 0.0]
+
+##
+## sensors
+##
+sensors:
+#  - {sensor_name: 'gsensor',   sensor_type: 'acceleration', parent_link: 'BODY', translate: '0 0 0', rotate: '0 0 1 180'}
+#  - {sensor_name: 'gyrometer', sensor_type: 'gyro', parent_link: 'BODY', translate: '0 0 0', rotate: '0 0 1 180'}
+### sensor position should be confirmed
+  - {sensor_name: 'rfsensor', sensor_type: 'base_force6d', parent_link: 'RLEG_LINK5', translate: '0 0 -0.069', rotate: '0 1 0 180'}
+  - {sensor_name: 'lfsensor', sensor_type: 'base_force6d', parent_link: 'LLEG_LINK5', translate: '0 0 -0.069', rotate: '0 1 0 180'}
+  - {sensor_name: 'rhsensor', sensor_type: 'base_force6d', parent_link: 'RARM_LINK6', translate: '0 0 -0.069', rotate: '-0.382683 -0.92388 0 180'}
+  - {sensor_name: 'lhsensor', sensor_type: 'base_force6d', parent_link: 'LARM_LINK6', translate: '0 0 -0.069', rotate: '0.382683 -0.92388 0 180'}
+  - {sensor_name: 'fisheye', sensor_type: 'camera', parent_link: 'CHEST_LINK2', translate: '0.147 0 -0.022', rotate: '-0.694747 0.694747 -0.186157 158.909'}

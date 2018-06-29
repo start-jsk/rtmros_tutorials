@@ -5,6 +5,8 @@
    ()
    (prog1
        (send-super :init-ending)
+     (when (member :define-min-max-table (send self :methods))
+       (send self :define-min-max-table))
      ;; set force-sensor from .conf
      (labels ((data-string-split ;; this function will be replaced by https://github.com/euslisp/EusLisp/issues/16
                (str separator)

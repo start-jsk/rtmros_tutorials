@@ -1,7 +1,7 @@
-(require :jaxon "package://hrpsys_ros_bridge_tutorials/models/jaxon.l")
+(require :jaxon "package://hrpsys_ros_bridge_tutorials/models/jaxon_blue.l")
 (require :thkhand-utils "package://hrpsys_ros_bridge_tutorials/euslisp/thkhand-utils.l")
 
-(defmethod JAXON-robot
+(defmethod JAXON_BLUE-robot
   (:init-ending
    (&rest args)
    (prog1
@@ -9,7 +9,7 @@
      (when (member :define-min-max-table (send self :methods))
        (send self :define-min-max-table))
      (send self :add-hoist-point-coords)
-     (send self :add-shin-cushion-parts)
+     ;; (send self :add-shin-cushion-parts)
      (send self :add-shin-contact-coords)
      (send self :add-thk-contact-coords)
      (send self :add-wrist-contact-coords)
@@ -30,19 +30,19 @@
      (send self :put :hoist-coords tmp)
      (send hoist-link :assoc (send self :get :hoist-coords)))
    )
-  (:add-shin-cushion-parts
-   (&key (angle 6))
-   (dolist (leg '(:rleg :lleg))
-     (let ((b (make-cube 25 100 180)))
-       (send b :put :face-color #f(1 0.6 0.4))
-       (send b :newcoords
-             (send (send (send (elt (send self leg :links) 3) :copy-worldcoords) :translate (float-vector 85 0 -150))
-                   :rotate (deg2rad angle) :y))
-       (send (elt (send self leg :links) 3) :assoc b)
-       (setq ((elt (send self leg :links) 3) . geo::bodies)
-             (append (send (elt (send self leg :links) 3) :bodies) (list b)))
-       ))
-   )
+  ;; (:add-shin-cushion-parts
+  ;;  (&key (angle 6))
+  ;;  (dolist (leg '(:rleg :lleg))
+  ;;    (let ((b (make-cube 25 100 180)))
+  ;;      (send b :put :face-color #f(1 0.6 0.4))
+  ;;      (send b :newcoords
+  ;;            (send (send (send (elt (send self leg :links) 3) :copy-worldcoords) :translate (float-vector 85 0 -150))
+  ;;                  :rotate (deg2rad angle) :y))
+  ;;      (send (elt (send self leg :links) 3) :assoc b)
+  ;;      (setq ((elt (send self leg :links) 3) . geo::bodies)
+  ;;            (append (send (elt (send self leg :links) 3) :bodies) (list b)))
+  ;;      ))
+  ;;  )
   (:add-shin-contact-coords
    (&key (offset (float-vector 98 0 -150)) (angle 6))
    (let* ((limb (list :rleg :lleg))
@@ -122,32 +122,32 @@
      ))
   (:reset-landing-pose
    (&key (default-pose (send self :reset-pose)))
-   (send self :angle-vector default-pose)
-   (send self :fix-leg-to-coords (make-coords))
-   (let ((tc (list (send self :rleg :end-coords :copy-worldcoords)
-                   (send self :lleg :end-coords :copy-worldcoords)
-                   (send (send (send self :foot-midcoords) :copy-worldcoords)
-                         :translate
-                         (float-vector 0 0 (elt
-                                            (send (send (send (send self :foot-midcoords) :copy-worldcoords)
-                                                        :transformation (send (send self :get :hoist-coords) :copy-worldcoords) :local) :worldpos)
-                                            2))
-                         :local)))
-         (ll (list (send self :rleg :end-coords)
-                   (send self :lleg :end-coords)
-                   (send self :get :hoist-coords))))
-     (send self
-           :fullbody-inverse-kinematics tc
-           :move-target ll
-           :link-list (mapcar #'(lambda (l) (send self :link-list (send l :parent))) ll)
-           :translation-axis (list t t :z)
-           :rotation-axis (list t t :y)
-           :additional-weight-list (list (list (send self :rleg :knee-p :child-link) 0.1)
-                                         (list (send self :lleg :knee-p :child-link) 0.1))
-           :debug-view :no-message))
+   ;; (send self :angle-vector default-pose)
+   ;; (send self :fix-leg-to-coords (make-coords))
+   ;; (let ((tc (list (send self :rleg :end-coords :copy-worldcoords)
+   ;;                 (send self :lleg :end-coords :copy-worldcoords)
+   ;;                 (send (send (send self :foot-midcoords) :copy-worldcoords)
+   ;;                       :translate
+   ;;                       (float-vector 0 0 (elt
+   ;;                                          (send (send (send (send self :foot-midcoords) :copy-worldcoords)
+   ;;                                                      :transformation (send (send self :get :hoist-coords) :copy-worldcoords) :local) :worldpos)
+   ;;                                          2))
+   ;;                       :local)))
+   ;;       (ll (list (send self :rleg :end-coords)
+   ;;                 (send self :lleg :end-coords)
+   ;;                 (send self :get :hoist-coords))))
+   ;;   (send self
+   ;;         :fullbody-inverse-kinematics tc
+   ;;         :move-target ll
+   ;;         :link-list (mapcar #'(lambda (l) (send self :link-list (send l :parent))) ll)
+   ;;         :translation-axis (list t t :z)
+   ;;         :rotation-axis (list t t :y)
+   ;;         :additional-weight-list (list (list (send self :rleg :knee-p :child-link) 0.1)
+   ;;                                       (list (send self :lleg :knee-p :child-link) 0.1))
+   ;;         :debug-view :no-message))
    )
   )
 
-(eval
- `(defmethod jaxon-robot
-    ,@(get-jaxon-with-thk-hand-class-methods)))
+;; (eval
+;;  `(defmethod jaxon_blue-robot
+;;     ,@(get-jaxon-with-thk-hand-class-methods)))
