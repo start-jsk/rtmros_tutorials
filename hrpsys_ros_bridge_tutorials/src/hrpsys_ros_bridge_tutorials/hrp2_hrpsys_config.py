@@ -141,6 +141,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # for swing
         stp.eefm_swing_pos_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
         stp.eefm_swing_rot_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
+        # IK
+        for ikp in stp.ik_limb_parameters:
+            ikp.ik_loop_count=1
         self.st_svc.setParameter(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
