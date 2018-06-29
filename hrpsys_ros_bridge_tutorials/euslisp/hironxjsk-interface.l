@@ -30,6 +30,121 @@
     ;; See :get-ROSBridge-method-def-macro
     (send-super :define-all-ROSBridge-srv-methods)))
 
+;; AbsoluteForceSensor
+;; Overwrite RemoveForceSensorLinkOffset methods
+(def-set-get-param-method 'hironx_ros_bridge::OpenHRP_AbsoluteForceSensorService_ForceMomentOffsetParam
+  :raw-set-forcemoment-offset-param :raw-get-forcemoment-offset-param :get-forcemoment-offset-param-arguments
+  :absoluteforcesensorservice_setforcemomentoffsetparam :absoluteforcesensorservice_getforcemomentoffsetparam
+  :optional-args (list :name 'name))
+
+(defmethod rtm-ros-robot-interface
+  (:zero-set-forcemoment-offset-param
+   (limb)
+   "Set RemoveForceSensorLinkOffset's params offset to zero."
+   (send self :set-forcemoment-offset-param limb :force-offset #f(0 0 0) :moment-offset #f(0 0 0) :link-offset-centroid #f(0 0 0) :link-offset-mass 0)
+   )
+  (:set-forcemoment-offset-param
+   (limb &rest args)
+   "Set RemoveForceSensorLinkOffset params for given limb.
+    For arguments, please see (send *ri* :get-forcemoment-offset-param-arguments)."
+   (send* self :force-sensor-method
+         limb
+         #'(lambda (name &rest _args)
+             (send* self :raw-set-forcemoment-offset-param (send (car (send robot name :force-sensors)) :name) _args))
+         :set-forcemoment-offset-param
+         args))
+  (:get-forcemoment-offset-param
+   (limb)
+   "Get RemoveForceSensorLinkOffset params for given limb."
+   (send self :force-sensor-method
+         limb
+         #'(lambda (name &rest _args)
+             (send self :raw-get-forcemoment-offset-param (send (car (send robot name :force-sensors)) :name)))
+         :get-forcemoment-offset-param))
+  (:load-forcemoment-offset-param
+   (fname &key (set-offset t))
+   "Load AbsoluteForceSensor params from fname (file path)."
+   (mapcar #'(lambda (x)
+               (send* self :set-forcemoment-offset-param (car x)
+                      (if set-offset
+                          (cdr x)
+                        (list :link-offset-mass (cadr (memq :link-offset-mass (cdr x)))
+                              :link-offset-centroid (cadr (memq :link-offset-centroid (cdr x)))))))
+           (with-open-file
+            (f fname :direction :input)
+            (read f nil nil)))
+   )
+  (:load-forcemoment-offset-params (&rest args)
+    (error ";; :load-forcemoment-offset-params cannot be used with hironx~%"))
+  (:dump-forcemoment-offset-params (&rest args)
+    (error ";; :dump-forcemoment-offset-params cannot be used with hironx~%"))
+  (:remove-force-sensor-offset-rmfo (&rest args)
+    (error ";; :remove-force-sensor-offset-rmfo cannot be used with hironx~%"))
+  (:remove-force-sensor-offset-rmfo-arms (&rest args)
+    (error ";; :remove-force-sensor-offset-rmfo-arms cannot be used with hironx~%"))
+  (:remove-force-sensor-offset-rmfo-legs (&rest args)
+    (error ";; :remove-force-sensor-offset-rmfo-legs cannot be used with hironx~%"))
+  ;; Deprecated in https://github.com/start-jsk/rtmros_common/pull/1010,
+  ;; but new methods cannot be used in hironx.
+  ;; So we revert deprecated methods to the ones before the PR and use them.
+  (:reset-force-moment-offset-arms
+   ()
+   "Remove force and moment offset for :rarm and :larm"
+   (send self :reset-force-moment-offset '(:rarm :larm)))
+  (:reset-force-moment-offset-legs (&rest args)
+    (error ";; :reset-force-moment-offset-legs cannot be used with hironx~%"))
+  (:reset-force-moment-offset
+   (limbs)
+   "Remove force and moment offsets. limbs should be list of limb symbol name."
+   (send self :_reset-force-moment-offset limbs :force)
+   (send self :_reset-force-moment-offset limbs :moment)
+   )
+  (:_reset-force-moment-offset
+   (limbs f/m &key (itr 10))
+   (let* ((params (mapcar #'(lambda (alimb) (send self :get-forcemoment-offset-param alimb)) limbs)))
+     (labels ((calc-off
+               (alimb)
+               (send self (if (eq f/m :force) :off-force-vector :off-moment-vector) alimb))
+              (get-avg-fm
+               ()
+               (let ((fm (mapcar #'(lambda (i)
+                                     (send self :state)
+                                     (mapcar #'(lambda (alimb) (send self (if (eq f/m :force) :off-force-vector :off-moment-vector) alimb)) limbs))
+                                 (make-list itr))))
+                 (mapcar #'(lambda (alimb)
+                             (let ((idx (position alimb limbs)))
+                               (vector-mean (mapcar #'(lambda (d) (elt d idx)) fm))))
+                         limbs))))
+       ;; estimate offsets
+       (let* ((tmp-fm-offsets (mapcar #'(lambda (i)
+                                          (send self :state)
+                                          (mapcar #'calc-off limbs))
+                                      (make-list itr)))
+              (new-fm-offsets (mapcar #'(lambda (alimb)
+                                          (let ((idx (position alimb limbs)))
+                                            (vector-mean (mapcar #'(lambda (d) (elt d idx)) tmp-fm-offsets))))
+                                      limbs))
+              (org-fm-list (get-avg-fm)))
+         ;; set offsets
+         (mapcar #'(lambda (alimb new-fm-offset param)
+                     (send self :set-forcemoment-offset-param alimb
+                           (if (eq f/m :force) :force-offset :moment-offset)
+                           (v+ (if (eq f/m :force)
+                                   (send param :force_offset)
+                                 (send param :moment_offset))
+                               new-fm-offset)))
+                 limbs new-fm-offsets params)
+         (unix:usleep 10000)
+         ;; check ;; compare sensor value before & after resetting
+         (mapcar #'(lambda (alimb org-fm new-fm)
+                     (format t ";; ~A error of ~A ;; ~A[~A] -> ~A[~A]~%"
+                             (string-downcase f/m) alimb
+                             (norm org-fm) (if (eq f/m :force) "N" "Nm")
+                             (norm new-fm) (if (eq f/m :force) "N" "Nm")))
+                 limbs org-fm-list (get-avg-fm))
+         ))))
+  )
+
 ;; ImpedanceControllerService
 ;; Based on hironx_client.py in hironx_ros_bridge and rtm-ros-robot-interface.l.
 ;; Enable methods executable with old impedance controller and disable others.
@@ -115,9 +230,7 @@
       (send (send self :impedancecontrollerservice_getimpedancecontrollerparam :name sensor-name)
             :i_param)))
   (:get-impedance-controller-controller-mode (&rest args)
-    (error ";; :get-impedance-controller-controller-mode cannot be used with hironx~%"))
-  (:force-sensor-method (&rest args)
-    (error ";; :force-sensor-method cannot be used with hironx~%")))
+    (error ";; :get-impedance-controller-controller-mode cannot be used with hironx~%")))
 
 ;; ServoControllerService for hand
 ;; Based on hironx_client.py in hironx_ros_bridge and hrp2-common-interface.l
