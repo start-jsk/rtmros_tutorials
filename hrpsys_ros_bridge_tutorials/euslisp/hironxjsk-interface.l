@@ -11,7 +11,7 @@
 
 ;; Initialize
 (defmethod hironxjsk-interface
-  ;; Based on hrp2jsknts-interface.l
+  ;; Based on https://github.com/start-jsk/rtmros_tutorials/blob/9132c58702b3b193e14271b4c231ad0080187850/hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-interface.l
   (:init (&rest args)
     (prog1
       (send-super* :init :robot hironxjsk-robot args)
@@ -32,6 +32,7 @@
 
 ;; AbsoluteForceSensor
 ;; Overwrite RemoveForceSensorLinkOffset methods
+;; Based on https://github.com/start-jsk/rtmros_common/blob/1.4.2/hrpsys_ros_bridge/euslisp/rtm-ros-robot-interface.l
 (def-set-get-param-method 'hironx_ros_bridge::OpenHRP_AbsoluteForceSensorService_ForceMomentOffsetParam
   :raw-set-forcemoment-offset-param :raw-get-forcemoment-offset-param :get-forcemoment-offset-param-arguments
   :absoluteforcesensorservice_setforcemomentoffsetparam :absoluteforcesensorservice_getforcemomentoffsetparam
@@ -146,7 +147,8 @@
   )
 
 ;; ImpedanceControllerService
-;; Based on hironx_client.py in hironx_ros_bridge and rtm-ros-robot-interface.l.
+;; Based on https://github.com/start-jsk/rtmros_hironx/blob/2.1.0/hironx_ros_bridge/src/hironx_ros_bridge/hironx_client.py
+;; and https://github.com/start-jsk/rtmros_common/blob/1.4.2/hrpsys_ros_bridge/euslisp/rtm-ros-robot-interface.l.
 ;; Enable methods executable with old impedance controller and disable others.
 ;; The reason why I don't use def-set-get-param-method is that
 ;; OpenHRP_ImpedanceControllerService_setImpedanceControllerParam.srv has element "name" inside i_param,
@@ -233,7 +235,8 @@
     (error ";; :get-impedance-controller-controller-mode cannot be used with hironx~%")))
 
 ;; ServoControllerService for hand
-;; Based on hironx_client.py in hironx_ros_bridge and hrp2-common-interface.l
+;; Based on https://github.com/start-jsk/rtmros_hironx/blob/2.1.0/hironx_ros_bridge/src/hironx_ros_bridge/hironx_client.py
+;; and https://github.com/start-jsk/rtmros_tutorials/blob/0.1.6/hrpsys_ros_bridge_tutorials/euslisp/hrp2-common-interface.l
 (defmethod hironxjsk-interface
   (:hand-angle-vector
     (av &optional (tm 1000) (hand :hands))
