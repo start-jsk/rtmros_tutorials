@@ -14,7 +14,10 @@
   ;; Based on https://github.com/start-jsk/rtmros_tutorials/blob/9132c58702b3b193e14271b4c231ad0080187850/hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-interface.l
   (:init (&rest args)
     (prog1
-      (send-super* :init :robot hironxjsk-robot args)
+      ;; Hironx has two types of joint_states on one topic: whole body and hand,
+      ;; so queue size of joint_states should be two.
+      ;; https://github.com/jsk-ros-pkg/jsk_pr2eus/blob/0.3.13/pr2eus/robot-interface.l#L120
+      (send-super* :init :joint-states-queue-size 2 :robot hironxjsk-robot args)
       ;; add controller
       (dolist (limb '(:rarm :larm :head :torso))
         (send self :def-limb-controller-method limb)
