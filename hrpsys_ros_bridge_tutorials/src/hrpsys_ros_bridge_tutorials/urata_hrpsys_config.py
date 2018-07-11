@@ -309,6 +309,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
             stp.eefm_pos_compensation_limit = [0.08, 0.08, 0.050, 0.050]
         stp.eefm_zmp_delay_time_const=[0, 0]
+        stp.detection_time_to_air=1.0
         stp.use_zmp_truncation=True
         stp.eefm_swing_damping_force_thre=[200]*3
         stp.eefm_swing_damping_moment_thre=[15]*3
@@ -374,12 +375,13 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.swing_trajectory_delay_time_offset=0.15
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
         gg.swing_trajectory_final_distance_weight=3.0
-        gg.default_orbit_type = OpenHRP.AutoBalancerService.CYCLOIDDELAY
+        gg.default_orbit_type = OpenHRP.AutoBalancerService.RECTANGLE
         gg.toe_pos_offset_x = 1e-3*117.338;
         gg.heel_pos_offset_x = 1e-3*-116.342;
         gg.toe_zmp_offset_x = 1e-3*117.338;
         gg.heel_zmp_offset_x = 1e-3*-116.342;
         gg.optional_go_pos_finalize_footstep_num=1
+        gg.overwritable_footstep_index_offset=0
         self.abc_svc.setGaitGeneratorParam(gg)
         # Ic setting
         limbs = ['rarm', 'larm']
@@ -655,6 +657,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_pos_margin_time=0.02
         stp.use_zmp_truncation=True
         stp.eefm_zmp_delay_time_const=[0, 0]
+        stp.detection_time_to_air=1.0
         # foot margin param
         ## KAWADA foot
         #   mechanical param is => inside 0.055, front 0.13, rear 0.1
@@ -710,11 +713,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.swing_trajectory_delay_time_offset=0.2
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
         gg.swing_trajectory_final_distance_weight=3.0
-        gg.default_orbit_type = OpenHRP.AutoBalancerService.CYCLOIDDELAY
+        gg.default_orbit_type = OpenHRP.AutoBalancerService.RECTANGLE
         gg.toe_pos_offset_x = 1e-3*117.338;
         gg.heel_pos_offset_x = 1e-3*-116.342;
         gg.toe_zmp_offset_x = 1e-3*117.338;
         gg.heel_zmp_offset_x = 1e-3*-116.342;
+        gg.overwritable_footstep_index_offset=0
         self.abc_svc.setGaitGeneratorParam(gg)
 
     def setStAbcParametersTQLEG0 (self):
