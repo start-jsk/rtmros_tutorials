@@ -560,7 +560,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # abc setting
         abcp=self.abc_svc.getAutoBalancerParam()[1]
         #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0]];
-        abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]];
+        abcp.default_zmp_offsets=[[0.01, 0.01, 0.0], [0.01, -0.01, 0.0]]; # 20170704
         abcp.move_base_gain=1.0
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
@@ -639,8 +639,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.k_brot_tc=[1000, 1000]
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
         stp.eefm_body_attitude_control_time_const=[1000, 1000]
-        stp.eefm_rot_damping_gain=[[20*1.6*1.1*1.5, 20*1.6*1.1*1.5*1.5, 1e5]]*2
-        stp.eefm_pos_damping_gain=[[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5*0.5]]*2
+        # stp.eefm_rot_damping_gain=[[20*1.6*1.1*1.5, 20*1.6*1.1*1.5*1.5, 1e5]]*2
+        # stp.eefm_pos_damping_gain=[[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5*0.5]]*2
+        stp.eefm_rot_damping_gain=[[20*1.6*1.1*1.5, 20*1.6*1.1*1.5*1.5, 1e5]]*2 # 20180711
+        stp.eefm_pos_damping_gain=[[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5]]*2 # 20180711
         stp.eefm_rot_time_const=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
         stp.eefm_pos_time_const_support=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
         stp.eefm_use_swing_damping=True
@@ -667,8 +669,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # stp.eefm_leg_rear_margin=0.09
         tmp_leg_inside_margin=0.065
         tmp_leg_outside_margin=0.065
-        tmp_leg_front_margin=0.13
-        tmp_leg_rear_margin=0.1
+        tmp_leg_front_margin=0.09
+        tmp_leg_rear_margin=0.15
         # JSK foot
         # # mechanical param is -> inside 0.075, front 0.11, rear 0.11
         # stp.eefm_leg_inside_margin=0.07
