@@ -271,8 +271,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # AutoSt setting
         stp=self.abc_svc.getStabilizerParam()
         #stp.st_algorithm=OpenHRP.AutoBalancerService.EEFM
-        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
-        # stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
+        # stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
+        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
         stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
         stp.cp_check_margin=[0.05, 0.045, 0, 0.095]
         stp.k_brot_p=[0, 0]
@@ -310,7 +310,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             stp.eefm_pos_compensation_limit = [0.08, 0.08, 0.050, 0.050]
         stp.eefm_zmp_delay_time_const=[0, 0]
         stp.detection_time_to_air=1.0
-        stp.use_zmp_truncation=True
+        # stp.use_zmp_truncation=True
         stp.eefm_swing_damping_force_thre=[200]*3
         stp.eefm_swing_damping_moment_thre=[15]*3
         stp.eefm_use_swing_damping=True
@@ -590,7 +590,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
         stp.eefm_pos_margin_time=0.02
-        stp.use_zmp_truncation=True
+        # stp.use_zmp_truncation=True
         # foot margin param
         ## KAWADA foot
         #   mechanical param is => inside 0.055, front 0.13, rear 0.1
@@ -657,7 +657,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
         stp.eefm_pos_margin_time=0.02
-        stp.use_zmp_truncation=True
+        # stp.use_zmp_truncation=True
         stp.eefm_zmp_delay_time_const=[0, 0]
         stp.detection_time_to_air=1.0
         # foot margin param
