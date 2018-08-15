@@ -16,6 +16,15 @@
      (send self :add-hip-contact-coords)
      (send self :put :lhand-model (instance dummy-thk-hand-robot :init :name :l-thk-hand))
      (send self :put :rhand-model (instance dummy-thk-hand-robot :init :name :r-thk-hand))
+     (when (< (norm (send (send (send self :worldcoords) :transformation
+                                (send (car (send self :links)) :worldcoords)) :pos))
+              0.1)
+       ;; for new collada version
+       (send self :dissoc (car (send self :links)))
+       (send self :translate (float-vector 0 0 -1023.5)) ;; translation distance should be changed depend on WAIST Joint translation in .wrl
+       (send self :assoc (car (send self :links)))
+       (send self :reset-coords)
+       )
      ))
   (:add-hoist-point-coords
    ()
