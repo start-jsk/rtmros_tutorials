@@ -1,0 +1,49 @@
+replace_xmls:
+  - match_rule:
+      tag: include
+      attribute:
+        - name: file
+          value: '$(find jsk_hrp2_ros_bridge)/launch/hrp2017_ros_bridge.launch'
+    replaced_attribute_name: file
+    replaced_attribute_value: '$(find hrpsys_gazebo_tutorials)/launch/hrp2017_ros_bridge_gazebo.launch'
+  - match_rule:
+      tag: arg
+      attribute:
+        - name: name
+          value: NTP_HOSTNAME
+      parent_tag: include
+      parent_attribute:
+        - name: file
+          value: '$(find jsk_hrp2_ros_bridge)/launch/jsk_robot_common.launch'
+    replaced_attribute_name: value
+    replaced_attribute_value: localhost
+  - match_rule:
+      tag: node
+      attribute:
+        - name: pkg
+          value: rosserial_python
+    replaced_xml: ''
+  - match_rule:
+      tag: include
+      attribute:
+        - name: file
+          value: '$(find jsk_pcl_ros)/launch/openni2_local.launch'
+    replaced_xml: ''
+  - match_rule:
+      tag: node
+      attribute:
+        - name: pkg
+          value: dynamic_reconfigure
+    replaced_xml: ''
+  - match_rule:
+      tag: include
+      attribute:
+        - name: file
+          value: '$(find jsk_hrp2_ros_bridge)/launch/chest_camera.launch'
+    replaced_xml: ''
+  - match_rule:
+      tag: include
+      attribute:
+        - name: file
+          value: '$(find voice_text)/launch/voice_text.launch'
+    replaced_xml: ''

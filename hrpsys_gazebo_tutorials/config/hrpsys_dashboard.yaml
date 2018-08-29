@@ -1,0 +1,5 @@
+hrpsys_rtcd_start_command: "xterm -T \"RTCD\" -e 'PS1=user && source ~/.$(basename $SHELL)rc && rossetlocal && `rospack find hrpsys_gazebo_tutorials`/scripts/rtcd_start_command.sh --remote'"
+hrpsys_rtcd_stop_command: "xterm -e \"pkill openhrp-model-l* && pkill rtcd\""
+
+hrpsys_ros_bridge_start_command: "xterm -T \"Auditor\" -e \"PS1=user && source ~/.$(basename $SHELL)rc && rossetlocal && `rospack find hrpsys_gazebo_tutorials`/scripts/hrp2-launch-ros-bridge.sh\""
+hrpsys_ros_bridge_stop_command: "xterm -e \"source ~/.$(basename $SHELL)rc && `rospack find hrpsys_gazebo_tutorials`/scripts/kill-ros-bridge.sh\""

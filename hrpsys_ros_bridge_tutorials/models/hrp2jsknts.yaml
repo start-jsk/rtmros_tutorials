@@ -164,27 +164,167 @@ replace_xmls:
       tag: inertia
       attribute_name: ixx
       attribute_value: '0'
-    replaced_xml: '<inertia ixx="1e-04" ixy="0" ixz="0" iyy="1e-04" iyz="0" izz="1e-04"/>'
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
-      attribute_value: LLEG_LINK5
-    replaced_xml: '<gazebo reference="LLEG_LINK5">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+      attribute_value: RLEG_LINK0
+    replaced_xml: '<gazebo reference="RLEG_LINK0">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RLEG_LINK1
+    replaced_xml: '<gazebo reference="RLEG_LINK1">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RLEG_LINK2
+    replaced_xml: '<gazebo reference="RLEG_LINK2">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RLEG_LINK3
+    replaced_xml: '<gazebo reference="RLEG_LINK3">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RLEG_LINK4
+    replaced_xml: '<gazebo reference="RLEG_LINK4">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: RLEG_LINK5
-    replaced_xml: '<gazebo reference="RLEG_LINK5">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
-  - match_rule:
-      tag: gazebo
-      attribute_name: reference
-      attribute_value: LLEG_LINK6
-    replaced_xml: '<gazebo reference="LLEG_LINK6">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml: '<gazebo reference="RLEG_LINK5">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: RLEG_LINK6
-    replaced_xml: '<gazebo reference="RLEG_LINK6">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml: '<gazebo reference="RLEG_LINK6">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LLEG_LINK0
+    replaced_xml: '<gazebo reference="LLEG_LINK0">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LLEG_LINK1
+    replaced_xml: '<gazebo reference="LLEG_LINK1">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LLEG_LINK2
+    replaced_xml: '<gazebo reference="LLEG_LINK2">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LLEG_LINK3
+    replaced_xml: '<gazebo reference="LLEG_LINK3">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LLEG_LINK4
+    replaced_xml: '<gazebo reference="LLEG_LINK4">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LLEG_LINK5
+    replaced_xml: '<gazebo reference="LLEG_LINK5">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n   <selfCollide>true</selfCollide>\n   </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LLEG_LINK6
+    replaced_xml: '<gazebo reference="LLEG_LINK6">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: BODY
+    replaced_xml: '<gazebo reference="BODY">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: CHEST_LINK0
+    replaced_xml: '<gazebo reference="CHEST_LINK0">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: CHEST_LINK1
+    replaced_xml: '<gazebo reference="CHEST_LINK1">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: HEAD_LINK0
+    replaced_xml: '<gazebo reference="CHEST_LINK0">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: HEAD_LINK1
+    replaced_xml: '<gazebo reference="CHEST_LINK1">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RARM_LINK0
+    replaced_xml: '<gazebo reference="RARM_LINK0">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RARM_LINK1
+    replaced_xml: '<gazebo reference="RARM_LINK1">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RARM_LINK2
+    replaced_xml: '<gazebo reference="RARM_LINK2">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RARM_LINK3
+    replaced_xml: '<gazebo reference="RARM_LINK3">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RARM_LINK4
+    replaced_xml: '<gazebo reference="RARM_LINK4">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RARM_LINK5
+    replaced_xml: '<gazebo reference="RARM_LINK5">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RARM_LINK6
+    replaced_xml: '<gazebo reference="RARM_LINK6">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LARM_LINK1
+    replaced_xml: '<gazebo reference="LARM_LINK1">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LARM_LINK2
+    replaced_xml: '<gazebo reference="LARM_LINK2">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LARM_LINK3
+    replaced_xml: '<gazebo reference="LARM_LINK3">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LARM_LINK4
+    replaced_xml: '<gazebo reference="LARM_LINK4">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LARM_LINK5
+    replaced_xml: '<gazebo reference="LARM_LINK5">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LARM_LINK6
+    replaced_xml: '<gazebo reference="LARM_LINK6">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: limit
       attribute_name: velocity
@@ -195,6 +335,22 @@ replace_xmls:
       attribute_name: effort
       attribute_value: 100
     replaced_attribute_value: 1000
+  - match_rule:
+      tag: dynamics
+      attribute_name: friction
+      attribute_value: 0
+    replaced_attribute_value: 1
+  - match_rule:
+      tag: dynamics
+      attribute_name: damping
+      attribute_value: 0.2
+    replaced_attribute_value: 10
+  - match_rule:
+      tag: cfmDamping
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: HRP2JSKNTS
+    replaced_xml: '<implicitSpringDamper>true</implicitSpringDamper>'
   # for hands
   - match_rule:
       tag: inertia
@@ -236,32 +392,32 @@ replace_xmls:
       tag: gazebo
       attribute_name: reference
       attribute_value: L_INDEXMP_R_LINK
-    replaced_xml:  '<gazebo reference="L_INDEXMP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="L_INDEXMP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: L_INDEXMP_P_LINK
-    replaced_xml:  '<gazebo reference="L_INDEXMP_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="L_INDEXMP_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: L_INDEXPIP_R_LINK
-    replaced_xml:  '<gazebo reference="L_INDEXPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="L_INDEXPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: L_MIDDLEPIP_R_LINK
-    replaced_xml:  '<gazebo reference="L_MIDDLEPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="L_MIDDLEPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: L_THUMBCM_Y_LINK
-    replaced_xml:  '<gazebo reference="L_THUMBCM_Y_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="L_THUMBCM_Y_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: L_THUMBCM_P_LINK
-    replaced_xml:  '<gazebo reference="L_THUMBCM_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="L_THUMBCM_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: inertia
       parent_depth: 2
@@ -302,29 +458,29 @@ replace_xmls:
       tag: gazebo
       attribute_name: reference
       attribute_value: R_INDEXMP_R_LINK
-    replaced_xml:  '<gazebo reference="R_INDEXMP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="R_INDEXMP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: R_INDEXMP_P_LINK
-    replaced_xml:  '<gazebo reference="R_INDEXMP_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="R_INDEXMP_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: R_INDEXPIP_R_LINK
-    replaced_xml:  '<gazebo reference="R_INDEXPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="R_INDEXPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: R_MIDDLEPIP_R_LINK
-    replaced_xml:  '<gazebo reference="R_MIDDLEPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="R_MIDDLEPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: R_THUMBCM_Y_LINK
-    replaced_xml:  '<gazebo reference="R_THUMBCM_Y_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="R_THUMBCM_Y_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
       attribute_value: R_THUMBCM_P_LINK
-    replaced_xml:  '<gazebo reference="R_THUMBCM_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+    replaced_xml:  '<gazebo reference="R_THUMBCM_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n    <selfCollide>true</selfCollide>\n  </gazebo>'

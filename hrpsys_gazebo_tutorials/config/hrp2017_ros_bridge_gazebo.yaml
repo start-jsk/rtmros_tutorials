@@ -1,0 +1,24 @@
+replace_xmls:
+  - match_rule:
+      tag: arg
+      attribute:
+        - name: name
+          value: nameserver
+      parent_tag: include
+      parent_attribute:
+        - name: file
+          value: '$(find jsk_hrp2_ros_bridge)/launch/jsk_hrp2_ros_bridge.launch'
+    replaced_attribute_name: default
+    replaced_attribute_value: localhost
+  - match_rule:
+      tag: include
+      attribute:
+        - name: file
+          value: '$(find jsk_hrp2_ros_bridge)/launch/jsk_hrp2_ros_bridge.launch'
+    added_xml: '<arg name="CONF_FILE" value="$(find hrpsys_gazebo_tutorials)/config/HRP2JSKNTS.conf"/>'
+  - match_rule:
+      tag: include
+      attribute:
+        - name: file
+          value: '$(find jsk_hrp2_ros_bridge)/launch/jsk_hrp2_ros_bridge.launch'
+    added_xml: '<arg name="MODEL_FILE" value="$(find hrp2_models)/HRP2JSKNTS_for_OpenHRP3/HRP2JSKNTSmain.wrl"/>'

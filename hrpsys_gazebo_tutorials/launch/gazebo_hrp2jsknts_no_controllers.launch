@@ -3,11 +3,10 @@
   <arg name="WORLD" default="$(find hrpsys_gazebo_general)/worlds/empty.world"/>
   <arg name="PAUSED" default="false"/>
   <arg name="SYNCHRONIZED" default="false" />
+  <arg name="CALIB_FILE" default="hrp2017_xtion_calib_20170703.yaml"/>
 
   <rosparam command="load"
-            file="$(find hrpsys_gazebo_tutorials)/config/HRP3HAND_L.yaml" ns="HRP3HAND_L" />
-  <rosparam command="load"
-            file="$(find hrpsys_gazebo_tutorials)/config/HRP3HAND_R.yaml" ns="HRP3HAND_R" />
+            file="$(find hrpsys_gazebo_tutorials)/config/HRP3HAND.yaml" ns="HRP3HAND" />
 
   <include file="$(find hrpsys_gazebo_general)/launch/gazebo_robot_no_controllers.launch">
     <arg name="ROBOT_TYPE" value="HRP2JSKNTS" />
@@ -19,5 +18,8 @@
     <arg name="SYNCHRONIZED" value="$(arg SYNCHRONIZED)" />
     <arg name="USE_INSTANCE_NAME" value="true" />
     <arg name="gzname" value="$(arg gzname)" />
+    <arg name="use_robot_state_publisher" value="false"/>
+    <arg name="USE_CALIBRATED_URDF" value="true"/>
+    <arg name="CALIB_FILE_COMMAND" value="$(find euscollada)/scripts/urdf_patch.py patch $(find hrpsys_gazebo_tutorials)/robot_models/HRP2JSKNTS/HRP2JSKNTS.urdf $(find jsk_hrp2_ros_bridge)/calib_data/$(arg CALIB_FILE)"/>
   </include>
 </launch>

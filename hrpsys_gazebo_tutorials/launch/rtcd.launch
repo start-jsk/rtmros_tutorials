@@ -1,0 +1,35 @@
+<launch>
+  <arg name="nameserver" default="localhost" />
+  <arg name="corbaport" default="15005" />
+  <env name="LANG" value="C" />
+  <env name="ORBgiopMaxMsgSize" value="2147483648" />
+  <env name="RTCTREE_NAMESERVERS" value="$(arg nameserver):$(arg corbaport)" />
+
+  <arg name="SIMULATOR_NAME" default="RobotHardware0"/>
+
+  <arg name="ROBOT_TYPE" default="HRP2JSKNTS" /> 
+  <arg name="SYNCHRONIZED" default="false" />
+  <arg name="IOB_SUBSTEPS" default="5" />
+
+  <arg name="HANDCONTROL_HRPSYS_GAZEBO_IOB_NAME" default="hrp3hand_hrpsys_gazebo_iob" />
+  <arg name="HANDCONTROL_HRPSYS_GAZEBO_ROBOTNAME" default="HRP3HAND" />
+  <arg name="HANDCONTROL_HRPSYS_GAZEBO_CONFIGURATION" default="hrp3hand_hrpsys_gazebo_configuration" />
+  
+  <arg name="ROBOT_INSTANCE_NAME" default="$(arg ROBOT_TYPE)" />
+  <env if="$(arg SYNCHRONIZED)"
+       name="HRPSYS_GAZEBO_IOB_SYNCHRONIZED" value="1" />
+  <env if="$(arg SYNCHRONIZED)"
+       name="HRPSYS_GAZEBO_IOB_SUBSTEPS" value="$(arg IOB_SUBSTEPS)" />
+  <env name="HRPSYS_GAZEBO_ROBOTNAME" value="$(arg ROBOT_INSTANCE_NAME)" />
+
+  <env name="HANDCONTROL_HRPSYS_GAZEBO_IOB_NAME" value="$(arg HANDCONTROL_HRPSYS_GAZEBO_IOB_NAME)" />
+  <env name="HANDCONTROL_HRPSYS_GAZEBO_ROBOTNAME" value="$(arg HANDCONTROL_HRPSYS_GAZEBO_ROBOTNAME)" />
+  <env name="HANDCONTROL_HRPSYS_GAZEBO_CONFIGURATION" value="$(arg HANDCONTROL_HRPSYS_GAZEBO_CONFIGURATION)" />
+  
+  <arg name="ARGS" default=""/>
+  <arg name="RESPAWN_RTCD" default="false"/>
+  
+  <node name="hrpsys" pkg="openrtm_aist" type="rtcd" respawn="$(arg RESPAWN_RTCD)" output="screen"
+        args="$(arg ARGS)" />
+
+</launch>

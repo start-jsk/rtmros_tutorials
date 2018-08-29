@@ -14,6 +14,9 @@
   <build_depend>openhrp3</build_depend>
   <build_depend>hrpsys</build_depend>
   <build_depend>euscollada</build_depend>
+  <build_depend>jsk_hrp2_ros_bridge</build_depend>
+  <build_depend>hrp2_models</build_depend>
+  <build_depend>xacro</build_depend>
 
   <run_depend>openhrp3</run_depend>
   <run_depend>hrpsys</run_depend>
@@ -22,5 +25,11 @@
   <run_depend>hrpsys_ros_bridge_tutorials</run_depend>
   <run_depend>hrpsys_gazebo_general</run_depend>
   <run_depend>collada_urdf_jsk_patch</run_depend>
+  <run_depend>jsk_hrp2_ros_bridge</run_depend>
+  <run_depend>hrp2_models</run_depend>
 
+  <export>
+    <rqt_gui plugin="${prefix}/rqt_plugin.xml"/>
+  </export>
+  
 </package>

@@ -1,7 +1,9 @@
 hrpsys_gazebo_configuration:
 ### velocity feedback for joint control, use parameter gains/joint_name/p_v
-  use_velocity_feedback: true
-  use_joint_effort: true
+  use_velocity_feedback: false
+  use_joint_effort: false
+  use_pd_feedback: true
+  use_servo_on: true
   iob_rate: 250
 ### loose synchronization default true
 # use_loose_synchronized: false
@@ -11,7 +13,7 @@ hrpsys_gazebo_configuration:
 ### name of robot (using for namespace)
   robotname: HRP2JSKNTS
 ### joint_id (order) conversion from gazebo to hrpsys, joint_id_list[gazebo_id] := hrpsys_id
-  joint_id_list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45]
+  joint_id_list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33]
 ### joints : list used in gazebo, sizeof(joint_id_list) == sizeof(joints)
   joints:
     - RLEG_JOINT0
@@ -48,64 +50,42 @@ hrpsys_gazebo_configuration:
     - LARM_JOINT5
     - LARM_JOINT6
     - LARM_JOINT7
-    - L_THUMBCM_Y
-    - L_THUMBCM_P
-    - L_INDEXMP_R
-    - L_INDEXMP_P
-    - L_INDEXPIP_R
-    - L_MIDDLEPIP_R
-    - R_THUMBCM_Y
-    - R_THUMBCM_P
-    - R_INDEXMP_R
-    - R_INDEXMP_P
-    - R_INDEXPIP_R
-    - R_MIDDLEPIP_R
 ## jointid:
   gains:
-    CHEST_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0}
-    CHEST_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0}
-    HEAD_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    HEAD_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    LARM_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    LARM_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    LARM_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    LARM_JOINT3: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    LARM_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    LARM_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    LARM_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    RARM_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    RARM_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    RARM_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    RARM_JOINT3: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    RARM_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    RARM_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    RARM_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0}
-    LLEG_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0} # CRTOCH-Y
-    LLEG_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0} # CRTOCH-R
-    LLEG_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 325.0} # CRTOCH-P
-    LLEG_JOINT3: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 450.0} # KNEE-P
-    LLEG_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0} # ANKLE-P
-    LLEG_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0} # ANKLE-R
-    LLEG_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0} # TOE-R
-    RLEG_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0}
-    RLEG_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0}
-    RLEG_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 325.0}
-    RLEG_JOINT3: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 450.0}
-    RLEG_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0}
-    RLEG_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0}
-    RLEG_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0}
-    L_INDEXMP_R:   {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    L_INDEXMP_P:   {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    L_INDEXPIP_R:  {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    L_MIDDLEPIP_R: {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    L_THUMBCM_Y:   {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    L_THUMBCM_P:   {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    R_INDEXMP_R:   {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    R_INDEXMP_P:   {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    R_INDEXPIP_R:  {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    R_MIDDLEPIP_R: {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    R_THUMBCM_Y:   {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
-    R_THUMBCM_P:   {p: 10.0, d:   0.01, i: 0.0, i_clamp: 0.0, p_v: 10.0}
+    CHEST_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0}
+    CHEST_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0}
+    HEAD_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    HEAD_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    LARM_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    LARM_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    LARM_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    LARM_JOINT3: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    LARM_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    LARM_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    LARM_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    LARM_JOINT7: {p: 0.0, d:   0.0, i: 0.0, i_clamp: 0.0, p_v: 0.0, vp: 0.0}
+    RARM_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    RARM_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    RARM_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    RARM_JOINT3: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    RARM_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    RARM_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    RARM_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 150.0, vp: 0.0}
+    RARM_JOINT7: {p: 0.0, d:   0.0, i: 0.0, i_clamp: 0.0, p_v: 0.0, vp: 0.0}
+    LLEG_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0} # CRTOCH-Y
+    LLEG_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0} # CRTOCH-R
+    LLEG_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 325.0, vp: 0.0} # CRTOCH-P
+    LLEG_JOINT3: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 450.0, vp: 0.0} # KNEE-P
+    LLEG_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0} # ANKLE-P
+    LLEG_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0} # ANKLE-R
+    LLEG_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0} # TOE-R
+    RLEG_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0}
+    RLEG_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0}
+    RLEG_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 325.0, vp: 0.0}
+    RLEG_JOINT3: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 450.0, vp: 0.0}
+    RLEG_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0}
+    RLEG_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0}
+    RLEG_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0}
 
   force_torque_sensors:
     - rfsensor
