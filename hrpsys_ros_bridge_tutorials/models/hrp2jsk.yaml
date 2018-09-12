@@ -101,6 +101,7 @@ angle-vector:
 
 # for gazebo simulation
 replace_xmls:
+## Foot
   - match_rule:
       tag: gazebo
       attribute_name: reference
@@ -123,6 +124,28 @@ replace_xmls:
       sub_attribute_name: filename
       sub_attribute_value: package://hrpsys_ros_bridge_tutorials/models/HRP2JSK_meshes/LLEG_LINK5_mesh.dae
     replaced_xml: '<collision>\n      <origin xyz="0.015 0.010 -0.08" rpy="0 -0 0"/>\n      <geometry>\n        <box size="0.240 0.138 0.07"/></geometry></collision>'
+## Gripepr
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LARM_LINK6
+    replaced_xml: '<gazebo reference="LARM_LINK6">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>100.0</mu1>\n    <mu2>100.0</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LARM_LINK7
+    replaced_xml: '<gazebo reference="LARM_LINK7">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>100.0</mu1>\n    <mu2>100.0</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RARM_LINK6
+    replaced_xml: '<gazebo reference="RARM_LINK6">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>100.0</mu1>\n    <mu2>100.0</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RARM_LINK7
+    replaced_xml: '<gazebo reference="RARM_LINK7">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>100.0</mu1>\n    <mu2>100.0</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+## joint velocity
   - match_rule:
       tag: limit
       attribute_name: velocity
