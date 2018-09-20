@@ -151,6 +151,7 @@
       <linkname>BODY</linkname>
     </plugin>
   </gazebo>
+  <!-- add CranePlugin -->
   <gazebo>
     <plugin filename="libCranePlugin.so" name="crane_plugin" >
       <objname>HRP2JSKNTS</objname>
@@ -164,4 +165,18 @@
       <damp>10000</damp>
     </plugin>
   </gazebo>
+  <!-- add ThermoPlugin -->
+  <gazebo>
+    <plugin filename="libThermoPlugin.so" name="rleg_thermo_plugin">
+      <robotname>HRP2JSKNTS</robotname>
+      <controllername>RLEG_thermo</controllername>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libThermoPlugin.so" name="lleg_thermo_plugin">
+      <robotname>HRP2JSKNTS</robotname>
+      <controllername>LLEG_thermo</controllername>
+    </plugin>
+  </gazebo>
+  
 </robot>

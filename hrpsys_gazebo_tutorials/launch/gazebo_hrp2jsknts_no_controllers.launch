@@ -6,6 +6,8 @@
   <arg name="CALIB_FILE" default="hrp2017_xtion_calib_20170703.yaml"/>
 
   <rosparam command="load"
+            file="$(find jsk_hrp2_ros_bridge)/config/HRP2JSKNTS_gazebo_private.yaml" ns="HRP2JSKNTS" />
+  <rosparam command="load"
             file="$(find hrpsys_gazebo_tutorials)/config/HRP3HAND.yaml" ns="HRP3HAND" />
 
   <include file="$(find hrpsys_gazebo_general)/launch/gazebo_robot_no_controllers.launch">

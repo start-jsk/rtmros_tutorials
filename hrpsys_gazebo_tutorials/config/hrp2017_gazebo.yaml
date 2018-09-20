@@ -20,9 +20,15 @@ replace_xmls:
   - match_rule:
       tag: node
       attribute:
-        - name: pkg
-          value: rosserial_python
-    replaced_xml: ''
+        - name: name
+          value: thermo_publisher
+    replaced_xml: '<node name="thermo_publisher" pkg="topic_tools" type="relay" args="/HRP2JSKNTS/RLEG_thermo/case thermo_rleg" />'
+  - match_rule:
+      tag: node
+      attribute:
+        - name: name
+          value: thermo_publisher2
+    replaced_xml: '<node name="thermo_publisher2" pkg="topic_tools" type="relay" args="/HRP2JSKNTS/LLEG_thermo/case thermo_lleg" />'
   - match_rule:
       tag: include
       attribute:
