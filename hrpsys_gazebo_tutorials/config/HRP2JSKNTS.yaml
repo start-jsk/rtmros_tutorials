@@ -78,14 +78,14 @@ hrpsys_gazebo_configuration:
     LLEG_JOINT3: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 450.0, vp: 0.0} # KNEE-P
     LLEG_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0} # ANKLE-P
     LLEG_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0} # ANKLE-R
-    LLEG_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0} # TOE-R
+    LLEG_JOINT6: {p: 120.0, d:   0.013, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0} # TOE-R
     RLEG_JOINT0: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0}
     RLEG_JOINT1: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0}
     RLEG_JOINT2: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 325.0, vp: 0.0}
     RLEG_JOINT3: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 450.0, vp: 0.0}
     RLEG_JOINT4: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0}
     RLEG_JOINT5: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 350.0, vp: 0.0}
-    RLEG_JOINT6: {p: 700.0, d:   0.075, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0}
+    RLEG_JOINT6: {p: 120.0, d:   0.013, i: 0.0, i_clamp: 0.0, p_v: 250.0, vp: 0.0}
 
   force_torque_sensors:
     - rfsensor

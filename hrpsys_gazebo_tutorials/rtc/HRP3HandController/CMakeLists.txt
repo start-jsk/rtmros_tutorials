@@ -23,12 +23,14 @@ set(comp_sources handcontrol.cpp ${HRP3HANDCONTROLLER_SOURCE}/HRP3HandController
 set(libs hrpIo2_gazebo hrpModel-3.1 hrpCollision-3.1 hrpUtil-3.1 hrpsysBaseStub HRP3HandControllerServiceStub)
 
 if ("$ENV{HRP2NO}" STREQUAL "16")
-  set(HRPNO "-DHRPNO=16")
+  set(HRP2NO "-DHRPNO=16")
 elseif ("$ENV{HRP2NO}" STREQUAL "17")
-  set(HRPNO "-DHRPNO=17")
+  set(HRP2NO "-DHRPNO=17")
 else ()
-  set(HRPNO "-DHRPNO=16")
+  set(HRP2NO "-DHRPNO=16")
 endif()
+
+set(handcontrol_compile_flags "${HRP2NO}")
 
 include_directories(${jsk_hrp2_ros_bridge_INCLUDE_DIRS} ${HRP3HANDCONTROLLER_SOURCE} ${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${SequencePlayerDirectory} ${iobDirectory})
@@ -41,9 +43,11 @@ add_library(HRP3HandController SHARED ${comp_sources})
 target_link_libraries(HRP3HandController ${libs})
 set_target_properties(HRP3HandController PROPERTIES PREFIX "")
 set_target_properties(HRP3HandController PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set_target_properties(HRP3HandController PROPERTIES COMPILE_FLAGS ${handcontrol_compile_flags})
 
 add_executable(HRP3HandControllerComp ${HRP3HANDCONTROLLER_SOURCE}/HRP3HandControllerComp.cpp ${comp_sources})
 target_link_libraries(HRP3HandControllerComp ${libs} ${omniorb_LIBRARIES} ${omnidynamic_LIBRARIES} RTC coil dl pthread ${catkin_LIBRARIES})
+set_target_properties(HRP3HandControllerComp PROPERTIES COMPILE_FLAGS ${handcontrol_compile_flags})
 
 install(TARGETS HRP3HandController
   LIBRARY DESTINATION lib CONFIGURATIONS Release Debug RELWITHDEBINFO
