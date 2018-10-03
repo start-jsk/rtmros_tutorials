@@ -560,7 +560,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # abc setting
         abcp=self.abc_svc.getAutoBalancerParam()[1]
         #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0]];
-        abcp.default_zmp_offsets=[[0.01, 0.01, 0.0], [0.01, -0.01, 0.0]]; # 20170704
+        abcp.default_zmp_offsets=[[0.01, 0.0, 0.0], [0.01, 0.0, 0.0]]; # 20170704
         abcp.move_base_gain=1.0
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
