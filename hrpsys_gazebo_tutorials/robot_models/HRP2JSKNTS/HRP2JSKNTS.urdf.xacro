@@ -165,6 +165,33 @@
       <damp>10000</damp>
     </plugin>
   </gazebo>
+  <!-- chestcrane mode -->
+  <!-- <gazebo> -->
+  <!--   <plugin filename="libCranePlugin.so" name="crane_plugin" > -->
+  <!--     <objname>HRP2JSKNTS</objname> -->
+  <!--     <linkname>CHEST_LINK1</linkname> -->
+  <!--     <liftheight>1.0</liftheight> -->
+  <!--     <lowerheight>0.4</lowerheight> -->
+  <!--     <liftvelocity>0.1</liftvelocity> -->
+  <!--     <lowervelocity>0.03</lowervelocity> -->
+  <!--     <pgain>2500</pgain> -->
+  <!--     <dgain>500</dgain> -->
+  <!--     <damp>10000</damp> -->
+  <!--   </plugin> -->
+  <!-- </gazebo> -->
+  <!-- <gazebo> -->
+  <!--   <plugin filename="libCranePlugin.so" name="chest_crane_plugin" > -->
+  <!--     <objname>HRP2JSKNTS</objname> -->
+  <!--     <linkname>BODY</linkname> -->
+  <!--     <liftheight>1.0</liftheight> -->
+  <!--     <lowerheight>0.4</lowerheight> -->
+  <!--     <liftvelocity>0.1</liftvelocity> -->
+  <!--     <lowervelocity>0.03</lowervelocity> -->
+  <!--     <pgain>2500</pgain> -->
+  <!--     <dgain>500</dgain> -->
+  <!--     <damp>10000</damp> -->
+  <!--   </plugin> -->
+  <!-- </gazebo> -->
   <!-- add ThermoPlugin -->
   <gazebo>
     <plugin filename="libThermoPlugin.so" name="rleg_thermo_plugin">
