@@ -4,17 +4,17 @@ import rospkg
 hrpsys_gazebo_tutorials_path=rospkg.RosPack().get_path("hrpsys_gazebo_tutorials")
 
 class CraneButtonMenu(MenuDashWidget):
-    def __init__(self):
+    def __init__(self,topicname="CranePlugin",cranename="Crane"):
         icons = [['bg-grey.svg', 'ic-runstop-off.svg'],
                  ['bg-green.svg', 'ic-runstop-on.svg'],
                  ['bg-red.svg', 'ic-runstop-off.svg']]
         super(CraneButtonMenu, self).__init__('set Crane', icons)
         self.update_state(0)
-        self.add_action('Crane up', self.on_up)
-        self.add_action('Crane down', self.on_down)
+        self.add_action(cranename + ' up', self.on_up)
+        self.add_action(cranename + ' down', self.on_down)
         self.setFixedSize(self._icons[0].actualSize(QSize(50, 30)))
-        self.lift_command_pub = rospy.Publisher("/HRP2JSKNTS/CranePlugin/LiftCommand", std_msgs.msg.Empty, queue_size = 1)
-        self.lower_command_pub = rospy.Publisher("/HRP2JSKNTS/CranePlugin/LowerCommand", std_msgs.msg.Empty, queue_size = 1)
+        self.lift_command_pub = rospy.Publisher("/HRP2JSKNTS/" + topicname + "/LiftCommand", std_msgs.msg.Empty, queue_size = 1)
+        self.lower_command_pub = rospy.Publisher("/HRP2JSKNTS/" + topicname + "/LowerCommand", std_msgs.msg.Empty, queue_size = 1)
     def on_up(self):
         self.lift_command_pub.publish(std_msgs.msg.Empty())
     def on_down(self):
@@ -28,7 +28,9 @@ class JSKHRP2gazeboDashboard(JSKHRP2Dashboard):
         rospy.set_param("hrpsys_config_script_name", "jsk_hrp2_gazebo_setup")
         rospy.set_param("hrpsys_nshost", "localhost")
         self._crane_button = CraneButtonMenu()
+        self._chest_crane_button = CraneButtonMenu("ChestCranePlugin","ChestCrane")
     def get_widgets(self):
         ret = super(JSKHRP2gazeboDashboard,self).get_widgets()
         ret[-2].append(self._crane_button)
+        ret[-2].append(self._chest_crane_button)
         return ret
