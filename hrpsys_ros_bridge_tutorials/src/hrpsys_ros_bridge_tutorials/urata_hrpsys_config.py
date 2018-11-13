@@ -750,7 +750,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.jaxonCollisionFreeResetPose(), 10.0)
 
     def setResetLandingPose(self):
-        if self.ROBOT_NAME == 0:
+        if self.ROBOT_NAME == "JAXON_BLUE":
             self.seq_svc.setJointAngles(self.jaxonBlueResetLandingPose(), 5.0)
         if self.ROBOT_NAME.find("JAXON") == 0:
             self.seq_svc.setJointAngles(self.jaxonResetLandingPose(), 5.0)
