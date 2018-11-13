@@ -69,10 +69,10 @@ larm-end-coords:
 ## KAWADA FOOT : CAD -> -0.096; gomugutsu+midori -> -0.004
 rleg-end-coords:
   parent: RLEG_LINK5
-  translate : [0, 0, -0.100]
+  translate : [0, 0, -0.124]
 lleg-end-coords:
   parent: LLEG_LINK5
-  translate : [0, 0, -0.100]
+  translate : [0, 0, -0.124]
 ## JSK FOOT
 # rleg-end-coords:
 #   parent: RLEG_LINK5
