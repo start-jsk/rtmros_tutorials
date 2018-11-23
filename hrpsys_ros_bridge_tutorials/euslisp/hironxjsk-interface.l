@@ -33,11 +33,29 @@
     (&key (debug-view nil) (ros-pkg-name "hrpsys_ros_bridge"))
     ;; First, define ROSBridge method for old impedance controller
     (if (ros::resolve-ros-path "package://hironx_ros_bridge")
-      (send-super :define-all-ROSBridge-srv-methods :ros-pkg-name "hironx_ros_bridge"))
+      (send self :define-all-ROSBridge-srv-methods-from-idl-dir
+            :ros-pkg-name "hironx_ros_bridge" :idl-dir "idl_315_1_9"))
     ;; Second, define ROSBridge method based on hrpsys_ros_bridge
     ;; Method created already is not overwritten, so we can keep using old impedance controller
     ;; See :get-ROSBridge-method-def-macro
-    (send-super :define-all-ROSBridge-srv-methods)))
+    (send-super :define-all-ROSBridge-srv-methods))
+  (:define-all-ROSBridge-srv-methods-from-idl-dir
+    (&key (debug-view nil) (ros-pkg-name "hrpsys_ros_bridge") (idl-dir "idl"))
+    (let ((srv-fnames (send self :get-ROSBridge-srv-fnames ros-pkg-name)))
+      (dolist (idl (send self :get-ROSBridge-idl-fnames-from-dir ros-pkg-name idl-dir))
+        (let ((rtc-name (pathname-name idl)))
+          (dolist (srv-name (mapcar #'pathname-name (remove-if-not #'(lambda (x) (and (substringp rtc-name x) (not (= (char x 0) (char "." 0))))) srv-fnames)))
+            (let ((method-def (send self :get-ROSBridge-method-def-macro rtc-name srv-name ros-pkg-name)))
+              (when method-def
+                (if debug-view (pprint (macroexpand method-def)))
+                (eval method-def))))))))
+  (:get-ROSBridge-fnames-from-dir-and-type
+    (dir-name type-name &optional (ros-pkg-name "hrpsys_ros_bridge"))
+    (let ((path (ros::resolve-ros-path (format nil "package://~A" ros-pkg-name))))
+      (remove-if-not #'(lambda (x) (substringp (format nil ".~A" type-name) x)) (directory (format nil "~A/~A" path dir-name)))))
+  (:get-ROSBridge-idl-fnames-from-dir
+    (&optional (ros-pkg-name "hrpsys_ros_bridge") (idl-dir "idl"))
+    (send self :get-ROSBridge-fnames-from-dir-and-type idl-dir "idl" ros-pkg-name)))
 
 ;; AbsoluteForceSensor
 ;; Overwrite RemoveForceSensorLinkOffset methods
