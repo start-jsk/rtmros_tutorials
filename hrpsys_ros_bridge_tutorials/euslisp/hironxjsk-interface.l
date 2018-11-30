@@ -264,10 +264,18 @@
     (send self :servocontrollerservice_servoon))
   (:hand-servo-off ()
     (send self :servocontrollerservice_servooff))
-  (:set-hand-effort (&optional (effort 100))
+  (:hand-effort (&optional (hand :hands) effort)
     "effort is percentage"
-    (dolist (id (list 2 3 4 5 6 7 8 9))
-      (send self :servocontrollerservice_setmaxtorque :id id :percentage effort)))
+    (let ((ids (case hand
+                     (:hands (list 2 3 4 5 6 7 8 9))
+                     (:rhand (list 2 3 4 5))
+                     (:lhand (list 6 7 8 9))
+                     (t (error ";; No such hand: ~A~%." hand)))))
+      (if effort
+        ;; setmaxtorque
+        (mapcar #'(lambda (id) (send self :servocontrollerservice_setmaxtorque :id id :percentage effort)) ids)
+        ;; getmaxtorque
+        (mapcar #'(lambda (id) (send (send self :servocontrollerservice_getmaxtorque :id id) :percentage)) ids))))
   (:hand-width2angles (width)
     (let ((safetymargin 3) (l1 41.9) (l2 19) xpos a2pos a1radh a1rad a1deg)
       (when (or (< width 0) (> width (* (- (+ l1 l2) safetymargin) 2)))
@@ -280,7 +288,7 @@
       (float-vector a1deg (- a1deg) (- a1deg) a1deg)))
   (:set-hand-width (hand width &key (tm 1000) effort)
     (when effort
-      (send self :set-hand-effort effort))
+      (send self :hand-effort hand effort))
     (send self :hand-angle-vector (send self :hand-width2angles width) tm hand))
   (:start-grasp (&optional (arm :arms) &key effort)
     (cond ((eq arm :rarm)
