@@ -268,11 +268,20 @@
                       (:hands (list 2 3 4 5 6 7 8 9))
                       (:rhand (list 2 3 4 5))
                       (:lhand (list 6 7 8 9))
-                      (t (error ";; No such hand: ~A~%." hand)))))
-       ;; servocontroller_services_getjointangles do not consider servo offset
+                      (t (error ";; No such hand: ~A~%." hand))))
+           (dirs (case hand
+                       (:hands #f(1 1 -1 -1 1 1 -1 -1))
+                       ((:lhand :rhand) #f(1 1 -1 -1)))))
+       ;; servocontroller_services_getjointangles do not consider servo offset and direction
+       ;; servocontroller_services_getjointangle do not consider servo direction
+       ;; defined in /opt/jsk/etc/HIRONX/hrprtc/Robot.conf
+       ;; servo.id: 2,3,4,5, 6,7,8,9
+       ;; servo.offset: -0.78,0.0,-0.82,0.0, -0.85,0.0,-0.82,0.0
+       ;; servo.dir 1,1,-1,-1,1,1,-1,-1
        (map float-vector
-            #'(lambda (id) (send (send self :call-operation-return :servocontrollerservice_getjointangle :id id) :jv))
-            ids))))
+            #'(lambda (id dir)
+                (* dir (send (send self :call-operation-return :servocontrollerservice_getjointangle :id id) :jv)))
+            ids dirs))))
   (:hand-servo-on ()
     (send self :call-operation-return :servocontrollerservice_servoon))
   (:hand-servo-off ()
