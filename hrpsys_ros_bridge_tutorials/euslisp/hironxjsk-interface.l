@@ -272,8 +272,8 @@
            (dirs (case hand
                        (:hands #f(1 1 -1 -1 1 1 -1 -1))
                        ((:lhand :rhand) #f(1 1 -1 -1)))))
-       ;; servocontroller_services_getjointangles do not consider servo offset and direction
-       ;; servocontroller_services_getjointangle do not consider servo direction
+       ;; servocontrollerservice_getjointangles do not consider servo offset and direction
+       ;; servocontrollerservice_getjointangle do not consider servo direction
        ;; defined in /opt/jsk/etc/HIRONX/hrprtc/Robot.conf
        ;; servo.id: 2,3,4,5, 6,7,8,9
        ;; servo.offset: -0.78,0.0,-0.82,0.0, -0.85,0.0,-0.82,0.0
