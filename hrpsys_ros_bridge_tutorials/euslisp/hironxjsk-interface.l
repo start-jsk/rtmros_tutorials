@@ -248,18 +248,24 @@
 ;; and https://github.com/start-jsk/rtmros_tutorials/blob/0.1.6/hrpsys_ros_bridge_tutorials/euslisp/hrp2-common-interface.l
 (defmethod hironxjsk-interface
   (:hand-angle-vector
-    (av &optional (tm 1000) (hand :hands))
-    (let (av-rad-list)
-      ;; Convert deg float-vector (or list) to rad list
-      (dotimes (i (length av))
-        (push (deg2rad (elt av i)) av-rad-list))
-      (setq av-rad-list (reverse av-rad-list))
-      (cond ((eq hand :hands)
-             (send self :servocontrollerservice_setjointangles :jvs av-rad-list :tm (/ tm 1000.0)))
-            ((or (eq hand :rhand) (eq hand :lhand))
-             (send self :servocontrollerservice_setjointanglesofgroup
-                   :gname (string-downcase hand) :jvs av-rad-list :tm (/ tm 1000.0)))
-            (t (error ";; No such hand: ~A~%." hand)))))
+   (&optional (hand :hands) av (tm 1000))
+   (if av
+     ;; setjointangles
+     (let ((av-rad-list (map cons #'deg2rad av)))
+       (case hand
+             (:hands (send self :servocontrollerservice_setjointangles :jvs av-rad-list :tm (/ tm 1000.0)))
+             ((:rhand :lhand)
+              (send self :servocontrollerservice_setjointanglesofgroup :gname (string-downcase hand)
+                    :jvs av-rad-list :tm (/ tm 1000.0)))
+             (t (error ";; No such hand: ~A~%." hand))))
+     ;; getjointangles
+     (let ((ids (case hand
+                      (:hands (list 2 3 4 5 6 7 8 9))
+                      (:rhand (list 2 3 4 5))
+                      (:lhand (list 6 7 8 9))
+                      (t (error ";; No such hand: ~A~%." hand)))))
+       ;; servocontroller_services_getjointangles do not consider servo offset
+       (map float-vector #'(lambda (id) (send (send self :servocontrollerservice_getjointangle :id id) :jv)) ids))))
   (:hand-servo-on ()
     (send self :servocontrollerservice_servoon))
   (:hand-servo-off ()
@@ -289,7 +295,7 @@
   (:set-hand-width (hand width &key (tm 1000) effort)
     (when effort
       (send self :hand-effort hand effort))
-    (send self :hand-angle-vector (send self :hand-width2angles width) tm hand))
+    (send self :hand-angle-vector hand (send self :hand-width2angles width) tm))
   (:start-grasp (&optional (arm :arms) &key effort)
     (cond ((eq arm :rarm)
            (send self :set-hand-width :rhand 0 :effort effort))
