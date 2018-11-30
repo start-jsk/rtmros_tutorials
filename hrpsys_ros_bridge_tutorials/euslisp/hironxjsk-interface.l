@@ -37,7 +37,11 @@
     ;; Second, define ROSBridge method based on hrpsys_ros_bridge
     ;; Method created already is not overwritten, so we can keep using old impedance controller
     ;; See :get-ROSBridge-method-def-macro
-    (send-super :define-all-ROSBridge-srv-methods)))
+    (send-super :define-all-ROSBridge-srv-methods))
+  (:call-operation-return (method &rest args)
+    (do ((res (send* self method args)
+              (send* self method args)))
+        ((send res :operation_return) res))))
 
 ;; AbsoluteForceSensor
 ;; Overwrite RemoveForceSensorLinkOffset methods
@@ -253,10 +257,11 @@
      ;; setjointangles
      (let ((av-rad-list (map cons #'deg2rad av)))
        (case hand
-             (:hands (send self :servocontrollerservice_setjointangles :jvs av-rad-list :tm (/ tm 1000.0)))
+             (:hands (send self :call-operation-return :servocontrollerservice_setjointangles
+                           :jvs av-rad-list :tm (/ tm 1000.0)))
              ((:rhand :lhand)
-              (send self :servocontrollerservice_setjointanglesofgroup :gname (string-downcase hand)
-                    :jvs av-rad-list :tm (/ tm 1000.0)))
+              (send self :call-operation-return :servocontrollerservice_setjointanglesofgroup
+                    :gname (string-downcase hand) :jvs av-rad-list :tm (/ tm 1000.0)))
              (t (error ";; No such hand: ~A~%." hand))))
      ;; getjointangles
      (let ((ids (case hand
@@ -265,11 +270,13 @@
                       (:lhand (list 6 7 8 9))
                       (t (error ";; No such hand: ~A~%." hand)))))
        ;; servocontroller_services_getjointangles do not consider servo offset
-       (map float-vector #'(lambda (id) (send (send self :servocontrollerservice_getjointangle :id id) :jv)) ids))))
+       (map float-vector
+            #'(lambda (id) (send (send self :call-operation-return :servocontrollerservice_getjointangle :id id) :jv))
+            ids))))
   (:hand-servo-on ()
-    (send self :servocontrollerservice_servoon))
+    (send self :call-operation-return :servocontrollerservice_servoon))
   (:hand-servo-off ()
-    (send self :servocontrollerservice_servooff))
+    (send self :call-operation-return :servocontrollerservice_servooff))
   (:hand-effort (&optional (hand :hands) effort)
     "effort is percentage"
     (let ((ids (case hand
@@ -279,9 +286,13 @@
                      (t (error ";; No such hand: ~A~%." hand)))))
       (if effort
         ;; setmaxtorque
-        (mapcar #'(lambda (id) (send self :servocontrollerservice_setmaxtorque :id id :percentage effort)) ids)
+        (mapcar
+         #'(lambda (id) (send self :call-operation-return :servocontrollerservice_setmaxtorque :id id :percentage effort))
+         ids)
         ;; getmaxtorque
-        (mapcar #'(lambda (id) (send (send self :servocontrollerservice_getmaxtorque :id id) :percentage)) ids))))
+        (mapcar
+         #'(lambda (id) (send (send self :call-operation-return :servocontrollerservice_getmaxtorque :id id) :percentage))
+         ids))))
   (:hand-width2angles (width)
     (let ((safetymargin 3) (l1 41.9) (l2 19) xpos a2pos a1radh a1rad a1deg)
       (when (or (< width 0) (> width (* (- (+ l1 l2) safetymargin) 2)))
