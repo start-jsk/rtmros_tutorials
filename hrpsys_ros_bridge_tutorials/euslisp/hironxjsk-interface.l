@@ -252,7 +252,7 @@
 ;; and https://github.com/start-jsk/rtmros_tutorials/blob/0.1.6/hrpsys_ros_bridge_tutorials/euslisp/hrp2-common-interface.l
 (defmethod hironxjsk-interface
   (:hand-angle-vector
-   (&optional (hand :hands) av (tm 1000))
+   (hand &optional av (tm 1000))
    (if av
      ;; setjointangles
      (let ((av-rad-list (map cons #'deg2rad av)))
@@ -303,19 +303,27 @@
          #'(lambda (id) (send (send self :call-operation-return :servocontrollerservice_getmaxtorque :id id) :percentage))
          ids))))
   (:hand-width2angles (width)
-    (let ((safetymargin 3) (l1 41.9) (l2 19) xpos a2pos a1radh a1rad a1deg)
-      (when (or (< width 0) (> width (* (- (+ l1 l2) safetymargin) 2)))
+    (let ((safetymargin 3) (w0 19) (l1 41.9))
+      (unless (<= 0 width %(2 * (w0 + l1 - safetymargin)))
+        (warn ";; width value ~a is off margins~%" width)
         (return-from :hand-width2angles nil))
-      (setq xpos (+ (/ width 2.0) safetymargin))
-      (setq a2pos (- xpos l2))
-      (setq a1radh (acos (/ a2pos l1)))
-      (setq a1rad (- (/ pi 2.0) a1radh))
-      (setq a1deg (rad2deg a1rad))
-      (float-vector a1deg (- a1deg) (- a1deg) a1deg)))
-  (:set-hand-width (hand width &key (tm 1000) effort)
-    (when effort
-      (send self :hand-effort hand effort))
-    (send self :hand-angle-vector hand (send self :hand-width2angles width) tm))
+      (let ((a (rad2deg %(pi/2 - acos((width / 2.0 + safetymargin - w0) / l1)))))
+        (float-vector a (- a) (- a) a))))
+  (:hand-angles2width (vec)
+    (assert (= (length vec) 4))
+    (let ((safetymargin 3) (w0 19) (l1 41.9) (l2 20))
+      (flet ((get-width (r1 r2) %( w0 + l1 * cos(pi/2 - r1) + l2 * cos(pi/2 - r1 - r2) - safetymargin)))
+            (multiple-value-bind (a1 a2 b1 b2) (map cons #'deg2rad vec)
+              (+ (get-width a1 a2)
+                 (get-width (- b1) (- b2)))))))
+  (:hand-width (hand &optional width &key (tm 1000) effort)
+    (if width
+      ;; set hand width
+      (progn
+        (when effort (send self :hand-effort hand effort))
+        (send self :hand-angle-vector hand (send self :hand-width2angles width) tm))
+      ;; get hand width
+      (send self :hand-angles2width (send self :hand-angle-vector hand))))
   (:start-grasp (&optional (arm :arms) &key effort)
     (cond ((eq arm :rarm)
            (send self :set-hand-width :rhand 0 :effort effort))
