@@ -347,4 +347,8 @@
   (if (not (boundp '*ri*))
       (setq *ri* (instance* hironxjsk-interface :init args)))
   (if (not (boundp '*hironxjsk*))
-      (setq *hironxjsk* (instance hironxjsk-robot :init))))
+      (setq *hironxjsk* (instance hironxjsk-robot :init)))
+  ;; read initial robot state
+  (send *hironxjsk* :angle-vector (send *ri* :state :potentio-vector))
+  ;; return robot instance
+  *hironxjsk*)
