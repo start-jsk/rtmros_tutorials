@@ -257,7 +257,9 @@
      ;; setjointangles
      (let ((av-rad-list (map cons #'deg2rad av)))
        (case hand
-             (:hands (send self :call-operation-return :servocontrollerservice_setjointangles
+             (:hands
+              (when (= (length av) 4) (setq av-rad-list (concatenate float-vector av-rad-list av-rad-list)))
+              (send self :call-operation-return :servocontrollerservice_setjointangles
                            :jvs av-rad-list :tm (/ tm 1000.0)))
              ((:rhand :lhand)
               (send self :call-operation-return :servocontrollerservice_setjointanglesofgroup
@@ -316,23 +318,20 @@
             (multiple-value-bind (a1 a2 b1 b2) (map cons #'deg2rad vec)
               (+ (get-width a1 a2)
                  (get-width (- b1) (- b2)))))))
-  (:hand-width (hand &optional width &key (tm 1000) effort)
+  (:hand-width (hand &optional width &key (time 1000) effort)
     (if width
       ;; set hand width
       (progn
         (when effort (send self :hand-effort hand effort))
-        (send self :hand-angle-vector hand (send self :hand-width2angles width) tm))
+        (send self :hand-angle-vector hand (send self :hand-width2angles width) time))
       ;; get hand width
       (send self :hand-angles2width (send self :hand-angle-vector hand))))
-  (:start-grasp (&optional (arm :arms) &key effort)
-    (cond ((eq arm :rarm)
-           (send self :hand-width :rhand 0 :effort effort))
-          ((eq arm :larm)
-           (send self :hand-width :lhand 0 :effort effort))
-          ((eq arm :arms)
-           (send self :hand-width :rhand 0 :effort effort)
-           (send self :hand-width :lhand 0 :effort effort))
-          (t (error ";; No such arm: ~A~%." arm))))
+  (:start-grasp (&optional (arm :arms) &key (time 1000) effort)
+    (case arm
+          (:arms (setq arm :hands))
+          (:rarm (setq arm :rhand))
+          (:larm (setq arm :lhand)))
+    (send self :hand-width arm 0 :time time :effort effort))
   (:stop-grasp (&optional (arm :arms) &key effort)
     (cond ((eq arm :rarm)
            (send self :hand-width :rhand 100 :effort effort))
