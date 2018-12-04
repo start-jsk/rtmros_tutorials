@@ -312,7 +312,7 @@
       (let ((a (rad2deg %(pi/2 - acos((width / 2.0 + safetymargin - w0) / l1)))))
         (float-vector a (- a) (- a) a))))
   (:hand-angles2width (vec)
-    (assert (= (length vec) 4))
+    (assert (= (length vec) 4) "Expecting vector of length 4~%")
     (let ((safetymargin 3) (w0 19) (l1 41.9) (l2 20))
       (flet ((get-width (r1 r2) %( w0 + l1 * cos(pi/2 - r1) + l2 * cos(pi/2 - r1 - r2) - safetymargin)))
             (multiple-value-bind (a1 a2 b1 b2) (map cons #'deg2rad vec)
