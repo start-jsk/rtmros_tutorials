@@ -289,21 +289,29 @@
   (:hand-servo-off ()
     (send self :call-operation-return :servocontrollerservice_servooff))
   (:hand-effort (&optional (hand :hands) effort)
-    "effort is percentage"
+    "effort is percentage or sequence of percentages"
     (let ((ids (case hand
                      (:hands (list 2 3 4 5 6 7 8 9))
                      (:rhand (list 2 3 4 5))
                      (:lhand (list 6 7 8 9))
                      (t (error ";; No such hand: ~A~%." hand)))))
-      (if effort
-        ;; setmaxtorque
+      (cond
+       ((numberp effort)
+        ;; setmaxtorque with same effort value
         (mapcar
          #'(lambda (id) (send self :call-operation-return :servocontrollerservice_setmaxtorque :id id :percentage effort))
-         ids)
-        ;; getmaxtorque
+         ids))
+       ;; setmaxtorque with different effort values
+       (effort
+        (map cons
+         #'(lambda (id val)
+             (if val (send self :call-operation-return :servocontrollerservice_setmaxtorque :id id :percentage val)))
+         ids effort))
+       ;; getmaxtorque
+       (t
         (mapcar
          #'(lambda (id) (send (send self :call-operation-return :servocontrollerservice_getmaxtorque :id id) :percentage))
-         ids))))
+         ids)))))
   (:hand-width2angles (width)
     (let ((safetymargin 3) (w0 19) (l1 41.9))
       (unless (<= 0 width %(2 * (w0 + l1 - safetymargin)))
