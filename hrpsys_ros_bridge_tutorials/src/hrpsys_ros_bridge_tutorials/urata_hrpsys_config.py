@@ -651,8 +651,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30)]
         stp.eefm_pos_compensation_limit = [0.05, 0.05]
         stp.eefm_ee_error_cutoff_freq=20.0
-        stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*2
-        stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*2
+        stp.eefm_swing_rot_spring_gain=[[0.0, 0.0, 0.0]]*2
+        stp.eefm_swing_pos_spring_gain=[[0.0, 0.0, 0.0]]*2
         stp.eefm_wrench_alpha_blending=0.7
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
@@ -669,8 +669,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # stp.eefm_leg_rear_margin=0.09
         tmp_leg_inside_margin=0.065
         tmp_leg_outside_margin=0.065
-        tmp_leg_front_margin=0.09
-        tmp_leg_rear_margin=0.15
+        tmp_leg_front_margin=0.15
+        tmp_leg_rear_margin=0.09
         # JSK foot
         # # mechanical param is -> inside 0.075, front 0.11, rear 0.11
         # stp.eefm_leg_inside_margin=0.07
@@ -689,10 +689,6 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
                          OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.AutoBalancerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices])
-        # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
-        stp.eefm_cogvel_cutoff_freq = 4.0
-        stp.eefm_k1=[-1.48412,-1.48412]
-
         # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         stp.eefm_cogvel_cutoff_freq = 4.0
         # calculated by calculate-eefm-st-state-feedback-default-gain-from-robot *chidori*
