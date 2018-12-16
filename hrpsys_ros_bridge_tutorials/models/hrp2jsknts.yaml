@@ -284,7 +284,7 @@ replace_xmls:
       tag: gazebo
       attribute_name: reference
       attribute_value: RARM_LINK4
-    replaced_xml: '<gazebo reference="RARM_LINK4">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+    replaced_xml: '<gazebo reference="RARM_LINK4">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>false</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
@@ -314,7 +314,7 @@ replace_xmls:
       tag: gazebo
       attribute_name: reference
       attribute_value: LARM_LINK4
-    replaced_xml: '<gazebo reference="LARM_LINK4">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>true</selfCollide>\n  </gazebo>'
+    replaced_xml: '<gazebo reference="LARM_LINK4">\n    <mu1>0.9</mu1>\n    <mu2>0.9</mu2>\n    <selfCollide>false</selfCollide>\n  </gazebo>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
