@@ -700,6 +700,10 @@ if(EXISTS ${jsk_models_MODEL_DIR}/JAXON_RED/l_hand_attached_link.dae)
 endif()
 endif()
 
+if(${jsk_models_FOUND})
+  attach_sensor_and_endeffector_to_staro_urdf(CHIDORI CHIDORI.urdf CHIDORI_SENSORS.urdf chidori.yaml)
+endif()
+
 # for SampleRobot
 attach_sensor_and_endeffector_to_hrp2jsk_urdf(SampleRobot SampleRobot.urdf
   SampleRobot_WH_SENSORS.urdf samplerobot.yaml)
