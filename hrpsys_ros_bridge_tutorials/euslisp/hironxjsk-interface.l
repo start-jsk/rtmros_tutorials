@@ -254,6 +254,27 @@
 (defmethod hironxjsk-interface
   (:hand-angle-vector
    (hand &optional av (tm 1000))
+   ;; simulation mode
+   (when (send self :simulation-modep)
+     (flet ((get-joint-list (hand)
+              (let (acc)
+                (dotimes (i 4) (push (read-from-string (format nil "~a_joint~a" hand i)) acc))
+                (nreverse acc))))
+       (let ((joint-list (case hand
+                           (:hands (append (get-joint-list :rhand) (get-joint-list :lhand)))
+                           ((:rhand :lhand) (get-joint-list hand))
+                           (t (error ";; No such hand: ~A~%." hand)))))
+         (if (and (eql hand :hands) (= (length av) 4))
+             (setq av (concatenate float-vector av av)))
+         (return-from :hand-angle-vector
+           (if av
+             ;; setjointangles
+             (map nil #'(lambda (joint angle) (send robot joint :joint-angle angle))
+                   joint-list av)
+             ;; getjointangles
+             (map float-vector #'(lambda (joint) (send robot joint :joint-angle))
+                  joint-list))))))
+   ;; real robot
    (if av
      ;; setjointangles
      (let ((av-rad-list (map cons #'deg2rad av)))
@@ -286,11 +307,14 @@
                 (* dir (send (send self :call-operation-return :servocontrollerservice_getjointangle :id id) :jv)))
             ids dirs))))
   (:hand-servo-on ()
-    (send self :call-operation-return :servocontrollerservice_servoon))
+    (unless (send self :simulation-modep)
+      (send self :call-operation-return :servocontrollerservice_servoon)))
   (:hand-servo-off ()
-    (send self :call-operation-return :servocontrollerservice_servooff))
+    (unless (send self :simulation-modep)
+      (send self :call-operation-return :servocontrollerservice_servooff)))
   (:hand-effort (&optional (hand :hands) effort)
     "effort is percentage or sequence of percentages"
+    (if (send self :simulation-modep) (return-from :hand-effort nil))
     (let ((ids (case hand
                      (:hands (list 2 3 4 5 6 7 8 9))
                      (:rhand (list 2 3 4 5))
