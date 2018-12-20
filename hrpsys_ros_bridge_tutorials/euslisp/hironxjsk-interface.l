@@ -24,11 +24,12 @@
         (send self :add-controller (read-from-string (format nil "~A-controller" limb))
               :joint-enable-check t :create-actions t))
       ;; Load param to erase offset of force moment sensor
-      (send self :load-forcemoment-offset-param
-            (format nil "~A/models/~A-force-moment-offset.l"
-                    (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials")
-                    (send robot :name))
-            :set-offset t)))
+      (unless (send self :simulation-modep)
+        (send self :load-forcemoment-offset-param
+              (format nil "~A/models/~A-force-moment-offset.l"
+                      (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials")
+                      (send robot :name))
+              :set-offset t))))
   (:define-all-ROSBridge-srv-methods
     (&key (debug-view nil) (ros-pkg-name "hrpsys_ros_bridge"))
     ;; First, define ROSBridge method for old impedance controller
