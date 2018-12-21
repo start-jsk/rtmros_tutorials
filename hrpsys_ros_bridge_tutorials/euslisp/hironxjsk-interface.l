@@ -339,7 +339,7 @@
          ids)))))
   (:hand-width2angles (width)
     (let ((safetymargin 3) (w0 19) (l1 41.9))
-      (unless (<= 0 width %(2 * (w0 + l1 - safetymargin)))
+      (unless (<= (- safetymargin) width %(2 * (w0 + l1 - safetymargin)))
         (warn ";; width value ~a is off margins~%" width)
         (return-from :hand-width2angles nil))
       (let ((a (rad2deg %(pi/2 - acos((width / 2.0 + safetymargin - w0) / l1)))))
