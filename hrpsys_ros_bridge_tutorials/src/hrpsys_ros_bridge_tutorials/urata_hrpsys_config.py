@@ -561,7 +561,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         abcp=self.abc_svc.getAutoBalancerParam()[1]
         #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0]];
         abcp.default_zmp_offsets=[[0.01, 0.0, 0.0], [0.01, 0.0, 0.0]]; # 20170704
-        abcp.move_base_gain=1.0
+        abcp.move_base_gain=1.2
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
         kfp=self.kf_svc.getKalmanFilterParam()[1]
@@ -631,8 +631,14 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k2=[-0.368975,-0.368975]
         stp.eefm_k3=[-0.169915,-0.169915]
         self.st_svc.setParameter(stp)
-        # AutoST setting
+        # Emergency Stopper
+        esp = self.es_svc.getEmergencyStopperParam()[1]
+        esp.default_retrieve_time = 1.0
+        self.es_svc.setEmergencyStopperParam(esp)
+        # autost setting
         stp=self.abc_svc.getStabilizerParam()
+        stp.is_estop_while_walking=True
+        stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP
         # stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
         stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
         stp.k_brot_p=[0, 0]
