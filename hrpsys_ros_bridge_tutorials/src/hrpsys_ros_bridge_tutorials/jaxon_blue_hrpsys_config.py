@@ -3,6 +3,11 @@
 from urata_hrpsys_config import *
 
 class JAXON_BLUEHrpsysConfigurator(URATAHrpsysConfigurator):
+    """
+    Subclass for JAXON_BLUE configuration.
+    Please inherit this class to specify environmnet-dependent class.
+    """
+
     def __init__(self):
         URATAHrpsysConfigurator.__init__(self, "JAXON_BLUE")
 

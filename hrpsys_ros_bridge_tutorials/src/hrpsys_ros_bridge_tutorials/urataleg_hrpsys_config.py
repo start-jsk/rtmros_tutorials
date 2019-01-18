@@ -3,6 +3,11 @@
 from urata_hrpsys_config import *
 
 class URATALEGHrpsysConfigurator(URATAHrpsysConfigurator):
+    """
+    Subclass for URATALEG configuration.
+    Please inherit this class to specify environmnet-dependent class.
+    """
+
     def __init__(self):
         URATAHrpsysConfigurator.__init__(self, "URATALEG")
 

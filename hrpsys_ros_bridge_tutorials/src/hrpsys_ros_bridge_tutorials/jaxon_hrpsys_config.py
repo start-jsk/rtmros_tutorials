@@ -3,6 +3,14 @@
 from urata_hrpsys_config import *
 
 class JAXONHrpsysConfigurator(URATAHrpsysConfigurator):
+    """
+    Subclass for JAXON configuration.
+    This class has JAXON-dependent code and
+    common functions for JAXON and JAXON_RED.
+    Please inherit this class to specify JAXON_RED or
+    environmnet-dependent class.
+    """
+
     def __init__(self):
         URATAHrpsysConfigurator.__init__(self, "JAXON")
 

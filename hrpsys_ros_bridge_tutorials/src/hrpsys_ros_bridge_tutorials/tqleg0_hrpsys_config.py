@@ -3,6 +3,11 @@
 from urata_hrpsys_config import *
 
 class TQLEG0HrpsysConfigurator(URATAHrpsysConfigurator):
+    """
+    Subclass for TQLEG0 configuration.
+    Please inherit this class to specify environmnet-dependent class.
+    """
+
     def __init__(self):
         URATAHrpsysConfigurator.__init__(self, "TQLEG0")
 

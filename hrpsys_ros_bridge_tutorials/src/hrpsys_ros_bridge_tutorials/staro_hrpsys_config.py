@@ -3,6 +3,11 @@
 from urata_hrpsys_config import *
 
 class STAROHrpsysConfigurator(URATAHrpsysConfigurator):
+    """
+    Subclass for STARO configuration.
+    Please inherit this class to specify environmnet-dependent class.
+    """
+
     def __init__(self):
         URATAHrpsysConfigurator.__init__(self, "STARO")
 

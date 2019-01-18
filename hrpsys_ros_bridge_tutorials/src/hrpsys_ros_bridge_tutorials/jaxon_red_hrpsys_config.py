@@ -3,6 +3,12 @@
 from jaxon_hrpsys_config import *
 
 class JAXON_REDHrpsysConfigurator(JAXONHrpsysConfigurator):
+    """
+    Subclass for JAXON_RED configuration.
+    This class overrides some functions for JAXON_RED.
+    Please inherit this class to specify environmnet-dependent class.
+    """
+
     def __init__(self):
         URATAHrpsysConfigurator.__init__(self, "JAXON_RED")
 

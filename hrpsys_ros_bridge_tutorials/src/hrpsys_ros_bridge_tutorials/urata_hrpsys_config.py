@@ -9,6 +9,11 @@ import OpenHRP
 import math
 
 class URATAHrpsysConfigurator(HrpsysConfigurator):
+    """
+    Abstract class for JSK robot configuration.
+    Please inherit this class to specify robot or environmnet-dependent class.
+    """
+
     def __init__(self, robotname=""):
         self.ROBOT_NAME = robotname
         HrpsysConfigurator.__init__(self)

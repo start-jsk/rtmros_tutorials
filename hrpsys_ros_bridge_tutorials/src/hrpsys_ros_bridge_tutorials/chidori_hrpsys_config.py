@@ -3,6 +3,11 @@
 from urata_hrpsys_config import *
 
 class CHIDORIHrpsysConfigurator(URATAHrpsysConfigurator):
+    """
+    Subclass for CHIDORI configuration.
+    Please inherit this class to specify environmnet-dependent class.
+    """
+
     def __init__(self):
         URATAHrpsysConfigurator.__init__(self, "CHIDORI")
 
