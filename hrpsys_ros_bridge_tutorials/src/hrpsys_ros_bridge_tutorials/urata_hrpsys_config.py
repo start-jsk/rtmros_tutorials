@@ -108,7 +108,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         pass
 
     # Basic set of poses
-    def setJointAngles(self, angle_vector, time=10.0):
+    def setJointAnglesRadian(self, angle_vector, time=10.0):
         if not angle_vector:
             print("Not implemented yet")
             return
@@ -118,28 +118,28 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         return []
 
     def setResetPose(self, time=5.0):
-        self.setJointAngles(self.resetPose(), time)
+        self.setJointAnglesRadian(self.resetPose(), time)
 
     def initPose(self):
         return [0] * len(self.resetPose())
 
     def setInitPose(self, time=10.0):
-        self.setJointAngles(self.initPose(), time)
+        self.setJointAnglesRadian(self.initPose(), time)
 
     def resetManipPose(self):
         return []
 
     def setResetManipPose(self, time=10.0):
-        self.setJointAngles(self.resetManipPose(), time)
+        self.setJointAnglesRadian(self.resetManipPose(), time)
 
     def collisionFreeInitPose(self):
         return []
 
     def setCollisionFreeInitPose(self, time=10.0):
-        self.setJointAngles(self.collisionFreeInitPose(), time)
+        self.setJointAnglesRadian(self.collisionFreeInitPose(), time)
 
     def resetLandingPose(self):
         return []
 
     def setResetLandingPose(self, time=5.0):
-        self.setJointAngles(self.resetLandingPose(), time)
+        self.setJointAnglesRadian(self.resetLandingPose(), time)
