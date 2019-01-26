@@ -639,8 +639,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp=self.abc_svc.getStabilizerParam()
         stp.is_estop_while_walking=True
         stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP
-        # stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
-        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
+        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
+        # stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
@@ -656,9 +656,11 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0]
         stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30)]
         stp.eefm_pos_compensation_limit = [0.05, 0.05]
-        stp.eefm_ee_error_cutoff_freq=20.0
-        stp.eefm_swing_rot_spring_gain=[[0.0, 0.0, 0.0]]*2
-        stp.eefm_swing_pos_spring_gain=[[0.0, 0.0, 0.0]]*2
+        stp.eefm_ee_error_cutoff_freq=10000
+        stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*2
+        stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*2
+        stp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*2
+        stp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*2
         stp.eefm_wrench_alpha_blending=0.7
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
