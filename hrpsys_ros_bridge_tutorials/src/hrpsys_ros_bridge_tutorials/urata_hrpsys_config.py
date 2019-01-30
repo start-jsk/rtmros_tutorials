@@ -309,14 +309,16 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
             stp.eefm_pos_compensation_limit = [0.08, 0.08, 0.050, 0.050]
         stp.eefm_zmp_delay_time_const=[0, 0]
-        stp.detection_time_to_air=1.0
-        # stp.use_zmp_truncation=True
+        stp.detection_time_to_air=5.0
+        stp.use_zmp_truncation=True
         stp.eefm_swing_damping_force_thre=[200]*3
         stp.eefm_swing_damping_moment_thre=[15]*3
         stp.eefm_use_swing_damping=True
-        stp.eefm_ee_error_cutoff_freq=20.0
-        stp.eefm_swing_rot_spring_gain=[[0.0, 0.0, 0.0]]*4
-        stp.eefm_swing_pos_spring_gain=[[0.0, 0.0, 0.0]]*4
+        # stp.eefm_ee_error_cutoff_freq=10000 # not used
+        stp.eefm_swing_rot_spring_gain=[[10.0, 10.0, 10.0]]*4
+        stp.eefm_swing_pos_spring_gain=[[10.0, 10.0, 10.0]]*4
+        stp.eefm_swing_rot_time_const=[[10.0, 10.0, 10.0]]*4
+        stp.eefm_swing_pos_time_const=[[10.0, 10.0, 10.0]]*4
         stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
         stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
         stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
@@ -639,16 +641,20 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp=self.abc_svc.getStabilizerParam()
         stp.is_estop_while_walking=True
         stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP
-        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
-        # stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
+        # stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
+        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
         stp.eefm_body_attitude_control_time_const=[1000, 1000]
         # stp.eefm_rot_damping_gain=[[20*1.6*1.1*1.5, 20*1.6*1.1*1.5*1.5, 1e5]]*2
         # stp.eefm_pos_damping_gain=[[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5*0.5]]*2
-        stp.eefm_rot_damping_gain=[[20*1.6*1.1*1.5, 20*1.6*1.1*1.5*1.5, 1e5]]*2 # 20180711
-        stp.eefm_pos_damping_gain=[[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5]]*2 # 20180711
+        # stp.eefm_rot_damping_gain=[[20*1.6*1.1*1.5, 20*1.6*1.1*1.5*1.5, 1e5]]*2 # 20180711
+        # stp.eefm_pos_damping_gain=[[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5]]*2 # 20180711
+        stp.eefm_rot_damping_gain = [[100, 100, 1e5],
+                                     [100, 100, 1e5]]
+        stp.eefm_pos_damping_gain = [[16800.0, 16800.0, 7500.0],
+                                     [16800.0, 16800.0, 7500.0]]
         stp.eefm_rot_time_const=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
         stp.eefm_pos_time_const_support=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
         stp.eefm_use_swing_damping=True
@@ -656,18 +662,18 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0]
         stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30)]
         stp.eefm_pos_compensation_limit = [0.05, 0.05]
-        stp.eefm_ee_error_cutoff_freq=10000
-        stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*2
-        stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*2
-        stp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*2
-        stp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*2
+        # stp.eefm_ee_error_cutoff_freq=10000 # not used
+        stp.eefm_swing_rot_spring_gain=[[10.0, 10.0, 10.0]]*2
+        stp.eefm_swing_pos_spring_gain=[[10.0, 10.0, 10.0]]*2
+        stp.eefm_swing_rot_time_const=[[10.0, 10.0, 10.0]]*2
+        stp.eefm_swing_pos_time_const=[[10.0, 10.0, 10.0]]*2
         stp.eefm_wrench_alpha_blending=0.7
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
         stp.eefm_pos_margin_time=0.02
-        # stp.use_zmp_truncation=True
+        stp.use_zmp_truncation=True
         stp.eefm_zmp_delay_time_const=[0, 0]
-        stp.detection_time_to_air=1.0
+        stp.detection_time_to_air=5.0
         # foot margin param
         ## KAWADA foot
         #   mechanical param is => inside 0.055, front 0.13, rear 0.1
