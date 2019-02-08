@@ -640,7 +640,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # autost setting
         stp=self.abc_svc.getStabilizerParam()
         stp.is_estop_while_walking=True
-        # stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP
+        stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP
         stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
         # stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
         stp.k_brot_p=[0, 0]
