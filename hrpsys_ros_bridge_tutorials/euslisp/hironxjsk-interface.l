@@ -5,6 +5,8 @@
 (if (ros::resolve-ros-path "package://hironx_ros_bridge")
   (ros::load-ros-manifest "hironx_ros_bridge"))
 
+(defconstant +hironx-hand-servo-num+ 4)
+
 (defclass hironxjsk-interface
   :super rtm-ros-robot-interface
   :slots ())
@@ -252,8 +254,16 @@
 ;; Based on https://github.com/start-jsk/rtmros_hironx/blob/2.1.0/hironx_ros_bridge/src/hironx_ros_bridge/hironx_client.py
 ;; and https://github.com/start-jsk/rtmros_tutorials/blob/0.1.6/hrpsys_ros_bridge_tutorials/euslisp/hrp2-common-interface.l
 (defmethod hironxjsk-interface
-  (:hand-angle-vector
-   (hand &optional av (tm 1000))
+  (:hand-angle-vector (hand &optional av (tm 1000))
+   ;; check type
+   (when av
+     (case hand
+           (:hands
+            (if (= (length av) +hironx-hand-servo-num+) (setq av (concatenate float-vector av av)))
+            (assert (= (length av) (* 2 +hironx-hand-servo-num+))))
+           ((:rhand :lhand)
+            (assert (= (length av) +hironx-hand-servo-num+)))))
+
    ;; simulation mode
    (when (send self :simulation-modep)
      (flet ((get-joint-list (hand)
@@ -264,8 +274,6 @@
                            (:hands (append (get-joint-list :rhand) (get-joint-list :lhand)))
                            ((:rhand :lhand) (get-joint-list hand))
                            (t (error ";; No such hand: ~A~%." hand)))))
-         (if (and (eql hand :hands) (= (length av) 4))
-             (setq av (concatenate float-vector av av)))
          (return-from :hand-angle-vector
            (if av
              ;; setjointangles
@@ -280,7 +288,6 @@
      (let ((av-rad-list (map cons #'deg2rad av)))
        (case hand
              (:hands
-              (when (= (length av) 4) (setq av-rad-list (concatenate float-vector av-rad-list av-rad-list)))
               (send self :call-operation-return :servocontrollerservice_setjointangles
                            :jvs av-rad-list :tm (/ tm 1000.0)))
              ((:rhand :lhand)
@@ -321,22 +328,33 @@
                      (:lhand (list 6 7 8 9))
                      (t (error ";; No such hand: ~A~%." hand)))))
       (cond
-       ((numberp effort)
+       ((null effort)
+        ;; getmaxtorque
+        (mapcar
+         #'(lambda (id) (send (send self :call-operation-return :servocontrollerservice_getmaxtorque :id id) :percentage))
+         ids))
+       ((and (numberp effort) (plusp effort))
         ;; setmaxtorque with same effort value
         (mapcar
          #'(lambda (id) (send self :call-operation-return :servocontrollerservice_setmaxtorque :id id :percentage effort))
          ids))
-       ;; setmaxtorque with different effort values
-       (effort
+       ((or (consp effort) (vectorp effort))
+        ;; check length
+        (case hand
+              (:hands
+               (if (= (length effort) +hironx-hand-servo-num+)
+                   (setq effort (concatenate float-vector effort effort)))
+               (assert (= (length effort) (* 2 +hironx-hand-servo-num+))))
+              ((:rhand :lhand)
+               (assert (= (length effort) +hironx-hand-servo-num+))))
+        ;; setmaxtorque with different effort values
         (map cons
          #'(lambda (id val)
              (if val (send self :call-operation-return :servocontrollerservice_setmaxtorque :id id :percentage val)))
          ids effort))
-       ;; getmaxtorque
        (t
-        (mapcar
-         #'(lambda (id) (send (send self :call-operation-return :servocontrollerservice_getmaxtorque :id id) :percentage))
-         ids)))))
+        ;; unsupported type
+        (error "number or sequence expected")))))
   (:hand-width2angles (width)
     (let ((safetymargin 3) (w0 19) (l1 41.9))
       (unless (<= (- safetymargin) width %(2 * (w0 + l1 - safetymargin)))
@@ -345,7 +363,8 @@
       (let ((a (rad2deg %(pi/2 - acos((width / 2.0 + safetymargin - w0) / l1)))))
         (float-vector a (- a) (- a) a))))
   (:hand-angles2width (vec)
-    (assert (= (length vec) 4) "Expecting vector of length 4~%")
+    (assert (= (length vec) +hironx-hand-servo-num+)
+            (format nil "Expecting vector of length ~a~%" +hironx-hand-servo-num+))
     (let ((safetymargin 3) (w0 19) (l1 41.9) (l2 20))
       (flet ((get-width (r1 r2) %( w0 + l1 * cos(pi/2 - r1) + l2 * cos(pi/2 - r1 - r2) - safetymargin)))
             (multiple-value-bind (a1 a2 b1 b2) (map cons #'deg2rad vec)
