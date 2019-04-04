@@ -5,11 +5,9 @@
 (if (ros::resolve-ros-path "package://hironx_ros_bridge")
   (ros::load-ros-manifest "hironx_ros_bridge"))
 
-(defconstant +hironx-hand-servo-num+ 4)
-
 (defclass hironxjsk-interface
   :super rtm-ros-robot-interface
-  :slots ())
+  :slots (hand-servo-num))
 
 ;; Initialize
 (defmethod hironxjsk-interface
@@ -31,7 +29,9 @@
               (format nil "~A/models/~A-force-moment-offset.l"
                       (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials")
                       (send robot :name))
-              :set-offset t))))
+              :set-offset t))
+      ;; number of servo motors in one hand
+      (setq hand-servo-num 4)))
   (:define-all-ROSBridge-srv-methods
     (&key (debug-view nil) (ros-pkg-name "hrpsys_ros_bridge"))
     ;; First, define ROSBridge method for old impedance controller
@@ -254,15 +254,19 @@
 ;; Based on https://github.com/start-jsk/rtmros_hironx/blob/2.1.0/hironx_ros_bridge/src/hironx_ros_bridge/hironx_client.py
 ;; and https://github.com/start-jsk/rtmros_tutorials/blob/0.1.6/hrpsys_ros_bridge_tutorials/euslisp/hrp2-common-interface.l
 (defmethod hironxjsk-interface
+  (:check-hand-vector-length (vec &optional (hand-num 1))
+   (let ((len (* hand-num hand-servo-num)))
+     (assert (= (length vec) len)
+             "[ERROR] Expecting vector of length ~a~%" len)))
   (:hand-angle-vector (hand &optional av (tm 1000))
    ;; check type
    (when av
      (case hand
            (:hands
-            (if (= (length av) +hironx-hand-servo-num+) (setq av (concatenate float-vector av av)))
-            (assert (= (length av) (* 2 +hironx-hand-servo-num+))))
+            (if (= (length av) hand-servo-num) (setq av (concatenate float-vector av av)))
+            (send self :check-hand-vector-length av 2))
            ((:rhand :lhand)
-            (assert (= (length av) +hironx-hand-servo-num+)))))
+            (send self :check-hand-vector-length av))))
 
    ;; simulation mode
    (when (send self :simulation-modep)
@@ -342,11 +346,11 @@
         ;; check length
         (case hand
               (:hands
-               (if (= (length effort) +hironx-hand-servo-num+)
+               (if (= (length effort) hand-servo-num)
                    (setq effort (concatenate float-vector effort effort)))
-               (assert (= (length effort) (* 2 +hironx-hand-servo-num+))))
+               (send self :check-hand-vector-length effort 2))
               ((:rhand :lhand)
-               (assert (= (length effort) +hironx-hand-servo-num+))))
+               (send self :check-hand-vector-length effort)))
         ;; setmaxtorque with different effort values
         (map cons
          #'(lambda (id val)
@@ -363,8 +367,7 @@
       (let ((a (rad2deg %(pi/2 - acos((width / 2.0 + safetymargin - w0) / l1)))))
         (float-vector a (- a) (- a) a))))
   (:hand-angles2width (vec)
-    (assert (= (length vec) +hironx-hand-servo-num+)
-            (format nil "Expecting vector of length ~a~%" +hironx-hand-servo-num+))
+    (send self :check-hand-vector-length vec)
     (let ((safetymargin 3) (w0 19) (l1 41.9) (l2 20))
       (flet ((get-width (r1 r2) %( w0 + l1 * cos(pi/2 - r1) + l2 * cos(pi/2 - r1 - r2) - safetymargin)))
             (multiple-value-bind (a1 a2 b1 b2) (map cons #'deg2rad vec)
