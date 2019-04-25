@@ -194,7 +194,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
         #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
         stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
-        # stp.emergency_check_mode=OpenHRP.StabilizerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
+        stp.emergency_check_mode=OpenHRP.StabilizerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
         stp.cp_check_margin=[0.05, 0.045, 0, 0.095]
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
@@ -273,7 +273,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #stp.st_algorithm=OpenHRP.AutoBalancerService.EEFM
         # stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
         stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
-        stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
+        # stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
         stp.cp_check_margin=[0.05, 0.045, 0, 0.095]
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
