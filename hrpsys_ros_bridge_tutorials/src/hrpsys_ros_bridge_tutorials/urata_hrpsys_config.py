@@ -180,9 +180,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         if self.ROBOT_NAME == "JAXON":
-            abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+            abcp.default_zmp_offsets=[[0.0, 0.02, 0.0], [0.0, -0.02, 0.0], [0, 0, 0], [0, 0, 0]];
         elif self.ROBOT_NAME == "JAXON_RED":
-            abcp.default_zmp_offsets=[[0.0, 0.01, 0.0], [0.0, -0.01, 0.0], [0, 0, 0], [0, 0, 0]];
+            abcp.default_zmp_offsets=[[0.0, 0.02, 0.0], [0.0, -0.02, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=1.0
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
@@ -313,12 +313,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.use_zmp_truncation=True
         stp.eefm_swing_damping_force_thre=[200]*3
         stp.eefm_swing_damping_moment_thre=[15]*3
-        stp.eefm_use_swing_damping=True
+        stp.eefm_use_swing_damping=False
         # stp.eefm_ee_error_cutoff_freq=10000 # not used
         stp.eefm_swing_rot_spring_gain=[[10.0, 10.0, 10.0], [10.0, 10.0, 10.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
         stp.eefm_swing_pos_spring_gain=[[10.0, 10.0, 10.0], [10.0, 10.0, 10.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
-        stp.eefm_swing_rot_time_const=[[10.0, 10.0, 10.0]]*4
-        stp.eefm_swing_pos_time_const=[[10.0, 10.0, 10.0]]*4
+        stp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*4
+        stp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*4
         stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
         stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
         stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
@@ -657,7 +657,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                                      [16800.0, 16800.0, 7500.0]]
         stp.eefm_rot_time_const=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
         stp.eefm_pos_time_const_support=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
-        stp.eefm_use_swing_damping=True
+        stp.eefm_use_swing_damping=False
         stp.eefm_swing_pos_damping_gain = stp.eefm_pos_damping_gain[0]
         stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0]
         stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30)]
@@ -665,8 +665,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # stp.eefm_ee_error_cutoff_freq=10000 # not used
         stp.eefm_swing_rot_spring_gain=[[10.0, 10.0, 10.0]]*2
         stp.eefm_swing_pos_spring_gain=[[10.0, 10.0, 10.0]]*2
-        stp.eefm_swing_rot_time_const=[[10.0, 10.0, 10.0]]*2
-        stp.eefm_swing_pos_time_const=[[10.0, 10.0, 10.0]]*2
+        stp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*2
+        stp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*2
         stp.eefm_wrench_alpha_blending=0.7
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
