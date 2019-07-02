@@ -50,3 +50,12 @@ hrpsys_ros_bridge_tutorials/scripts/*_unstable_hrpsys_config.py
 # generated files in hrpsys_tutorials
 hrpsys_tutorials/models/*.conf
 hrpsys_tutorials/models/*.xml
+
+# generated files in hrpsys_gazebo_tutorials
+hrpsys_gazebo_tutorials/config/HRP2JSKNTS.conf
+hrpsys_gazebo_tutorials/config/rtcdRobotModeHRP2Common.conf
+hrpsys_gazebo_tutorials/launch/hrp2017_auditor_gazebo.launch
+hrpsys_gazebo_tutorials/launch/hrp2017_gazebo.launch
+hrpsys_gazebo_tutorials/launch/hrp2017_ros_bridge_gazebo.launch
+hrpsys_gazebo_tutorials/robot_models/HRP2JSKNTS/HRP2JSKNTS.urdf
+hrpsys_gazebo_tutorials/scripts/jsk_hrp2_gazebo_setup.py
