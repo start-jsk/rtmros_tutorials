@@ -466,7 +466,7 @@ compile_rbrain_model_for_closed_robots(TABLIS TABLIS TABLIS
   --conf-file-option "collision_pair: WAIST:LLEG_JOINT2 WAIST:RLEG_JOINT2 LLEG_JOINT2:LLEG_JOINT5 LLEG_JOINT2:RLEG_JOINT2 LLEG_JOINT2:RLEG_JOINT3 LLEG_JOINT2:RLEG_JOINT5 LLEG_JOINT3:RLEG_JOINT2 LLEG_JOINT3:RLEG_JOINT3 LLEG_JOINT3:RLEG_JOINT5 LLEG_JOINT5:RLEG_JOINT2 LLEG_JOINT5:RLEG_JOINT3 LLEG_JOINT5:RLEG_JOINT5 RLEG_JOINT2:RLEG_JOINT5"
   --conf-file-option "collision_model: convex hull"
   --conf-file-option "# SequencePlayer optional data (contactStates x 4 + controlSwingTime x 4 (4 is rfsensor, lfsensor, rhsensor, lhsensor)"
-  --conf-file-option "seq_optional_data_dim: 4"
+  --conf-file-option "seq_optional_data_dim: 8"
 )
 #gen_minmax_table_for_closed_robots(TABLIS TABLIS TABLIS)
 
