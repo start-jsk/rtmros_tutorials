@@ -317,8 +317,6 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # astp.eefm_ee_error_cutoff_freq=10000 # not used
         astp.eefm_swing_rot_spring_gain=[[10.0, 10.0, 10.0], [10.0, 10.0, 10.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
         astp.eefm_swing_pos_spring_gain=[[10.0, 10.0, 10.0], [10.0, 10.0, 10.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
-        # astp.eefm_swing_rot_spring_gain=[[20.0, 20.0, 20.0], [20.0, 20.0, 20.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
-        # astp.eefm_swing_pos_spring_gain=[[20.0, 20.0, 20.0], [20.0, 20.0, 20.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
         astp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*4
         astp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*4
         astp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
@@ -389,7 +387,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.heel_pos_offset_x = 1e-3*-116.342;
         gg.toe_zmp_offset_x = 1e-3*117.338;
         gg.heel_zmp_offset_x = 1e-3*-116.342;
-        gg.optional_go_pos_finalize_footstep_num=1
+        gg.optional_go_pos_finalize_footstep_num=0
         gg.overwritable_footstep_index_offset=0
         self.abc_svc.setGaitGeneratorParam(gg)
         # Ic setting
@@ -401,7 +399,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.ic_svc.setImpedanceControllerParam(l, icp)
         # Estop
         esp=self.es_svc.getEmergencyStopperParam()[1]
-        esp.default_recover_time=10.0 # [s]
+        esp.default_recover_time=3.0 # [s]
         esp.default_retrieve_time=1.0 # [s]
         self.es_svc.setEmergencyStopperParam(esp)
 
@@ -582,7 +580,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.k_brot_p=[0, 0]
         stp.k_brot_tc=[1000, 1000]
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
-        stp.eefm_body_attitude_control_time_const=[1000, 1000]
+        stp.eefm_body_attitude_control_time_const=[1e5, 1e5]
         stp.eefm_rot_damping_gain=[[20*1.6*1.1*1.5, 20*1.6*1.1*1.5*1.5, 1e5]]*2
         stp.eefm_pos_damping_gain=[[3500*1.6*3, 3500*1.6*3, 3500*1.6*1.1*1.5*0.5]]*2
         stp.eefm_rot_time_const=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
