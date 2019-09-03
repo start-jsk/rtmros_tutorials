@@ -456,8 +456,8 @@ endif()
 
 # TABLIS
 compile_rbrain_model_for_closed_robots(TABLIS TABLIS TABLIS
-  --conf-dt-option "0.002"
-  --simulation-timestep-option "0.002"
+  --conf-dt-option "0.001"
+  --simulation-timestep-option "0.001"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/TABLIS.PDgains.sav"
   --conf-file-option "pdgains_sim_file_name: ${PROJECT_SOURCE_DIR}/models/TABLIS.PDgains_sim.dat"
