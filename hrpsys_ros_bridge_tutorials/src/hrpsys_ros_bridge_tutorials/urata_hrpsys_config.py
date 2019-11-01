@@ -774,11 +774,11 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                 0,  0.785398163, 0, 0, 0, 0, 0]
 
     def tablisResetPose (self):
-        return [0, 0, 0, 0.523598776, -0.523598776, 0,
-                0, 0, 0, 0.523598776, -0.523598776, 0,
+        return [0, 0, math.radians(-60), math.radians(90), math.radians(-30), 0,
+                0, 0, math.radians(-60), math.radians(90), math.radians(-30), 0,
                 0,
-                0, 0, 0, -1.570796327, 0, 0, 0,
-                0, 0, 0, -1.570796327, 0, 0, 0]
+                0, math.radians(-30), 0, math.radians(-90), 0, 0, 0,
+                0, math.radians(+30), 0, math.radians(-90), 0, 0, 0]
 
     def tablisInitPose (self):
         return [0]*len(self.tablisResetPose())
