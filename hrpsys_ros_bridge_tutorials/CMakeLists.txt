@@ -746,6 +746,7 @@ endif()
 
 if(${jsk_models_FOUND})
   attach_sensor_and_endeffector_to_staro_urdf(CHIDORI CHIDORI.urdf CHIDORI_SENSORS.urdf chidori.yaml)
+  attach_sensor_and_endeffector_to_staro_urdf(TABLIS TABLIS.urdf TABLIS_SENSORS.urdf tablis.yaml)
 endif()
 
 # for SampleRobot
