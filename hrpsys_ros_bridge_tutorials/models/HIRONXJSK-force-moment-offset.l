@@ -1,1 +1,0 @@
-((:rarm :force-offset #f(2.42349 2.03268 0.237616) :moment-offset #f(0.590862 -0.944791 -0.01666) :link-offset-mass 0.377791 :link-offset-centroid #f(-0.007461 -0.021374 -0.235109)) (:larm :force-offset #f(-2.6364 2.73913 0.714611) :moment-offset #f(0.632441 0.523776 0.097475) :link-offset-mass 0.342879 :link-offset-centroid #f(-0.002918 0.00508 -0.233272)))

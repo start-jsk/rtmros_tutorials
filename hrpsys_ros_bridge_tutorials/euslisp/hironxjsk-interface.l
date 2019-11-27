@@ -21,13 +21,6 @@
         (send self :def-limb-controller-method limb)
         (send self :add-controller (read-from-string (format nil "~A-controller" limb))
               :joint-enable-check t :create-actions t))
-      ; ;; Load param to erase offset of force moment sensor
-      ; (unless (send self :simulation-modep)
-      ;   (send self :load-forcemoment-offset-param
-      ;         (format nil "~A/models/~A-force-moment-offset.l"
-      ;                 (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials")
-      ;                 (send robot :name))
-      ;         :set-offset t))
       ;; number of servo motors in one hand
       (setq hand-servo-num 4)))
   (:call-operation-return (method &rest args)
