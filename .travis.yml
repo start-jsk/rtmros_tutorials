@@ -36,7 +36,8 @@ notifications:
     on_success: always #[always|never|change] # default: change
     on_failure: always #[always|never|change] # default: always
 before_script:
-  - if [ "${TRAVIS_SECURE_ENV_VARS}" == "true" ]; then openssl aes-256-cbc -K $encrypted_0083437bf214_key -iv $encrypted_0083437bf214_iv -in .secrets.tar.enc -out .secrets.tar -d; tar -C ~/ -xvf .secrets.tar; export INSTALL_SRC="$INSTALL_SRC $INSTALL_SRC_SECURE"; export TEST_PKGS="$TEST_PKGS $TEST_PKGS_SECURE"; fi
+  - if [ "${INSTALL_SRC_SECURE}" != "" ]; then export INSTALL_SRC="$INSTALL_SRC $INSTALL_SRC_SECURE"; fi  # works only with jenkins
+  - if [ "${TEST_PKGS_SECURE}" != "" ]; then export TEST_PKGS="$TEST_PKGS $TEST_PKGS_SECURE"; fi  # works only with jenkins
   - export REPOSITORY_NAME=`basename $PWD`
   - if [ "${INSTALL_SRC}" != "" ]; then export BEFORE_SCRIPT="sudo apt-get install python-yaml; $(for src in $INSTALL_SRC; do name=`basename $src`; echo "python -c \"import yaml;print yaml.dump([{\\\"git\\\":{\\\"uri\\\":\\\"$src\\\",\\\"local-name\\\":\\\"$name\\\"}}], default_flow_style=False)\" >> .rosinstall;"; done) ls -al; cat .rosinstall; wstool update"; fi
 script: source .travis/travis.sh
