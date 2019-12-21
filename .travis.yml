@@ -20,7 +20,7 @@ env:
   matrix:
     - ROS_DISTRO=indigo  USE_DEB=true
     - ROS_DISTRO=indigo  USE_DEB=false NOT_TEST_INSTALL=true
-    - ROS_DISTRO=kinetic USE_DEB=true
+    - ROS_DISTRO=kinetic USE_DEB=false
 matrix:
   # allow_failures:
   #   - env: ROS_DISTRO=indigo  USE_DEB=false NOT_TEST_INSTALL=true
