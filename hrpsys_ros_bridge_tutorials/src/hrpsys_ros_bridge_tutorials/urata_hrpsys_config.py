@@ -389,7 +389,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.toe_zmp_offset_x = 1e-3*117.338;
         gg.heel_zmp_offset_x = 1e-3*-116.342;
         gg.optional_go_pos_finalize_footstep_num=0
-        gg.overwritable_footstep_index_offset=0
+        gg.overwritable_footstep_index_offset=1
         self.abc_svc.setGaitGeneratorParam(gg)
         # Ic setting
         limbs = ['rarm', 'larm']
@@ -736,7 +736,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.heel_pos_offset_x = 1e-3*-116.342;
         gg.toe_zmp_offset_x = 1e-3*117.338;
         gg.heel_zmp_offset_x = 1e-3*-116.342;
-        gg.overwritable_footstep_index_offset=0
+        gg.optional_go_pos_finalize_footstep_num=0
+        gg.overwritable_footstep_index_offset=1
         self.abc_svc.setGaitGeneratorParam(gg)
 
     def setStAbcParametersTQLEG0 (self):
