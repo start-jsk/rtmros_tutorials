@@ -1,0 +1,15 @@
+<launch>
+  <arg name="nameserver" default="localhost" />
+  <arg name="corbaport" default="15005" />
+  <env name="LANG" value="C" />
+  <env name="ORBgiopMaxMsgSize" value="2147483648" />
+  <env name="RTCTREE_NAMESERVERS" value="$(arg nameserver):$(arg corbaport)" />
+
+  <arg name="SIMULATOR_NAME" default="RobotHardware0"/>
+  
+  <arg name="omniorb_args" default="-ORBInitRef NameService=corbaloc:iiop:$(arg nameserver):$(arg corbaport)/NameService" />
+  <arg name="RESPAWN_MODELLOADER" default="false"/>
+  <node name="modelloader" pkg="openhrp3" type="openhrp-model-loader"
+	args="$(arg omniorb_args)"
+	respawn="$(arg RESPAWN_MODELLOADER)" output="screen"/> <!-- loading dae files crushes model loader -->
+</launch>

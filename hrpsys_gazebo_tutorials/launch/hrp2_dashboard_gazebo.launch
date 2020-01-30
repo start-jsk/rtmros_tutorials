@@ -1,0 +1,8 @@
+<launch>
+
+  <rosparam file="$(find hrpsys_gazebo_tutorials)/config/hrpsys_dashboard.yaml" command="load" />
+  <param name="hrpsys_splash_image"
+         value="$(find jsk_hrp2_ros_bridge)/images/hrpsys_dashboard_splash_$(env HRP2NO).png" />
+  <node name="$(anon hrp2_dashboard)" pkg="hrpsys_gazebo_tutorials" type="jsk_hrp2_gazebo_dashboard" />
+
+</launch>
