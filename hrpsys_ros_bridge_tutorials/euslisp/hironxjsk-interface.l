@@ -24,6 +24,8 @@
       ;; number of servo motors in one hand
       (setq hand-servo-num 4)))
   (:call-operation-return (method &rest args)
+    ;; Call method until it returns true
+    ;; Used to ensure operation on the hand service calls, that sometimes fail
     (do ((res (send* self method args)
               (send* self method args)))
         ((send res :operation_return) res))))
@@ -33,12 +35,13 @@
 ;; and https://github.com/start-jsk/rtmros_tutorials/blob/0.1.6/hrpsys_ros_bridge_tutorials/euslisp/hrp2-common-interface.l
 (defmethod hironxjsk-interface
   (:check-hand-vector-length (vec &optional (hand-num 1))
+   ;; Ensure that `vec' is a 4 element vector for single hand or 8 element for double hand
    (let ((len (* hand-num hand-servo-num)))
      (assert (= (length vec) len)
              "[ERROR] Expecting vector of length ~a~%" len)))
   (:hand-angle-vector (hand &optional av (tm 1000))
-   ;; check type
    (when av
+     ;; check type
      (case hand
            (:hands
             (if (= (length av) hand-servo-num) (setq av (concatenate float-vector av av)))
@@ -102,7 +105,7 @@
     (unless (send self :simulation-modep)
       (send self :call-operation-return :servocontrollerservice_servooff)))
   (:hand-effort (&optional (hand :hands) effort)
-    "effort is percentage or sequence of percentages"
+    ;; effort is percentage or sequence of percentages
     (if (send self :simulation-modep) (return-from :hand-effort nil))
     (let ((ids (case hand
                      (:hands (list 2 3 4 5 6 7 8 9))
@@ -138,6 +141,7 @@
         ;; unsupported type
         (error "number or sequence expected")))))
   (:hand-width2angles (width)
+    ;; Calculates the hand angles to achieve a certain parallel aperture
     (let ((safetymargin 3) (w0 19) (l1 41.9))
       (unless (<= (- safetymargin) width %(2 * (w0 + l1 - safetymargin)))
         (warn ";; width value ~a is off margins~%" width)
@@ -145,6 +149,7 @@
       (let ((a (rad2deg %(pi/2 - acos((width / 2.0 + safetymargin - w0) / l1)))))
         (float-vector a (- a) (- a) a))))
   (:hand-angles2width (vec)
+    ;; Calculates the hand aperture given a certain angle vector
     (send self :check-hand-vector-length vec)
     (let ((safetymargin 3) (w0 19) (l1 41.9) (l2 20))
       (flet ((get-width (r1 r2) %( w0 + l1 * cos(pi/2 - r1) + l2 * cos(pi/2 - r1 - r2) - safetymargin)))
@@ -152,6 +157,7 @@
               (+ (get-width a1 a2)
                  (get-width (- b1) (- b2)))))))
   (:hand-width (hand &optional width &key (time 1000) effort)
+    ;; Get/Set the hand width
     (if width
       ;; set hand width
       (progn
