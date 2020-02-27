@@ -337,7 +337,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             ## with mergin
             astp.eefm_leg_inside_margin=0.04
             astp.eefm_leg_outside_margin=0.04
-            astp.eefm_leg_front_margin=0.1
+            astp.eefm_leg_front_margin=0.07
             astp.eefm_leg_rear_margin=0.07
         elif foot == "JSK":
             ## JSK foot : mechanical param is -> inside 0.075, front 0.11, rear 0.11
@@ -568,8 +568,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # abc setting
         abcp=self.abc_svc.getAutoBalancerParam()[1]
         #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0]];
-        abcp.default_zmp_offsets=[[0.01, 0.0, 0.0], [0.01, 0.0, 0.0]]; # 20170704
+        abcp.default_zmp_offsets=[[0.05, 0.0, 0.0], [0.05, 0.0, 0.0]]; # 20170704
         abcp.move_base_gain=1.2
+        abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
         kfp=self.kf_svc.getKalmanFilterParam()[1]
@@ -663,14 +664,14 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                                      [16800.0, 16800.0, 7500.0]]
         stp.eefm_rot_time_const=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
         stp.eefm_pos_time_const_support=[[1.5/1.1, 1.5/1.1, 1.5/1.1]]*2
-        stp.eefm_use_swing_damping=False
+        stp.eefm_use_swing_damping=True
         stp.eefm_swing_pos_damping_gain = stp.eefm_pos_damping_gain[0]
         stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0]
         stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30)]
         stp.eefm_pos_compensation_limit = [0.05, 0.05]
         # stp.eefm_ee_error_cutoff_freq=10000 # not used
-        stp.eefm_swing_rot_spring_gain=[[10.0, 10.0, 10.0]]*2
-        stp.eefm_swing_pos_spring_gain=[[10.0, 10.0, 10.0]]*2
+        stp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0]]*2
+        stp.eefm_swing_pos_spring_gain=[[5.0, 5.0, 5.0]]*2
         stp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*2
         stp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*2
         stp.eefm_wrench_alpha_blending=0.7
@@ -724,7 +725,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg=self.abc_svc.getGaitGeneratorParam()[1]
         gg.default_step_time=1.2
         #gg.default_double_support_ratio=0.32
-        gg.default_double_support_ratio=0.35
+        gg.default_double_support_ratio=0.2
         #gg.stride_parameter=[0.1,0.05,10.0]
         #gg.default_step_time=1.0
         #gg.swing_trajectory_delay_time_offset=0.35
@@ -738,6 +739,18 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.heel_zmp_offset_x = 1e-3*-116.342;
         gg.optional_go_pos_finalize_footstep_num=0
         gg.overwritable_footstep_index_offset=1
+        gg.leg_margin = [0.15, 0.09, 0.065, 0.065]
+        gg.safe_leg_margin = [0.1, 0.0, 0.05, 0.05]
+        gg.stride_limitation_type = OpenHRP.AutoBalancerService.CIRCLE
+        gg.stride_limitation_for_circle_type = [0.15, 0.3, 15, 0.15, 0.13]
+        gg.overwritable_stride_limitation = [0.25, 0.3, 0, 0.3, 0.13]
+        gg.margin_time_ratio = 0.2
+        gg.min_time_margin = 0.3
+        gg.min_time = 1.0
+        gg.zmp_delay_time_const = 0.06
+        gg.fg_zmp_cutoff_freq = 10
+        gg.fg_cp_cutoff_freq = 10
+        gg.dcm_offset = 0.01
         self.abc_svc.setGaitGeneratorParam(gg)
 
     def setStAbcParametersTQLEG0 (self):
