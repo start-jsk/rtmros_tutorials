@@ -710,6 +710,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
                          OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.AutoBalancerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices])
+        stp.cp_check_margin=[0.03, 0.03, 0, 0.07]
         # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         stp.eefm_cogvel_cutoff_freq = 4.0
         # calculated by calculate-eefm-st-state-feedback-default-gain-from-robot *chidori*
