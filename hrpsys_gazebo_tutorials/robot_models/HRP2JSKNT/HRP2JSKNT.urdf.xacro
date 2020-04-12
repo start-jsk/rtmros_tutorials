@@ -29,6 +29,7 @@
           </accel>
         </noise>
       </imu>
+      <pose>-0.13 0 0.118 0 0 0</pose>
     </sensor>
   </gazebo>
   <!-- add force sensor -->
