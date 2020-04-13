@@ -34,4 +34,7 @@ notifications:
       - iiysaito@opensource-robotics.tokyo.jp
     on_success: always #[always|never|change] # default: change
     on_failure: always #[always|never|change] # default: always
+before_script:
+  # rtmros_gazebo/hrpsys_gazebo_atlas is tested here, because tests for hrpsys_gazebo_atlas depend on rtmros_tutorials/hrpsys_ros_bridge_tutorials.
+  - export TEST_PKGS="`catkin_topological_order ${CI_SOURCE_PATH} --only-names` hrpsys_gazebo_atlas"
 script: source .travis/travis.sh
