@@ -4,30 +4,12 @@ rtmros_tutorials  [![Build Status](https://travis-ci.org/start-jsk/rtmros_tutori
 Tutorials for rtmros packages
 
 ### Install
-```
-# download source
-mkdir -p ~/ros/ws_rtmros_tutorials/src
-cd ~/ros/ws_rtmros_tutorials/src
-wstool init
-wstool set rtm-ros-robotics/rtmros_tutorials https://github.com/start-jsk/rtmros_tutorials.git --git -y
-wstool update
-source /opt/ros/hydro/setup.bash
-# install depend package
-sudo apt-get install python-rosdep
-sudo rosdep init
-rosdep update
-cd ~/ros/ws_rtmros_tutorials/src/rtm-ros-robotics/rtmros_tutorials
-curl -sSl https://raw.githubusercontent.com/jsk-ros-pkg/jsk_travis/master/rosdep-install.sh | bash
-# compile
-cd ~/ros/ws_rtmros_tutorials/
-catkin_make --only-pkg-with-deps hrpsys_gazebo_tutorials
-source ~/ros/ws_rtmros_tutorials/devel/setup.bash # this line is necessary for bug, need to be fixed.
-catkin_make --only-pkg-with-deps hrpsys_gazebo_tutorials --force-cmake # this line is necessary for bug, need to be fixed.
-catkin_make --only-pkg-with-deps hrpsys_gazebo_tutorials --force-cmake # this line is necessary for bug, need to be fixed.
-# add setting
-echo "source ~/ros/ws_rtmros_tutorials/devel/setup.bash" >> ~/.bashrc
-echo "source \`rospack find hrpsys_gazebo_tutorials\`/setup.sh" >> ~/.bashrc
-```
+
+Please refer [rtmros_common] for installing these packages.
+
+If you use closed models, you have to compile `hrpsys_ros_bridge_tutorials` after you download `jsk_models` or `hrp2_models`. If you compiled `hrpsys_ros_bridge_tutorials` before you download `jsk_models` or `hrp2_models`, you have to compile `hrpsys_ros_bridge_tutorials` again with `--force-cmake` option after you download `jsk_models` or `hrp2_models`.
+
+**NOTE** If you use `melodic` distribution, you have to compile `hrpsys_ros_bridge_tutorials` after you install `ros-melodic-collada-urdf-jsk-patch`, which is automatically installed with `rosdep install` for `hrpsys_ros_bridge_tutorials`.
 
 ### Try Sample
 Open Terminal and run gazebo
@@ -51,9 +33,24 @@ roseus hrp2jsknt-interface.l
 
 ### Package Description
 
-hrpsys_ros_bridge_tutorialsls
+### [hrpsys_ros_bridge_tutorials]
 --------------
-This is examples and tutorials for [rtmros_common/hrpsys_ros_bridge](https://github.com/start-jsk/rtmros_common). 
+This is examples and tutorials for [rtmros_common/hrpsys_ros_bridge](https://github.com/start-jsk/rtmros_common).
 
 Euslisp tutorial wiki is written in [ROS wiki](http://wiki.ros.org/rtmros_common/Tutorials/WorkingWithEusLisp).
 
+### [hrpsys_gazebo_tutorials]
+
+This package is a collection of examples for using hrpsys_gazebo system and utility scripts.
+
+- You should prepare robot model file. Supported types of model file are collada(openrave) and VRML(openhrp3). URDF and OpenRAVE xml can be used by converting to collada.
+    - *&lt;robot_name&gt;*.yaml for configurating gazebo setting and hrpsys setting
+    - (automatically generated) *&lt;robot_name&gt;*.urdf under robot_models/*&lt;robot_name&gt;* directory
+    - (automatically generated) hrpsys settings (you should have a collada or VRML robot model file)
+    - *&lt;robot_name&gt;*_optional_urdf_setting.sh under robot_models/*&lt;robot_name&gt;* directory, this is for adding description used by gazebo (such as sensor settings, collision and friction setting)
+
+#### (automatically generated files)
+
+You can use robot_models/install_robot_common.sh for installing urdf model file. This scripts converts collada file in [hrpsys_ros_bridge_tutorials]/models directory to urdf file. 
+
+    ./install_robot_common.sh ROBOT_NAME (model directory) (output directory) (collada_to_urdf_binary) (additional_ros_package_path)
