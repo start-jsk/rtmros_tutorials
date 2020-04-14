@@ -39,7 +39,7 @@ This is examples and tutorials for [rtmros_common/hrpsys_ros_bridge](https://git
 
 Euslisp tutorial wiki is written in [ROS wiki](http://wiki.ros.org/rtmros_common/Tutorials/WorkingWithEusLisp).
 
-- You should prepare robot model file. Supported types of model file are collada(openrave) and VRML(openhrp3). URDF and OpenRAVE xml can be used by converting to collada.
+- You should prepare robot model file (no additional operation is required for `SampleRobot`, downloading `hrp2_models`(private) is required for `HRP2`). Supported types of model file are collada(openrave) and VRML(openhrp3). URDF and OpenRAVE xml can be used by converting to collada.
     - *&lt;robot_name&gt;*.yaml for configurating URDF setting, gazebo setting and euslisp setting
     - (automatically generated) *&lt;robot_name&gt;*.urdf under models directory
     - (automatically generated) hrpsys settings (you should have a collada or VRML robot model file)
