@@ -39,18 +39,16 @@ This is examples and tutorials for [rtmros_common/hrpsys_ros_bridge](https://git
 
 Euslisp tutorial wiki is written in [ROS wiki](http://wiki.ros.org/rtmros_common/Tutorials/WorkingWithEusLisp).
 
+- You should prepare robot model file. Supported types of model file are collada(openrave) and VRML(openhrp3). URDF and OpenRAVE xml can be used by converting to collada.
+    - *&lt;robot_name&gt;*.yaml for configurating URDF setting, gazebo setting and euslisp setting
+    - (automatically generated) *&lt;robot_name&gt;*.urdf under models directory
+    - (automatically generated) hrpsys settings (you should have a collada or VRML robot model file)
+
 ### [hrpsys_gazebo_tutorials]
 
 This package is a collection of examples for using hrpsys_gazebo system and utility scripts.
+Please see README in that package for further information.
 
-- You should prepare robot model file. Supported types of model file are collada(openrave) and VRML(openhrp3). URDF and OpenRAVE xml can be used by converting to collada.
-    - *&lt;robot_name&gt;*.yaml for configurating gazebo setting and hrpsys setting
-    - (automatically generated) *&lt;robot_name&gt;*.urdf under robot_models/*&lt;robot_name&gt;* directory
-    - (automatically generated) hrpsys settings (you should have a collada or VRML robot model file)
-    - *&lt;robot_name&gt;*_optional_urdf_setting.sh under robot_models/*&lt;robot_name&gt;* directory, this is for adding description used by gazebo (such as sensor settings, collision and friction setting)
-
-#### (automatically generated files)
-
-You can use robot_models/install_robot_common.sh for installing urdf model file. This scripts converts collada file in [hrpsys_ros_bridge_tutorials]/models directory to urdf file. 
-
-    ./install_robot_common.sh ROBOT_NAME (model directory) (output directory) (collada_to_urdf_binary) (additional_ros_package_path)
+[rtmros_common]:https://github.com/start-jsk/rtmros_common
+[hrpsys_gazebo_tutorials]:https://github.com/start-jsk/rtmros_tutorials/tree/master/hrpsys_gazebo_tutorials
+[hrpsys_ros_bridge_tutorials]:https://github.com/start-jsk/rtmros_tutorials/tree/master/hrpsys_ros_bridge_tutorials
