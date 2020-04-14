@@ -38,7 +38,8 @@ roseus samplerobot-interface.l
 Open Terminal and run gazebo
 
 ```
-roslaunch hrpsys_gazebo_tutorials gazebo_hrp2jsknt_no_controllers.launch
+roslaunch hrpsys_gazebo_tutorials gazebo_hrp2jsknt_no_controllers.launch #kinetic or melodic
+roslaunch hrpsys_gazebo_tutorials gazebo_hrp2jsknt_no_controllers_indigo.launch #indigo
 ```
 Launch another terminal and start hrpsys-base
 ```
