@@ -34,7 +34,7 @@ roseus samplerobot-interface.l
 ```
 
 #### HRP2
-[rtmros_hrp2](private) is needed.
+`rtmros_hrp2`(private) is needed.
 Open Terminal and run gazebo
 
 ```
@@ -77,4 +77,3 @@ Please see README in that package for further information.
 [rtmros_common]:https://github.com/start-jsk/rtmros_common
 [hrpsys_gazebo_tutorials]:https://github.com/start-jsk/rtmros_tutorials/tree/master/hrpsys_gazebo_tutorials
 [hrpsys_ros_bridge_tutorials]:https://github.com/start-jsk/rtmros_tutorials/tree/master/hrpsys_ros_bridge_tutorials
-[rtmros_hrp2]:https://github.com/start-jsk/rtmros_hrp2
