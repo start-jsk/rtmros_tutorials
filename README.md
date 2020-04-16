@@ -12,6 +12,29 @@ If you use closed models, you have to compile `hrpsys_ros_bridge_tutorials` afte
 **NOTE** If you use `melodic` distribution, you have to compile `hrpsys_ros_bridge_tutorials` after you install `ros-melodic-collada-urdf-jsk-patch`, which is automatically installed with `rosdep install` for `hrpsys_ros_bridge_tutorials`.
 
 ### Try Sample
+#### SampleRobot
+Open Terminal and run gazebo
+
+```
+roslaunch hrpsys_gazebo_tutorials gazebo_samplerobot_no_controllers.launch
+```
+Launch another terminal and start hrpsys-base
+```
+rtmlaunch hrpsys_gazebo_tutorials samplerobot_hrpsys_bringup.launch
+```
+Launch another terminal and send command to robot by roseus
+```
+roscd hrpsys_ros_bridge_tutorials/euslisp/
+roseus samplerobot-interface.l
+(samplerobot-init)
+(send *ri* :angle-vector (send *sr* :reset-pose) 1000)
+(send *ri* :start-auto-balancer)
+(send *ri* :start-st)
+(send *ri* :go-pos 0 0 0)
+```
+
+#### HRP2
+[rtmros_hrp2](private) is needed.
 Open Terminal and run gazebo
 
 ```
@@ -27,6 +50,8 @@ roscd hrpsys_ros_bridge_tutorials/euslisp/
 roseus hrp2jsknt-interface.l
 (hrp2jsknt-init)
 (send *ri* :angle-vector (send *hrp2jsknt* :reset-pose) 1000)
+(send *ri* :start-auto-balancer)
+(send *ri* :start-st)
 (send *ri* :go-pos 0 0 0)
 ```
 
@@ -52,3 +77,4 @@ Please see README in that package for further information.
 [rtmros_common]:https://github.com/start-jsk/rtmros_common
 [hrpsys_gazebo_tutorials]:https://github.com/start-jsk/rtmros_tutorials/tree/master/hrpsys_gazebo_tutorials
 [hrpsys_ros_bridge_tutorials]:https://github.com/start-jsk/rtmros_tutorials/tree/master/hrpsys_ros_bridge_tutorials
+[rtmros_hrp2]:https://github.com/start-jsk/rtmros_hrp2
