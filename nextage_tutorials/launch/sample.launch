@@ -9,9 +9,10 @@
   <!-- copied from /nextage_ros_bridge/launch/ar_headcamera.launch -->
 
   <!-- Spawn models into Gazebo -->
-  <node name="spawn_sdf_cafetable" pkg="gazebo_ros" type="spawn_model"
-        args="-file $(find nextage_gazebo)/models/cafe_table/model.sdf -sdf
-              -x 1.0 -model Cafe_Table" />
+  <!-- defined in $(find nextage_tutorials)/model/sample.world -->
+  <!-- <node name="spawn_sdf_cafetable" pkg="gazebo_ros" type="spawn_model" -->
+  <!--       args="-file $(find nextage_gazebo)/models/cafe_table/model.sdf -sdf -->
+  <!--             -x 1.0 -model Cafe_Table" /> -->
   <node name="spawn_sdf_armarkerbox" pkg="gazebo_ros" type="spawn_model"
         args="-file $(find nextage_gazebo)/models/MarkerBox-60mm/model.sdf -sdf
               -x 1.0 -z 1.0 -model MarkerBox-60mm" />
