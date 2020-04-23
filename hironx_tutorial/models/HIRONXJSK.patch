@@ -1,0 +1,464 @@
+diff --git a/HIRONXJSK.urdf b/HIRONXJSK.urdf
+index 6748268..91f581c 100644
+--- a/HIRONXJSK.urdf
++++ b/HIRONXJSK.urdf
+@@ -561,10 +561,15 @@
+     <limit lower="-2.84489" upper="2.84489" effort="100" velocity="2.26893" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="CHEST_JOINT0_trans" >
+-    <actuator name="CHEST_JOINT0_motor" />
+-    <joint name="CHEST_JOINT0" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="CHEST_JOINT0_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="CHEST_JOINT0">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="CHEST_JOINT0_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="CHEST_JOINT0">
+     <cfmDamping>0.4</cfmDamping>
+@@ -577,10 +582,15 @@
+     <limit lower="-1.22173" upper="1.22173" effort="100" velocity="2.61799" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="HEAD_JOINT0_trans" >
+-    <actuator name="HEAD_JOINT0_motor" />
+-    <joint name="HEAD_JOINT0" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="HEAD_JOINT0_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="HEAD_JOINT0">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="HEAD_JOINT0_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="HEAD_JOINT0">
+     <cfmDamping>0.4</cfmDamping>
+@@ -593,10 +603,15 @@
+     <limit lower="-0.349066" upper="1.22173" effort="100" velocity="4.36332" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="HEAD_JOINT1_trans" >
+-    <actuator name="HEAD_JOINT1_motor" />
+-    <joint name="HEAD_JOINT1" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="HEAD_JOINT1_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="HEAD_JOINT1">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="HEAD_JOINT1_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="HEAD_JOINT1">
+     <cfmDamping>0.4</cfmDamping>
+@@ -609,10 +624,15 @@
+     <limit lower="-1.53589" upper="1.53589" effort="100" velocity="3.00197" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LARM_JOINT0_trans" >
+-    <actuator name="LARM_JOINT0_motor" />
+-    <joint name="LARM_JOINT0" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="LARM_JOINT0_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="LARM_JOINT0">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="LARM_JOINT0_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="LARM_JOINT0">
+     <cfmDamping>0.4</cfmDamping>
+@@ -625,10 +645,15 @@
+     <limit lower="-2.44346" upper="1.0472" effort="100" velocity="2.32129" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LARM_JOINT1_trans" >
+-    <actuator name="LARM_JOINT1_motor" />
+-    <joint name="LARM_JOINT1" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="LARM_JOINT1_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="LARM_JOINT1">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="LARM_JOINT1_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="LARM_JOINT1">
+     <cfmDamping>0.4</cfmDamping>
+@@ -641,10 +666,15 @@
+     <limit lower="-2.75762" upper="0" effort="100" velocity="3.9968" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LARM_JOINT2_trans" >
+-    <actuator name="LARM_JOINT2_motor" />
+-    <joint name="LARM_JOINT2" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="LARM_JOINT2_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="LARM_JOINT2">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="LARM_JOINT2_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="LARM_JOINT2">
+     <cfmDamping>0.4</cfmDamping>
+@@ -657,10 +687,15 @@
+     <limit lower="-1.8326" upper="2.87979" effort="100" velocity="2.61799" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LARM_JOINT3_trans" >
+-    <actuator name="LARM_JOINT3_motor" />
+-    <joint name="LARM_JOINT3" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="LARM_JOINT3_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="LARM_JOINT3">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="LARM_JOINT3_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="LARM_JOINT3">
+     <cfmDamping>0.4</cfmDamping>
+@@ -673,10 +708,15 @@
+     <limit lower="-1.74533" upper="1.74533" effort="100" velocity="4.36332" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LARM_JOINT4_trans" >
+-    <actuator name="LARM_JOINT4_motor" />
+-    <joint name="LARM_JOINT4" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="LARM_JOINT4_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="LARM_JOINT4">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="LARM_JOINT4_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="LARM_JOINT4">
+     <cfmDamping>0.4</cfmDamping>
+@@ -689,10 +729,15 @@
+     <limit lower="-2.84489" upper="2.84489" effort="100" velocity="5.23599" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LARM_JOINT5_trans" >
+-    <actuator name="LARM_JOINT5_motor" />
+-    <joint name="LARM_JOINT5" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="LARM_JOINT5_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="LARM_JOINT5">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="LARM_JOINT5_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="LARM_JOINT5">
+     <cfmDamping>0.4</cfmDamping>
+@@ -705,10 +750,15 @@
+     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LHAND_JOINT0_trans" >
+-    <actuator name="LHAND_JOINT0_motor" />
+-    <joint name="LHAND_JOINT0" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="LHAND_JOINT0_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="LHAND_JOINT0">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="LHAND_JOINT0_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="LHAND_JOINT0">
+     <cfmDamping>0.4</cfmDamping>
+@@ -721,10 +771,15 @@
+     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LHAND_JOINT1_trans" >
+-    <actuator name="LHAND_JOINT1_motor" />
+-    <joint name="LHAND_JOINT1" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="LHAND_JOINT1_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="LHAND_JOINT1">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="LHAND_JOINT1_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="LHAND_JOINT1">
+     <cfmDamping>0.4</cfmDamping>
+@@ -737,10 +792,15 @@
+     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LHAND_JOINT2_trans" >
+-    <actuator name="LHAND_JOINT2_motor" />
+-    <joint name="LHAND_JOINT2" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="LHAND_JOINT2_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="LHAND_JOINT2">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="LHAND_JOINT2_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="LHAND_JOINT2">
+     <cfmDamping>0.4</cfmDamping>
+@@ -753,10 +813,15 @@
+     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LHAND_JOINT3_trans" >
+-    <actuator name="LHAND_JOINT3_motor" />
+-    <joint name="LHAND_JOINT3" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="LHAND_JOINT3_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="LHAND_JOINT3">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="LHAND_JOINT3_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="LHAND_JOINT3">
+     <cfmDamping>0.4</cfmDamping>
+@@ -769,10 +834,15 @@
+     <limit lower="-1.53589" upper="1.53589" effort="100" velocity="3.00197" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RARM_JOINT0_trans" >
+-    <actuator name="RARM_JOINT0_motor" />
+-    <joint name="RARM_JOINT0" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="RARM_JOINT0_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="RARM_JOINT0">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="RARM_JOINT0_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="RARM_JOINT0">
+     <cfmDamping>0.4</cfmDamping>
+@@ -785,10 +855,15 @@
+     <limit lower="-2.44346" upper="1.0472" effort="100" velocity="2.32129" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RARM_JOINT1_trans" >
+-    <actuator name="RARM_JOINT1_motor" />
+-    <joint name="RARM_JOINT1" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="RARM_JOINT1_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="RARM_JOINT1">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="RARM_JOINT1_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="RARM_JOINT1">
+     <cfmDamping>0.4</cfmDamping>
+@@ -801,10 +876,15 @@
+     <limit lower="-2.75762" upper="0" effort="100" velocity="3.9968" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RARM_JOINT2_trans" >
+-    <actuator name="RARM_JOINT2_motor" />
+-    <joint name="RARM_JOINT2" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="RARM_JOINT2_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="RARM_JOINT2">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="RARM_JOINT2_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="RARM_JOINT2">
+     <cfmDamping>0.4</cfmDamping>
+@@ -817,10 +897,15 @@
+     <limit lower="-2.87979" upper="1.8326" effort="100" velocity="2.61799" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RARM_JOINT3_trans" >
+-    <actuator name="RARM_JOINT3_motor" />
+-    <joint name="RARM_JOINT3" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="RARM_JOINT3_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="RARM_JOINT3">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="RARM_JOINT3_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="RARM_JOINT3">
+     <cfmDamping>0.4</cfmDamping>
+@@ -833,10 +918,15 @@
+     <limit lower="-1.74533" upper="1.74533" effort="100" velocity="4.36332" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RARM_JOINT4_trans" >
+-    <actuator name="RARM_JOINT4_motor" />
+-    <joint name="RARM_JOINT4" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="RARM_JOINT4_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="RARM_JOINT4">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="RARM_JOINT4_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="RARM_JOINT4">
+     <cfmDamping>0.4</cfmDamping>
+@@ -849,10 +939,15 @@
+     <limit lower="-2.84489" upper="2.84489" effort="100" velocity="5.23599" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RARM_JOINT5_trans" >
+-    <actuator name="RARM_JOINT5_motor" />
+-    <joint name="RARM_JOINT5" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="RARM_JOINT5_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="RARM_JOINT5">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="RARM_JOINT5_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="RARM_JOINT5">
+     <cfmDamping>0.4</cfmDamping>
+@@ -865,10 +960,15 @@
+     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RHAND_JOINT0_trans" >
+-    <actuator name="RHAND_JOINT0_motor" />
+-    <joint name="RHAND_JOINT0" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="RHAND_JOINT0_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="RHAND_JOINT0">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="RHAND_JOINT0_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="RHAND_JOINT0">
+     <cfmDamping>0.4</cfmDamping>
+@@ -881,10 +981,15 @@
+     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RHAND_JOINT1_trans" >
+-    <actuator name="RHAND_JOINT1_motor" />
+-    <joint name="RHAND_JOINT1" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="RHAND_JOINT1_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="RHAND_JOINT1">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="RHAND_JOINT1_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="RHAND_JOINT1">
+     <cfmDamping>0.4</cfmDamping>
+@@ -897,10 +1002,15 @@
+     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RHAND_JOINT2_trans" >
+-    <actuator name="RHAND_JOINT2_motor" />
+-    <joint name="RHAND_JOINT2" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="RHAND_JOINT2_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="RHAND_JOINT2">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="RHAND_JOINT2_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="RHAND_JOINT2">
+     <cfmDamping>0.4</cfmDamping>
+@@ -913,10 +1023,15 @@
+     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <dynamics damping="0.2" friction="0" />
+   </joint>
+-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RHAND_JOINT3_trans" >
+-    <actuator name="RHAND_JOINT3_motor" />
+-    <joint name="RHAND_JOINT3" />
+-    <mechanicalReduction>1</mechanicalReduction>
++  <transmission name="RHAND_JOINT3_trans">
++    <type>transmission_interface/SimpleTransmission</type>
++    <joint name="RHAND_JOINT3">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++    </joint>
++    <actuator name="RHAND_JOINT3_motor">
++      <hardwareInterface>EffortJointInterface</hardwareInterface>
++      <mechanicalReduction>1</mechanicalReduction>
++    </actuator>
+   </transmission>
+   <gazebo reference="RHAND_JOINT3">
+     <cfmDamping>0.4</cfmDamping>
