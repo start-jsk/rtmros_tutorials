@@ -96,6 +96,23 @@ c_msg.trajectory.points.append(JointTrajectoryPoint(positions=[ 0.0], time_from_
 c_client.send_goal(c_msg)
 c_client.wait_for_result()
 
+# hand
+lh_msg = FollowJointTrajectoryGoal()
+lh_msg.trajectory.header.stamp = rospy.Time.now() + rospy.Duration(0.2)
+lh_msg.trajectory.joint_names = ['LHAND_JOINT0', 'LHAND_JOINT1', 'LHAND_JOINT2', 'LHAND_JOINT3']
+lh_msg.trajectory.points.append(JointTrajectoryPoint(positions=[ 0.8,-0.8,-0.8, 0.8], time_from_start = rospy.Duration(1)))
+lh_msg.trajectory.points.append(JointTrajectoryPoint(positions=[ 0.0, 0.0, 0.0, 0.0], time_from_start = rospy.Duration(2)))
+rh_msg = FollowJointTrajectoryGoal()
+rh_msg.trajectory.header.stamp = rospy.Time.now() + rospy.Duration(0.2)
+rh_msg.trajectory.joint_names = ['RHAND_JOINT0', 'RHAND_JOINT1', 'RHAND_JOINT2', 'RHAND_JOINT3']
+rh_msg.trajectory.points.append(JointTrajectoryPoint(positions=[ 0.8,-0.8,-0.8, 0.8], time_from_start = rospy.Duration(1)))
+rh_msg.trajectory.points.append(JointTrajectoryPoint(positions=[ 0.0, 0.0, 0.0, 0.0], time_from_start = rospy.Duration(2)))
+
+lh_client.send_goal(lh_msg)
+rh_client.send_goal(rh_msg)
+lh_client.wait_for_result()
+rh_client.wait_for_result()
+
 rospy.loginfo("done")
 
 
