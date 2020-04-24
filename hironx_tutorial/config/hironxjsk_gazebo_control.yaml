@@ -169,10 +169,10 @@ lhand_controller:
       goal: 0.02                     # Not enforced if unspecified
 
   gains: # Required because we're controlling an effort interface
-    LHAND_JOINT0: {p: 1500, i: 5, d: 1}
-    LHAND_JOINT1: {p: 1500, i: 5, d: 1}
-    LHAND_JOINT2: {p: 1500, i: 5, d: 1}
-    LHAND_JOINT3: {p: 1500, i: 5, d: 1}
+    LHAND_JOINT0: {p: 1000, i: 0, d: 0}
+    LHAND_JOINT1: {p: 1000, i: 0, d: 0}
+    LHAND_JOINT2: {p: 1000, i: 0, d: 0}
+    LHAND_JOINT3: {p: 1000, i: 0, d: 0}
   state_publish_rate:  100            # Override default
   action_monitor_rate: 100            # Override default
   stop_trajectory_duration: 0        # Override default
@@ -247,10 +247,10 @@ rhand_controller:
       goal: 0.02                     # Not enforced if unspecified
 
   gains: # Required because we're controlling an effort interface
-    RHAND_JOINT0: {p: 1500, i: 5, d: 1}
-    RHAND_JOINT1: {p: 1500, i: 5, d: 1}
-    RHAND_JOINT2: {p: 1500, i: 5, d: 1}
-    RHAND_JOINT3: {p: 1500, i: 5, d: 1}
+    RHAND_JOINT0: {p: 1000, i: 0, d: 0}
+    RHAND_JOINT1: {p: 1000, i: 0, d: 0}
+    RHAND_JOINT2: {p: 1000, i: 0, d: 0}
+    RHAND_JOINT3: {p: 1000, i: 0, d: 0}
   state_publish_rate:  100            # Override default
   action_monitor_rate: 100            # Override default
   stop_trajectory_duration: 0        # Override default
