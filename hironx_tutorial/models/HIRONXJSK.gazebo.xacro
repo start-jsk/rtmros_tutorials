@@ -13,7 +13,7 @@
 
   <link name="odom" />
   <joint name="odom_to_WAIST_Link" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.0 0.97" />
+    <origin rpy="0 0 0" xyz="0 0.0 0.80" />
     <parent link="odom" />
     <child link="WAIST_Link" />
   </joint>
