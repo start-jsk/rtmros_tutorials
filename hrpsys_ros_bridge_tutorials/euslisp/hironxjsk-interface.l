@@ -29,15 +29,32 @@
 
 (defclass hironxjsk-interface
   :super rtm-ros-robot-interface
-  :slots (hand-servo-num))
+  :slots (hand-servo-num
+          on-gazebo-ros-control))
 
 ;; Initialize
 (defmethod hironxjsk-interface
   ;; Based on https://github.com/start-jsk/rtmros_tutorials/blob/9132c58702b3b193e14271b4c231ad0080187850/hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-interface.l
-  (:init (&rest args)
+  (:init (&rest args &key (show-default-controller nil))
     (let ((limbs '(:rarm :larm :head :torso)))
       (dolist (limb limbs)
         (send self :def-limb-controller-method limb))
+      ;; If gazebo with ros_control, overwrite :default-controller
+      (ros::roseus "default_robot_interface")
+      (when (setq on-gazebo-ros-control
+                  (and (ros::get-param "/gazebo/time_step" nil)
+                       (ros::service-exists "/controller_manager/load_controller")))
+        (let ((sexp `(defmethod ,(send (class self):name)
+                       (:default-controller ()
+                         (append
+                           ,@(mapcar
+                               #'(lambda (limb)
+                                   `(send self ,(read-from-string
+                                                  (format nil "~A-controller" limb))))
+                               limbs))))))
+          (when show-default-controller
+            (pprint (macroexpand sexp)))
+          (eval sexp)))
       (prog1
         ;; Hironx has two types of joint_states on one topic: whole body and hand,
         ;; so queue size of joint_states should be two.
@@ -45,8 +62,12 @@
         (send-super* :init :joint-states-queue-size 2 :robot hironxjsk-robot args)
         ;; add controller
         (dolist (limb limbs)
-          (send self :add-controller (read-from-string (format nil "~A-controller" limb))
-                :joint-enable-check t :create-actions t))
+          (let ((ctype (read-from-string (format nil "~A-controller" limb))))
+            ;; Avoid overwriting existing controllers to let actionlib-comm-state work
+            ;; Without this avoidance, "old client's goal" warning is showed after :angle-vector
+            (unless (send self :add-controller ctype :create-actions nil)
+              (send self :add-controller ctype
+                    :joint-enable-check t :create-actions t))))
         ;; number of servo motors in one hand
         (setq hand-servo-num 4))))
   (:call-operation-return (method &rest args)
