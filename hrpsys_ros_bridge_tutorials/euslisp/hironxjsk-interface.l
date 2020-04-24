@@ -29,7 +29,8 @@
 
 (defclass hironxjsk-interface
   :super rtm-ros-robot-interface
-  :slots (hand-servo-num
+  :slots (hand-actions
+          hand-servo-num
           on-gazebo-ros-control))
 
 ;; Initialize
@@ -68,6 +69,22 @@
             (unless (send self :add-controller ctype :create-actions nil)
               (send self :add-controller ctype
                     :joint-enable-check t :create-actions t))))
+        ;; add hand controller for gazebo with ros_control
+        (when on-gazebo-ros-control
+          (setq hand-actions (make-hash-table))
+          (dolist (hand (list :rhand :lhand))
+            ;; initialize hand action
+            (sethash hand hand-actions
+                     (instance ros::simple-action-client :init
+                               (format nil "/~A_controller/follow_joint_trajectory_action"
+                                       (string-downcase hand))
+                               control_msgs::FollowJointTrajectoryAction
+                               :groupname groupname))
+            ;; check if hand action is respond (based on baxter-interface)
+            (unless
+              (and joint-action-enable (send (gethash hand hand-actions) :wait-for-server 3))
+              (ros::ros-warn "~A is not respond" (gethash hand hand-actions))
+              (ros::ros-info "*** if you do not have hand, you can ignore this message ***"))))
         ;; number of servo motors in one hand
         (setq hand-servo-num 4))))
   (:call-operation-return (method &rest args)
@@ -97,24 +114,53 @@
            ((:rhand :lhand)
             (send self :check-hand-vector-length av))))
 
-   ;; simulation mode
-   (when (send self :simulation-modep)
-     (flet ((get-joint-list (hand)
-              (let (acc)
-                (dotimes (i 4) (push (read-from-string (format nil "~a_joint~a" hand i)) acc))
-                (nreverse acc))))
-       (let ((joint-list (case hand
-                           (:hands (append (get-joint-list :rhand) (get-joint-list :lhand)))
-                           ((:rhand :lhand) (get-joint-list hand))
-                           (t (error ";; No such hand: ~A~%." hand)))))
+   (flet ((get-joint-list (hand)
+            (let (acc)
+              (dotimes (i 4) (push (read-from-string (format nil "~a_joint~a" hand i)) acc))
+              (nreverse acc))))
+     (let ((joint-list (case hand
+                         (:hands (append (get-joint-list :rhand) (get-joint-list :lhand)))
+                         ((:rhand :lhand) (get-joint-list hand))
+                         (t (error ";; No such hand: ~A~%." hand)))))
+       ;; simulation mode
+       (when (send self :simulation-modep)
+             (return-from :hand-angle-vector
+               (if av
+                 ;; setjointangles
+                 (map nil #'(lambda (joint angle) (send robot joint :joint-angle angle))
+                       joint-list av)
+                 ;; getjointangles
+                 (map float-vector #'(lambda (joint) (send robot joint :joint-angle))
+                      joint-list))))
+       ;; gazebo with ros_control
+       (when on-gazebo-ros-control
          (return-from :hand-angle-vector
            (if av
              ;; setjointangles
-             (map nil #'(lambda (joint angle) (send robot joint :joint-angle angle))
-                   joint-list av)
+             (let ((av-copy (copy-object av)))
+               (dolist (r/l (if (eq hand :hands) (list :rhand :lhand) (list hand)))
+                 (let* ((action (gethash r/l hand-actions))
+                        (goal (send action :make-goal-instance))
+                        (st (ros::time-now)))
+                   (send goal :header :seq 1)
+                   (send goal :header :stamp st)
+                   (send goal :goal :trajectory :header :stamp st)
+                   (send goal :goal :trajectory :joint_names
+                         (mapcar #'string-upcase (get-joint-list r/l)))
+                   (send goal :goal :trajectory :points
+                         (list (instance trajectory_msgs::JointTrajectoryPoint
+                                         :init
+                                         :positions (map float-vector #'deg2rad (subseq av-copy 0 hand-servo-num))
+                                         :time_from_start (ros::time (/ tm 1000.0)))))
+                   (setq av-copy (subseq av-copy hand-servo-num))
+                   (send action :send-goal goal)))
+               nil)
              ;; getjointangles
-             (map float-vector #'(lambda (joint) (send robot joint :joint-angle))
-                  joint-list))))))
+             (progn
+               (send self :update-robot-state :wait-until-update t)
+               (map float-vector #'(lambda (joint) (send robot joint :joint-angle))
+                    joint-list)))))))
+
    ;; real robot
    (if av
      ;; setjointangles
@@ -147,14 +193,14 @@
                 (* dir (send (send self :call-operation-return :servocontrollerservice_getjointangle :id id) :jv)))
             ids dirs))))
   (:hand-servo-on ()
-    (unless (send self :simulation-modep)
+    (unless (or (send self :simulation-modep) on-gazebo-ros-control)
       (send self :call-operation-return :servocontrollerservice_servoon)))
   (:hand-servo-off ()
-    (unless (send self :simulation-modep)
+    (unless (or (send self :simulation-modep) on-gazebo-ros-control)
       (send self :call-operation-return :servocontrollerservice_servooff)))
   (:hand-effort (&optional (hand :hands) effort)
     ;; effort is percentage or sequence of percentages
-    (if (send self :simulation-modep) (return-from :hand-effort nil))
+    (if (or (send self :simulation-modep) on-gazebo-ros-control) (return-from :hand-effort nil))
     (let ((ids (case hand
                      (:hands (list 2 3 4 5 6 7 8 9))
                      (:rhand (list 2 3 4 5))
