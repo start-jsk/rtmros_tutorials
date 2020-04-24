@@ -33,6 +33,7 @@
 ;; ServoControllerService for hand
 ;; Based on https://github.com/start-jsk/rtmros_hironx/blob/2.1.0/hironx_ros_bridge/src/hironx_ros_bridge/hironx_client.py
 ;; and https://github.com/start-jsk/rtmros_tutorials/blob/0.1.6/hrpsys_ros_bridge_tutorials/euslisp/hrp2-common-interface.l
+;; Please synchronize with hironxjsk-utils
 (defmethod hironxjsk-interface
   (:check-hand-vector-length (vec &optional (hand-num 1))
    ;; Ensure that `vec' is a 4 element vector for single hand or 8 element for double hand
