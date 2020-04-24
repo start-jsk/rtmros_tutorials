@@ -3,6 +3,30 @@
 (when (probe-file (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials/euslisp/hironxjsk-utils.l"))
   (require :hironxjsk-utils "package://hrpsys_ros_bridge_tutorials/euslisp/hironxjsk-utils.l"))
 
+;; Waiting for https://github.com/start-jsk/rtmros_common/pull/1095 to be released
+(defmethod rtm-ros-robot-interface
+  (:def-limb-controller-method
+    (limb &key (debugp nil))
+    "Method to add limb controller action by default setting.
+     Currently, FollowJointTrajectoryAction is used.
+     This method calls defmethod. If :debugp t, we can see defmethod s-expressions."
+    (let ((sexp `(defmethod ,(send (class self):name)
+                   (,(read-from-string (format nil "~A-controller" limb))
+                    ()
+                    (list
+                     (list
+                      (cons :group-name ,(string-downcase limb))
+                      (cons :controller-action ,(format nil "~A_controller/follow_joint_trajectory_action" (string-downcase limb)))
+                      (cons :controller-state ,(format nil "~A_controller/state" (string-downcase limb)))
+                      (cons :action-type control_msgs::FollowJointTrajectoryAction)
+                      (cons :joint-names (send-all (send robot ,limb :joint-list) :name)))
+                     )))))
+      (if debugp
+          (pprint (macroexpand sexp)))
+      (eval sexp)
+      ))
+  )
+
 (defclass hironxjsk-interface
   :super rtm-ros-robot-interface
   :slots (hand-servo-num))
@@ -11,18 +35,20 @@
 (defmethod hironxjsk-interface
   ;; Based on https://github.com/start-jsk/rtmros_tutorials/blob/9132c58702b3b193e14271b4c231ad0080187850/hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-interface.l
   (:init (&rest args)
-    (prog1
-      ;; Hironx has two types of joint_states on one topic: whole body and hand,
-      ;; so queue size of joint_states should be two.
-      ;; https://github.com/jsk-ros-pkg/jsk_pr2eus/blob/0.3.13/pr2eus/robot-interface.l#L120
-      (send-super* :init :joint-states-queue-size 2 :robot hironxjsk-robot args)
-      ;; add controller
-      (dolist (limb '(:rarm :larm :head :torso))
-        (send self :def-limb-controller-method limb)
-        (send self :add-controller (read-from-string (format nil "~A-controller" limb))
-              :joint-enable-check t :create-actions t))
-      ;; number of servo motors in one hand
-      (setq hand-servo-num 4)))
+    (let ((limbs '(:rarm :larm :head :torso)))
+      (dolist (limb limbs)
+        (send self :def-limb-controller-method limb))
+      (prog1
+        ;; Hironx has two types of joint_states on one topic: whole body and hand,
+        ;; so queue size of joint_states should be two.
+        ;; https://github.com/jsk-ros-pkg/jsk_pr2eus/blob/0.3.13/pr2eus/robot-interface.l#L120
+        (send-super* :init :joint-states-queue-size 2 :robot hironxjsk-robot args)
+        ;; add controller
+        (dolist (limb limbs)
+          (send self :add-controller (read-from-string (format nil "~A-controller" limb))
+                :joint-enable-check t :create-actions t))
+        ;; number of servo motors in one hand
+        (setq hand-servo-num 4))))
   (:call-operation-return (method &rest args)
     ;; Call method until it returns true
     ;; Used to ensure operation on the hand service calls, that sometimes fail
