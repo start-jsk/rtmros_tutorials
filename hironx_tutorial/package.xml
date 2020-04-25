@@ -41,6 +41,9 @@
   <run_depend>gazebo_ros_control</run_depend>
   <run_depend>robot_state_publisher</run_depend>
   <!-- End of HIRONXJSK gazebo dependency -->
+  <!-- Start of HIRONXJSK demo dependency -->
+  <run_depend>jsk_pcl_ros</run_depend>
+  <!-- End of HIRONXJSK demo dependency -->
 
   <export>
   	<rosdoc config="rosdoc.yaml" />
