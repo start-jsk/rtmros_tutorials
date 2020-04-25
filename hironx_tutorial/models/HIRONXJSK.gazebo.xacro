@@ -25,11 +25,11 @@
     <child link="odom" />
   </joint>
 
-  <!-- copied from   fetch_description/robots/fetch.urdf -->
+  <!-- Based on fetch_description/robots/fetch.urdf -->
 
   <link name="head_camera_rgb_frame" />
   <joint name="head_camera_rgb_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.02 0" />
+    <origin rpy="0 0 0" xyz="0.057 0.02 0.1" />
     <parent link="HEAD_JOINT1_Link" />
     <child link="head_camera_rgb_frame" />
   </joint>
@@ -41,7 +41,7 @@
   </joint>
   <link name="head_camera_depth_frame" />
   <joint name="head_camera_depth_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.045 0" />
+    <origin rpy="0 0 0" xyz="0.057 0.045 0.1" />
     <parent link="HEAD_JOINT1_Link" />
     <child link="head_camera_depth_frame" />
   </joint>
