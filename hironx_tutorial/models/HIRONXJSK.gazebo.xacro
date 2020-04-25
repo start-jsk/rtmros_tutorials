@@ -18,6 +18,13 @@
     <child link="WAIST" />
   </joint>
 
+  <!-- Fix robot to Gazebo world with 'odom' frame -->
+  <link name="world" />
+  <joint name="fixed" type="fixed">
+    <parent link="world" />
+    <child link="odom" />
+  </joint>
+
   <!-- copied from   fetch_description/robots/fetch.urdf -->
 
   <link name="head_camera_rgb_frame" />
