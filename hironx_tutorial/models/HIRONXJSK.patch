@@ -1,5 +1,5 @@
 diff --git a/HIRONXJSK.urdf b/HIRONXJSK.urdf
-index 6748268..91f581c 100644
+index f1c3602..8e6b734 100644
 --- a/HIRONXJSK.urdf
 +++ b/HIRONXJSK.urdf
 @@ -561,10 +561,15 @@
@@ -63,7 +63,7 @@ index 6748268..91f581c 100644
    <gazebo reference="HEAD_JOINT1">
      <cfmDamping>0.4</cfmDamping>
 @@ -609,10 +624,15 @@
-     <limit lower="-1.53589" upper="1.53589" effort="100" velocity="3.00197" />
+     <limit lower="-1.53589" upper="1.53589" effort="150" velocity="3.00197" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LARM_JOINT0_trans" >
@@ -83,7 +83,7 @@ index 6748268..91f581c 100644
    <gazebo reference="LARM_JOINT0">
      <cfmDamping>0.4</cfmDamping>
 @@ -625,10 +645,15 @@
-     <limit lower="-2.44346" upper="1.0472" effort="100" velocity="2.32129" />
+     <limit lower="-2.44346" upper="1.0472" effort="200" velocity="2.32129" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LARM_JOINT1_trans" >
@@ -183,7 +183,7 @@ index 6748268..91f581c 100644
    <gazebo reference="LARM_JOINT5">
      <cfmDamping>0.4</cfmDamping>
 @@ -705,10 +750,15 @@
-     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <limit lower="-3.1415" upper="3.1415" effort="0.71" velocity="31.415" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LHAND_JOINT0_trans" >
@@ -203,7 +203,7 @@ index 6748268..91f581c 100644
    <gazebo reference="LHAND_JOINT0">
      <cfmDamping>0.4</cfmDamping>
 @@ -721,10 +771,15 @@
-     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <limit lower="-3.1415" upper="3.1415" effort="0.71" velocity="31.415" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LHAND_JOINT1_trans" >
@@ -223,7 +223,7 @@ index 6748268..91f581c 100644
    <gazebo reference="LHAND_JOINT1">
      <cfmDamping>0.4</cfmDamping>
 @@ -737,10 +792,15 @@
-     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <limit lower="-3.1415" upper="3.1415" effort="0.71" velocity="31.415" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LHAND_JOINT2_trans" >
@@ -243,7 +243,7 @@ index 6748268..91f581c 100644
    <gazebo reference="LHAND_JOINT2">
      <cfmDamping>0.4</cfmDamping>
 @@ -753,10 +813,15 @@
-     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <limit lower="-3.1415" upper="3.1415" effort="0.71" velocity="31.415" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="LHAND_JOINT3_trans" >
@@ -263,7 +263,7 @@ index 6748268..91f581c 100644
    <gazebo reference="LHAND_JOINT3">
      <cfmDamping>0.4</cfmDamping>
 @@ -769,10 +834,15 @@
-     <limit lower="-1.53589" upper="1.53589" effort="100" velocity="3.00197" />
+     <limit lower="-1.53589" upper="1.53589" effort="150" velocity="3.00197" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RARM_JOINT0_trans" >
@@ -283,7 +283,7 @@ index 6748268..91f581c 100644
    <gazebo reference="RARM_JOINT0">
      <cfmDamping>0.4</cfmDamping>
 @@ -785,10 +855,15 @@
-     <limit lower="-2.44346" upper="1.0472" effort="100" velocity="2.32129" />
+     <limit lower="-2.44346" upper="1.0472" effort="200" velocity="2.32129" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RARM_JOINT1_trans" >
@@ -383,7 +383,7 @@ index 6748268..91f581c 100644
    <gazebo reference="RARM_JOINT5">
      <cfmDamping>0.4</cfmDamping>
 @@ -865,10 +960,15 @@
-     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <limit lower="-3.1415" upper="3.1415" effort="0.71" velocity="31.415" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RHAND_JOINT0_trans" >
@@ -403,7 +403,7 @@ index 6748268..91f581c 100644
    <gazebo reference="RHAND_JOINT0">
      <cfmDamping>0.4</cfmDamping>
 @@ -881,10 +981,15 @@
-     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <limit lower="-3.1415" upper="3.1415" effort="0.71" velocity="31.415" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RHAND_JOINT1_trans" >
@@ -423,7 +423,7 @@ index 6748268..91f581c 100644
    <gazebo reference="RHAND_JOINT1">
      <cfmDamping>0.4</cfmDamping>
 @@ -897,10 +1002,15 @@
-     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <limit lower="-3.1415" upper="3.1415" effort="0.71" velocity="31.415" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RHAND_JOINT2_trans" >
@@ -443,7 +443,7 @@ index 6748268..91f581c 100644
    <gazebo reference="RHAND_JOINT2">
      <cfmDamping>0.4</cfmDamping>
 @@ -913,10 +1023,15 @@
-     <limit lower="-3.1415" upper="3.1415" effort="100" velocity="31.415" />
+     <limit lower="-3.1415" upper="3.1415" effort="0.71" velocity="31.415" />
      <dynamics damping="0.2" friction="0" />
    </joint>
 -  <transmission type="pr2_mechanism_model/SimpleTransmission" name="RHAND_JOINT3_trans" >
