@@ -36,7 +36,7 @@
 ;; Initialize
 (defmethod hironxjsk-interface
   ;; Based on https://github.com/start-jsk/rtmros_tutorials/blob/9132c58702b3b193e14271b4c231ad0080187850/hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-interface.l
-  (:init (&rest args &key (show-default-controller nil))
+  (:init (&rest args &key (show-default-controller nil) &allow-other-keys)
     (let ((limbs '(:rarm :larm :head :torso)))
       (dolist (limb limbs)
         (send self :def-limb-controller-method limb))
