@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="HIRONXJSK" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find hironx_tutorial)/models/HIRONXJSK.urdf" />
+  <xacro:include filename="$(find hrpsys_ros_bridge_tutorials)/models/HIRONXJSK_SENSORS.urdf" />
 
   <!-- Gazebo plugin for ROS Control -->
   <gazebo>
@@ -16,33 +16,6 @@
     <origin rpy="0 0 0" xyz="0 0.0 0.80" />
     <parent link="odom" />
     <child link="WAIST" />
-  </joint>
-
-  <!-- Based on fetch_description/robots/fetch.urdf -->
-
-  <link name="head_camera_rgb_frame" />
-  <joint name="head_camera_rgb_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.057 0.02 0.1" />
-    <parent link="HEAD_JOINT1_Link" />
-    <child link="head_camera_rgb_frame" />
-  </joint>
-  <link name="head_camera_rgb_optical_frame" />
-  <joint name="head_camera_rgb_optical_joint" type="fixed">
-    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0" />
-    <parent link="head_camera_rgb_frame" />
-    <child link="head_camera_rgb_optical_frame" />
-  </joint>
-  <link name="head_camera_depth_frame" />
-  <joint name="head_camera_depth_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.057 0.045 0.1" />
-    <parent link="HEAD_JOINT1_Link" />
-    <child link="head_camera_depth_frame" />
-  </joint>
-  <link name="head_camera_depth_optical_frame" />
-  <joint name="head_camera_depth_optical_joint" type="fixed">
-    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0" />
-    <parent link="head_camera_depth_frame" />
-    <child link="head_camera_depth_optical_frame" />
   </joint>
 
   <!-- copied from fetch_gazebo/robots/fetch.gazebo.xacro -->

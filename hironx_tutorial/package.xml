@@ -20,8 +20,6 @@
   
   <buildtool_depend>catkin</buildtool_depend>
 
-  <build_depend>hrpsys_ros_bridge_tutorials</build_depend>  <!-- For HIRONXJSK model -->
-
   <run_depend>hironx_ros_bridge</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>jsk_tools</run_depend>
@@ -31,6 +29,7 @@
   <run_depend>rospy</run_depend>
   <run_depend>tf</run_depend>
   <!-- Start of HIRONXJSK gazebo dependency -->
+  <run_depend>hrpsys_ros_bridge_tutorials</run_depend>  <!-- For HIRONXJSK model -->
   <run_depend>controller_manager</run_depend>
   <run_depend>joint_state_controller</run_depend>
   <run_depend>effort_controllers</run_depend>
