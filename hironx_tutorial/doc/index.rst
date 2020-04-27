@@ -39,7 +39,7 @@ HIRONXJSK Picking Demo
 Installation
 ++++++++++++
 
-To run this demo, you have to build this package with ``hrp2_models`` and ``hrpsys_ros_bridge_tutorials``.
+To run this demo, you have to build this package with ``hrp2_models`` (closed package) and ``hrpsys_ros_bridge_tutorials``.
 If you compiled ``hrpsys_ros_bridge_tutorials`` before you download ``hrp2_models``, you have to compile ``hrpsys_ros_bridge_tutorials`` again with ``--force-cmake`` option after you download ``hrp2_models``.
 
 Execution
