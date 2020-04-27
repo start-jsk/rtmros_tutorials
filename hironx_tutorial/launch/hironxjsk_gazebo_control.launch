@@ -14,5 +14,5 @@
                                            lhand_controller
                                            rhand_controller
                                          "/>
-  <node name="go_initial" pkg="hironx_tutorial"  type="go_initial_gazebo.py" />
+  <node name="go_initial" pkg="hironx_tutorial"  type="hironxjsk_gazebo_go_initial.py" />
 </launch>
