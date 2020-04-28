@@ -48,6 +48,8 @@
                       (send (send *hironxjsk* :get :rhand-tip-coords) :worldpos))
                   2)))
     (assert (send *hironxjsk* :rarm :move-end-pos (float-vector 0 0 h-offset) :world))
+    ;; (assert X) raises error if X returns nil.
+    ;; I use assert here to stop execution if IK fails
     (setq *mid-av* (send *hironxjsk* :angle-vector))
     (send *hironxjsk* :stop-grasp :rarm)
     (send *irtviewer* :draw-objects)  ;; Only for display
