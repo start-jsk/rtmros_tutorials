@@ -10,11 +10,12 @@
     <child link="WAIST" />
   </joint>
 
-  <!-- copied from   fetch_description/robots/fetch.urdf -->
+  <!-- based on fetch_description/robots/fetch.urdf   -->
+  <!--          nextage_description/urdf/nxo_gz.xacro -->
 
   <link name="head_camera_rgb_frame" />
   <joint name="head_camera_rgb_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.02 0" />
+    <origin rpy="0 0.25 0" xyz="0.0175 0.02 0.105" />
     <parent link="HEAD_JOINT1_Link" />
     <child link="head_camera_rgb_frame" />
   </joint>
@@ -26,7 +27,7 @@
   </joint>
   <link name="head_camera_depth_frame" />
   <joint name="head_camera_depth_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0.045 0" />
+    <origin rpy="0 0.25 0" xyz="0.0175 0.045 0.105" />
     <parent link="HEAD_JOINT1_Link" />
     <child link="head_camera_depth_frame" />
   </joint>
