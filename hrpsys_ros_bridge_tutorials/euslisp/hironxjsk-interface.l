@@ -30,6 +30,10 @@
       (send-super* :init :joint-states-queue-size 2 :robot robot :type
                    (if on-gazebo-ros-control :gazebo-ros-controller :default-controller)
                    args)
+      (dolist (limb '(:rarm :larm :head :torso))
+        (let ((ctype (read-from-string (format nil "~A-controller" limb))))
+          (send self :add-controller ctype)))
+
       ;; add hand controller for gazebo with ros_control
       (when on-gazebo-ros-control
         (setq hand-actions (make-hash-table))
