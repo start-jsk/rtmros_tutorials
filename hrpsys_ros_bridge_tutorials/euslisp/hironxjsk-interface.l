@@ -11,7 +11,7 @@
 
 ;; Initialize
 (defmethod hironxjsk-interface
-  (:init (&rest args)
+  (:init (&rest args &key (type nil) &allow-other-keys)
     (setq robot (instance hironxjsk-robot :init))
     ;; Define {limb}-controller, usually we can define manually as jsk_robots
     (dolist (limb '(:rarm :larm :head :torso))
@@ -28,7 +28,9 @@
       ;; so queue size of joint_states should be two.
       ;; https://github.com/jsk-ros-pkg/jsk_pr2eus/blob/0.3.13/pr2eus/robot-interface.l#L120
       (send-super* :init :joint-states-queue-size 2 :robot robot :type
-                   (if on-gazebo-ros-control :gazebo-ros-controller :default-controller)
+                   (cond (type type)
+                         (on-gazebo-ros-control :gazebo-ros-controller)
+                         (t :default-controller))
                    args)
       (dolist (limb '(:rarm :larm :head :torso))
         (let ((ctype (read-from-string (format nil "~A-controller" limb))))
