@@ -3,30 +3,6 @@
 (when (probe-file (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials/euslisp/hironxjsk-utils.l"))
   (require :hironxjsk-utils "package://hrpsys_ros_bridge_tutorials/euslisp/hironxjsk-utils.l"))
 
-;; Waiting for https://github.com/start-jsk/rtmros_common/pull/1095 to be released
-(defmethod rtm-ros-robot-interface
-  (:def-limb-controller-method
-    (limb &key (debugp nil))
-    "Method to add limb controller action by default setting.
-     Currently, FollowJointTrajectoryAction is used.
-     This method calls defmethod. If :debugp t, we can see defmethod s-expressions."
-    (let ((sexp `(defmethod ,(send (class self):name)
-                   (,(read-from-string (format nil "~A-controller" limb))
-                    ()
-                    (list
-                     (list
-                      (cons :group-name ,(string-downcase limb))
-                      (cons :controller-action ,(format nil "~A_controller/follow_joint_trajectory_action" (string-downcase limb)))
-                      (cons :controller-state ,(format nil "~A_controller/state" (string-downcase limb)))
-                      (cons :action-type control_msgs::FollowJointTrajectoryAction)
-                      (cons :joint-names (send-all (send robot ,limb :joint-list) :name)))
-                     )))))
-      (if debugp
-          (pprint (macroexpand sexp)))
-      (eval sexp)
-      ))
-  )
-
 (defclass hironxjsk-interface
   :super rtm-ros-robot-interface
   :slots (hand-actions
@@ -35,58 +11,49 @@
 
 ;; Initialize
 (defmethod hironxjsk-interface
-  ;; Based on https://github.com/start-jsk/rtmros_tutorials/blob/9132c58702b3b193e14271b4c231ad0080187850/hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-interface.l
-  (:init (&rest args &key (show-default-controller nil) &allow-other-keys)
-    (let ((limbs '(:rarm :larm :head :torso)))
-      (dolist (limb limbs)
-        (send self :def-limb-controller-method limb))
-      ;; If gazebo with ros_control, overwrite :default-controller
-      (ros::roseus "default_robot_interface")
-      (when (setq on-gazebo-ros-control
-                  (and (ros::get-param "/gazebo/time_step" nil)
-                       (ros::service-exists "/controller_manager/load_controller")))
-        (let ((sexp `(defmethod ,(send (class self):name)
-                       (:default-controller ()
-                         (append
-                           ,@(mapcar
-                               #'(lambda (limb)
-                                   `(send self ,(read-from-string
-                                                  (format nil "~A-controller" limb))))
-                               limbs))))))
-          (when show-default-controller
-            (pprint (macroexpand sexp)))
-          (eval sexp)))
-      (prog1
-        ;; Hironx has two types of joint_states on one topic: whole body and hand,
-        ;; so queue size of joint_states should be two.
-        ;; https://github.com/jsk-ros-pkg/jsk_pr2eus/blob/0.3.13/pr2eus/robot-interface.l#L120
-        (send-super* :init :joint-states-queue-size 2 :robot hironxjsk-robot args)
-        ;; add controller
-        (dolist (limb limbs)
-          (let ((ctype (read-from-string (format nil "~A-controller" limb))))
-            ;; Avoid overwriting existing controllers to let actionlib-comm-state work
-            ;; Without this avoidance, "old client's goal" warning is showed after :angle-vector
-            (unless (send self :add-controller ctype :create-actions nil)
-              (send self :add-controller ctype
-                    :joint-enable-check t :create-actions t))))
-        ;; add hand controller for gazebo with ros_control
-        (when on-gazebo-ros-control
-          (setq hand-actions (make-hash-table))
-          (dolist (hand (list :rhand :lhand))
-            ;; initialize hand action
-            (sethash hand hand-actions
-                     (instance ros::simple-action-client :init
-                               (format nil "/~A_controller/follow_joint_trajectory_action"
+  (:init (&rest args)
+    (setq robot (instance hironxjsk-robot :init))
+    ;; Define {limb}-controller, usually we can define manually as jsk_robots
+    (dolist (limb '(:rarm :larm :head :torso))
+      (send self :def-limb-controller-method limb))
+    ;; If gazebo with ros_control, overwrite :default-controller
+    (setq on-gazebo-ros-control
+          (and (ros::get-param "/gazebo/time_step" nil)
+               ;; rtm-ros-bridge does not have type parametrs
+               (ros::get-param "/torso_controller/type" nil)))
+    (when on-gazebo-ros-control
+      (ros::ros-warn "Found Gazebo/ros_control environment"))
+    (prog1
+      ;; Hironx has two types of joint_states on one topic: whole body and hand,
+      ;; so queue size of joint_states should be two.
+      ;; https://github.com/jsk-ros-pkg/jsk_pr2eus/blob/0.3.13/pr2eus/robot-interface.l#L120
+      (send-super* :init :joint-states-queue-size 2 :robot robot :type
+                   (if on-gazebo-ros-control :gazebo-ros-controller :default-controller)
+                   args)
+      ;; add hand controller for gazebo with ros_control
+      (when on-gazebo-ros-control
+        (setq hand-actions (make-hash-table))
+        (dolist (hand (list :rhand :lhand))
+          ;; initialize hand action
+          (sethash hand hand-actions
+                   (instance ros::simple-action-client :init
+                             (format nil "/~A_controller/follow_joint_trajectory_action"
                                        (string-downcase hand))
-                               control_msgs::FollowJointTrajectoryAction
-                               :groupname groupname))
-            ;; check if hand action is respond (based on baxter-interface)
-            (unless
+                             control_msgs::FollowJointTrajectoryAction
+                             :groupname groupname))
+          ;; check if hand action is respond (based on baxter-interface)
+          (unless
               (and joint-action-enable (send (gethash hand hand-actions) :wait-for-server 3))
-              (ros::ros-warn "~A is not respond" (gethash hand hand-actions))
-              (ros::ros-info "*** if you do not have hand, you can ignore this message ***"))))
-        ;; number of servo motors in one hand
-        (setq hand-servo-num 4))))
+            (ros::ros-warn "~A is not respond" (gethash hand hand-actions))
+            (ros::ros-info "*** if you do not have hand, you can ignore this message ***"))))
+      ;; number of servo motors in one hand
+      (setq hand-servo-num 4)))
+  (:gazebo-ros-controller ()
+    (append
+     (send self :rarm-controller)
+     (send self :larm-controller)
+     (send self :head-controller)
+     (send self :torso-controller)))
   (:call-operation-return (method &rest args)
     ;; Call method until it returns true
     ;; Used to ensure operation on the hand service calls, that sometimes fail
