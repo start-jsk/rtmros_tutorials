@@ -1,0 +1,19 @@
+<launch>
+  <group ns="gazebo">
+    <node pkg="gazebo_ros" type="gazebo_ros_model_pose_publisher"
+          name="gazebo_ros_model_pose" >
+      <param name="base_frame" value="/world" />
+      <param name="update_rate" value="100" />
+      <param name="tf_prefix" value="/gazebo/" />
+    </node>
+  </group>
+
+  <node pkg="tf" type="static_transform_publisher"
+        name="static_transform_publisher_robot_odom"
+        args="0 0 0 0 0 0 /gazebo/HIRONXJSK /odom 100" />
+
+  <node pkg="rqt_joint_trajectory_controller"
+        type="rqt_joint_trajectory_controller"
+        name="rqt_joint_trajectory_controller" />
+
+</launch>
