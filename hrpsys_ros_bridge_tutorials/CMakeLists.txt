@@ -614,6 +614,12 @@ if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
   endif(multisense_description_FOUND)
 endif()
 
+# for HIRONXJSK (adding sensor, and fixing some points for gazebo)
+if(${hrp2_models_FOUND})
+  attach_sensor_and_endeffector_to_hrp2jsk_urdf(HIRONXJSK HIRONXJSK.urdf
+    HIRONXJSK_SENSORS.urdf hironxjsk.yaml)
+endif(${hrp2_models_FOUND})
+
 macro (generate_staro_hand_model _robot_name _dir_name)
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
   set(_org_model_dir "${jsk_models_MODEL_DIR}/${_dir_name}/")

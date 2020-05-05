@@ -5,24 +5,61 @@
 
 (defclass hironxjsk-interface
   :super rtm-ros-robot-interface
-  :slots (hand-servo-num))
+  :slots (hand-actions
+          hand-servo-num
+          on-gazebo-ros-control))
 
 ;; Initialize
 (defmethod hironxjsk-interface
-  ;; Based on https://github.com/start-jsk/rtmros_tutorials/blob/9132c58702b3b193e14271b4c231ad0080187850/hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-interface.l
-  (:init (&rest args)
+  (:init (&rest args &key (type nil) &allow-other-keys)
+    (setq robot (instance hironxjsk-robot :init))
+    ;; Define {limb}-controller, usually we can define manually as jsk_robots
+    (dolist (limb '(:rarm :larm :head :torso))
+      (send self :def-limb-controller-method limb))
+    ;; If gazebo with ros_control, overwrite :default-controller
+    (setq on-gazebo-ros-control
+          (and (ros::get-param "/gazebo/time_step" nil)
+               ;; rtm-ros-bridge does not have type parametrs
+               (ros::get-param "/torso_controller/type" nil)))
+    (when on-gazebo-ros-control
+      (ros::ros-warn "Found Gazebo/ros_control environment"))
     (prog1
       ;; Hironx has two types of joint_states on one topic: whole body and hand,
       ;; so queue size of joint_states should be two.
       ;; https://github.com/jsk-ros-pkg/jsk_pr2eus/blob/0.3.13/pr2eus/robot-interface.l#L120
-      (send-super* :init :joint-states-queue-size 2 :robot hironxjsk-robot args)
-      ;; add controller
+      (send-super* :init :joint-states-queue-size 2 :robot robot :type
+                   (cond (type type)
+                         (on-gazebo-ros-control :gazebo-ros-controller)
+                         (t :default-controller))
+                   args)
       (dolist (limb '(:rarm :larm :head :torso))
-        (send self :def-limb-controller-method limb)
-        (send self :add-controller (read-from-string (format nil "~A-controller" limb))
-              :joint-enable-check t :create-actions t))
+        (let ((ctype (read-from-string (format nil "~A-controller" limb))))
+          (send self :add-controller ctype)))
+
+      ;; add hand controller for gazebo with ros_control
+      (when on-gazebo-ros-control
+        (setq hand-actions (make-hash-table))
+        (dolist (hand (list :rhand :lhand))
+          ;; initialize hand action
+          (sethash hand hand-actions
+                   (instance ros::simple-action-client :init
+                             (format nil "/~A_controller/follow_joint_trajectory_action"
+                                       (string-downcase hand))
+                             control_msgs::FollowJointTrajectoryAction
+                             :groupname groupname))
+          ;; check if hand action is respond (based on baxter-interface)
+          (unless
+              (and joint-action-enable (send (gethash hand hand-actions) :wait-for-server 3))
+            (ros::ros-warn "~A is not respond" (gethash hand hand-actions))
+            (ros::ros-info "*** if you do not have hand, you can ignore this message ***"))))
       ;; number of servo motors in one hand
       (setq hand-servo-num 4)))
+  (:gazebo-ros-controller ()
+    (append
+     (send self :rarm-controller)
+     (send self :larm-controller)
+     (send self :head-controller)
+     (send self :torso-controller)))
   (:call-operation-return (method &rest args)
     ;; Call method until it returns true
     ;; Used to ensure operation on the hand service calls, that sometimes fail
@@ -33,6 +70,7 @@
 ;; ServoControllerService for hand
 ;; Based on https://github.com/start-jsk/rtmros_hironx/blob/2.1.0/hironx_ros_bridge/src/hironx_ros_bridge/hironx_client.py
 ;; and https://github.com/start-jsk/rtmros_tutorials/blob/0.1.6/hrpsys_ros_bridge_tutorials/euslisp/hrp2-common-interface.l
+;; Please synchronize with hironxjsk-utils
 (defmethod hironxjsk-interface
   (:check-hand-vector-length (vec &optional (hand-num 1))
    ;; Ensure that `vec' is a 4 element vector for single hand or 8 element for double hand
@@ -49,24 +87,53 @@
            ((:rhand :lhand)
             (send self :check-hand-vector-length av))))
 
-   ;; simulation mode
-   (when (send self :simulation-modep)
-     (flet ((get-joint-list (hand)
-              (let (acc)
-                (dotimes (i 4) (push (read-from-string (format nil "~a_joint~a" hand i)) acc))
-                (nreverse acc))))
-       (let ((joint-list (case hand
-                           (:hands (append (get-joint-list :rhand) (get-joint-list :lhand)))
-                           ((:rhand :lhand) (get-joint-list hand))
-                           (t (error ";; No such hand: ~A~%." hand)))))
+   (flet ((get-joint-list (hand)
+            (let (acc)
+              (dotimes (i 4) (push (read-from-string (format nil "~a_joint~a" hand i)) acc))
+              (nreverse acc))))
+     (let ((joint-list (case hand
+                         (:hands (append (get-joint-list :rhand) (get-joint-list :lhand)))
+                         ((:rhand :lhand) (get-joint-list hand))
+                         (t (error ";; No such hand: ~A~%." hand)))))
+       ;; simulation mode
+       (when (send self :simulation-modep)
+             (return-from :hand-angle-vector
+               (if av
+                 ;; setjointangles
+                 (map nil #'(lambda (joint angle) (send robot joint :joint-angle angle))
+                       joint-list av)
+                 ;; getjointangles
+                 (map float-vector #'(lambda (joint) (send robot joint :joint-angle))
+                      joint-list))))
+       ;; gazebo with ros_control
+       (when on-gazebo-ros-control
          (return-from :hand-angle-vector
            (if av
              ;; setjointangles
-             (map nil #'(lambda (joint angle) (send robot joint :joint-angle angle))
-                   joint-list av)
+             (let ((av-copy (copy-object av)))
+               (dolist (r/l (if (eq hand :hands) (list :rhand :lhand) (list hand)))
+                 (let* ((action (gethash r/l hand-actions))
+                        (goal (send action :make-goal-instance))
+                        (st (ros::time-now)))
+                   (send goal :header :seq 1)
+                   (send goal :header :stamp st)
+                   (send goal :goal :trajectory :header :stamp st)
+                   (send goal :goal :trajectory :joint_names
+                         (mapcar #'string-upcase (get-joint-list r/l)))
+                   (send goal :goal :trajectory :points
+                         (list (instance trajectory_msgs::JointTrajectoryPoint
+                                         :init
+                                         :positions (map float-vector #'deg2rad (subseq av-copy 0 hand-servo-num))
+                                         :time_from_start (ros::time (/ tm 1000.0)))))
+                   (setq av-copy (subseq av-copy hand-servo-num))
+                   (send action :send-goal goal)))
+               nil)
              ;; getjointangles
-             (map float-vector #'(lambda (joint) (send robot joint :joint-angle))
-                  joint-list))))))
+             (progn
+               (send self :update-robot-state :wait-until-update t)
+               (map float-vector #'(lambda (joint) (send robot joint :joint-angle))
+                    joint-list)))))))
+
    ;; real robot
    (if av
      ;; setjointangles
@@ -99,14 +166,14 @@
                 (* dir (send (send self :call-operation-return :servocontrollerservice_getjointangle :id id) :jv)))
             ids dirs))))
   (:hand-servo-on ()
-    (unless (send self :simulation-modep)
+    (unless (or (send self :simulation-modep) on-gazebo-ros-control)
       (send self :call-operation-return :servocontrollerservice_servoon)))
   (:hand-servo-off ()
-    (unless (send self :simulation-modep)
+    (unless (or (send self :simulation-modep) on-gazebo-ros-control)
       (send self :call-operation-return :servocontrollerservice_servooff)))
   (:hand-effort (&optional (hand :hands) effort)
     ;; effort is percentage or sequence of percentages
-    (if (send self :simulation-modep) (return-from :hand-effort nil))
+    (if (or (send self :simulation-modep) on-gazebo-ros-control) (return-from :hand-effort nil))
     (let ((ids (case hand
                      (:hands (list 2 3 4 5 6 7 8 9))
                      (:rhand (list 2 3 4 5))

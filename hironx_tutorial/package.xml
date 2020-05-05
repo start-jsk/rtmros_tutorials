@@ -28,6 +28,21 @@
   <run_depend>nextage_ros_bridge</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>tf</run_depend>
+  <!-- Start of HIRONXJSK gazebo dependency -->
+  <run_depend>hrpsys_ros_bridge_tutorials</run_depend>  <!-- For HIRONXJSK model -->
+  <run_depend>controller_manager</run_depend>
+  <run_depend>joint_state_controller</run_depend>
+  <run_depend>effort_controllers</run_depend>
+  <run_depend>transmission_interface</run_depend>
+  <run_depend>hardware_interface</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>gazebo_plugins</run_depend>
+  <run_depend>gazebo_ros_control</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <!-- End of HIRONXJSK gazebo dependency -->
+  <!-- Start of HIRONXJSK demo dependency -->
+  <run_depend>jsk_pcl_ros</run_depend>
+  <!-- End of HIRONXJSK demo dependency -->
 
   <export>
   	<rosdoc config="rosdoc.yaml" />
