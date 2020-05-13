@@ -26,7 +26,7 @@ env:
     - ROS_DISTRO=indigo  USE_DEB=true
     - ROS_DISTRO=indigo  USE_DEB=false NOT_TEST_INSTALL=true
     - ROS_DISTRO=kinetic USE_DEB=false NOT_TEST_INSTALL=true
-    - ROS_DISTRO=melodic USE_DEB=false NOT_TEST_INSTALL=true
+    - ROS_DISTRO=melodic USE_DEB=false NOT_TEST_INSTALL=true BEFORE_SCRIPT="pwd; sed -i \"35iadd_definitions(-Wno-deprecated)\" hrpsys/CMakeLists.txt openhrp3/CMakeLists.txt; (cd hrpsys; git diff)" #to build hrpsys on melodic
 matrix:
   # allow_failures:
   #   - env: ROS_DISTRO=indigo  USE_DEB=false NOT_TEST_INSTALL=true
