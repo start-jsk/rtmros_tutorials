@@ -5,10 +5,16 @@
 
 # Dependencies of nextage_tutorials, but not released in melodic
 - git:
-    local-name: rtm-ros-robotics/rtmros_nectage
+    local-name: rtm-ros-robotics/rtmros_nextage
     uri: https://github.com/tork-a/rtmros_nextage.git
+- git:
+    local-name: rtm-ros-robotics/rtmros_hironx
+    uri: https://github.com/start-jsk/rtmros_hironx.git
 
 # hrpsys_gazebo_general needs hrpsys/src, but hrpsys/src is not installed with released hrpsys on melodic.
 - git:
     local-name: hrpsys
     uri: https://github.com/fkanehiro/hrpsys-base
+- git:
+    local-name: rtm-ros-robotics/rtmros_common
+    uri: https://github.com/start-jsk/rtmros_common.git
