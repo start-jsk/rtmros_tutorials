@@ -7,11 +7,64 @@ imp.find_module(pkg)
 from hrpsys.hrpsys_config import *
 import OpenHRP
 
+pkg = 'jsk_hrp2_ros_bridge'
+import imp
+try:
+    imp.find_module(pkg)
+except:
+    print "No such package ", pkg
+
+try:
+    from jsk_hrp2_ros_bridge.HRP3HandControllerService_idl import *
+except:
+    print """No HRP3hand module is availabe on this machine,
+it may cause some error"""
+
 class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
     ROBOT_NAME = None
 
-    def getRTCList (self):
-        return self.getRTCListUnstable()
+    hc = None
+    hc_svc = None
+
+    def connectComps(self):
+        HrpsysConfigurator.connectComps(self)
+        if self.rh.port("servoState") != None:
+            if self.hc:
+                connectPorts(self.rh.port("servoState"), self.hc.port("servoStateIn"))
+
+    def getRTCList(self):
+        rtclist = [
+            ['seq', "SequencePlayer"],
+            ['sh', "StateHolder"],
+            ['fk', "ForwardKinematics"],
+            #['tf', "TorqueFilter"],
+            ['kf', "KalmanFilter"],
+            #['vs', "VirtualForceSensor"],
+            ['rmfo', "RemoveForceSensorLinkOffset"],
+            ['octd', "ObjectContactTurnaroundDetector"],
+            ['es', "EmergencyStopper"],
+            ['rfu', "ReferenceForceUpdater"],
+            ['ic', "ImpedanceController"],
+            ['abc', "AutoBalancer"],
+            ['st', "Stabilizer"],
+            ['co', "CollisionDetector"],
+            #['tc', "TorqueController"],
+            ['te', "ThermoEstimator"],
+            ['hes', "EmergencyStopper"],
+            ['el', "SoftErrorLimiter"],
+            ['tl', "ThermoLimiter"],
+            ['bp', "Beeper"],
+            ['log', "DataLogger"],
+            ]
+        if self.ROBOT_NAME.find("HRP2JSKNT") != -1:
+            rtclist.append(['hc', "HRP3HandController"])
+        if self.ROBOT_NAME.find("HRP2JSKNT") == -1: # if HRP2W, HRP2G and HRP2JSK
+            tmpidx=rtclist.index(['ic', "ImpedanceController"])
+            rtclist[0:tmpidx+1]+rtclist[tmpidx+1:]
+            rtclist=rtclist[0:tmpidx+1]+[['gc', "GraspController"]]+rtclist[tmpidx+1:]
+        print >>sys.stderr, "RTC ", rtclist, "[",self.ROBOT_NAME.find("HRP2JSKNT"),"][",self.ROBOT_NAME,"]"
+        return rtclist
+
     def init (self, robotname="Robot", url=""):
         HrpsysConfigurator.init(self, robotname, url)
         print "initialize rtc parameters"
@@ -381,6 +434,30 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
             self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_thumb_60deg_HRP2JSK")
         else:
             print "No force moment offset file"
+
+    def hrp3HandResetPose(self):
+        self.hc_svc.setJointAngles([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 2)
+        self.hc_svc.waitInterpolation()
+
+    def hrp3HandGraspPose(self):
+        self.hc_svc.setJointAngles([77.9709, -11.4732, 8.28742, 0.0, 106.185, 86.0974, 77.9709, -11.4732, 8.28742, 0.0, 106.185, 86.0974], 2)
+        self.hc_svc.waitInterpolation()
+
+    def hrp3HandHookPose(self):
+        self.hc_svc.setJointAngles([90.0, 90.0, 0.0, 10.0, -20.0, -20.0, 90.0, 90.0, 0.0, 10.0, -20.0, -20.0], 2)
+        self.hc_svc.waitInterpolation()
+
+    def hrp3HandCalib(self):
+        self.hc_svc.handJointCalib()
+
+    def hrp3HandServoOn(self):
+        self.hc_svc.handServoOn()
+
+    def hrp3HandServoOff(self):
+        self.hc_svc.handServoOff()
+
+    def hrp3HandReconnect(self):
+        self.hc_svc.handReconnect()
 
     def __init__(self, robotname=""):
         self.ROBOT_NAME = robotname
