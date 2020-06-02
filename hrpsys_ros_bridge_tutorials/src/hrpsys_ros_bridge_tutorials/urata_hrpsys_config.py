@@ -19,7 +19,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
 
     def init (self, robotname="Robot", url=""):
         HrpsysConfigurator.init(self, robotname, url)
-        if self.st and self.abc and self.kf and self.ic and self.es and self.el:
+        if self.abc and self.kf and self.ic and self.es and self.el:
             self.setStAbcParameters()
         if self.rmfo:
             self.loadForceMomentOffsetFile()
@@ -190,85 +190,6 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         kfp=self.kf_svc.getKalmanFilterParam()[1]
         kfp.R_angle=1000
         self.kf_svc.setKalmanFilterParam(kfp)
-        # st setting
-        stp=self.st_svc.getParameter()
-        #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
-        #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
-        stp.emergency_check_mode=OpenHRP.StabilizerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
-        stp.cp_check_margin=[0.05, 0.045, 0, 0.095]
-        stp.k_brot_p=[0, 0]
-        stp.k_brot_tc=[1000, 1000]
-        #stp.eefm_body_attitude_control_gain=[0, 0.5]
-        stp.eefm_body_attitude_control_gain=[0.5, 0.5]
-        stp.eefm_body_attitude_control_time_const=[1000, 1000]
-        if self.ROBOT_NAME == "JAXON":
-            stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5*1.2*1.65*1.1, 20*1.6*1.1*1.5*1.2*1.65*1.1, 1e5]]*4
-            stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2*1.1]]*4
-            stp.eefm_swing_rot_damping_gain=[20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]
-            stp.eefm_swing_pos_damping_gain=[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.4]
-            stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
-            stp.eefm_pos_compensation_limit = [0.06, 0.06, 0.050, 0.050]
-        elif self.ROBOT_NAME == "JAXON_RED":
-            stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
-                                         [20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
-                                         [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5],
-                                         [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]]
-            stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
-                                         [3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
-                                         [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8],
-                                         [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8]]
-            stp.eefm_swing_pos_damping_gain = stp.eefm_pos_damping_gain[0]
-            stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0]
-            stp.eefm_rot_compensation_limit = [math.radians(10), math.radians(10), math.radians(10), math.radians(10)]
-            stp.eefm_pos_compensation_limit = [0.025, 0.025, 0.050, 0.050]
-        stp.eefm_swing_damping_force_thre=[200]*3
-        stp.eefm_swing_damping_moment_thre=[15]*3
-        stp.eefm_use_swing_damping=True
-        stp.eefm_ee_error_cutoff_freq=20.0
-        stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*4
-        stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*4
-        stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
-        stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
-        stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
-        stp.eefm_wrench_alpha_blending=0.7
-        stp.eefm_pos_time_const_swing=0.06
-        stp.eefm_pos_transition_time=0.01
-        stp.eefm_pos_margin_time=0.02
-        # foot margin param
-        if foot == "KAWADA":
-            ## KAWADA foot : mechanical param is => inside 0.055, front 0.13, rear 0.1
-            stp.eefm_leg_inside_margin=0.05
-            stp.eefm_leg_outside_margin=0.05
-            stp.eefm_leg_front_margin=0.12
-            stp.eefm_leg_rear_margin=0.09
-        elif foot == "JSK":
-            ## JSK foot : mechanical param is -> inside 0.075, front 0.11, rear 0.11
-            stp.eefm_leg_inside_margin=0.07
-            stp.eefm_leg_outside_margin=0.07
-            stp.eefm_leg_front_margin=0.1
-            stp.eefm_leg_rear_margin=0.1
-        elif foot == "LEPTRINO":
-            stp.eefm_leg_inside_margin=0.05
-            stp.eefm_leg_outside_margin=0.05
-            stp.eefm_leg_front_margin=0.115
-            stp.eefm_leg_rear_margin=0.115
-        rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, stp.eefm_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, stp.eefm_leg_inside_margin])]
-        lleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, stp.eefm_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, stp.eefm_leg_outside_margin])]
-        rarm_vertices = rleg_vertices
-        larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
-        stp.eefm_cogvel_cutoff_freq = 4.0
-        stp.eefm_k1=[-1.48412,-1.48412]
-        stp.eefm_k2=[-0.486727,-0.486727]
-        stp.eefm_k3=[-0.198033,-0.198033]
-        self.st_svc.setParameter(stp)
         # AutoSt setting
         astp=self.abc_svc.getStabilizerParam()
         #astp.st_algorithm=OpenHRP.AutoBalancerService.EEFM
