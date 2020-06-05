@@ -309,7 +309,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.heel_pos_offset_x = 1e-3*-116.342;
         gg.toe_zmp_offset_x = 1e-3*117.338;
         gg.heel_zmp_offset_x = 1e-3*-116.342;
-        gg.optional_go_pos_finalize_footstep_num=0
+        gg.optional_go_pos_finalize_footstep_num=1
         gg.overwritable_footstep_index_offset=1
         self.abc_svc.setGaitGeneratorParam(gg)
         # Ic setting
@@ -659,7 +659,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.heel_pos_offset_x = 1e-3*-116.342;
         gg.toe_zmp_offset_x = 1e-3*117.338;
         gg.heel_zmp_offset_x = 1e-3*-116.342;
-        gg.optional_go_pos_finalize_footstep_num=0
+        gg.optional_go_pos_finalize_footstep_num=1
         gg.overwritable_footstep_index_offset=1
         gg.leg_margin = [0.15, 0.09, 0.065, 0.065]
         gg.safe_leg_margin = [0.1, 0.0, 0.05, 0.05]
