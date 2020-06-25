@@ -49,17 +49,21 @@ sensors:
     translate: '0 0 0'
     rotate: '0.57736 0.57734 0.57734 120.000'
     sensor_type: 'base_force6d'
-  - sensor_name: head_camera_rgb_frame
+  - sensor_name: head_camera_link
     parent_link: HEAD_JOINT1_Link
-    translate: '0.057 0.02 0.1'
+    translate: '0.057 0 0.1'
+    sensor_type: 'camera'
+  - sensor_name: head_camera_rgb_frame
+    parent_link: head_camera_link
+    translate: '0 0.02 0'
     sensor_type: 'camera'
   - sensor_name: head_camera_rgb_optical_frame
     parent_link: head_camera_rgb_frame
     rotate: '-0.57735 0.57735 -0.57735 120.000'
     sensor_type: 'camera'
   - sensor_name: head_camera_depth_frame
-    parent_link: HEAD_JOINT1_Link
-    translate: '0.057 0.045 0.1'
+    parent_link: head_camera_link
+    translate: '0 0.045 0'
     sensor_type: 'camera'
   - sensor_name: head_camera_depth_optical_frame
     parent_link: head_camera_depth_frame
