@@ -34,4 +34,9 @@
     <arg name="USE_COLLISIONCHECK" value="$(arg USE_COLLISIONCHECK)"/>
   </include>
 
+  <!-- Publish odom tf -->
+  <node name="odom_tf_publisher"
+        pkg="tf" type="static_transform_publisher"
+        args="0 0 0.8 0 0 0 odom WAIST 20" />
+
 </launch>
