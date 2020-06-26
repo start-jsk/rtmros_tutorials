@@ -42,11 +42,20 @@ Installation
 To run this demo, you have to build this package with ``hrp2_models`` (closed package) and ``hrpsys_ros_bridge_tutorials``.
 If you compiled ``hrpsys_ros_bridge_tutorials`` before you download ``hrp2_models``, you have to compile ``hrpsys_ros_bridge_tutorials`` again with ``--force-cmake`` option after you download ``hrp2_models``.
 
-Execution
-+++++++++
+Execution (Gazebo)
+++++++++++++++++++
 
 .. code-block:: bash
 
   $ roslaunch hironx_tutorial hironxjsk_picking_demo.launch
   # Wait until the robot stops moving
+  $ rosrun hironx_tutorial hironxjsk-picking-demo.l
+
+Execution (Real Robot)
+++++++++++++++++++++++
+
+.. code-block:: bash
+
+  # First, start up robot. Then...
+  $ roslaunch hironx_tutorial hironxjsk_picking_demo.launch gazebo:=false
   $ rosrun hironx_tutorial hironxjsk-picking-demo.l
