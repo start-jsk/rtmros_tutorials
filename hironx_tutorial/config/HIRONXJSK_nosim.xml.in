@@ -1,4 +1,9 @@
-<!-- Based on hrpsys_ros_bridge_tutorials/models/HIRONXJSK_nosim.xml (auto-generated file) and hironx_ros_bridge/conf/nosim.xml.in -->
+<!-- Based on hrpsys_ros_bridge_tutorials/models/HIRONXJSK_nosim.xml (auto-generated file) -->
+<!-- Change robot name from HIRONXJSK to HiroNX (name used in hironx_ros_bridge/conf/nosim.xml.in) in order to reuse HiroNX simulation software -->
+<!-- Use initial robot pose (values of {JOINT_NAME}.angle) of hironx_ros_bridge/conf/nosim.xml.in -->
+<!-- Use longfloor url of hironx_ros_bridge/conf/nosim.xml.in -->
+<!-- Use eyeHomePosition of nextage_ros_bridge/conf/nextage_nosim.xml to show the whole robot initially -->
+<!-- Disable showScale as with nextage_ros_bridge/conf/nextage_nosim.xml because scale is displayed on WAIST plane, not on longfloor -->
 
 <grxui>
  <mode name="Simulation">
@@ -117,10 +122,10 @@
    <property name="showCoMonFloor" value="false"/>
    <property name="showDistance" value="false"/>
    <property name="showIntersection" value="false"/>
-   <property name="eyeHomePosition" value="-0.70711 -0 0.70711 2 0.70711 -0 0.70711 2 0 1 0 0.8 0 0 0 1 "/>
+   <property name="eyeHomePosition" value="-0.707107 -0.183013 0.683013 2 0.707107 -0.183013 0.683013 2 0 0.965926 0.258819 0.8 "/>
    <property name="showCollision" value="true"/>
    <property name="showActualState" value="true"/>
-   <property name="showScale" value="true"/>
+   <property name="showScale" value="false"/>
   </view>
   <item class="com.generalrobotix.ui.item.GrxRTSItem" name="longfloor" select="true">
    <property name="longfloor(Robot)0.period" value="0.005"/>
@@ -138,7 +143,7 @@
    <property name="outport" value="tau:JOINT_TORQUE"/>
    <property name="outport" value="WAIST:WAIST:ABS_TRANSFORM"/>
    <property name="WAIST.NumOfAABB" value="1"/>
-   <property name="WAIST.translation" value="0  0  -0.1"/>
+   <property name="WAIST.translation" value="0  0  -0.9"/>  <!-- Place floor under HIRONXJSK base -->
    <property name="WAIST.rotation" value="1 0 0 0"/>
   </item>
   <view class="com.generalrobotix.ui.view.GrxRobotHardwareClientView" name="RobotHardware RTC Client">
@@ -155,10 +160,10 @@
    <property name="showCoMonFloor" value="false"/>
    <property name="showDistance" value="false"/>
    <property name="showIntersection" value="false"/>
-   <property name="eyeHomePosition" value="-0.70711 -0 0.70711 2 0.70711 -0 0.70711 2 0 1 0 0.8 0 0 0 1 "/>
+   <property name="eyeHomePosition" value="-0.707107 -0.183013 0.683013 2 0.707107 -0.183013 0.683013 2 0 0.965926 0.258819 0.8 "/>
    <property name="showCollision" value="true"/>
    <property name="showActualState" value="true"/>
-   <property name="showScale" value="true"/>
+   <property name="showScale" value="false"/>
   </view>
   <item class="com.generalrobotix.ui.item.GrxCollisionPairItem" name="CP#longfloor_#HIRONXJSKmain_">
    <property name="springConstant" value="0 0 0 0 0 0"/>
