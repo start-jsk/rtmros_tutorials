@@ -40,4 +40,24 @@
 
   </group>
 
+  <!-- Speech Recognition -->
+  <node name="respeaker_transformer" pkg="tf" type="static_transform_publisher"
+        args="0 0 0.2 0 0 0 HEAD_JOINT1_Link respeaker_base 100"/>
+  <include file="$(find respeaker_ros)/launch/sample_respeaker.launch">
+    <arg name="publish_tf" default="false"/>
+    <arg name="launch_soundplay" default="false"/>
+    <arg name="audio" value="speech_audio"/>
+    <arg name="language" value="ja-JP"/>
+  </include>
+  <!-- Set speak action server names -->
+  <!-- This parameter is for speech_to_text node in respeaker_ros -->
+  <!-- https://github.com/jsk-ros-pkg/jsk_3rdparty/pull/168 -->
+  <group ns="speech_to_text">
+    <rosparam>
+       tts_action_names:
+         - robotsound
+         - robotsound_jp
+    </rosparam>
+  </group>
+
 </launch>
