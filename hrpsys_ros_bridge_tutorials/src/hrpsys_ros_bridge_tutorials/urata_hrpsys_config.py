@@ -289,7 +289,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         astp.swing2landing_transition_time = 0.05
         astp.landing_phase_time = 0.1
         astp.landing2support_transition_time = 0.5
-        leg_gains = {"support_pgain":[5,30,10,5,0.15,0.12], "support_dgain":[70,70,50,10,0.1,0.1], "landing_pgain":[5,30,5,1,0.1,0.1], "landing_dgain":[70,70,50,10,0.1,0.1]}
+        leg_gains = {"support_pgain":[5,30,10,5,0.15,0.12], "support_dgain":[70,70,50,10,0.1,0.1],
+                     "landing_pgain":[5,30,5,1,0.1,0.1], "landing_dgain":[70,70,50,10,0.1,0.1]}
         arm_gains = {"support_pgain":[100,100,100,100,100,100,100,100], "support_dgain":[100,100,100,100,100,100,100,100],
                      "landing_pgain":[100,100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100,100]}
         astp.joint_servo_control_parameters = map (lambda x : OpenHRP.AutoBalancerService.JointServoControlParameter(**x), [leg_gains,leg_gains,arm_gains,arm_gains])
