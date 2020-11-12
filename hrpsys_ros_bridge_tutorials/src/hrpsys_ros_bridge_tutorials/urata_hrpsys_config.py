@@ -237,8 +237,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         astp.eefm_swing_damping_moment_thre=[15]*3
         astp.eefm_use_swing_damping=False
         # astp.eefm_ee_error_cutoff_freq=10000 # not used
-        astp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
-        astp.eefm_swing_pos_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+        astp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0]]*4
+        astp.eefm_swing_pos_spring_gain=[[5.0, 5.0, 5.0]]*4
         astp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*4
         astp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*4
         astp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
@@ -267,8 +267,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             astp.eefm_leg_front_margin=0.1
             astp.eefm_leg_rear_margin=0.1
         elif foot == "LEPTRINO":
-            astp.eefm_leg_inside_margin=0.05
-            astp.eefm_leg_outside_margin=0.05
+            astp.eefm_leg_inside_margin=0.065
+            astp.eefm_leg_outside_margin=0.065
             astp.eefm_leg_front_margin=0.115
             astp.eefm_leg_rear_margin=0.115
         rleg_vertices = [OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[astp.eefm_leg_front_margin, astp.eefm_leg_inside_margin]),
@@ -288,12 +288,13 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         astp.eefm_k3=[-0.198033,-0.198033]
         astp.swing2landing_transition_time = 0.05
         astp.landing_phase_time = 0.3
-        astp.landing2support_transition_time = 0.05
-        astp.surpport_phase_min_time = 0.4
+        astp.landing2support_transition_time = 0.1
+        astp.surpport_phase_min_time = 0.3
         astp.support2swing_transition_time = 0.1
         leg_gains = {"support_pgain":[5,30,10,5,0.15,0.12], "support_dgain":[70,70,50,10,0.1,0.1],
                      "landing_pgain":[5,30,5,1,0.1,0.1], "landing_dgain":[70,70,50,10,0.1,0.1],
-                     "swing_pgain":[5,30,10,5,0.15,0.12], "swing_dgain":[70,70,50,10,0.1,0.1]}
+                     "swing_pgain":[5,30,10,5,10,10], "swing_dgain":[70,70,50,10,10,10]}
+                     # "swing_pgain":[5,30,10,5,0.15,0.12], "swing_dgain":[70,70,50,10,0.1,0.1]}
         arm_gains = {"support_pgain":[100,100,100,100,100,100,100,100], "support_dgain":[100,100,100,100,100,100,100,100],
                      "landing_pgain":[100,100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100,100],
                      "swing_pgain":[100,100,100,100,100,100,100,100], "swing_dgain":[100,100,100,100,100,100,100,100]}
