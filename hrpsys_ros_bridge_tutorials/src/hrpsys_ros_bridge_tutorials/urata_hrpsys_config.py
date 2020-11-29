@@ -193,8 +193,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # AutoSt setting
         astp=self.abc_svc.getStabilizerParam()
         #astp.st_algorithm=OpenHRP.AutoBalancerService.EEFM
-        # astp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
-        astp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
+        astp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
+        # astp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
         astp.emergency_check_mode=OpenHRP.AutoBalancerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
         astp.cp_check_margin=[0.05, 0.045, 0, 0.095]
         astp.k_brot_p=[0, 0]
@@ -232,7 +232,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             astp.eefm_pos_compensation_limit = [0.08, 0.08, 0.050, 0.050]
         astp.eefm_zmp_delay_time_const=[0, 0]
         astp.detection_time_to_air=5.0
-        # astp.use_zmp_truncation=True
+        astp.use_zmp_truncation=True
         astp.eefm_swing_damping_force_thre=[200]*3
         astp.eefm_swing_damping_moment_thre=[15]*3
         astp.eefm_use_swing_damping=False
