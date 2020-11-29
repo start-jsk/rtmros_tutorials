@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>nextage_tutorials</name>
+  <version>0.0.0</version>
+  <description>nextage tutorials for EusLisp/Gazebo users</description>
+
+  <license>BSD</license>
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>pr2eus</exec_depend>
+  <exec_depend>euscollada</exec_depend>
+  <exec_depend>nextage_description</exec_depend>
+  <exec_depend>nextage_gazebo</exec_depend>
+
+  <export>
+  </export>
+</package>

@@ -164,7 +164,7 @@ replace_xmls:
       tag: inertia
       attribute_name: ixx
       attribute_value: '0'
-    replaced_xml: '<inertia ixx="1e-04" ixy="0" ixz="0" iyy="1e-04" iyz="0" izz="1e-04"/>'
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
   - match_rule:
       tag: gazebo
       attribute_name: reference
@@ -195,6 +195,16 @@ replace_xmls:
       attribute_name: effort
       attribute_value: 100
     replaced_attribute_value: 1000
+  - match_rule:
+      tag: dynamics
+      attribute_name: friction
+      attribute_value: 0
+    replaced_attribute_value: 1
+  - match_rule:
+      tag: dynamics
+      attribute_name: damping
+      attribute_value: 0.2
+    replaced_attribute_value: 1
   # for hands
   - match_rule:
       tag: inertia

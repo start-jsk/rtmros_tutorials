@@ -16,6 +16,11 @@
   <!-- <rosparam command="load" -->
   <!--           file="$(find hrpsys_ros_bridge_tutorials)/models/HRP2JSKNTS_controller_config.yaml" /> -->
 
+  <!-- HRP3HAND parameters -->
+  <env name="HC_IOB_HRPSYS_GAZEBO_IOB_NAME" value="hrp3hand_hrpsys_gazebo_iob" />
+  <env name="HC_IOB_HRPSYS_GAZEBO_ROBOTNAME" value="HRP3HAND" />
+  <env name="HC_IOB_HRPSYS_GAZEBO_CONFIGURATION" value="hrp3hand_hrpsys_gazebo_configuration" />
+
   <include file="$(find hrpsys_gazebo_general)/launch/robot_hrpsys_bringup.launch">
     <arg name="ROBOT_TYPE" value="HRP2JSKNTS" />
     <arg name="CONF_DIR" value="$(find hrpsys_ros_bridge_tutorials)/models" />
@@ -23,5 +28,24 @@
     <arg name="HRPSYS_PY_PKG" value="hrpsys_ros_bridge_tutorials"/>
     <arg name="HRPSYS_PY_NAME" default="hrp2jsknts_hrpsys_config.py"/>
     <arg name="KINEMATICS_MODE" value="$(arg KINEMATICS_MODE)"/>
+    <arg name="HRPSYS_RATE"  value="250" />
+    <arg name="HRPSYS_ADDITIONAL_LOAD_PATH" value="$(find jsk_hrp2_ros_bridge)/lib/gazebo"/> <!-- HRP3HANDController -->
+    <arg name="HRPSYS_OPT_RTC_CONFIG_ARGS" default='-o "example.HRP3HandController.config_file:$(find hrpsys_ros_bridge_tutorials)/models/HRP2JSKNTS.conf"'/> <!-- HRP3HANDController -->
   </include>
+
+  <!-- HRP3HANDControllerServiceROSBridge -->
+  <env name="LANG" value="C" />
+  <env name="ORBgiopMaxMsgSize" value="2147483648" />
+  <arg name="nameserver" default="localhost" />
+  <arg name="corbaport" default="15005" />
+  <arg name="managerport" default="2810" />
+  <env name="RTCTREE_NAMESERVERS" value="$(arg nameserver):$(arg corbaport)" />
+  <env name="RTC_CONNECTION_CHECK_ONCE" value="true" />
+
+  <node pkg="jsk_hrp2_ros_bridge" name="HRP3HandControllerServiceROSBridge" type="HRP3HandControllerServiceROSBridgeComp"
+        output="screen" args='-o "corba.master_manager:$(arg nameserver):$(arg managerport)" -o "corba.nameservers:$(arg nameserver):$(arg corbaport)" -o "naming.formats:%n.rtc" -o "exec_cxt.periodic.type:PeriodicExecutionContext" -o "exec_cxt.periodic.rate:2000" -o "logger.file_name:/tmp/rtc%p.log"' />
+  <rtconnect from="HRP3HandControllerServiceROSBridge.rtc:HRP3HandControllerService" to="hc.rtc:HRP3HandControllerService" subscription_type="new"/>
+  <rtactivate component="HRP3HandControllerServiceROSBridge.rtc" />
+  <node name="rtmlaunch_hrp2jsknts_hrpsys_bridgup" pkg="openrtm_tools" type="rtmlaunch.py" args="$(find hrpsys_gazebo_tutorials)/launch/hrp2jsknts_hrpsys_bringup.launch" output="screen"/>
+
 </launch>

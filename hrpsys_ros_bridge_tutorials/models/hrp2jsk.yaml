@@ -128,3 +128,26 @@ replace_xmls:
       attribute_name: velocity
       attribute_value: 0.5
     replaced_attribute_value: 10.0
+  - match_rule:
+      tag: dynamics
+      attribute_name: friction
+      attribute_value: 0
+    replaced_attribute_value: 1
+  - match_rule:
+      tag: dynamics
+      attribute_name: damping
+      attribute_value: 0.2
+    replaced_attribute_value: 1
+  # for hands
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: RARM_LINK7
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: LARM_LINK7
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
