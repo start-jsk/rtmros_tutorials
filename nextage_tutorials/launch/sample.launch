@@ -1,0 +1,23 @@
+<launch>
+
+  <include file="$(find nextage_gazebo)/launch/nextage_world.launch" >
+    <arg name="gzpose" value="-x 0.01 -y 0.01 -z 0.1" />
+    <arg name="model" value="$(find nextage_tutorials)/model/NextageKinect.xacro" />
+    <arg name="world_file" value="$(find nextage_tutorials)/model/sample.world" />
+  </include>
+
+  <!-- copied from /nextage_ros_bridge/launch/ar_headcamera.launch -->
+
+  <!-- Spawn models into Gazebo -->
+  <!-- defined in $(find nextage_tutorials)/model/sample.world -->
+  <!-- <node name="spawn_sdf_cafetable" pkg="gazebo_ros" type="spawn_model" -->
+  <!--       args="-file $(find nextage_gazebo)/models/cafe_table/model.sdf -sdf -->
+  <!--             -x 1.0 -model Cafe_Table" /> -->
+  <node name="spawn_sdf_armarkerbox" pkg="gazebo_ros" type="spawn_model"
+        args="-file $(find nextage_gazebo)/models/MarkerBox-60mm/model.sdf -sdf
+              -x 1.0 -z 1.0 -model MarkerBox-60mm" />
+
+  <!-- rviz -->
+  <node pkg="rviz" name="rviz" type="rviz"
+        args="-d $(find nextage_tutorials)/config/nextage.rviz" />
+</launch>

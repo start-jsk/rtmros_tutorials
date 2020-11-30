@@ -1,0 +1,37 @@
+<launch>
+
+  <arg name="gazebo" default="true" />
+  <arg name="launch_rviz" default="true" />
+
+  <group if="$(arg gazebo)">
+    <arg name="paused" default="false" />
+    <!-- Launch Gazebo -->
+    <include file="$(find hironx_tutorial)/launch/hironxjsk_gazebo_world.launch">
+      <arg name="world_file" value="$(find hironx_tutorial)/worlds/hironxjsk_picking_demo.world" />
+      <arg name="paused" value="$(arg paused)" />
+    </include>
+    <!-- Spawn models into Gazebo -->
+    <node name="spawn_demo_cube" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find hironx_tutorial)/models/demo_cube/model.sdf -sdf
+                -x 0.5 -y 0.0 -z 0.82 -model demo_cube" />
+  </group>
+
+  <!-- Launch recognition pipeline -->
+  <include file="$(find jsk_pcl_ros)/sample/tabletop_object_detector.launch">
+    <arg name="input" value="/head_camera/depth_registered/points" />
+    <arg name="sensor_frame" value="head_camera_rgb_optical_frame" />
+    <arg name="launch_openni" value="false" />
+    <arg name="launch_tracking" value="false" />
+    <arg name="launch_rviz" value="false" />
+    <arg name="publish_tf" value="true" />
+  </include>
+
+  <!-- Visualization -->
+  <group if="$(arg launch_rviz)">
+    <node name="rviz"
+          pkg="rviz" type="rviz"
+          args="-d $(find hironx_tutorial)/config/hironxjsk_picking_demo.rviz">
+    </node>
+  </group>
+
+</launch>

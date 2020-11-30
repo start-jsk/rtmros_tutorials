@@ -1,0 +1,209 @@
+##
+## - collada_joint_name : euslisp_joint_name (start with :)
+##
+
+rarm:
+  - RARM_JOINT0 : rarm-shoulder-y
+  - RARM_JOINT1 : rarm-shoulder-p
+  - RARM_JOINT2 : rarm-elbow-p
+  - RARM_JOINT3 : rarm-wrist-y
+  - RARM_JOINT4 : rarm-wrist-p
+  - RARM_JOINT5 : rarm-wrist-r
+larm:
+  - LARM_JOINT0 : larm-shoulder-y
+  - LARM_JOINT1 : larm-shoulder-p
+  - LARM_JOINT2 : larm-elbow-p
+  - LARM_JOINT3 : larm-wrist-y
+  - LARM_JOINT4 : larm-wrist-p
+  - LARM_JOINT5 : larm-wrist-r
+torso:
+  - CHEST_JOINT0 : torso-waist-y
+head:
+  - HEAD_JOINT0  : head-neck-y
+  - HEAD_JOINT1  : head-neck-p
+
+##
+## end-coords
+##
+larm-end-coords:
+  parent    : LARM_JOINT5_Link
+  translate : [-0.05, 0, 0]
+  rotate    : [0, 1, 0, 90]
+rarm-end-coords:
+  parent    : RARM_JOINT5_Link
+  translate : [-0.05, 0, 0]
+  rotate    : [0, 1, 0, 90]
+head-end-coords:
+  parent    : HEAD_JOINT1_Link
+  translate : [0.10, 0, 0.10]
+  rotate    : [0, 1, 0, 90]
+
+sensors:
+  - sensor_name: lhsensor
+    parent_link: LARM_JOINT5_Link
+    translate: '0 0 0'
+    rotate: '0.65490 0.37713 0.65490 138.656'
+    sensor_type: 'base_force6d'
+  - sensor_name: rhsensor
+    parent_link: RARM_JOINT5_Link
+    translate: '0 0 0'
+    rotate: '0.57736 0.57734 0.57734 120.000'
+    sensor_type: 'base_force6d'
+  - sensor_name: head_camera_rgb_frame
+    parent_link: HEAD_JOINT1_Link
+    translate: '0.057 0.02 0.1'
+    sensor_type: 'camera'
+  - sensor_name: head_camera_rgb_optical_frame
+    parent_link: head_camera_rgb_frame
+    rotate: '-0.57735 0.57735 -0.57735 120.000'
+    sensor_type: 'camera'
+  - sensor_name: head_camera_depth_frame
+    parent_link: HEAD_JOINT1_Link
+    translate: '0.057 0.045 0.1'
+    sensor_type: 'camera'
+  - sensor_name: head_camera_depth_optical_frame
+    parent_link: head_camera_depth_frame
+    rotate: '-0.57735 0.57735 -0.57735 120.000'
+    sensor_type: 'camera'
+
+##
+## reset-pose
+##
+angle-vector:
+  reset-pose : [0.0, -40.0, -90.0, 0.0, 0.0, 0.0, 0.0, -40.0, -90.0, 0.0, 0.0, 0.0, 0.0, 0.0, 30.0]
+  off-pose : [0.0,-140.0,-158.0, 0.0, 0.0, 0.0, 0.0,-140.0,-158.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  ## _InitialPose in hironx_client.py in hironx_ros_bridge (used in goInitial())
+  reset-manip-pose : [-0.6, 0.0, -100.0, 15.2, 9.4, 3.2, 0.6, 0.0, -100.0, -15.2, 9.4, -3.2, 0.0, 0.0, 0.0]
+
+# for gazebo simulation
+replace_xmls:
+  # Fix inertia of HEAD_JOINT1_Link and hand links which is too small for gazebo (makes robot broken)
+  # based on https://github.com/tork-a/rtmros_nextage/blob/0.8.5/nextage_description/urdf/NextageOpen.urdf#L118.
+  # HEAD_JOINT1_Link
+  - match_rule:
+      tag: inertia
+      attribute_name: ixx
+      attribute_value: '8.07e-05'
+    replaced_xml: '<inertia ixx="1e-03" ixy="0" ixz="0" iyy="1e-03" iyz="0" izz="1e-03"/>'
+  # hand links
+  - match_rule:
+      tag: inertia
+      attribute_name: ixx
+      attribute_value: '0.0001'
+    replaced_xml: '<inertia ixx="1e-03" ixy="0" ixz="0" iyy="1e-03" iyz="0" izz="1e-03"/>'
+  # pr2_mechanism_model -> transmission_interface for gazebo with ros_control (temp patch, should be supported in collada_urdf)
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: CHEST_JOINT0_trans
+    replaced_xml: '<transmission name="CHEST_JOINT0_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="CHEST_JOINT0">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="CHEST_JOINT0_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: HEAD_JOINT0_trans
+    replaced_xml: '<transmission name="HEAD_JOINT0_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="HEAD_JOINT0">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="HEAD_JOINT0_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: HEAD_JOINT1_trans
+    replaced_xml: '<transmission name="HEAD_JOINT1_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="HEAD_JOINT1">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="HEAD_JOINT1_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: LARM_JOINT0_trans
+    replaced_xml: '<transmission name="LARM_JOINT0_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="LARM_JOINT0">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="LARM_JOINT0_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: LARM_JOINT1_trans
+    replaced_xml: '<transmission name="LARM_JOINT1_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="LARM_JOINT1">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="LARM_JOINT1_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: LARM_JOINT2_trans
+    replaced_xml: '<transmission name="LARM_JOINT2_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="LARM_JOINT2">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="LARM_JOINT2_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: LARM_JOINT3_trans
+    replaced_xml: '<transmission name="LARM_JOINT3_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="LARM_JOINT3">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="LARM_JOINT3_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: LARM_JOINT4_trans
+    replaced_xml: '<transmission name="LARM_JOINT4_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="LARM_JOINT4">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="LARM_JOINT4_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: LARM_JOINT5_trans
+    replaced_xml: '<transmission name="LARM_JOINT5_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="LARM_JOINT5">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="LARM_JOINT5_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: LHAND_JOINT0_trans
+    replaced_xml: '<transmission name="LHAND_JOINT0_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="LHAND_JOINT0">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="LHAND_JOINT0_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: LHAND_JOINT1_trans
+    replaced_xml: '<transmission name="LHAND_JOINT1_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="LHAND_JOINT1">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="LHAND_JOINT1_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: LHAND_JOINT2_trans
+    replaced_xml: '<transmission name="LHAND_JOINT2_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="LHAND_JOINT2">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="LHAND_JOINT2_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: LHAND_JOINT3_trans
+    replaced_xml: '<transmission name="LHAND_JOINT3_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="LHAND_JOINT3">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="LHAND_JOINT3_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: RARM_JOINT0_trans
+    replaced_xml: '<transmission name="RARM_JOINT0_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="RARM_JOINT0">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="RARM_JOINT0_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: RARM_JOINT1_trans
+    replaced_xml: '<transmission name="RARM_JOINT1_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="RARM_JOINT1">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="RARM_JOINT1_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: RARM_JOINT2_trans
+    replaced_xml: '<transmission name="RARM_JOINT2_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="RARM_JOINT2">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="RARM_JOINT2_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: RARM_JOINT3_trans
+    replaced_xml: '<transmission name="RARM_JOINT3_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="RARM_JOINT3">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="RARM_JOINT3_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: RARM_JOINT4_trans
+    replaced_xml: '<transmission name="RARM_JOINT4_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="RARM_JOINT4">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="RARM_JOINT4_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: RARM_JOINT5_trans
+    replaced_xml: '<transmission name="RARM_JOINT5_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="RARM_JOINT5">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="RARM_JOINT5_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: RHAND_JOINT0_trans
+    replaced_xml: '<transmission name="RHAND_JOINT0_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="RHAND_JOINT0">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="RHAND_JOINT0_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: RHAND_JOINT1_trans
+    replaced_xml: '<transmission name="RHAND_JOINT1_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="RHAND_JOINT1">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="RHAND_JOINT1_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: RHAND_JOINT2_trans
+    replaced_xml: '<transmission name="RHAND_JOINT2_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="RHAND_JOINT2">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="RHAND_JOINT2_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'
+  - match_rule:
+      tag: transmission
+      attribute_name: name
+      attribute_value: RHAND_JOINT3_trans
+    replaced_xml: '<transmission name="RHAND_JOINT3_trans">\n    <type>transmission_interface/SimpleTransmission</type>\n    <joint name="RHAND_JOINT3">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n    </joint>\n    <actuator name="RHAND_JOINT3_motor">\n      <hardwareInterface>EffortJointInterface</hardwareInterface>\n      <mechanicalReduction>1</mechanicalReduction>\n    </actuator>\n  </transmission>'

@@ -7,6 +7,12 @@
       <controller>hrpsys_gazebo_configuration</controller>
     </plugin>
   </gazebo>
+  <gazebo>
+    <plugin filename="libIOBPlugin.so" name="hrp3hand_hrpsys_gazebo_plugin">
+      <robotname>HRP3HAND</robotname>
+      <controller>hrp3hand_hrpsys_gazebo_configuration</controller>
+    </plugin>
+  </gazebo>
   <!-- add imu sensor -->
   <gazebo reference="CHEST_LINK1">
     <sensor name="waist_imu" type="imu">
@@ -29,6 +35,7 @@
           </accel>
         </noise>
       </imu>
+      <pose>-0.13 0 0.118 0 0 0</pose>
     </sensor>
   </gazebo>
   <!-- add force sensor -->

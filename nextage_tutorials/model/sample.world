@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <!-- cafe table -->
+    <include>
+      <uri>model://cafe_table</uri>
+      <!-- see http://sdformat.org/spec?ver=1.5&elem=model#model_pose for definition -->
+      <pose>1.0 0 0  0 0 0</pose>
+    </include>
+  </world>
+</sdf>

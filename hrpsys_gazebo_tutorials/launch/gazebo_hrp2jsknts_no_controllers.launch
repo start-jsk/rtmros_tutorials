@@ -5,9 +5,7 @@
   <arg name="SYNCHRONIZED" default="false" />
 
   <rosparam command="load"
-            file="$(find hrpsys_gazebo_tutorials)/config/HRP3HAND_L.yaml" ns="HRP3HAND_L" />
-  <rosparam command="load"
-            file="$(find hrpsys_gazebo_tutorials)/config/HRP3HAND_R.yaml" ns="HRP3HAND_R" />
+            file="$(find hrpsys_gazebo_tutorials)/config/HRP3HAND.yaml" ns="HRP3HAND" />
 
   <include file="$(find hrpsys_gazebo_general)/launch/gazebo_robot_no_controllers.launch">
     <arg name="ROBOT_TYPE" value="HRP2JSKNTS" />

@@ -58,6 +58,7 @@ compile_openhrp_model(
   --conf-file-option "end_effectors: lleg,LLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, rleg,RLEG_ANKLE_R,WAIST,0.0,0.0,-0.07,0.0,0.0,0.0,0.0, larm,LARM_WRIST_P,CHEST,0.0,0,-0.12,0,1.0,0.0,1.5708, rarm,RARM_WRIST_P,CHEST,0.0,0,-0.12,0,1.0,0.0,1.5708,"
   --conf-file-option "collision_pair: RARM_WRIST_P:WAIST LARM_WRIST_P:WAIST RARM_WRIST_P:RLEG_HIP_R LARM_WRIST_P:LLEG_HIP_R RARM_WRIST_R:RLEG_HIP_R LARM_WRIST_R:LLEG_HIP_R"
   --conf-file-option "pdgains_sim_file_name: ${hrpsys_PREFIX}/share/hrpsys/samples/SampleRobot/SampleRobot.PDgain.dat"
+  --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   )
 else()
@@ -139,6 +140,7 @@ compile_openhrp_model_for_closed_robots(HRP2JSK HRP2JSK_for_OpenHRP3 HRP2JSK
   --conf-file-option "collision_model: convex hull"
   --conf-file-option "# for PDcontroller"
   --conf-file-option "pdgains_sim_file_name: ${PROJECT_SOURCE_DIR}/models/HRP2JSK.PDgain.dat"
+  --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "pdcontrol_tlimit_ratio:100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100"
   --conf-file-option "# SequencePlayer optional data (contactStates x 4 + controlSwingTime x 4 (4 is rfsensor, lfsensor, rhsensor, lhsensor)"
   --conf-file-option "seq_optional_data_dim: 8"
@@ -167,6 +169,7 @@ compile_openhrp_model_for_closed_robots(HRP2JSKNT HRP2JSKNT_for_OpenHRP3 HRP2JSK
   --conf-file-option "# for PDcontroller"
   --conf-file-option "pdcontrol_tlimit_ratio:100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100"
   --conf-file-option "pdgains_sim_file_name: ${PROJECT_SOURCE_DIR}/models/HRP2JSKNT.PDgain.dat"
+  --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "# SequencePlayer optional data (contactStates x 4 + controlSwingTime x 4 (4 is rfsensor, lfsensor, rhsensor, lhsensor)"
   --conf-file-option "seq_optional_data_dim: 8"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
@@ -192,6 +195,7 @@ compile_openhrp_model_for_closed_robots(HRP2JSKNTS HRP2JSKNTS_for_OpenHRP3 HRP2J
   --conf-file-option "# for PDcontroller"
   --conf-file-option "pdcontrol_tlimit_ratio:100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100"
   --conf-file-option "pdgains_sim_file_name: ${PROJECT_SOURCE_DIR}/models/HRP2JSKNTS.PDgain.dat"
+  --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "# SequencePlayer optional data (contactStates x 4 + controlSwingTime x 4 (4 is rfsensor, lfsensor, rhsensor, lhsensor)"
   --conf-file-option "seq_optional_data_dim: 8"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
@@ -276,6 +280,28 @@ if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
     ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl
     HRP3HAND_R)
 endif()
+
+# HIRONXJSK
+compile_openhrp_model_for_closed_robots(HIRONXJSK HIRONXJSK HIRONXJSK
+  --conf-dt-option "0.005"
+  --conf-file-option "# This conf should be backup of /opt/jsk/etc/HIRONX/hrprtc/Robot.conf inside HIRONXJSK"
+  --conf-file-option "# model should be /opt/jsk/etc/HIRONX/model/main.wrl inside HIRONXJSK"
+  --conf-file-option "pdgains.file_name: /opt/jsk/etc/HIRONX/hrprtc/PDgains.sav"
+  --conf-file-option "naming.formats: %n.rtc"
+  --conf-file-option "# RTC disable/enable settings which will be loaded via RobotHardware"
+  --conf-file-option "CollisionDetector.enable: YES"
+  --conf-file-option "# for HIRO hand servo"
+  --conf-file-option "servo.id: 2,3,4,5, 6,7,8,9"
+  --conf-file-option "servo.offset: -0.80,0.0,-0.85,0.0, -0.85,0.0,-0.89,0.0"
+  --conf-file-option "servo.devname: /dev/serusb1"
+  --conf-file-option "servo.dir 1,1,-1,-1,1,1,-1,-1"
+  --conf-file-option "# for RemoveForceSensorLinkOffset"
+  --conf-file-option "forcemoment_offset_params: /opt/jsk/etc/HIRONX/hrprtc/force_sensor_calib_20191127"
+  --conf-file-option "# for ImpedanceController"
+  --conf-file-option "end_effectors: rarm,RARM_JOINT5,CHEST_JOINT0,-0.05,0,0,0,1,0,1.5708, larm,LARM_JOINT5,CHEST_JOINT0,-0.05,0,0,0,1,0,1.5708,"
+  --conf-file-option "# for CollisionDetector"
+  --conf-file-option "collision_pair: HEAD_JOINT0:RARM_JOINT2 HEAD_JOINT0:RARM_JOINT3 HEAD_JOINT0:RARM_JOINT4 HEAD_JOINT0:RARM_JOINT5 HEAD_JOINT0:LARM_JOINT2 HEAD_JOINT0:LARM_JOINT3 HEAD_JOINT0:LARM_JOINT4 HEAD_JOINT0:LARM_JOINT5 HEAD_JOINT1:RARM_JOINT2 HEAD_JOINT1:RARM_JOINT3 HEAD_JOINT1:RARM_JOINT4 HEAD_JOINT1:RARM_JOINT5 HEAD_JOINT1:LARM_JOINT2 HEAD_JOINT1:LARM_JOINT3 HEAD_JOINT1:LARM_JOINT4 HEAD_JOINT1:LARM_JOINT5 WAIST:RARM_JOINT3 WAIST:RARM_JOINT4 WAIST:RARM_JOINT5 WAIST:LARM_JOINT3 WAIST:LARM_JOINT4 WAIST:LARM_JOINT5 CHEST_JOINT0:RARM_JOINT2 CHEST_JOINT0:RARM_JOINT3 CHEST_JOINT0:RARM_JOINT4 CHEST_JOINT0:RARM_JOINT5 CHEST_JOINT0:LARM_JOINT2 CHEST_JOINT0:LARM_JOINT3 CHEST_JOINT0:LARM_JOINT4 CHEST_JOINT0:LARM_JOINT5 RARM_JOINT0:LARM_JOINT1 RARM_JOINT0:LARM_JOINT2 RARM_JOINT0:LARM_JOINT3 RARM_JOINT0:LARM_JOINT4 RARM_JOINT0:LARM_JOINT5 RARM_JOINT1:LARM_JOINT0 RARM_JOINT1:LARM_JOINT1 RARM_JOINT1:LARM_JOINT2 RARM_JOINT1:LARM_JOINT3 RARM_JOINT1:LARM_JOINT4 RARM_JOINT1:LARM_JOINT5 RARM_JOINT2:LARM_JOINT0 RARM_JOINT2:LARM_JOINT1 RARM_JOINT2:LARM_JOINT2 RARM_JOINT2:LARM_JOINT3 RARM_JOINT2:LARM_JOINT4 RARM_JOINT2:LARM_JOINT5 RARM_JOINT3:LARM_JOINT0 RARM_JOINT3:LARM_JOINT1 RARM_JOINT3:LARM_JOINT2 RARM_JOINT3:LARM_JOINT3 RARM_JOINT3:LARM_JOINT4 RARM_JOINT3:LARM_JOINT5 RARM_JOINT4:LARM_JOINT0 RARM_JOINT4:LARM_JOINT1 RARM_JOINT4:LARM_JOINT2 RARM_JOINT4:LARM_JOINT3 RARM_JOINT4:LARM_JOINT4 RARM_JOINT4:LARM_JOINT5 RARM_JOINT5:LARM_JOINT0 RARM_JOINT5:LARM_JOINT1 RARM_JOINT5:LARM_JOINT2 RARM_JOINT5:LARM_JOINT3 RARM_JOINT5:LARM_JOINT4 RARM_JOINT5:LARM_JOINT5"
+  )
 
 # URATALEG
 compile_rbrain_model_for_closed_robots(URATALEG URATALEG URATALEG
@@ -591,6 +617,12 @@ if(EXISTS ${hrp2_models_MODEL_DIR}/HRP3HAND_R/HRP3HAND_Rmain.wrl)
       HRP2JSKNT_WH_SENSORS.urdf hrp2jsknt.yaml)
   endif(multisense_description_FOUND)
 endif()
+
+# for HIRONXJSK (adding sensor, and fixing some points for gazebo)
+if(${hrp2_models_FOUND})
+  attach_sensor_and_endeffector_to_hrp2jsk_urdf(HIRONXJSK HIRONXJSK.urdf
+    HIRONXJSK_SENSORS.urdf hironxjsk.yaml)
+endif(${hrp2_models_FOUND})
 
 macro (generate_staro_hand_model _robot_name _dir_name)
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
