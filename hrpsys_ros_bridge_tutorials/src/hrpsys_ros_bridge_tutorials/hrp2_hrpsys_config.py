@@ -218,7 +218,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.heel_pos_offset_x = 1e-3*-105.784;
         gg.toe_zmp_offset_x = 1e-3*79.411;
         gg.heel_zmp_offset_x = 1e-3*-105.784;
-        gg.use_toe_joint = True
+        gg.use_toe_joint = False
         gg.optional_go_pos_finalize_footstep_num = 1
         gg.overwritable_footstep_index_offset = 1
         self.abc_svc.setGaitGeneratorParam(gg)
@@ -320,7 +320,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.heel_pos_offset_x = 1e-3*-105.784;
         gg.toe_zmp_offset_x = 1e-3*79.411;
         gg.heel_zmp_offset_x = 1e-3*-105.784;
-        gg.use_toe_joint = True
+        gg.use_toe_joint = False
         gg.optional_go_pos_finalize_footstep_num = 1
         gg.overwritable_footstep_index_offset = 1
         self.abc_svc.setGaitGeneratorParam(gg)
