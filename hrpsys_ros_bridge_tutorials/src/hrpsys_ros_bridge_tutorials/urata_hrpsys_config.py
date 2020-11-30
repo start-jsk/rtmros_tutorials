@@ -61,9 +61,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def setStAbcParameters (self):
         if self.ROBOT_NAME == "STARO":
             self.setStAbcParametersSTARO()
-        elif self.ROBOT_NAME == "JAXON":
-            self.setStAbcIcParametersJAXON(foot="LEPTRINO")
         elif self.ROBOT_NAME == "JAXON_RED":
+            self.setStAbcIcParametersJAXON(foot="LEPTRINO")
+        elif self.ROBOT_NAME == "JAXON":
             self.setStAbcIcParametersJAXON(foot="KAWADA")
         elif self.ROBOT_NAME == "JAXON_BLUE":
             self.setStAbcIcParametersJAXON_BLUE()
@@ -210,12 +210,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             astp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
             astp.eefm_pos_compensation_limit = [0.06, 0.06, 0.050, 0.050]
         elif self.ROBOT_NAME == "JAXON_RED":
-            astp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
-                                         [20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
+            astp.eefm_rot_damping_gain = [[120, 120, 1e5],
+                                         [120, 120, 1e5],
                                          [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5],
                                          [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]]
-            astp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
-                                         [3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
+            astp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 10000],
+                                         [3500*1.6*6, 3500*1.6*6, 10000],
                                          [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8],
                                          [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8]]
             # astp.eefm_rot_damping_gain = [[1e5*20*1.6*1.1*1.5, 1e5*20*1.6*1.1*1.5, 1e5],
@@ -291,10 +291,13 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         astp.landing2support_transition_time = 0.1
         astp.surpport_phase_min_time = 0.3
         astp.support2swing_transition_time = 0.1
-        leg_gains = {"support_pgain":[5,30,10,5,0.15,0.12], "support_dgain":[70,70,50,10,0.1,0.1],
-                     "landing_pgain":[5,30,5,1,0.1,0.1], "landing_dgain":[70,70,50,10,0.1,0.1],
-                     "swing_pgain":[5,30,10,5,10,10], "swing_dgain":[70,70,50,10,10,10]}
-                     # "swing_pgain":[5,30,10,5,0.15,0.12], "swing_dgain":[70,70,50,10,0.1,0.1]}
+        # leg_gains = {"support_pgain":[5,30,10,5,0.15,0.12], "support_dgain":[70,70,50,10,0.1,0.1],
+        #              "landing_pgain":[5,30,5,1,0.1,0.1], "landing_dgain":[70,70,50,10,0.1,0.1],
+        #              "swing_pgain":[5,30,10,5,10,10], "swing_dgain":[70,70,50,10,10,10]}
+        #              # "swing_pgain":[5,30,10,5,0.15,0.12], "swing_dgain":[70,70,50,10,0.1,0.1]}
+        leg_gains = {"support_pgain":[5,5,5,5,0.1,0.1], "support_dgain":[70,20,20,20,0.1,0.1],
+                     "landing_pgain":[5,1,1,1,0.1,0.1], "landing_dgain":[70,10,10,10,0.1,0.1],
+                     "swing_pgain":[5,30,10,10,10,10],  "swing_dgain":[70,70,50,50,10,10]}
         arm_gains = {"support_pgain":[100,100,100,100,100,100,100,100], "support_dgain":[100,100,100,100,100,100,100,100],
                      "landing_pgain":[100,100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100,100],
                      "swing_pgain":[100,100,100,100,100,100,100,100], "swing_dgain":[100,100,100,100,100,100,100,100]}
