@@ -46,7 +46,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
             ['rfu', "ReferenceForceUpdater"],
             ['ic', "ImpedanceController"],
             ['abc', "AutoBalancer"],
-            ['st', "Stabilizer"],
+            # ['st', "Stabilizer"],
             ['co', "CollisionDetector"],
             #['tc', "TorqueController"],
             ['te', "ThermoEstimator"],
