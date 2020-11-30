@@ -129,7 +129,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets = [[0.015, -0.01, 0], [0.015, 0.01, 0], [0, 0, 0], [0, 0, 0]]
         #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         abcp.default_zmp_offsets = [[0.01, 0.01, 0], [0.01, -0.01, 0], [0, 0, 0], [0, 0, 0]]
-        # abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
+        abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.abc_svc.getStabilizerParam()
@@ -234,10 +234,11 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         abcp.default_zmp_offsets = [[0.010, 0.01, 0], [0.010, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         #abcp.default_zmp_offsets = [[0.01, 0.035, 0], [0.01, -0.035, 0], [0, 0, 0], [0, 0, 0]]
+        abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
-        stp=self.st_svc.getParameter()
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
+        stp=self.abc_svc.getStabilizerParam()
+        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
         #   eefm st params
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
@@ -253,7 +254,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_pos_time_const_swing=0.08
         stp.eefm_pos_transition_time=0.01
         stp.eefm_pos_margin_time=0.02
-        stp.eefm_zmp_delay_time_const=[0.055, 0.055]
+        stp.eefm_zmp_delay_time_const=[0.0, 0.0]
         stp.eefm_cogvel_cutoff_freq=6.0
         #   mechanical foot edge
         #stp.eefm_leg_inside_margin=0.065
@@ -268,17 +269,17 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_leg_outside_margin=tmp_leg_outside_margin
         stp.eefm_leg_front_margin=tmp_leg_front_margin
         stp.eefm_leg_rear_margin=tmp_leg_rear_margin
-        rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_inside_margin])]
-        lleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
+        rleg_vertices = [OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_inside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_inside_margin])]
+        lleg_vertices = [OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_outside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.AutoBalancerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
@@ -292,12 +293,14 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k2=[-0.36367379999999999, -0.36367379999999999]
         stp.eefm_k3=[-0.16200000000000001, -0.16200000000000001]
         # for estop
-        stp.emergency_check_mode=OpenHRP.StabilizerService.CP;
+        stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP;
         stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         # for swing
         stp.eefm_swing_pos_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
         stp.eefm_swing_rot_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
-        self.st_svc.setParameter(stp)
+        stp.use_zmp_truncation = True
+        stp.detection_time_to_air = 1.0
+        self.abc_svc.setStabilizerParam(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
         gg.default_step_time=1.1
@@ -312,12 +315,14 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.swing_trajectory_final_distance_weight=1.5
         gg.swing_trajectory_time_offset_xy2z=0.1 # [s]
         #
-        gg.default_orbit_type = OpenHRP.AutoBalancerService.CYCLOIDDELAY
+        gg.default_orbit_type = OpenHRP.AutoBalancerService.RECTANGLE
         gg.toe_pos_offset_x = 1e-3*142.869;
         gg.heel_pos_offset_x = 1e-3*-105.784;
         gg.toe_zmp_offset_x = 1e-3*79.411;
         gg.heel_zmp_offset_x = 1e-3*-105.784;
         gg.use_toe_joint = True
+        gg.optional_go_pos_finalize_footstep_num = 1
+        gg.overwritable_footstep_index_offset = 1
         self.abc_svc.setGaitGeneratorParam(gg)
         # Estop
         esp=self.es_svc.getEmergencyStopperParam()[1]
@@ -331,10 +336,11 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         abcp.default_zmp_offsets = [[0.010, 0.01, 0], [0.010, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         #abcp.default_zmp_offsets = [[0.01, 0.035, 0], [0.01, -0.035, 0], [0, 0, 0], [0, 0, 0]]
+        abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
-        stp=self.st_svc.getParameter()
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
+        stp=self.abc_svc.getStabilizerParam()
+        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
         #   eefm st params
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
@@ -365,17 +371,17 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_leg_outside_margin=tmp_leg_outside_margin
         stp.eefm_leg_front_margin=tmp_leg_front_margin
         stp.eefm_leg_rear_margin=tmp_leg_rear_margin
-        rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_inside_margin])]
-        lleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
+        rleg_vertices = [OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_inside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_outside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_inside_margin])]
+        lleg_vertices = [OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, tmp_leg_outside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.AutoBalancerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
@@ -389,12 +395,14 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_k2=[-0.36367379999999999, -0.36367379999999999]
         stp.eefm_k3=[-0.16200000000000001, -0.16200000000000001]
         # for estop
-        stp.emergency_check_mode=OpenHRP.StabilizerService.CP;
+        stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP;
         stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         # for swing
         stp.eefm_swing_pos_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
         stp.eefm_swing_rot_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
-        self.st_svc.setParameter(stp)
+        stp.use_zmp_truncation = True
+        stp.detection_time_to_air = 1.0
+        self.abc_svc.setStabilizerParam(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
         gg.default_step_time=1.1
@@ -414,6 +422,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.heel_pos_offset_x = 1e-3*-106.925;
         gg.toe_zmp_offset_x = 1e-3*137.525;
         gg.heel_zmp_offset_x = 1e-3*-106.925;
+        gg.optional_go_pos_finalize_footstep_num = 1
+        gg.overwritable_footstep_index_offset = 1
         self.abc_svc.setGaitGeneratorParam(gg)
         # Estop
         esp=self.es_svc.getEmergencyStopperParam()[1]
