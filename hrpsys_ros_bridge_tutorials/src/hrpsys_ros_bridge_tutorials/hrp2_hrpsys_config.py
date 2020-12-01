@@ -193,8 +193,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP;
         stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         # for swing
-        stp.eefm_swing_pos_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
-        stp.eefm_swing_rot_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
+        stp.eefm_swing_pos_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
+        stp.eefm_swing_rot_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
         stp.use_zmp_truncation = True
         stp.detection_time_to_air = 1.0
         self.abc_svc.setStabilizerParam(stp)
@@ -222,18 +222,19 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.optional_go_pos_finalize_footstep_num = 1
         gg.overwritable_footstep_index_offset = 1
         gg.leg_marign = [0.13, 0.095, 0.062, 0.062]
-        gg.safe_leg_margin = [0.07, 0.06, 0.06, 0.06]
-        gg.stride_limitation_for_circle_type = [0.15, 0.25, 15, 0.1, 0.138]
-        gg.overwritable_stride_limitation = [0.35, 0.5, 0, 0.35, 0.128]
+        gg.safe_leg_margin = [0.07, 0.055, 0.057, 0.057]
+        gg.stride_limitation_for_circle_type = [0.15, 0.3, 15, 0.1, 0.138]
+        gg.overwritable_stride_limitation = [0.35, 0.45, 0, 0.35, 0.128]
         gg.margin_time_ratio = 0.25
         gg.min_time_mgn = 0.3
         gg.use_disturbance_compensation = True
         gg.dc_gain = 1e-3
+        gg.dcm_offset = 0.02
         gg.modify_footsteps = True
         gg.use_act_states = True
         gg.stride_limitation_type = OpenHRP.AutoBalancerService.CIRCLE
         gg.min_time = 0.7
-        gg.overwritable_max_time = 1.0
+        gg.overwritable_max_time = 1.5
         gg.is_interpolate_zmp_in_double = True
         self.abc_svc.setGaitGeneratorParam(gg)
         # Estop
@@ -412,8 +413,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP;
         stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         # for swing
-        stp.eefm_swing_pos_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
-        stp.eefm_swing_rot_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
+        stp.eefm_swing_pos_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
+        stp.eefm_swing_rot_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
         stp.use_zmp_truncation = True
         stp.detection_time_to_air = 1.0
         self.abc_svc.setStabilizerParam(stp)
@@ -439,18 +440,19 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.optional_go_pos_finalize_footstep_num = 1
         gg.overwritable_footstep_index_offset = 1
         gg.leg_marign = [0.13, 0.095, 0.062, 0.062]
-        gg.safe_leg_margin = [0.07, 0.06, 0.06, 0.06]
-        gg.stride_limitation_for_circle_type = [0.15, 0.25, 15, 0.1, 0.138]
-        gg.overwritable_stride_limitation = [0.35, 0.5, 0, 0.35, 0.128]
+        gg.safe_leg_margin = [0.07, 0.055, 0.057, 0.057]
+        gg.stride_limitation_for_circle_type = [0.15, 0.3, 15, 0.1, 0.138]
+        gg.overwritable_stride_limitation = [0.35, 0.45, 0, 0.35, 0.128]
         gg.margin_time_ratio = 0.25
         gg.min_time_mgn = 0.3
         gg.use_disturbance_compensation = True
         gg.dc_gain = 1e-3
+        gg.dcm_offset = 0.02
         gg.modify_footsteps = True
         gg.use_act_states = True
         gg.stride_limitation_type = OpenHRP.AutoBalancerService.CIRCLE
         gg.min_time = 0.7
-        gg.overwritable_max_time = 1.0
+        gg.overwritable_max_time = 1.5
         gg.is_interpolate_zmp_in_double = True
         self.abc_svc.setGaitGeneratorParam(gg)
         # Estop
