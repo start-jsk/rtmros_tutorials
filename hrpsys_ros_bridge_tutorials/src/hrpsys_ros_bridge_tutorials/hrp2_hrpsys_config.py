@@ -238,7 +238,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.abc_svc.getStabilizerParam()
-        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
+        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
         #   eefm st params
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
@@ -356,7 +356,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.eefm_pos_time_const_swing=0.08
         stp.eefm_pos_transition_time=0.01
         stp.eefm_pos_margin_time=0.02
-        stp.eefm_zmp_delay_time_const=[0.055, 0.055]
+        stp.eefm_zmp_delay_time_const=[0.0, 0.0]
         stp.eefm_cogvel_cutoff_freq=6.0
         #   mechanical foot edge
         #stp.eefm_leg_inside_margin=0.07
@@ -417,7 +417,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.swing_trajectory_final_distance_weight=1.5
         gg.swing_trajectory_time_offset_xy2z=0.1 # [s]
         #
-        gg.default_orbit_type = OpenHRP.AutoBalancerService.CYCLOIDDELAY
+        gg.default_orbit_type = OpenHRP.AutoBalancerService.RECTANGLE
         gg.toe_pos_offset_x = 1e-3*137.525;
         gg.heel_pos_offset_x = 1e-3*-106.925;
         gg.toe_zmp_offset_x = 1e-3*137.525;
