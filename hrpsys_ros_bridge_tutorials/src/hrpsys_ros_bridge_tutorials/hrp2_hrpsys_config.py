@@ -201,7 +201,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
         gg.default_step_time=0.8
-        gg.default_double_support_ratio=0.1
+        gg.default_double_support_ratio=0.15
         #gg.swing_trajectory_delay_time_offset=0.35
         gg.swing_trajectory_delay_time_offset= gg.default_step_time * (1.0 - gg.default_double_support_ratio) * 0.3
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
@@ -421,7 +421,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
         gg.default_step_time=0.8
-        gg.default_double_support_ratio=0.1
+        gg.default_double_support_ratio=0.15
         #gg.swing_trajectory_delay_time_offset=0.35
         gg.swing_trajectory_delay_time_offset= gg.default_step_time * (1.0 - gg.default_double_support_ratio) * 0.3
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
