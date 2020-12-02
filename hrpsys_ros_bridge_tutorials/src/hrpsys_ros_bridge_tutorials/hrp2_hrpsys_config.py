@@ -229,7 +229,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.min_time_mgn = 0.3
         gg.use_disturbance_compensation = True
         gg.dc_gain = 1e-3
-        gg.dcm_offset = 0.0
+        gg.dcm_offset = 0.02
         gg.modify_footsteps = True
         gg.use_act_states = True
         gg.stride_limitation_type = OpenHRP.AutoBalancerService.CIRCLE
@@ -346,7 +346,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.min_time_mgn = 0.3
         gg.use_disturbance_compensation = True
         gg.dc_gain = 1e-3
-        gg.dcm_offset = 0.0
+        gg.dcm_offset = 0.02
         gg.modify_footsteps = True
         gg.use_act_states = True
         gg.stride_limitation_type = OpenHRP.AutoBalancerService.CIRCLE
@@ -462,7 +462,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.min_time_mgn = 0.3
         gg.use_disturbance_compensation = True
         gg.dc_gain = 1e-3
-        gg.dcm_offset = 0.0
+        gg.dcm_offset = 0.02
         gg.modify_footsteps = True
         gg.use_act_states = True
         gg.stride_limitation_type = OpenHRP.AutoBalancerService.CIRCLE
