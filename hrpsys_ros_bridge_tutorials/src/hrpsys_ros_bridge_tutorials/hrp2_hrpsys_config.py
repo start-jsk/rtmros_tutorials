@@ -135,7 +135,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp=self.abc_svc.getStabilizerParam()
         stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
         #   eefm st params
-        stp.eefm_body_attitude_control_again=[1.5, 1.5]
+        stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
         # EEFM parameters for 4 limbs
         #stp.eefm_rot_damping_gain = [[20*1.6, 20*1.6, 1e5]]*4
