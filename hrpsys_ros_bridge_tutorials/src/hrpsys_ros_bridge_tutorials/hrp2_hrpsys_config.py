@@ -129,7 +129,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets = [[0.015, -0.01, 0], [0.015, 0.01, 0], [0, 0, 0], [0, 0, 0]]
         #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         abcp.default_zmp_offsets = [[0.01, 0.01, 0], [0.01, -0.01, 0], [0, 0, 0], [0, 0, 0]]
-        abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
+        # abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.abc_svc.getStabilizerParam()
@@ -249,7 +249,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         abcp.default_zmp_offsets = [[0.010, 0.01, 0], [0.010, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         #abcp.default_zmp_offsets = [[0.01, 0.035, 0], [0.01, -0.035, 0], [0, 0, 0], [0, 0, 0]]
-        abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
+        # abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.abc_svc.getStabilizerParam()
@@ -311,17 +311,17 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP;
         stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         # for swing
-        stp.eefm_swing_pos_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
-        stp.eefm_swing_rot_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
+        # stp.eefm_swing_pos_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
+        # stp.eefm_swing_rot_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
         stp.use_zmp_truncation = True
-        stp.detection_time_to_air = 2.0
+        stp.detection_time_to_air = 1.0
         self.abc_svc.setStabilizerParam(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
-        gg.default_step_time=1.1
-        gg.default_double_support_ratio=0.32
+        gg.default_step_time=0.7
+        gg.default_double_support_ratio=0.1
         #gg.swing_trajectory_delay_time_offset=0.35
-        gg.swing_trajectory_delay_time_offset=0.2
+        gg.swing_trajectory_delay_time_offset= gg.default_step_time * (1.0 - gg.default_double_support_ratio) * 0.3
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
         #  Orbit time parameters for delayhoffarbib (simultaneous xy and z landing)
         #gg.swing_trajectory_final_distance_weight=3.0
@@ -338,6 +338,21 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.use_toe_joint = False
         gg.optional_go_pos_finalize_footstep_num = 1
         gg.overwritable_footstep_index_offset = 1
+        gg.leg_margin = [0.13, 0.095, 0.062, 0.062]
+        gg.safe_leg_margin = [0.07, 0.055, 0.057, 0.057]
+        gg.stride_limitation_for_circle_type = [0.15, 0.3, 15, 0.1, 0.138]
+        gg.overwritable_stride_limitation = [0.35, 0.5, 0, 0.35, 0.128]
+        gg.margin_time_ratio = 0.25
+        gg.min_time_mgn = 0.3
+        gg.use_disturbance_compensation = True
+        gg.dc_gain = 1e-3
+        gg.dcm_offset = 0.0
+        gg.modify_footsteps = True
+        gg.use_act_states = True
+        gg.stride_limitation_type = OpenHRP.AutoBalancerService.CIRCLE
+        gg.min_time = 0.6
+        gg.overwritable_max_time = 1.5
+        gg.is_interpolate_zmp_in_double = True
         self.abc_svc.setGaitGeneratorParam(gg)
         # Estop
         esp=self.es_svc.getEmergencyStopperParam()[1]
@@ -351,7 +366,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         abcp.default_zmp_offsets = [[0.010, 0.01, 0], [0.010, -0.01, 0], [0, 0, 0], [0, 0, 0]]
         #abcp.default_zmp_offsets = [[0.01, 0.035, 0], [0.01, -0.035, 0], [0, 0, 0], [0, 0, 0]]
-        abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
+        # abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.abc_svc.getStabilizerParam()
