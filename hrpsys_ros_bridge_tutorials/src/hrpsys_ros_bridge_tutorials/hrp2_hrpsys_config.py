@@ -133,7 +133,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.abc_svc.getStabilizerParam()
-        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
+        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
         #   eefm st params
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
@@ -193,8 +193,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         # stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP;
         stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         # for swing
-        # stp.eefm_swing_pos_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
-        # stp.eefm_swing_rot_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
+        stp.eefm_swing_pos_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
+        stp.eefm_swing_rot_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
         stp.use_zmp_truncation = True
         stp.detection_time_to_air = 2.0
         self.abc_svc.setStabilizerParam(stp)
@@ -253,7 +253,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.abc_svc.getStabilizerParam()
-        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
+        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
         #   eefm st params
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
@@ -311,8 +311,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP;
         stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         # for swing
-        # stp.eefm_swing_pos_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
-        # stp.eefm_swing_rot_spring_gain = [[1]*3, [1]*3, [0]*3, [0]*3]
+        stp.eefm_swing_pos_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
+        stp.eefm_swing_rot_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
         stp.use_zmp_truncation = True
         stp.detection_time_to_air = 1.0
         self.abc_svc.setStabilizerParam(stp)
@@ -370,7 +370,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.abc_svc.getStabilizerParam()
-        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
+        stp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
         #   eefm st params
         stp.eefm_body_attitude_control_gain=[1.5, 1.5]
         stp.eefm_body_attitude_control_time_const=[10000, 10000]
@@ -428,8 +428,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         stp.emergency_check_mode=OpenHRP.AutoBalancerService.CP;
         stp.cp_check_margin=[50*1e-3, 45*1e-3, 0, 100*1e-3];
         # for swing
-        # stp.eefm_swing_pos_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
-        # stp.eefm_swing_rot_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
+        stp.eefm_swing_pos_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
+        stp.eefm_swing_rot_spring_gain = [[5]*3, [5]*3, [0]*3, [0]*3]
         stp.use_zmp_truncation = True
         stp.detection_time_to_air = 1.0
         self.abc_svc.setStabilizerParam(stp)
