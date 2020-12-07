@@ -103,6 +103,18 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         else:
             return [0.0, 0.0, 0.0, 0.698132, 0.872665, -0.523599, -0.174533, -2.0944, -0.436332, -0.087266, -0.349066, 1.0472, 0.872665, 0.523599, 0.174533, -2.0944, 0.436332, 0.087266, -0.349066, -1.0472]
 
+    def hrp2ResetManipWalkPose (self):
+        # (send *robot* :reset-manip-pose)
+        # (send *robot* :arms :move-end-pos #f(50 0 0))
+        # (send *robot* :legs :move-end-pos #f(0 0 20))
+        # (map cons #'(lambda (q) (format t "~A, " (deg2rad q))) (send *robot* :angle-vector))
+        if self.ROBOT_NAME.find("HRP2JSKNT") != -1:
+            return [-4.982313e-08, -7.741199e-07, -0.527639, 1.01904, -0.491398, 9.203582e-07, 0.0, 4.982313e-08, 7.741199e-07, -0.527639, 1.01904, -0.491398, -9.203582e-07, 0.0, 0.0, 0.0, 0.0, 0.698132, 0.622352, -0.557661, -0.088543, -2.01969, -0.446634, -0.115968, -0.204386, 1.0472, 0.622352, 0.557661, 0.088543, -2.01969, 0.446634, 0.115968, -0.204386, -1.0472]
+        elif self.ROBOT_NAME.find("HRP2JSK") != -1:
+            return [-1.591002e-07, -1.988452e-06, -0.527641, 1.01904, -0.4914, 2.368305e-06, 1.591002e-07, 1.988452e-06, -0.527641, 1.01904, -0.4914, -2.368305e-06, 0.0, 0.0, 0.0, 0.698132, 0.622352, -0.55766, -0.088542, -2.01969, -0.446633, -0.115968, -0.204388, 1.0472, 0.622352, 0.55766, 0.088542, -2.01969, 0.446633, 0.115968, -0.204388, -1.0472]
+        else:
+            return [0.0, 0.0, 0.0, 0.698132, 0.872665, -0.523599, -0.174533, -2.0944, -0.436332, -0.087266, -0.349066, 1.0472, 0.872665, 0.523599, 0.174533, -2.0944, 0.436332, 0.087266, -0.349066, -1.0472]
+
     def hrp2InitPose (self):
         if self.ROBOT_NAME.find("HRP2JSKNT") != -1:
             return [0]*len(self.hrp2ResetPose())
@@ -481,6 +493,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
 
     def setResetManipPose(self):
         self.seq_svc.setJointAngles(self.hrp2ResetManipPose(), 5.0)
+
+    def setResetManipWalkPose(self):
+        self.seq_svc.setJointAngles(self.hrp2ResetManipWalkPose(), 5.0)
 
     def setInitPose(self):
         self.seq_svc.setJointAngles(self.hrp2InitPose(), 5.0)
