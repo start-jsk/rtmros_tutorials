@@ -212,8 +212,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setStabilizerParam(stp)
         # GG parameters
         gg=self.abc_svc.getGaitGeneratorParam()[1]
-        gg.default_step_time=0.7
-        gg.default_double_support_ratio=0.1
+        gg.default_step_time=1.0
+        gg.default_double_support_ratio=0.2
         #gg.swing_trajectory_delay_time_offset=0.35
         gg.swing_trajectory_delay_time_offset= gg.default_step_time * (1.0 - gg.default_double_support_ratio) * 0.3
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
@@ -234,19 +234,19 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         gg.optional_go_pos_finalize_footstep_num = 1
         gg.overwritable_footstep_index_offset = 1
         gg.leg_margin = [0.13, 0.095, 0.062, 0.062]
-        gg.safe_leg_margin = [0.07, 0.055, 0.057, 0.057]
-        gg.stride_limitation_for_circle_type = [0.15, 0.3, 15, 0.1, 0.138]
-        gg.overwritable_stride_limitation = [0.35, 0.5, 0, 0.35, 0.128]
-        gg.margin_time_ratio = 0.25
+        gg.safe_leg_margin = [0.06, 0.05, 0.062, 0.05]
+        gg.stride_limitation_for_circle_type = [0.15, 0.3, 10, 0.1, 0.138]
+        gg.overwritable_stride_limitation = [0.25, 0.35, 0, 0.25, 0.128]
+        gg.margin_time_ratio = 0.3
         gg.min_time_mgn = 0.3
-        gg.use_disturbance_compensation = True
+        gg.use_disturbance_compensation = False
         gg.dc_gain = 1e-3
         gg.dcm_offset = 0.02
         gg.modify_footsteps = True
         gg.use_act_states = True
         gg.stride_limitation_type = OpenHRP.AutoBalancerService.CIRCLE
-        gg.min_time = 0.6
-        gg.overwritable_max_time = 1.5
+        gg.min_time = 1.0
+        gg.overwritable_max_time = 2.0
         gg.is_interpolate_zmp_in_double = True
         self.abc_svc.setGaitGeneratorParam(gg)
         # Estop
