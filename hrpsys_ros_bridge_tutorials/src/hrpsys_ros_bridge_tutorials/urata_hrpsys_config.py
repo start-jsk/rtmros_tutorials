@@ -295,9 +295,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #              "landing_pgain":[5,30,5,1,0.1,0.1], "landing_dgain":[70,70,50,10,0.1,0.1],
         #              "swing_pgain":[5,30,10,5,10,10], "swing_dgain":[70,70,50,10,10,10]}
         #              # "swing_pgain":[5,30,10,5,0.15,0.12], "swing_dgain":[70,70,50,10,0.1,0.1]}
-        leg_gains = {"support_pgain":[5,5,5,5,0.1,0.1], "support_dgain":[70,20,20,20,0.1,0.1],
-                     "landing_pgain":[5,1,1,1,0.1,0.1], "landing_dgain":[70,10,10,10,0.1,0.1],
-                     "swing_pgain":[5,30,10,10,10,10],  "swing_dgain":[70,70,50,50,10,10]}
+        leg_gains = {"support_pgain":[5,10,10,5,0.1,0.1], "support_dgain":[10,20,20,10,10,10],
+                     "landing_pgain":[5,1,1,1,0.1,0.1], "landing_dgain":[10,10,10,10,5,5],
+                     "swing_pgain":[5,30,20,10,5,5],  "swing_dgain":[10,30,20,20,10,10]}
         arm_gains = {"support_pgain":[100,100,100,100,100,100,100,100], "support_dgain":[100,100,100,100,100,100,100,100],
                      "landing_pgain":[100,100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100,100],
                      "swing_pgain":[100,100,100,100,100,100,100,100], "swing_dgain":[100,100,100,100,100,100,100,100]}
