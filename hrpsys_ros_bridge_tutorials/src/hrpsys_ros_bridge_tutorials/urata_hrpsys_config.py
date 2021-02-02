@@ -780,6 +780,13 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                 0, math.radians(-30), 0, math.radians(-90), 0, 0, 0,
                 0, math.radians(+30), 0, math.radians(-90), 0, 0, 0]
 
+    def tablisLoadTestPose (self):
+        return [0, 0, math.radians(-45), math.radians(90), math.radians(-45), 0,
+                0, 0, math.radians(-45), math.radians(90), math.radians(-45), 0,
+                0,
+                0, math.radians(-30), 0, math.radians(-90), 0, 0, 0,
+                0, math.radians(+30), 0, math.radians(-90), 0, 0, 0]
+
     def tablisInitPose (self):
         return [0]*len(self.tablisResetPose())
 
@@ -809,6 +816,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.tqleg0ResetPose(), 5.0)
         elif self.ROBOT_NAME == "TABLIS":
             self.seq_svc.setJointAngles(self.tablisResetPose(), 5.0)
+
+    def setLoadTestPose(self):
+        if self.ROBOT_NAME == "TABLIS":
+            self.seq_svc.setJointAngles(self.tablisLoadTestPose(), 5.0)
 
     def setResetManipPose(self):
         if self.ROBOT_NAME == "STARO":
