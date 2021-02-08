@@ -49,17 +49,23 @@ sensors:
     translate: '0 0 0'
     rotate: '0.57736 0.57734 0.57734 120.000'
     sensor_type: 'base_force6d'
-  - sensor_name: head_camera_rgb_frame
+  # Based on https://github.com/jsk-ros-pkg/jsk-ros-pkg-unreleased/blob/35720c6c3fc02aabf3e179dda10fa76ccd8e6b78/demos/hironx_clothbag_demo_2013/launch/hironx.launch#L24-L30, https://github.com/ros-drivers/rgbd_launch/blob/2.3.0/launch/kinect_frames.launch, and https://github.com/fetchrobotics/fetch_ros/blob/0.8.2/fetch_description/robots/fetch.urdf#L602-L625
+  - sensor_name: head_camera_link
     parent_link: HEAD_JOINT1_Link
-    translate: '0.057 0.02 0.1'
+    translate: '0.0468655 0.0003505 0.0882136'
+    rotate: '0.72345 0.48663 -0.48971 1.15067'
+    sensor_type: 'camera'
+  - sensor_name: head_camera_rgb_frame
+    parent_link: head_camera_link
+    translate: '0 0.02 0'
     sensor_type: 'camera'
   - sensor_name: head_camera_rgb_optical_frame
     parent_link: head_camera_rgb_frame
     rotate: '-0.57735 0.57735 -0.57735 120.000'
     sensor_type: 'camera'
   - sensor_name: head_camera_depth_frame
-    parent_link: HEAD_JOINT1_Link
-    translate: '0.057 0.045 0.1'
+    parent_link: head_camera_link
+    translate: '0 0.045 0'
     sensor_type: 'camera'
   - sensor_name: head_camera_depth_optical_frame
     parent_link: head_camera_depth_frame
