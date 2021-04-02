@@ -237,8 +237,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         astp.eefm_swing_damping_moment_thre=[15]*3
         astp.eefm_use_swing_damping=False
         # astp.eefm_ee_error_cutoff_freq=10000 # not used
-        astp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0]]*4
-        astp.eefm_swing_pos_spring_gain=[[5.0, 5.0, 5.0]]*4
+        astp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+        astp.eefm_swing_pos_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
         astp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*4
         astp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*4
         astp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
@@ -437,6 +437,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.toe_zmp_offset_x = 1e-3*117.338;
         gg.heel_zmp_offset_x = 1e-3*-116.342;
         gg.optional_go_pos_finalize_footstep_num=1
+        gg.front_edge_offset_of_steppable_region = [-0.02, 0.0]
         self.abc_svc.setGaitGeneratorParam(gg)
         # Ic setting
         limbs = ['rarm', 'larm']
