@@ -9,6 +9,7 @@ rleg:
   - RLEG_JOINT3  : rleg-knee-p
   - RLEG_JOINT4  : rleg-ankle-p
   - RLEG_JOINT5  : rleg-ankle-r
+  - RLEG_JOINT6  : rleg-toe-p
 lleg:
   - LLEG_JOINT0  : lleg-crotch-y
   - LLEG_JOINT1  : lleg-crotch-r
@@ -16,9 +17,10 @@ lleg:
   - LLEG_JOINT3  : lleg-knee-p
   - LLEG_JOINT4  : lleg-ankle-p
   - LLEG_JOINT5  : lleg-ankle-r
+  - LLEG_JOINT6  : lleg-toe-p
 torso:
-  - CHEST_JOINT0 : torso-waist-p
-  - CHEST_JOINT1 : torso-waist-y
+  - CHEST_JOINT0 : torso-waist-y
+  - CHEST_JOINT1 : torso-waist-p
 head:
   - HEAD_JOINT0  : head-neck-y
   - HEAD_JOINT1  : head-neck-p
@@ -30,12 +32,7 @@ rarm:
   - RARM_JOINT4  : rarm-wrist-y
   - RARM_JOINT5  : rarm-wrist-r
   - RARM_JOINT6  : rarm-wrist-p
-  - R_THUMBCM_Y  : rarm-t-1y
-  - R_THUMBCM_P  : rarm-t-1p
-  - R_INDEXMP_R  : rarm-f1-1r
-  - R_INDEXMP_P  : rarm-f1-1p
-  - R_INDEXPIP_R  : rarm-f1-2p
-  - R_MIDDLEPIP_R : rarm-f2-2r
+  - RARM_JOINT7  : rarm-thumb-r
 larm:
   - LARM_JOINT0  : larm-shoulder-p
   - LARM_JOINT1  : larm-shoulder-r
@@ -44,39 +41,318 @@ larm:
   - LARM_JOINT4  : larm-wrist-y
   - LARM_JOINT5  : larm-wrist-r
   - LARM_JOINT6  : larm-wrist-p
+  - LARM_JOINT7  : larm-thumb-r
+rhand:
+  - R_THUMBCM_Y  : rarm-t-1y
+  - R_THUMBCM_P  : rarm-t-1p
+  - R_INDEXMP_R  : rarm-f1-1r
+  - R_INDEXMP_P  : rarm-f1-1p
+  - R_INDEXPIP_R  : rarm-f1-2r
+  - R_MIDDLEPIP_R : rarm-f2-2r
+lhand:
   - L_THUMBCM_Y  : larm-t-1y
   - L_THUMBCM_P  : larm-t-1p
   - L_INDEXMP_R  : larm-f1-1r
   - L_INDEXMP_P  : larm-f1-1p
-  - L_INDEXPIP_R  : larm-f1-2p
+  - L_INDEXPIP_R  : larm-f1-2r
   - L_MIDDLEPIP_R : larm-f2-2r
 
 ##
 ## end-coords
 ##
 rleg-end-coords:
-  translate : [0.0, 0, -0.091849]
+# Original foot
+#  translate : [-0.079411, -0.01, -0.031]
+# Karasawa sole plate [3mm]
+  translate : [-0.079411, -0.01, -0.034]
 lleg-end-coords:
-  translate : [0.0, 0, -0.091849]
-rarm-end-coords:
-  translate : [0, 0, -0.1]
-  rotate    : [0, 1, 0, 90]
-larm-end-coords:
-  translate : [0, 0, -0.1]
-  rotate    : [0, 1, 0, 90]
+# Original foot
+#  translate : [-0.079411,  0.01, -0.031]
+# Karasawa sole plate [3mm]
+  translate : [-0.079411,  0.01, -0.034]
+torso-end-coords:
+  translate : [-0.032, 0.0, -1.0557]
 head-end-coords:
-  translate : [0.085, 0, 0.0]
-  rotate    : [0, 1, 0, 90]
+  translate : [0.079, 0.0, 0.1335]
+  rotate    : [0.0, 1.0, 0.0, 99.9999]
+rarm-end-coords:
+  translate : [-0.0042, 0.0392, -0.1245]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+  parent : RARM_LINK6
+larm-end-coords:
+  translate : [-0.0042, -0.0392, -0.1245]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+  parent : LARM_LINK6
+
+sensors:
+  - sensor_name: lfsensor
+    parent_link: LLEG_LINK5
+    translate: '0 0 -0.105'
+    sensor_type: 'base_force6d'
+  - sensor_name: rfsensor
+    parent_link: RLEG_LINK5
+    translate: '0 0 -0.105'
+    sensor_type: 'base_force6d'
+  - sensor_name: lhsensor
+    parent_link: LARM_LINK6
+    translate: '0 0 -0.077'
+    sensor_type: 'base_force6d'
+  - sensor_name: rhsensor
+    parent_link: RARM_LINK6
+    translate: '0 0 -0.077'
+    sensor_type: 'base_force6d'
+#   - sensor_name: CARMINE
+#     parent_link: HEAD_LINK1
+#     translate: '0.093 0.017 0.131'
+#     rotate: '-0.606685 0.62878 -0.486384 126.205'
+#     sensor_type: 'camera'
+#   - sensor_name: camera_link
+#     parent_link: CARMINE
+#     translate: '-0.045 0.0 0.0'
+#     rotate: '0.577311 -0.577311 0.577429 120.013'
+#     sensor_type: 'camera'
+  - sensor_name: camera_link
+    parent_link: HEAD_LINK1
+    translate: '0.053 0.052 0.119'
+    rotate: '0.029745 0.997072 -0.070452 17.6947'
+    sensor_type: 'camera'
+  - sensor_name: camera_rgb_frame
+    parent_link: camera_link
+    translate: '0 -0.045 0'
+    sensor_type: 'camera'
+  - sensor_name: camera_rgb_optical_frame
+    parent_link: camera_rgb_frame
+    translate: '0 0 0'
+    rotate: '-0.577311 0.577429 -0.577311 120.013'
+    sensor_type: 'camera'
+  - sensor_name: camera_depth_frame
+    parent_link: camera_link
+    translate: '0 -0.02 0'
+    sensor_type: 'camera'
+  - sensor_name: camera_depth_optical_frame
+    parent_link: camera_depth_frame
+    tranlsate: '0 0 0'
+    rotate: '-0.577311 0.577429 -0.577311 120.013'
+    sensor_type: 'camera'
+  - sensor_name: LARM_cb_jig
+    parent_link: LARM_LINK6
+    translate: '0 0.2 -0.2'
+    rotate: '0.0 0.0 1.0 90'
+    sensor_type: 'camera'
+  - sensor_name: RARM_cb_jig
+    parent_link: RARM_LINK6
+    translate: '0 -0.2 -0.2'
+    rotate: '0.0 0.0 1.0 90'
+    sensor_type: 'camera'
+  - sensor_name: fisheye
+    parent_link: CHEST_LINK1
+    translate: '0.13 0.0 0.21'
+    rotate: '0.92269 -0.000735 0.385543 179.965'
+    sensor_type: 'camera'
+
 
 ##
 ## reset-pose
 ##
 angle-vector:
-  reset-pose : [0.0, -1, -20, 40, -20,  1,
-                0.0,  1, -20, 40, -20, -1,
-                0.0, 0.0, 
+  reset-pose : [0.0, 0, -26, 50, -24,  0, 0,
+                0.0, 0, -26, 50, -24,  0, 0,
                 0.0, 0.0,
-                20.0, -10.0, 0.0, -30.0, 0.0, 0.0, 0.0,
-                0, 0, 0, 0, 0, 0,
-                20.0,  10.0, 0.0, -30.0, 0.0, 0.0, 0.0,
-                0, 0, 0, 0, 0, 0]
+                0.0, 0.0,
+                10.0, -10.0, 0.0, -25.0, 0.0, 0.0, -10.0,  15.0,
+                10.0,  10.0, 0.0, -25.0, 0.0, 0.0, -10.0, -15.0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  reset-manip-pose : [0.0,   0.0, -26.0,   50.0, -24.0,  0.0, 0.0,
+                      0.0,   0.0, -26.0,   50.0, -24.0,  0.0, 0.0,
+                      0.0,   0.0,
+                      0.0,  40.0,
+                      50.0, -30.0, -10.0, -120.0, -25.0, -5.0, -20.0,  60.0,
+                      50.0,  30.0,  10.0, -120.0,  25.0,  5.0, -20.0, -60.0,
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+# for gazebo simulation
+replace_xmls:
+  - match_rule:
+      tag: mass
+      attribute_name: value
+      attribute_value: '0'
+    replaced_xml: '<mass value="1e-03" />'
+  - match_rule:
+      tag: inertia
+      attribute_name: ixx
+      attribute_value: '0'
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LLEG_LINK5
+    replaced_xml: '<gazebo reference="LLEG_LINK5">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RLEG_LINK5
+    replaced_xml: '<gazebo reference="RLEG_LINK5">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: LLEG_LINK6
+    replaced_xml: '<gazebo reference="LLEG_LINK6">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: RLEG_LINK6
+    replaced_xml: '<gazebo reference="RLEG_LINK6">\n    <kp>1400000.0</kp>\n    <kd>280.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: limit
+      attribute_name: velocity
+      attribute_value: 0.5
+    replaced_attribute_value: 10.0
+  - match_rule:
+      tag: limit
+      attribute_name: effort
+      attribute_value: 100
+    replaced_attribute_value: 1000
+  - match_rule:
+      tag: dynamics
+      attribute_name: friction
+      attribute_value: 0
+    replaced_attribute_value: 1
+  - match_rule:
+      tag: dynamics
+      attribute_name: damping
+      attribute_value: 0.2
+    replaced_attribute_value: 1
+  # for hands
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: L_INDEXMP_R_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: L_INDEXMP_P_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: L_INDEXPIP_R_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: L_MIDDLEPIP_R_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: L_THUMBCM_Y_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: L_THUMBCM_P_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: L_INDEXMP_R_LINK
+    replaced_xml:  '<gazebo reference="L_INDEXMP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: L_INDEXMP_P_LINK
+    replaced_xml:  '<gazebo reference="L_INDEXMP_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: L_INDEXPIP_R_LINK
+    replaced_xml:  '<gazebo reference="L_INDEXPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: L_MIDDLEPIP_R_LINK
+    replaced_xml:  '<gazebo reference="L_MIDDLEPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: L_THUMBCM_Y_LINK
+    replaced_xml:  '<gazebo reference="L_THUMBCM_Y_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: L_THUMBCM_P_LINK
+    replaced_xml:  '<gazebo reference="L_THUMBCM_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: R_INDEXMP_R_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: R_INDEXMP_P_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: R_INDEXPIP_R_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: R_MIDDLEPIP_R_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: R_THUMBCM_Y_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: inertia
+      parent_depth: 2
+      parent_attribute_name: name
+      parent_attribute_value: R_THUMBCM_P_LINK
+    replaced_xml: '<inertia ixx="1e-02" ixy="0" ixz="0" iyy="1e-02" iyz="0" izz="1e-02"/>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: R_INDEXMP_R_LINK
+    replaced_xml:  '<gazebo reference="R_INDEXMP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: R_INDEXMP_P_LINK
+    replaced_xml:  '<gazebo reference="R_INDEXMP_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: R_INDEXPIP_R_LINK
+    replaced_xml:  '<gazebo reference="R_INDEXPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: R_MIDDLEPIP_R_LINK
+    replaced_xml:  '<gazebo reference="R_MIDDLEPIP_R_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: R_THUMBCM_Y_LINK
+    replaced_xml:  '<gazebo reference="R_THUMBCM_Y_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'
+  - match_rule:
+      tag: gazebo
+      attribute_name: reference
+      attribute_value: R_THUMBCM_P_LINK
+    replaced_xml:  '<gazebo reference="R_THUMBCM_P_LINK">\n    <kp>140.0</kp>\n    <kd>2800.0</kd>\n    <mu1>1.5</mu1>\n    <mu2>1.5</mu2>\n    <fdir1>1 0 0</fdir1>\n    <maxVel>10.0</maxVel>\n    <minDepth>0.00</minDepth>\n  </gazebo>'

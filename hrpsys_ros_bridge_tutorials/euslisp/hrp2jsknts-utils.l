@@ -1,8 +1,6 @@
-(load "package://hrpsys_ros_bridge_tutorials/models/hrp2jsknts.l")
+(load "package://hrpsys_ros_bridge_tutorials/models/hrp2jsknts_with_3hand.l")
 (load "package://hrpsys_ros_bridge_tutorials/euslisp/hrp3hand-utils.l")
 
-(unless (assoc :init-org (send hrp2jsknts-robot :methods))
-  (rplaca (assoc :init (send hrp2jsknts-robot :methods)) :init-org))
 (eval
  `(defmethod hrp2jsknts-robot
     ,@(get-hrp2-with-hand-class-methods)))
@@ -12,7 +10,7 @@
    (&rest args)
    (prog1
        (send-super* :init-ending args)
-     (send self :define-min-max-table)
+     ;;(send self :define-min-max-table)
      (when (< (norm (send (send (send self :worldcoords) :transformation
                                 (send (car (send self :links)) :worldcoords)) :pos))
               0.1)
