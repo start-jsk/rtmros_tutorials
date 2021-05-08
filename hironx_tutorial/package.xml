@@ -48,6 +48,7 @@
   <!-- Start of HIRONXJSK demo dependency -->
   <run_depend>jsk_pcl_ros</run_depend>
   <run_depend>respeaker_ros</run_depend>
+  <run_depend>voice_text</run_depend>
   <!-- End of HIRONXJSK demo dependency -->
 
   <export>
