@@ -2,11 +2,11 @@
  '(
   (:hand (arm &rest args)
    (case arm
-     (:rarm (send* self :rhand args))
-     (:larm (send* self :lhand args))
-     ((:both :arms) (list (send* self :rhand args) (send* self :lhand args)))))
+     (:rarm (send* self :limb :rhand args))
+     (:larm (send* self :limb :lhand args))
+     ((:both :arms) (list (send* self :limb :rhand args) (send* self :limb :lhand args)))))
   (:limb
-   (limb method &rest args)
+   (limb &optional method &rest args)
    (if (member limb '(:rhand :lhand))
        (let ((av (case method
                    (:open-pose (float-vector  0 60 -10 30  0  0))
@@ -35,12 +35,12 @@
   (:hand-angle-vector
    (&optional (av))
    (when av
-     (send self :rhand :angle-vector (subseq av 0 6))
-     (send self :lhand :angle-vector (subseq av 6))
+     (send self :limb :rhand :angle-vector (subseq av 0 6))
+     (send self :limb :lhand :angle-vector (subseq av 6))
      )
    (concatenate float-vector
-                (send self :rhand :angle-vector)
-                (send self :lhand :angle-vector))
+                (send self :limb :rhand :angle-vector)
+                (send self :limb :lhand :angle-vector))
    )
   )
  )

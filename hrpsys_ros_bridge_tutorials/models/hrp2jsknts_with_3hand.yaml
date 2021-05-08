@@ -1,6 +1,7 @@
 ##
 ## - collada_joint_name : euslisp_joint_name (start with :)
 ##
+limbs: [rleg, lleg, torso, head, rarm, larm, rhand, lhand]
 
 rleg:
   - RLEG_JOINT0  : rleg-crotch-y
