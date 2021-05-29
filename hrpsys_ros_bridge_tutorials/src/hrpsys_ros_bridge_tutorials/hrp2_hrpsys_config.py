@@ -374,9 +374,9 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
     def loadForceMomentOffsetFile (self):
         import rospkg
         if self.ROBOT_NAME == "HRP2JSKNT":
-            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_HRP2JSKNT")
+            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_HRP2JSKNT_WITH_3HAND")
         elif self.ROBOT_NAME == "HRP2JSKNTS":
-            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_HRP2JSKNTS")
+            self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_HRP2JSKNTS_WITH_3HAND")
         elif self.ROBOT_NAME == "HRP2JSK":
             self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_thumb_60deg_HRP2JSK")
         else:
