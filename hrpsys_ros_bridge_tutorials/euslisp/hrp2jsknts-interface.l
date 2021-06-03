@@ -1,5 +1,5 @@
 (load "package://hrpsys_ros_bridge/euslisp/rtm-ros-robot-interface.l")
-(require :hrp2jsknts "package://hrpsys_ros_bridge_tutorials/models/hrp2jsknts_with_3hand.l")
+(require :hrp2jsknts "package://hrpsys_ros_bridge_tutorials/models/hrp2jsknts.l")
 (when (probe-file (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-utils.l"))
   (require :hrp2jsknts-utils "package://hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-utils.l"))
 (load "package://hrpsys_ros_bridge_tutorials/euslisp/hrp2-common-interface.l")

@@ -1,4 +1,4 @@
-(require :hrp2jsknt "package://hrpsys_ros_bridge_tutorials/models/hrp2jsknt_with_3hand.l")
+(require :hrp2jsknt "package://hrpsys_ros_bridge_tutorials/models/hrp2jsknt.l")
 (load "package://hrpsys_ros_bridge_tutorials/euslisp/hrp3hand-utils.l")
 
 (eval
@@ -11,7 +11,7 @@
    (prog1
        (send-super* :init-ending args)
      (send self :set-additional-end-coords)
-     ;;(send self :define-min-max-table)
+     (send self :define-min-max-table)
      (when (< (norm (send (send (send self :worldcoords) :transformation
                                 (send (car (send self :links)) :worldcoords)) :pos))
               0.1)

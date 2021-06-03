@@ -42,5 +42,9 @@
                 (send self :limb :rhand :angle-vector)
                 (send self :limb :lhand :angle-vector))
    )
-  )
+   (:collision-check-pairs
+    (&key ((:links ls) (set-difference (cons (car links) (all-child-links (car links)))
+                                       (append (send self :limb :rhand :links) (send self :limb :lhand :links)))))
+    (send-super :collision-check-pairs :links ls))
+   )
  )
