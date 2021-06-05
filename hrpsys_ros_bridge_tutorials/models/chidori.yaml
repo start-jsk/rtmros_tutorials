@@ -22,10 +22,10 @@ lleg:
 ##
 rleg-end-coords:
   parent: RLEG_LINK5
-  translate : [0.0, 0, -0.110]
+  translate : [0.0, 0, -0.1065]
 lleg-end-coords:
   parent: LLEG_LINK5
-  translate : [0.0, 0, -0.110]
+  translate : [0.0, 0, -0.1065]
 
 ##
 ## reset-pose
@@ -41,5 +41,5 @@ sensors:
 #  - {sensor_name: 'gsensor',   sensor_type: 'acceleration', parent_link: 'BODY', translate: '-0.1015 -0.005 0.0419', rotate: '1 0 0 90'}
 #  - {sensor_name: 'gyrometer', sensor_type: 'gyro', parent_link: 'BODY', translate: '-0.1015 -0.005 0.0419', rotate: '1 0 0 90'}
 ### sensor position should be confirmed
-  - {sensor_name: 'rfsensor', sensor_type: 'base_force6d', parent_link: 'RLEG_LINK5', translate: '0.0005 0 -0.057', rotate: '1 0 0 180'}
+  - {sensor_name: 'rfsensor', sensor_type: 'base_force6d', parent_link: 'RLEG_LINK5', translate: '0.0005 0 -0.057', rotate: '0 1 0 180'}
   - {sensor_name: 'lfsensor', sensor_type: 'base_force6d', parent_link: 'LLEG_LINK5', translate: '0.0005 0 -0.057', rotate: '0 1 0 180'}

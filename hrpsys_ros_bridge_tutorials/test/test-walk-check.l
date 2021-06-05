@@ -19,9 +19,16 @@
   (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.05 10.0 0.05))
   )
 
-(defun test-walk-bwd ()
+(defun test-walk-bwd-0 ()
   "Test program for 0.4[m] bwd walking."
   (send *ri* :go-pos -0.4 0 0)
+  )
+
+(defun test-walk-bwd-1 ()
+  "Test program for 0.4[m] bwd walking by large stride"
+  (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.05 10.0 0.15))
+  (send *ri* :go-pos -0.4 0 0)
+  (send *ri* :set-gait-generator-param :stride-parameter #f(0.15 0.05 10.0 0.05))
   )
 
 (defun test-walk-right ()
@@ -66,8 +73,9 @@
   (dolist (test-func
            '(test-walk-0
              test-walk-fwd-0
-             test-walk-bwd
+             test-walk-bwd-0
              test-walk-fwd-1
+             test-walk-bwd-1
              test-walk-right
              test-walk-left
              test-walk-right-turn
@@ -81,8 +89,9 @@
 
 (warn ";; (test-walk-0)~%")
 (warn ";; (test-walk-fwd-0)~%")
-(warn ";; (test-walk-bwd)~%")
+(warn ";; (test-walk-bwd-0)~%")
 (warn ";; (test-walk-fwd-1)~%")
+(warn ";; (test-walk-bwd-1)~%")
 (warn ";; (test-walk-right)~%")
 (warn ";; (test-walk-left)~%")
 (warn ";; (test-walk-right-turn)~%")

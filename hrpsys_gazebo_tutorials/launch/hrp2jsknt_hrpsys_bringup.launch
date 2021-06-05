@@ -22,5 +22,6 @@
     <arg name="HRPSYS_PY_PKG" value="hrpsys_ros_bridge_tutorials"/>
     <arg name="HRPSYS_PY_NAME" default="hrp2jsknt_hrpsys_config.py"/>
     <arg name="KINEMATICS_MODE" value="$(arg KINEMATICS_MODE)"/>
+    <arg name="HRPSYS_RATE"  value="250" />
   </include>
 </launch>

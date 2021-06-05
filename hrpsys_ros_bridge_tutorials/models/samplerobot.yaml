@@ -108,3 +108,13 @@ replace_xmls:
       attribute_name: type
       attribute_value: continuous
     replaced_attribute_value: revolute
+  - match_rule:
+      tag: dynamics
+      attribute_name: friction
+      attribute_value: 0
+    replaced_attribute_value: 1
+  - match_rule:
+      tag: dynamics
+      attribute_name: damping
+      attribute_value: 0.2
+    replaced_attribute_value: 1

@@ -6,6 +6,8 @@
    (&rest args)
    (prog1
        (send-super* :init-ending args)
+     (when (member :define-min-max-table (send self :methods))
+       (send self :define-min-max-table))
      (send self :add-hoist-point-coords)
      (send self :add-shin-cushion-parts)
      (send self :add-shin-contact-coords)
@@ -14,6 +16,15 @@
      (send self :add-hip-contact-coords)
      (send self :put :lhand-model (instance dummy-thk-hand-robot :init :name :l-thk-hand))
      (send self :put :rhand-model (instance dummy-thk-hand-robot :init :name :r-thk-hand))
+     (when (< (norm (send (send (send self :worldcoords) :transformation
+                                (send (car (send self :links)) :worldcoords)) :pos))
+              0.1)
+       ;; for new collada version
+       (send self :dissoc (car (send self :links)))
+       (send self :translate (float-vector 0 0 -1018.5)) ;; translation distance should be changed depend on WAIST Joint translation in .wrl
+       (send self :assoc (car (send self :links)))
+       (send self :reset-coords)
+       )
      ))
   (:add-hoist-point-coords
    ()
@@ -72,7 +83,8 @@
                         :init :link-list
                         :parent (send self l :end-coords)
                         :coords (send (send (send (send self l :end-coords :copy-worldcoords)
-                                                  :translate offset)
+                                                  :translate (cond ((eq l :rarm) (v- offset (float-vector 20 0 0)))
+                                                                   ((eq l :larm) (v- offset (float-vector 5 0 0)))))
                                             :rotate -pi/2 :y)
                                       :rotate (* sgn -pi/2) :z)
                         :name n))
