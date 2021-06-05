@@ -2,7 +2,7 @@
 #   Generic MoveIt Travis Continuous Integration Configuration File
 #   Works with all MoveIt! repositories/branches
 #   Author: Dave Coleman, Jonathan Bohren
-dist: trusty
+dist: bionic
 language:
   - cpp
   - python
@@ -11,7 +11,12 @@ python:
 compiler:
   - gcc
 cache:
-  - ccache
+  apt: true
+  pip: true
+  directories:
+    - $HOME/.ccache
+    - $HOME/.cache/pip
+    - $HOME/apt-cacher-ng
 env:
   global:
     - ROSWS=wstool
