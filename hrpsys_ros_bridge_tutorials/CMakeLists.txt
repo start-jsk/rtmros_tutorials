@@ -448,6 +448,21 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
     TESTMDOFARM)
 endif()
 
+# TABLIS
+compile_rbrain_model_for_closed_robots(TABLIS TABLIS TABLIS
+  --conf-dt-option "0.001"
+  --simulation-timestep-option "0.001"
+  --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  --conf-file-option "pdgains_sim_file_name: ${PROJECT_SOURCE_DIR}/models/TABLIS.PDgains_sim.dat"
+  --conf-file-option "abc_leg_offset: 0.0, 0.16, 0.0"
+  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.12,0.0,-0.1352,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.12,0.0,-0.1352,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,WAIST,0.1,0.0,0.0,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,WAIST,0.1,0.0,0.0,0.0,1.0,0.0,1.5708,"
+  --conf-file-option "collision_pair: WAIST:LLEG_JOINT2 WAIST:RLEG_JOINT2 LLEG_JOINT2:LLEG_JOINT5 LLEG_JOINT2:RLEG_JOINT2 LLEG_JOINT2:RLEG_JOINT3 LLEG_JOINT2:RLEG_JOINT5 LLEG_JOINT3:RLEG_JOINT2 LLEG_JOINT3:RLEG_JOINT3 LLEG_JOINT3:RLEG_JOINT5 LLEG_JOINT5:RLEG_JOINT2 LLEG_JOINT5:RLEG_JOINT3 LLEG_JOINT5:RLEG_JOINT5 RLEG_JOINT2:RLEG_JOINT5"
+  --conf-file-option "collision_model: convex hull"
+  --conf-file-option "# SequencePlayer optional data (contactStates x 4 + controlSwingTime x 4 (4 is rfsensor, lfsensor, rhsensor, lhsensor)"
+  --conf-file-option "seq_optional_data_dim: 8"
+)
+#gen_minmax_table_for_closed_robots(TABLIS TABLIS TABLIS)
 
 ################################
 ## Generate default simulation launch files and euslisp interface files
@@ -485,6 +500,7 @@ generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(URATALEG
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(YSTLEG YSTLEG "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(CHIDORI CHIDORI "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(TQLEG0 TQLEG0 "--use-robot-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(TABLIS TABLIS "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files(
   "$(find hrpsys_ros_bridge_tutorials)/models/TESTMDOFARM.wrl"
   hrpsys_ros_bridge_tutorials
@@ -724,6 +740,7 @@ endif()
 
 if(${jsk_models_FOUND})
   attach_sensor_and_endeffector_to_staro_urdf(CHIDORI CHIDORI.urdf CHIDORI_SENSORS.urdf chidori.yaml)
+  attach_sensor_and_endeffector_to_staro_urdf(TABLIS TABLIS.urdf TABLIS_SENSORS.urdf tablis.yaml)
 endif()
 
 # for SampleRobot
