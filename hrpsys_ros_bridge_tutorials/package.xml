@@ -53,5 +53,7 @@
     <pr2eus robot-name="urataleg" interface-file="${prefix}/euslisp/urataleg-interface.l" />
     <pr2eus robot-name="chidori" interface-file="${prefix}/euslisp/chidori-interface.l" />
     <pr2eus robot-name="ystleg" interface-file="${prefix}/euslisp/ystleg-interface.l" />
+    <pr2eus robot-name="kxrl2w2l6a4h2" interface-file="${prefix}/euslisp/kxrl2w2l6a4h2-interface.l" />
+
   </export>
 </package>

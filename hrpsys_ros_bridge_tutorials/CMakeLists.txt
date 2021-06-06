@@ -14,6 +14,11 @@ if(NOT "${jsk_models_FOUND}")
   string(ASCII 27 Esc)
   message(WARNING "${Esc}[1;33mPackage jsk_models is not found, if you have right to access them please include source code in catkin workspace${Esc}[m")
 endif()
+find_package(kondo_models QUIET)
+if(NOT "${kondo_models_FOUND}")
+  string(ASCII 27 Esc)
+  message(WARNING "${Esc}[1;33mPackage kondo_models is not found, if you have right to access them please include source code in catkin workspace${Esc}[m")
+endif()
 
 include(FindPkgConfig)
 pkg_check_modules(openhrp3 REQUIRED openhrp3.1)
@@ -94,6 +99,12 @@ endmacro()
 macro(compile_rbrain_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
   compile_model_for_closed_robots(
     ${jsk_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
+    ${_OpenHRP2_robot_name}
+    ${ARGN})
+endmacro()
+macro(compile_kondo_model_for_closed_robots _OpenHRP2_robot_vrml_name _OpenHRP2_robot_dir _OpenHRP2_robot_name)
+  compile_model_for_closed_robots(
+    ${kondo_models_MODEL_DIR}/${_OpenHRP2_robot_dir}/${_OpenHRP2_robot_vrml_name}main.wrl
     ${_OpenHRP2_robot_name}
     ${ARGN})
 endmacro()
@@ -448,6 +459,22 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
     TESTMDOFARM)
 endif()
 
+# Kondo Kagaku KXR series
+# KXRL2W2L6A4H2
+compile_kondo_model_for_closed_robots(KXRL2W2L6A4H2 KXRL2W2L6A4H2 KXRL2W2L6A4H2
+  --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  ## do not use CHIDORI.conf for real robot
+  --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/KXRL2W2L6A4H2.PDgains.sav"
+  --conf-file-option "pdgains_sim_file_name: ${PROJECT_SOURCE_DIR}/models/KXRL2W2L6A4H2.PDgains_sim.dat"
+  --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
+  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,0.0,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,0.0,0.0,0.0,0.0,0.0,rarm,RARM_JOINT3,WAIST,0.0,0.0,0.0,0.0,0.0,0.0,0.0, larm,LARM_JOINT3,WAIST,0.0,0.0,0.0,0.0,0.0,0.0,0.0,"
+  --conf-dt-option "0.01"
+  --simulation-timestep-option "0.01"
+  --conf-file-option "collision_loop: 20"
+  --conf-file-option "collision_pair: WAIST:LLEG_JOINT2 WAIST:RLEG_JOINT2 LLEG_JOINT2:LLEG_JOINT5 LLEG_JOINT2:RLEG_JOINT2 LLEG_JOINT2:RLEG_JOINT3 LLEG_JOINT2:RLEG_JOINT5 LLEG_JOINT3:RLEG_JOINT2 LLEG_JOINT3:RLEG_JOINT3 LLEG_JOINT3:RLEG_JOINT5 LLEG_JOINT5:RLEG_JOINT2 LLEG_JOINT5:RLEG_JOINT3 LLEG_JOINT5:RLEG_JOINT5 RLEG_JOINT2:RLEG_JOINT5"
+  --conf-file-option "# SequencePlayer optional data (contactStates x 2 + controlSwingTime x 2 (2 is rfsensor, lfsensor)"
+  --conf-file-option "seq_optional_data_dim: 4"
+  )
 
 ################################
 ## Generate default simulation launch files and euslisp interface files
@@ -468,6 +495,14 @@ macro (generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots R
     generate_default_launch_eusinterface_files("$(find jsk_models)/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
   endif()
 endmacro ()
+macro (generate_default_launch_eusinterface_files_for_closed_kondo_robots ROBOT_DIR ROBOT_NAME)
+  set(_arg_list ${ARGV})
+  # remove arguments of this macro
+  list(REMOVE_AT _arg_list 0 1)
+  if(EXISTS ${kondo_models_MODEL_DIR}/${ROBOT_DIR}/${ROBOT_NAME}main.wrl)
+    generate_default_launch_eusinterface_files("$(find kondo_models)/${ROBOT_DIR}/${ROBOT_NAME}main.wrl" hrpsys_ros_bridge_tutorials ${ROBOT_NAME} ${_arg_list})
+  endif()
+endmacro ()
 
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSK_for_OpenHRP3 HRP2JSK "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_openhrp_robots(HRP2JSKNT_for_OpenHRP3 HRP2JSKNT "--use-robot-hrpsys-config")
@@ -485,6 +520,8 @@ generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(URATALEG
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(YSTLEG YSTLEG "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(CHIDORI CHIDORI "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(TQLEG0 TQLEG0 "--use-robot-hrpsys-config")
+generate_default_launch_eusinterface_files_for_closed_kondo_robots(KXRL2W2L6A4H2 KXRL2W2L6A4H2 "--use-robot-hrpsys-config")
+
 generate_default_launch_eusinterface_files(
   "$(find hrpsys_ros_bridge_tutorials)/models/TESTMDOFARM.wrl"
   hrpsys_ros_bridge_tutorials

@@ -49,6 +49,13 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             head_group = ['head', ['HEAD_JOINT0', 'HEAD_JOINT1']]
             torso_group = ['torso', ['CHEST_JOINT0', 'CHEST_JOINT1', 'CHEST_JOINT2']]
             self.Groups = [rarm_group, larm_group, rleg_group, lleg_group, head_group, torso_group]
+        elif self.ROBOT_NAME == "KXRL2W2L6A4H2":
+            rarm_group = ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4']]
+            larm_group = ['larm', ['LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4']]
+            rleg_group = ['rleg', ['RLEG_JOINT0', 'RLEG_JOINT1', 'RLEG_JOINT2', 'RLEG_JOINT3', 'RLEG_JOINT4', 'RLEG_JOINT5']]
+            lleg_group = ['lleg', ['LLEG_JOINT0', 'LLEG_JOINT1', 'LLEG_JOINT2', 'LLEG_JOINT3', 'LLEG_JOINT4', 'LLEG_JOINT5']]
+            head_group = ['head', ['HEAD_JOINT0', 'HEAD_JOINT1']]
+            self.Groups = [rarm_group, larm_group, rleg_group, lleg_group, head_group]
         else:
             rarm_group = ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'RARM_JOINT6', 'RARM_JOINT7']]
             larm_group = ['larm', ['LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'LARM_JOINT6', 'LARM_JOINT7']]
@@ -75,6 +82,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.setStAbcParametersCHIDORI()
         elif self.ROBOT_NAME == "TQLEG0":
             self.setStAbcParametersTQLEG0()
+        elif self.ROBOT_NAME == "KXRL2W2L6A4H2":
+            self.setStAbcParametersKXRL2W2L6A4H2()
 
     def setStAbcParametersSTARO (self):
         # abc setting
@@ -617,6 +626,39 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # remove soft-error-limit for torque controlled robot ( ONLY FOR THIS ROBOT !!! )
         self.el_svc.setServoErrorLimit("ALL", 100000)
 
+    def setStAbcParametersKXRL2W2L6A4H2 (self):
+        abcp=self.abc_svc.getAutoBalancerParam()[1]
+        abcp.default_zmp_offsets=[[0.01, -0.005, 0.0], [0.01, 0.005, 0.0], [0, 0, 0], [0, 0, 0]];
+#        abcp.move_base_gain=0.8
+        self.abc_svc.setAutoBalancerParam(abcp)
+        # ST parameters
+        stp=self.st_svc.getParameter()
+        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
+        #   eefm st params
+        stp.eefm_leg_inside_margin=71.12*1e-3
+        stp.eefm_leg_outside_margin=71.12*1e-3
+        stp.eefm_leg_front_margin=182.0*1e-3
+        stp.eefm_leg_rear_margin=72.0*1e-3
+        stp.eefm_k1=[-1.39899,-1.39899]
+        stp.eefm_k2=[-0.386111,-0.386111]
+        stp.eefm_k3=[-0.175068,-0.175068]
+        stp.eefm_rot_damping_gain=[[20*1.6*10, 20*1.6*10, 1e5]]*4 # Stiff parameter for simulation
+        stp.eefm_pos_damping_gain=[[3500*50, 3500*50, 3500*1.0*5]]*4 # Stiff parameter for simulation
+        #   tpcc st params
+        stp.k_tpcc_p=[0.2, 0.2]
+        stp.k_tpcc_x=[4.0, 4.0]
+        stp.k_brot_p=[0.0, 0.0]
+        stp.k_brot_tc=[0.1, 0.1]
+        self.st_svc.setParameter(stp)
+        gg=self.abc_svc.getGaitGeneratorParam()[1]
+        gg.default_step_time=5
+        gg.default_step_height=0.015
+        gg.leg_default_translate_pos[0][1] = -0.027
+        gg.leg_default_translate_pos[1][1] = 0.027
+        gg.stride_parameter[0] = 0.025
+        gg.stride_parameter[1] = 0.025
+        gg.default_orbit_type = OpenHRP.AutoBalancerService.CYCLOIDDELAY
+        self.abc_svc.setGaitGeneratorParam(gg)
 
     def jaxonResetPose (self):
         ## Different from (send *robot* :reset-pose)
@@ -681,6 +723,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def tqleg0InitPose (self):
         return [0]*len(self.tqleg0ResetPose())
 
+    def kxrl2w2l6a4h2ResetPose(self):
+        return [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.45, 0.45, 0.9, 0.9, 0.45, 0.45, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
     # (mapcar #'deg2rad (concatenate cons (send *robot* :reset-landing-pose)))
     def jaxonResetLandingPose (self):
         return [0.004318,0.005074,-0.134838,1.18092,-0.803855,-0.001463,0.004313,0.005079,-0.133569,1.18206,-0.806262,-0.001469,0.003782,-0.034907,0.004684,0.0,0.0,0.0,0.698132,-0.349066,-0.087266,-1.39626,0.0,0.0,-0.349066,0.0,0.698132,0.349066,0.087266,-1.39626,0.0,0.0,-0.349066]
@@ -705,6 +750,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.chidoriResetPose(), 5.0)
         elif self.ROBOT_NAME == "TQLEG0":
             self.seq_svc.setJointAngles(self.tqleg0ResetPose(), 5.0)
+        elif self.ROBOT_NAME == "KXRL2W2L6A4H2":
+            self.seq_svc.setJointAngles(self.kxrl2w2l6a4h2ResetPose(), 5.0)
 
     def setResetManipPose(self):
         if self.ROBOT_NAME == "STARO":
