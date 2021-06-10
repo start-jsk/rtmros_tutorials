@@ -394,7 +394,7 @@ compile_rbrain_model_for_closed_robots(JAXON_BLUE JAXON_BLUE JAXON_BLUE
   --conf-dt-option "0.002"
   --simulation-timestep-option "0.002"
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
-  --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/JAXON_BLUE.PDgains.sav"
+  --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "pdgains_sim_file_name: ${PROJECT_SOURCE_DIR}/models/JAXON_BLUE.PDgains_sim.dat"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
   ## KAWADA foot
@@ -417,7 +417,7 @@ gen_minmax_table_for_closed_robots(JAXON_BLUE JAXON_BLUE JAXON_BLUE)
 compile_rbrain_model_for_closed_robots(CHIDORI CHIDORI CHIDORI
   --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   ## do not use CHIDORI.conf for real robot
-  --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/CHIDORI.PDgains.sav"
+  --conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
   --conf-file-option "pdgains_sim_file_name: ${PROJECT_SOURCE_DIR}/models/CHIDORI.PDgains_sim.dat"
   --conf-file-option "abc_leg_offset: 0.0, 0.1, 0.0"
   --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.1065,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.1065,0.0,0.0,0.0,0.0,"
