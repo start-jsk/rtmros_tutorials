@@ -62,9 +62,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         if self.ROBOT_NAME == "STARO":
             self.setStAbcParametersSTARO()
         elif self.ROBOT_NAME == "JAXON":
-            self.setStAbcIcParametersJAXON(foot="LEPTRINO")
+            self.setStAbcIcParametersJAXON(foot="LEPTRINO_FORCE_PLATE")
         elif self.ROBOT_NAME == "JAXON_RED":
-            self.setStAbcIcParametersJAXON(foot="KAWADA")
+            self.setStAbcIcParametersJAXON(foot="LEPTRINO_FORCE_SENSOR")
         elif self.ROBOT_NAME == "JAXON_BLUE":
             self.setStAbcIcParametersJAXON_BLUE()
         elif self.ROBOT_NAME == "URATALEG":
@@ -266,11 +266,17 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             astp.eefm_leg_outside_margin=0.07
             astp.eefm_leg_front_margin=0.1
             astp.eefm_leg_rear_margin=0.1
-        elif foot == "LEPTRINO":
+        elif foot == "LEPTRINO_FORCE_PLATE":
             astp.eefm_leg_inside_margin=0.065
             astp.eefm_leg_outside_margin=0.065
             astp.eefm_leg_front_margin=0.115
             astp.eefm_leg_rear_margin=0.115
+        elif foot == "LEPTRINO_FORCE_SENSOR":
+            ## Leptrino force sensor foot : mechanical param is => inside 0.07, front 0.12, rear 0.11
+            astp.eefm_leg_inside_margin=0.065
+            astp.eefm_leg_outside_margin=0.065
+            astp.eefm_leg_front_margin=0.115
+            astp.eefm_leg_rear_margin=0.105
         rleg_vertices = [OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[astp.eefm_leg_front_margin, astp.eefm_leg_inside_margin]),
                          OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[astp.eefm_leg_front_margin, -1*astp.eefm_leg_outside_margin]),
                          OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*astp.eefm_leg_rear_margin, -1*astp.eefm_leg_outside_margin]),
