@@ -343,6 +343,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         esp=self.es_svc.getEmergencyStopperParam()[1]
         esp.default_recover_time=3.0 # [s]
         esp.default_retrieve_time=1.0 # [s]
+        esp.default_retrieve_duration=1.0 # [s]
         self.es_svc.setEmergencyStopperParam(esp)
 
     def setStAbcIcParametersJAXON_BLUE(self, foot="KAWADA"):
@@ -450,6 +451,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         esp=self.es_svc.getEmergencyStopperParam()[1]
         esp.default_recover_time=10.0 # [s]
         esp.default_retrieve_time=1.0 # [s]
+        esp.default_retrieve_duration=1.0 # [s]
         self.es_svc.setEmergencyStopperParam(esp)
 
     def setStAbcParametersURATALEG (self):
