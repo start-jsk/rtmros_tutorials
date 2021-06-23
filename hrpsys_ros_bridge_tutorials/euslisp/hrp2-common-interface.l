@@ -4,53 +4,66 @@
   )
 
 (defmethod hrp2-common-interface
-  (:define-all-ROSBridge-srv-methods
-   (&key (debug-view nil) (ros-pkg-name "hrpsys_ros_bridge"))
-   (send-super :define-all-ROSBridge-srv-methods)
-   (if (ros::resolve-ros-path "package://jsk_hrp2_ros_bridge")
-       (send-super :define-all-ROSBridge-srv-methods :ros-pkg-name "jsk_hrp2_ros_bridge"))
-   )
-  (:hand-controlmode-vector
-   (cmode)
-   (if (find-method self :hrp3handcontrollerservice_setcontrolmodevector)
-       (send self :hrp3handcontrollerservice_setcontrolmodevector :i_cmode cmode)
-     (warn ";; :hrp3handcontrollerservice_setcontrolmodevector is not implemented!~%"))
-   )
   (:hand-angle-vector
    (av &optional (tm 1000))
-   (if (find-method self :hrp3handcontrollerservice_setjointangles)
-       (send self :hrp3handcontrollerservice_setjointangles :jvs av :tm (/ tm 1000.0))
-     (warn ";; :hrp3handcontrollerservice_setjointangles is not implemented!~%"))
-   )
-  ;;(:hand-wait-interpolation-raw
+   (let ((av-all (instantiate float-vector (length (send robot :angle-vector)))))
+     (dotimes (i 6)
+       (setelt av-all (position (elt (send robot :limb :rhand :joint-list) i) (send robot :joint-list)) (elt av i))
+       (setelt av-all (position (elt (send robot :limb :lhand :joint-list) i) (send robot :joint-list)) (elt av (+ i 6))))
+     (send self :angle-vector av-all tm :rhand-controller)
+     (send self :angle-vector av-all tm :lhand-controller)
+     av))
   (:hand-wait-interpolation
    ()
-   (if (find-method self :hrp3handcontrollerservice_waitinterpolation)
-       (send self :hrp3handcontrollerservice_waitinterpolation)
-     (warn ";; :hrp3handcontrollerservice_waitinterpolation is not implemented!~%"))
+   (list (send self :wait-interpolation :rhand-controller)
+         (send self :wait-interpolation :lhand-controller))
    )
   (:hand-servo-on
    ()
-   (if (find-method self :hrp3handcontrollerservice_handservoon)
-       (send self :hrp3handcontrollerservice_handservoon)
-     (warn ";; :hrp3handcontrollerservice_handservoon is not implemented!~%"))
+   (warn ";; :hrp3handcontrollerservice_handservoon is not implemented!~%")
    )
   (:hand-servo-off
    ()
-   (if (find-method self :hrp3handcontrollerservice_handservooff)
-       (send self :hrp3handcontrollerservice_handservooff)
-     (warn ";; :hrp3handcontrollerservice_handservooff is not implemented!~%"))
+   (warn ";; :hrp3handcontrollerservice_handservooff is not implemented!~%")
    )
   (:hand-joint-calib
    ()
-   (if (find-method self :hrp3handcontrollerservice_handjointcalib)
-       (send self :hrp3handcontrollerservice_handjointcalib)
-     (warn ";; :hrp3handcontrollerservice_handjointcalib is not implemented!~%"))
+   (warn ";; :hrp3handcontrollerservice_handjointcalib is not implemented!~%")
    )
   (:hand-state
    ()
-   (if (find-method self :hrp3handcontrollerservice_getRobotState)
-       (send self :hrp3handcontrollerservice_getRobotState)
-     (warn ";; :hrp3handcontrollerservice_getRobotState is not implemented!~%"))
+   (send self :state)
+   (let ((reference-all (send self :reference-vector))
+         (reference (instantiate float-vector 12)))
+     (dotimes (i 6)
+       (setelt reference i (elt reference-all (position (elt (send robot :limb :rhand :joint-list) i) (send robot :joint-list))))
+       (setelt reference (+ i 6) (elt reference-all (position (elt (send robot :limb :lhand :joint-list) i) (send robot :joint-list)))))
+     (instance hrp3hand-state :init
+               :reference reference
+               :potentio (send robot :hand-angle-vector)
+               )
+     )
    )
+  )
+
+(defclass hrp3hand-state
+  :super propertied-object
+  :slots (_reference _potentio)
+  )
+
+(defmethod hrp3hand-state
+  (:init
+   (&key
+    ((:reference __reference) (make-array 0 :initial-element 0.0 :element-type :float))
+    ((:potentio __potentio) (make-array 0 :initial-element 0.0 :element-type :float))
+    )
+   (setq _reference __reference)
+   (setq _potentio __potentio)
+   self)
+  (:reference
+   (&optional __reference)
+   (if __reference (setq _reference __reference)) _reference)
+  (:potentio
+   (&optional __potentio)
+   (if __potentio (setq _potentio __potentio)) _potentio)
   )
