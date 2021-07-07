@@ -69,9 +69,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         if self.ROBOT_NAME == "STARO":
             self.setStAbcParametersSTARO()
         elif self.ROBOT_NAME == "JAXON":
-            self.setStAbcIcParametersJAXON(foot="LEPTRINO")
-        elif self.ROBOT_NAME == "JAXON_RED":
             self.setStAbcIcParametersJAXON(foot="KAWADA")
+        elif self.ROBOT_NAME == "JAXON_RED":
+            self.setStAbcIcParametersJAXON(foot="LEPTRINO_FORCE_SENSOR")
         elif self.ROBOT_NAME == "JAXON_BLUE":
             self.setStAbcIcParametersJAXON_BLUE()
         elif self.ROBOT_NAME == "URATALEG":
@@ -196,6 +196,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
         kfp=self.kf_svc.getKalmanFilterParam()[1]
+        kfp.sensorRPY_offset = [-0.015, 0.022, 0]
         kfp.R_angle=1000
         self.kf_svc.setKalmanFilterParam(kfp)
         # st setting
@@ -218,12 +219,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
             stp.eefm_pos_compensation_limit = [0.06, 0.06, 0.050, 0.050]
         elif self.ROBOT_NAME == "JAXON_RED":
-            stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
-                                         [20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
+            stp.eefm_rot_damping_gain = [[60, 60, 1e5],
+                                         [60, 60, 1e5],
                                          [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5],
                                          [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]]
-            stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
-                                         [3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5],
+            stp.eefm_pos_damping_gain = [[33600, 33600, 9000],
+                                         [33600, 33600, 9000],
                                          [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8],
                                          [3500*1.6*6*0.8, 3500*1.6*6*0.8, 3500*1.6*1.1*1.5*0.8]]
             stp.eefm_swing_pos_damping_gain = stp.eefm_pos_damping_gain[0]
@@ -256,11 +257,17 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             stp.eefm_leg_outside_margin=0.07
             stp.eefm_leg_front_margin=0.1
             stp.eefm_leg_rear_margin=0.1
-        elif foot == "LEPTRINO":
+        elif foot == "LEPTRINO_FORCE_PLATE":
             stp.eefm_leg_inside_margin=0.05
             stp.eefm_leg_outside_margin=0.05
             stp.eefm_leg_front_margin=0.115
             stp.eefm_leg_rear_margin=0.115
+        elif foot == "LEPTRINO_FORCE_SENSOR":
+            ## Leptrino force sensor foot : mechanical param is => inside 0.07, front 0.12, rear 0.11
+            stp.eefm_leg_inside_margin=0.065
+            stp.eefm_leg_outside_margin=0.065
+            stp.eefm_leg_front_margin=0.115
+            stp.eefm_leg_rear_margin=0.105
         rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, stp.eefm_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_outside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_outside_margin]),
