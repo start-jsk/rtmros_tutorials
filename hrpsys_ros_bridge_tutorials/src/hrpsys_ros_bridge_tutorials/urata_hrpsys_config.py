@@ -182,7 +182,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         if self.ROBOT_NAME == "JAXON":
             abcp.default_zmp_offsets=[[0.0, 0.02, 0.0], [0.0, -0.02, 0.0], [0, 0, 0], [0, 0, 0]];
         elif self.ROBOT_NAME == "JAXON_RED":
-            abcp.default_zmp_offsets=[[0.0, 0.02, 0.0], [0.0, -0.02, 0.0], [0, 0, 0], [0, 0, 0]]; # TODO: ここでセットしたzmp_offsetsが反映されないことがある
+            abcp.default_zmp_offsets=[[0.0, 0.02, 0.0], [0.0, -0.02, 0.0], [0, 0, 0], [0, 0, 0]]; # TODO: zmp_offsets here is sometimes not set
         abcp.move_base_gain=1.0
         abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
         self.abc_svc.setAutoBalancerParam(abcp)
