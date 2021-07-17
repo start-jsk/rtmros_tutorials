@@ -20,6 +20,11 @@
   
   <buildtool_depend>catkin</buildtool_depend>
 
+  <!-- Start of HIRONXJSK demo dependency -->
+  <build_depend>hrp2_models</build_depend> <!-- only jsk people have this package, so if you do not find them, please comment out this -->
+  <build_depend>hrpsys_ros_bridge</build_depend>  <!-- Even if hrpsys_ros_bridge is not installed, build succeeds -->
+  <!-- End of HIRONXJSK demo dependency -->
+
   <run_depend>hironx_ros_bridge</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>jsk_tools</run_depend>

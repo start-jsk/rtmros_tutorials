@@ -25,7 +25,7 @@
    )
   )
 
-(defun hrp2w-init (&key (sim nil) &rest args)
+(defun hrp2w-init (&rest args &key (sim nil) &allow-other-keys)
   (if (not (boundp '*ri*))
       (setq *ri* (instance* hrp2w-interface :init args)))
   (if (not (boundp '*hrp2w*))

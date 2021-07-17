@@ -25,8 +25,31 @@ With the real robot,::
 
 `%HOSTNAME%` is the host name that can be pinged at, `hiro014` for example.
 
+HIRONXJSK Demos
+---------------
+
+Installation
+++++++++++++
+
+To run the following demos, you have to build this package with ``hrp2_models`` (closed package) and ``hrpsys_ros_bridge_tutorials``.
+If you compiled this package or ``hrpsys_ros_bridge_tutorials`` before you download ``hrp2_models``, you have to compile this package and ``hrpsys_ros_bridge_tutorials`` again with ``--force-cmake`` option after you download ``hrp2_models``.
+
+HIRONXJSK hrpsys simulation
++++++++++++++++++++++++++++
+
+.. image:: images/hironxjsk_hrpsys_viewer.jpg
+   :width: 60%
+   :align: center
+
+Execution
+^^^^^^^^^
+
+.. code-block:: bash
+
+  $ rtmlaunch hironx_tutorial hironxjsk_ros_bridge_simulation.launch
+
 HIRONXJSK Picking Demo
-----------------------
+++++++++++++++++++++++
 
 .. image:: images/hironxjsk_picking_demo_gazebo.gif
    :width: 60%
@@ -36,17 +59,20 @@ HIRONXJSK Picking Demo
    :width: 60%
    :align: center
 
-Installation
-++++++++++++
-
-To run this demo, you have to build this package with ``hrp2_models`` (closed package) and ``hrpsys_ros_bridge_tutorials``.
-If you compiled ``hrpsys_ros_bridge_tutorials`` before you download ``hrp2_models``, you have to compile ``hrpsys_ros_bridge_tutorials`` again with ``--force-cmake`` option after you download ``hrp2_models``.
-
-Execution
-+++++++++
+Execution (Gazebo)
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
   $ roslaunch hironx_tutorial hironxjsk_picking_demo.launch
   # Wait until the robot stops moving
+  $ rosrun hironx_tutorial hironxjsk-picking-demo.l
+
+Execution (Real Robot)
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+  # First, start up robot. Then...
+  $ roslaunch hironx_tutorial hironxjsk_picking_demo.launch gazebo:=false
   $ rosrun hironx_tutorial hironxjsk-picking-demo.l
