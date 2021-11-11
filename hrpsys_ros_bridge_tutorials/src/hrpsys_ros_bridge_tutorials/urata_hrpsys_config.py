@@ -341,10 +341,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
         gg.swing_trajectory_final_distance_weight=3.0
         gg.default_orbit_type = OpenHRP.AutoBalancerService.RECTANGLE
-        gg.toe_pos_offset_x = 1e-3*117.338;
-        gg.heel_pos_offset_x = 1e-3*-116.342;
-        gg.toe_zmp_offset_x = 1e-3*117.338;
-        gg.heel_zmp_offset_x = 1e-3*-116.342;
+        gg.toe_pos_offset_x = 1e-3*115.0;
+        gg.heel_pos_offset_x = 1e-3*-115.0;
+        gg.toe_zmp_offset_x = 1e-3*115.0;
+        gg.heel_zmp_offset_x = 1e-3*-115.0;
         gg.optional_go_pos_finalize_footstep_num=1
         gg.overwritable_footstep_index_offset=1
         self.abc_svc.setGaitGeneratorParam(gg)
