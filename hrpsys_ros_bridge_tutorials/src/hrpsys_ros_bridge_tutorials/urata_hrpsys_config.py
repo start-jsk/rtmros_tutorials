@@ -247,7 +247,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         astp.eefm_swing_damping_moment_thre=[15]*3
         astp.eefm_use_swing_damping=True
         # astp.eefm_ee_error_cutoff_freq=10000 # not used
-        astp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+        # astp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
         astp.eefm_swing_pos_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
         astp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*4
         astp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*4
