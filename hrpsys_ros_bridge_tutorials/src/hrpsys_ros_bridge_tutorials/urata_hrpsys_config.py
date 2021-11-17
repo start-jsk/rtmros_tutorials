@@ -242,10 +242,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             astp.eefm_pos_compensation_limit = [0.08, 0.08, 0.050, 0.050]
         astp.eefm_zmp_delay_time_const=[0, 0]
         astp.detection_time_to_air=5.0
-        astp.use_zmp_truncation=True
+        astp.use_zmp_truncation=False
         astp.eefm_swing_damping_force_thre=[200]*3
         astp.eefm_swing_damping_moment_thre=[15]*3
-        astp.eefm_use_swing_damping=False
+        astp.eefm_use_swing_damping=True
         # astp.eefm_ee_error_cutoff_freq=10000 # not used
         astp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
         astp.eefm_swing_pos_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
