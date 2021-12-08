@@ -48,16 +48,16 @@ rarm-end-coords:
 
 larm-end-coords:
   parent: LARM_LINK6
-  translate : [0.1, 0, 0]
+  translate : [0.113, 0, 0]
   rotate    : [0.0, 1.0, 0.0, 90.0]
 
 rleg-end-coords:
   parent: RLEG_LINK5
-  translate : [0.12, 0, -0.1352]
+  translate : [0.12, 0, -0.1062]
 
 lleg-end-coords:
   parent: LLEG_LINK5
-  translate : [0.12, 0, -0.1352]
+  translate : [0.12, 0, -0.1062]
 
 # head-end-coords:
 #   translate : [0.1, 0.0, 0.1]
