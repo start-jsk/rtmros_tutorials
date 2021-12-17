@@ -56,6 +56,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             head_group = ['head', ['HEAD_JOINT0', 'HEAD_JOINT1']]
             torso_group = ['torso', ['CHEST_JOINT0', 'CHEST_JOINT1', 'CHEST_JOINT2']]
             self.Groups = [rarm_group, larm_group, rleg_group, lleg_group, head_group, torso_group]
+        elif self.ROBOT_NAME == "A0B":
+            rarm_group = ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5']]
+            self.Groups = [rarm_group]
         else:
             rarm_group = ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'RARM_JOINT6', 'RARM_JOINT7']]
             larm_group = ['larm', ['LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'LARM_JOINT6', 'LARM_JOINT7']]
@@ -797,6 +800,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def tablisInitPose (self):
         return [0]*len(self.tablisResetPose())
 
+    def a0bResetPose(self):
+        return [0, 0, 0, 0, 0, 0]
+
+    def a0bInitPose (self):
+        return [0]*len(self.tqleg0ResetPose())
+
     # (mapcar #'deg2rad (concatenate cons (send *robot* :reset-landing-pose)))
     def jaxonResetLandingPose (self):
         return [0.004318,0.005074,-0.134838,1.18092,-0.803855,-0.001463,0.004313,0.005079,-0.133569,1.18206,-0.806262,-0.001469,0.003782,-0.034907,0.004684,0.0,0.0,0.0,0.698132,-0.349066,-0.087266,-1.39626,0.0,0.0,-0.349066,0.0,0.698132,0.349066,0.087266,-1.39626,0.0,0.0,-0.349066]
@@ -823,6 +832,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.tqleg0ResetPose(), 5.0)
         elif self.ROBOT_NAME == "TABLIS":
             self.seq_svc.setJointAngles(self.tablisResetPose(), 5.0)
+        elif self.ROBOT_NAME == "A0B":
+            self.seq_svc.setJointAngles(self.a0bResetPose(), 5.0)
 
     def setLoadTestPose(self):
         if self.ROBOT_NAME == "TABLIS":
@@ -851,6 +862,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.tqleg0InitPose(), 10.0)
         elif self.ROBOT_NAME == "TABLIS":
             self.seq_svc.setJointAngles(self.tablisInitPose(), 10.0)
+        elif self.ROBOT_NAME == "A0B":
+            self.seq_svc.setJointAngles(self.a0bInitPose(), 10.0)
 
     def setCollisionFreeInitPose(self):
         if self.ROBOT_NAME == "JAXON_BLUE":

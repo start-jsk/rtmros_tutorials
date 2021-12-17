@@ -444,6 +444,14 @@ compile_rbrain_model_for_closed_robots(TQLEG0 TQLEG0 TQLEG0
   --conf-file-option "seq_optional_data_dim: 4"
   )
 
+# A0B
+compile_rbrain_model_for_closed_robots(A0B A0B A0B
+  --robothardware-conf-file-option "pdgains.file_name: ${PROJECT_SOURCE_DIR}/models/PDgains.sav"
+  --conf-file-option "end_effectors: rarm,RARM_JOINT5,WAIST,0.25375,0.0,0.0,0.0,0.0,0.0,0.0,"
+  --conf-dt-option "0.002"
+  --simulation-timestep-option "0.002"
+  )
+
 if(EXISTS ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl)
   compile_openhrp_model(
     ${PROJECT_SOURCE_DIR}/models/TESTMDOFARM.wrl
@@ -502,6 +510,7 @@ generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(URATALEG
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(YSTLEG YSTLEG "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(CHIDORI CHIDORI "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(TQLEG0 TQLEG0 "--use-robot-hrpsys-config")
+generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(A0B A0B "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files_for_jsk_closed_rbrain_robots(TABLIS TABLIS "--use-robot-hrpsys-config")
 generate_default_launch_eusinterface_files(
   "$(find hrpsys_ros_bridge_tutorials)/models/TESTMDOFARM.wrl"

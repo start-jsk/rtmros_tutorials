@@ -1,0 +1,25 @@
+##
+## - collada_joint_name : euslisp_joint_name (start with :)
+##
+
+rarm:
+  - RARM_JOINT0   : rarm-joint0
+  - RARM_JOINT1   : rarm-joint1
+  - RARM_JOINT2   : rarm-joint2
+  - RARM_JOINT3   : rarm-joint3
+  - RARM_JOINT4   : rarm-joint4
+  - RARM_JOINT5   : rarm-joint5
+
+##
+## end-coords
+##
+rarm-end-coords:
+  translate : [0.25375, 0, 0]
+
+##
+## reset-pose
+##
+angle-vector:
+  zero-pose : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  reset-pose : [60.0, -90.0, 90.0, -30.0, -90.0, 90.0]
+  reverse-reset-pose : [60.0, 90.0, -90.0, -30.0, 90.0, -90.0]
