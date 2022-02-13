@@ -329,15 +329,13 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #gg.default_step_time=1.0
         #self.abc_svc.setGaitGeneratorParam(gg)
         gg=self.abc_svc.getGaitGeneratorParam()[1]
-        gg.default_step_time=1.2
-        gg.default_step_height=0.065
+        gg.default_step_time=0.8
+        gg.default_step_height=0.07
         #gg.default_double_support_ratio=0.32
-        gg.default_double_support_ratio=0.35
+        gg.default_double_support_ratio=0.15
         #gg.stride_parameter=[0.1,0.05,10.0]
         #gg.default_step_time=1.0
-        #gg.swing_trajectory_delay_time_offset=0.35
-        #gg.swing_trajectory_delay_time_offset=0.2
-        gg.swing_trajectory_delay_time_offset=0.15
+        gg.swing_trajectory_delay_time_offset=0.238
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
         gg.swing_trajectory_final_distance_weight=3.0
         gg.default_orbit_type = OpenHRP.AutoBalancerService.RECTANGLE
@@ -347,6 +345,20 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         gg.heel_zmp_offset_x = 1e-3*-115.0;
         gg.optional_go_pos_finalize_footstep_num=1
         gg.overwritable_footstep_index_offset=1
+        gg.leg_margin = [0.115, 0.115, 0.065, 0.065]
+        gg.safe_leg_margin = [0.075, 0.075, 0.065, 0.065]
+        gg.stride_limitation_type = OpenHRP.AutoBalancerService.CIRCLE
+        gg.stride_limitation_for_circle_type = [0.15, 0.3, 15, 0.15, 0.135]
+        gg.overwritable_stride_limitation = [0.3, 0.45, 0, 0.3, 0.125]
+        gg.margin_time_ratio = 0.0
+        gg.min_time_margin = 0.12
+        gg.min_time = 0.7
+        gg.overwritable_max_time = 1.0
+        gg.modify_footsteps = True
+        gg.use_act_states = True
+        gg.emergency_step_time = [0.02, 0.6, 0.7]
+        gg.rectangle_goal_off = [0, 0, -0.05]
+        gg.dcm_offset = 0.01
         self.abc_svc.setGaitGeneratorParam(gg)
         # Ic setting
         limbs = ['rarm', 'larm']
