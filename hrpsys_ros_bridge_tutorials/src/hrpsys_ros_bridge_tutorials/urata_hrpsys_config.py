@@ -377,96 +377,129 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def setStAbcIcParametersJAXON_BLUE(self, foot="KAWADA"):
         # abc setting
         abcp=self.abc_svc.getAutoBalancerParam()[1]
-        abcp.default_zmp_offsets=[[0.05, 0.0, 0.0], [0.05, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+        abcp.default_zmp_offsets=[[0.05, 0.02, 0.0], [0.05, -0.02, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
+        abcp.ik_mode = OpenHRP.AutoBalancerService.FULLBODY
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
         kfp=self.kf_svc.getKalmanFilterParam()[1]
         kfp.R_angle=1000
         self.kf_svc.setKalmanFilterParam(kfp)
-        # st setting
-        stp=self.st_svc.getParameter()
-        #stp.st_algorithm=OpenHRP.StabilizerService.EEFM
-        #stp.st_algorithm=OpenHRP.StabilizerService.EEFMQP
-        stp.st_algorithm=OpenHRP.StabilizerService.EEFMQPCOP
-        stp.emergency_check_mode=OpenHRP.StabilizerService.CP
-        stp.cp_check_margin=[0.05, 0.045, 0, 0.095]
-        stp.k_brot_p=[0, 0]
-        stp.k_brot_tc=[1000, 1000]
-        #stp.eefm_body_attitude_control_gain=[0, 0.5]
-        stp.eefm_body_attitude_control_gain=[0.5, 0.5]
-        stp.eefm_body_attitude_control_time_const=[1000, 1000]
-        stp.eefm_rot_damping_gain = [[25, 25, 1e5], # modification with kojio
+        # AutoSt setting
+        astp=self.abc_svc.getStabilizerParam()
+        #astp.st_algorithm=OpenHRP.AutoBalancerService.EEFM
+        astp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQP
+        # astp.st_algorithm=OpenHRP.AutoBalancerService.EEFMQPCOP
+        astp.emergency_check_mode=OpenHRP.AutoBalancerService.CP # enable EmergencyStopper for JAXON @ 2015/11/19
+        astp.cp_check_margin=[0.05, 0.045, 0, 0.095]
+        astp.k_brot_p=[0, 0]
+        astp.k_brot_tc=[1000, 1000]
+        #astp.eefm_body_attitude_control_gain=[0, 0.5]
+        astp.eefm_body_attitude_control_gain=[0.5, 0.5]
+        astp.eefm_body_attitude_control_time_const=[1000, 1000]
+        astp.eefm_rot_damping_gain = [[25, 25, 1e5], # modification with kojio
                                      [25, 25, 1e5],
                                      [63.36, 63.36, 1e5],
                                      [63.36, 63.36, 1e5]]
-        stp.eefm_pos_damping_gain = [[33600.0, 33600.0, 3234.0], # modification with kojio xy=10000?
+        astp.eefm_pos_damping_gain = [[33600.0, 33600.0, 3234.0], # modification with kojio xy=10000?
                                      [33600.0, 33600.0, 3234.0],
                                      [26880.0, 26880.0, 7392.0],
                                      [26880.0, 26880.0, 7392.0]]
-        stp.eefm_swing_pos_damping_gain = stp.eefm_pos_damping_gain[0] # same with support leg
-        stp.eefm_swing_rot_damping_gain = stp.eefm_rot_damping_gain[0] # same with support leg
-        stp.eefm_rot_compensation_limit = [math.radians(10), math.radians(10), math.radians(10), math.radians(10)]
-        stp.eefm_pos_compensation_limit = [0.025, 0.025, 0.050, 0.050]
-        stp.eefm_swing_damping_force_thre=[200]*3
-        stp.eefm_swing_damping_moment_thre=[15]*3
-        stp.eefm_use_swing_damping=True
-        stp.eefm_ee_error_cutoff_freq=20.0
-        # stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*4
-        # stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*4
-        stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
-        stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
-        stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
-        stp.eefm_wrench_alpha_blending=0.7
-        stp.eefm_pos_time_const_swing=0.06
-        stp.eefm_pos_transition_time=0.01
-        stp.eefm_pos_margin_time=0.02
+        astp.eefm_swing_pos_damping_gain = astp.eefm_pos_damping_gain[0] # same with support leg
+        astp.eefm_swing_rot_damping_gain = astp.eefm_rot_damping_gain[0] # same with support leg
+        astp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
+        astp.eefm_pos_compensation_limit = [0.050, 0.050, 0.050, 0.050]
+        astp.eefm_zmp_delay_time_const=[0, 0]
+        astp.detection_time_to_air=5.0
+        astp.use_zmp_truncation=True
+        astp.eefm_swing_damping_force_thre=[200]*3
+        astp.eefm_swing_damping_moment_thre=[15]*3
+        astp.eefm_use_swing_damping=True
+        # astp.eefm_ee_error_cutoff_freq=10000 # not used
+        astp.eefm_swing_rot_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+        astp.eefm_swing_pos_spring_gain=[[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+        astp.eefm_swing_rot_time_const=[[1.0, 1.0, 1.0]]*4
+        astp.eefm_swing_pos_time_const=[[1.0, 1.0, 1.0]]*4
+        astp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
+        astp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
+        astp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
+        astp.eefm_wrench_alpha_blending=0.7
+        astp.eefm_pos_time_const_swing=0.06
+        astp.eefm_pos_transition_time=0.01
+        astp.eefm_pos_margin_time=0.02
         # foot margin param
-        stp.eefm_leg_inside_margin=0.05
-        stp.eefm_leg_outside_margin=0.05
-        stp.eefm_leg_front_margin=0.16
-        stp.eefm_leg_rear_margin=0.06
-        rleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, stp.eefm_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, stp.eefm_leg_inside_margin])]
-        lleg_vertices = [OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, stp.eefm_leg_outside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_inside_margin]),
-                         OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, stp.eefm_leg_outside_margin])]
+        astp.eefm_leg_inside_margin=0.05
+        astp.eefm_leg_outside_margin=0.05
+        astp.eefm_leg_front_margin=0.16
+        astp.eefm_leg_rear_margin=0.06
+        rleg_vertices = [OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[astp.eefm_leg_front_margin, astp.eefm_leg_inside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[astp.eefm_leg_front_margin, -1*astp.eefm_leg_outside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*astp.eefm_leg_rear_margin, -1*astp.eefm_leg_outside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*astp.eefm_leg_rear_margin, astp.eefm_leg_inside_margin])]
+        lleg_vertices = [OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[astp.eefm_leg_front_margin, astp.eefm_leg_outside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[astp.eefm_leg_front_margin, -1*astp.eefm_leg_inside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*astp.eefm_leg_rear_margin, -1*astp.eefm_leg_inside_margin]),
+                         OpenHRP.AutoBalancerService.TwoDimensionVertex(pos=[-1*astp.eefm_leg_rear_margin, astp.eefm_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
-        stp.eefm_cogvel_cutoff_freq = 4.0
-        # for only leg
-        stp.eefm_k1=[-1.36334,-1.36334]
-        stp.eefm_k2=[-0.343983,-0.343983]
-        stp.eefm_k3=[-0.161465,-0.161465]
-        self.st_svc.setParameter(stp)
+        astp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.AutoBalancerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        astp.eefm_cogvel_cutoff_freq = 4.0
+        astp.eefm_k1=[-1.36334,-1.36334]
+        astp.eefm_k2=[-0.343983,-0.343983]
+        astp.eefm_k3=[-0.161465,-0.161465]
+        astp.swing2landing_transition_time = 0.05
+        astp.landing_phase_time = 0.3
+        astp.landing2support_transition_time = 0.1
+        astp.surpport_phase_min_time = 0.3
+        astp.support2swing_transition_time = 0.1
+        leg_gains = {"support_pgain":[5,30,10,5,0.5,0.1], "support_dgain":[70,70,50,40,1,3],
+                     "landing_pgain":[5,30,10,1,0.5,0.1], "landing_dgain":[70,70,50,10,1,3],
+                     "swing_pgain":[5,30,10,5,0.5,0.1], "swing_dgain":[70,70,50,40,1,3]} # for walking
+        arm_gains = {"support_pgain":[100,100,100,100,100,100,100], "support_dgain":[100,100,100,100,100,100,100],
+                     "landing_pgain":[100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100],
+                     "swing_pgain":[100,100,100,100,100,100,100], "swing_dgain":[100,100,100,100,100,100,100]} # normal arm gain
+        astp.joint_servo_control_parameters = map (lambda x : OpenHRP.AutoBalancerService.JointServoControlParameter(**x), [leg_gains,leg_gains,arm_gains,arm_gains])
+        astp.joint_control_mode = OpenHRP.RobotHardwareService.TORQUE
+        self.abc_svc.setStabilizerParam(astp)
+        # rh setting
+        if astp.joint_control_mode == OpenHRP.RobotHardwareService.TORQUE:
+            self.rh_svc.setJointControlMode("all",OpenHRP.RobotHardwareService.TORQUE)
         # Abc setting
         #gg=self.abc_svc.getGaitGeneratorParam()[1]
         #gg.stride_parameter=[0.1,0.05,10.0]
         #gg.default_step_time=1.0
         #self.abc_svc.setGaitGeneratorParam(gg)
         gg=self.abc_svc.getGaitGeneratorParam()[1]
-        gg.default_step_time=1.2
-        gg.default_step_height=0.065
+        gg.default_step_time=0.8
+        gg.default_step_height=0.07
         #gg.default_double_support_ratio=0.32
-        gg.default_double_support_ratio=0.35
+        gg.default_double_support_ratio=0.15
         #gg.stride_parameter=[0.1,0.05,10.0]
         #gg.default_step_time=1.0
-        #gg.swing_trajectory_delay_time_offset=0.35
-        #gg.swing_trajectory_delay_time_offset=0.2
-        gg.swing_trajectory_delay_time_offset=0.15
+        gg.swing_trajectory_delay_time_offset=0.238
         gg.stair_trajectory_way_point_offset=[0.03, 0.0, 0.0]
         gg.swing_trajectory_final_distance_weight=3.0
-        gg.default_orbit_type = OpenHRP.AutoBalancerService.CYCLOIDDELAY
+        gg.default_orbit_type = OpenHRP.AutoBalancerService.RECTANGLE
         gg.toe_pos_offset_x = 1e-3*117.338;
         gg.heel_pos_offset_x = 1e-3*-116.342;
         gg.toe_zmp_offset_x = 1e-3*117.338;
         gg.heel_zmp_offset_x = 1e-3*-116.342;
         gg.optional_go_pos_finalize_footstep_num=1
-        gg.front_edge_offset_of_steppable_region = [-0.02, 0.0]
+        gg.overwritable_footstep_index_offset=1
+        gg.leg_margin = [0.16, 0.06, 0.05, 0.05]
+        gg.safe_leg_margin = [0.12, 0.02, 0.05, 0.05]
+        gg.stride_limitation_type = OpenHRP.AutoBalancerService.CIRCLE
+        gg.stride_limitation_for_circle_type = [0.15, 0.3, 15, 0.15, 0.135]
+        gg.overwritable_stride_limitation = [0.3, 0.45, 0, 0.3, 0.125]
+        gg.margin_time_ratio = 0.0
+        gg.min_time_margin = 0.12
+        gg.min_time = 0.7
+        gg.overwritable_max_time = 1.0
+        gg.modify_footsteps = True
+        gg.use_act_states = True
+        gg.emergency_step_time = [0.02, 0.6, 0.7]
+        gg.rectangle_goal_off = [0, 0, -0.05]
+        gg.dcm_offset = 0.01
         self.abc_svc.setGaitGeneratorParam(gg)
         # Ic setting
         limbs = ['rarm', 'larm']
@@ -477,7 +510,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.ic_svc.setImpedanceControllerParam(l, icp)
         # Estop
         esp=self.es_svc.getEmergencyStopperParam()[1]
-        esp.default_recover_time=10.0 # [s]
+        esp.default_recover_time=3.0 # [s]
         esp.default_retrieve_time=1.0 # [s]
         esp.default_retrieve_duration=1.0 # [s]
         self.es_svc.setEmergencyStopperParam(esp)
