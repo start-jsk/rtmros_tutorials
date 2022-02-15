@@ -459,7 +459,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                      "landing_pgain":[100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100],
                      "swing_pgain":[100,100,100,100,100,100,100], "swing_dgain":[100,100,100,100,100,100,100]} # normal arm gain
         astp.joint_servo_control_parameters = map (lambda x : OpenHRP.AutoBalancerService.JointServoControlParameter(**x), [leg_gains,leg_gains,arm_gains,arm_gains])
-        astp.joint_control_mode = OpenHRP.RobotHardwareService.TORQUE
+        # astp.joint_control_mode = OpenHRP.RobotHardwareService.TORQUE
         self.abc_svc.setStabilizerParam(astp)
         # rh setting
         if astp.joint_control_mode == OpenHRP.RobotHardwareService.TORQUE:
