@@ -223,7 +223,7 @@ compile_openhrp_model_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W
   --simulation-timestep-option "0.004"
   --simulation-joint-properties-option "RARM_JOINT3.angle,-1.5708,LARM_JOINT3.angle,-1.5708"
   )
-gen_minmax_table_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W)
+# gen_minmax_table_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W)
 compile_openhrp_model_for_closed_robots(HRP2G HRP2G_for_OpenHRP3 HRP2G
   --conf-file-option "end_effectors: rarm,RARM_JOINT6,CHEST_JOINT1,0.0,0.0169,-0.174,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,0.0,-0.0169,-0.174,0.0,1.0,0.0,1.5708"
   --conf-file-option "# for ThermoEstimator"
@@ -426,7 +426,7 @@ compile_rbrain_model_for_closed_robots(CHIDORI CHIDORI CHIDORI
   --conf-dt-option "0.002"
   --simulation-timestep-option "0.002"
   --conf-file-option "collision_loop: 20"
-  --conf-file-option "collision_pair: WAIST:LLEG_JOINT2 WAIST:RLEG_JOINT2 LLEG_JOINT2:LLEG_JOINT5 LLEG_JOINT2:RLEG_JOINT2 LLEG_JOINT2:RLEG_JOINT3 LLEG_JOINT2:RLEG_JOINT5 LLEG_JOINT3:RLEG_JOINT2 LLEG_JOINT3:RLEG_JOINT3 LLEG_JOINT3:RLEG_JOINT5 LLEG_JOINT5:RLEG_JOINT2 LLEG_JOINT5:RLEG_JOINT3 LLEG_JOINT5:RLEG_JOINT5 RLEG_JOINT2:RLEG_JOINT5"
+  --conf-file-option "collision_pair: LLEG_JOINT2:LLEG_JOINT5 LLEG_JOINT2:RLEG_JOINT2 LLEG_JOINT2:RLEG_JOINT3 LLEG_JOINT2:RLEG_JOINT5 LLEG_JOINT3:RLEG_JOINT2 LLEG_JOINT3:RLEG_JOINT3 LLEG_JOINT3:RLEG_JOINT5 LLEG_JOINT5:RLEG_JOINT2 LLEG_JOINT5:RLEG_JOINT3 LLEG_JOINT5:RLEG_JOINT5 RLEG_JOINT2:RLEG_JOINT5"
   --conf-file-option "# SequencePlayer optional data (contactStates x 2 + controlSwingTime x 2 (2 is rfsensor, lfsensor)"
   --conf-file-option "seq_optional_data_dim: 4"
   )
