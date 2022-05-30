@@ -196,7 +196,6 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
         kfp=self.kf_svc.getKalmanFilterParam()[1]
-        kfp.sensorRPY_offset = [-0.015, 0.022, 0]
         kfp.R_angle=1000
         self.kf_svc.setKalmanFilterParam(kfp)
         # st setting
