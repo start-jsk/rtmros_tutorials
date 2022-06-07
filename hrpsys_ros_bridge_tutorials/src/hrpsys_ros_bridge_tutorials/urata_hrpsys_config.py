@@ -42,8 +42,8 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             lleg_group = ['lleg', ['LLEG_JOINT0', 'LLEG_JOINT1', 'LLEG_JOINT2', 'LLEG_JOINT3', 'LLEG_JOINT4', 'LLEG_JOINT5']]
             self.Groups = [rleg_group, lleg_group]
         elif self.ROBOT_NAME == "TABLIS":
-            rarm_group = ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'RARM_JOINT6']]
-            larm_group = ['larm', ['LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'LARM_JOINT6']]
+            rarm_group = ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'RARM_JOINT6', 'RARM_JOINT7']]
+            larm_group = ['larm', ['LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'LARM_JOINT6', 'LARM_JOINT7']]
             rleg_group = ['rleg', ['RLEG_JOINT0', 'RLEG_JOINT1', 'RLEG_JOINT2', 'RLEG_JOINT3', 'RLEG_JOINT4', 'RLEG_JOINT5']]
             lleg_group = ['lleg', ['LLEG_JOINT0', 'LLEG_JOINT1', 'LLEG_JOINT2', 'LLEG_JOINT3', 'LLEG_JOINT4', 'LLEG_JOINT5']]
             torso_group = ['torso', ['CHEST_JOINT0']]
@@ -777,22 +777,29 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         return [0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0,
                 0,
-                0, -0.785398163, 0, 0, 0, 0, 0,
-                0,  0.785398163, 0, 0, 0, 0, 0]
+                0, -0.785398163, 0, 0, 0, 0, 0, 0,
+                0,  0.785398163, 0, 0, 0, 0, 0, 0]
 
     def tablisResetPose (self):
         return [0, 0, math.radians(-60), math.radians(90), math.radians(-30), 0,
                 0, 0, math.radians(-60), math.radians(90), math.radians(-30), 0,
                 0,
-                0, math.radians(-30), 0, math.radians(-90), 0, 0, 0,
-                0, math.radians(+30), 0, math.radians(-90), 0, 0, 0]
+                0, math.radians(-30), 0, math.radians(-90), 0, 0, 0, 0,
+                0, math.radians(+30), 0, math.radians(-90), 0, 0, 0, 0]
+
+    def tablisResetPoseUpper (self):
+        return [0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0,
+                0,
+                0, math.radians(-30), 0, math.radians(-90), 0, 0, 0, 0,
+                0, math.radians(+30), 0, math.radians(-90), 0, 0, 0, 0]
 
     def tablisLoadTestPose (self):
         return [0, 0, math.radians(-45), math.radians(90), math.radians(-45), 0,
                 0, 0, math.radians(-45), math.radians(90), math.radians(-45), 0,
                 0,
-                0, math.radians(-30), 0, math.radians(-90), 0, 0, 0,
-                0, math.radians(+30), 0, math.radians(-90), 0, 0, 0]
+                0, math.radians(-30), 0, math.radians(-90), 0, 0, 0, 0,
+                0, math.radians(+30), 0, math.radians(-90), 0, 0, 0, 0]
 
     def tablisInitPose (self):
         return [0]*len(self.tablisResetPose())

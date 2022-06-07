@@ -29,6 +29,7 @@ rarm:
   - RARM_JOINT4  : rarm-wrist-y
   - RARM_JOINT5  : rarm-wrist-p
   - RARM_JOINT6  : rarm-wrist-r
+  - RARM_JOINT7  : rarm-ex-wrist-p
 larm:
   - LARM_JOINT0  : larm-shoulder-p
   - LARM_JOINT1  : larm-shoulder-r
@@ -37,13 +38,14 @@ larm:
   - LARM_JOINT4  : larm-wrist-y
   - LARM_JOINT5  : larm-wrist-p
   - LARM_JOINT6  : larm-wrist-r
+  - LARM_JOINT7  : larm-ex-wrist-p
 
 ##
 ## end-coords
 ##
 rarm-end-coords:
   parent: RARM_LINK6
-  translate : [0.1,  0, 0]
+  translate : [0.113,  0, 0]
   rotate    : [0.0, 1.0, 0.0, 90.0]
 
 larm-end-coords:
@@ -76,8 +78,8 @@ angle-vector:
   reset-pose : [0.0, 0.0, -60.0, 90.0, -30.0, 0.0,
                 0.0, 0.0, -60.0, 90.0, -30.0, 0.0,
                 0.0,
-                0.0, -30.0, 0.0, -90.0, 0.0, 0.0, 0.0, 
-                0.0,  30.0, 0.0, -90.0, 0.0, 0.0, 0.0]
+                0.0, -30.0, 0.0, -90.0, 0.0, 0.0, 0.0, 0.0,
+                0.0,  30.0, 0.0, -90.0, 0.0, 0.0, 0.0, 0.0]
 #   reset-servo-off-pose : [0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
 #                           0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
 #                           0.0, 0.0, 0.0,
