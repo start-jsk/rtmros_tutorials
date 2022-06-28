@@ -1,0 +1,115 @@
+##
+## - collada_joint_name : euslisp_joint_name (start with :)
+##
+
+rleg:
+  - RLEG_JOINT0  : rleg-crotch-y
+  - RLEG_JOINT1  : rleg-crotch-r
+  - RLEG_JOINT2  : rleg-crotch-p
+  - RLEG_JOINT3  : rleg-knee-p
+  - RLEG_JOINT4  : rleg-ankle-p
+  - RLEG_JOINT5  : rleg-ankle-r
+lleg:
+  - LLEG_JOINT0  : lleg-crotch-y
+  - LLEG_JOINT1  : lleg-crotch-r
+  - LLEG_JOINT2  : lleg-crotch-p
+  - LLEG_JOINT3  : lleg-knee-p
+  - LLEG_JOINT4  : lleg-ankle-p
+  - LLEG_JOINT5  : lleg-ankle-r
+torso:
+  - CHEST_JOINT0 : torso-waist-y
+# head:
+#   - HEAD_JOINT0  : head-neck-y
+#   - HEAD_JOINT1  : head-neck-p
+rarm:
+  - RARM_JOINT0  : rarm-shoulder-p
+  - RARM_JOINT1  : rarm-shoulder-r
+  - RARM_JOINT2  : rarm-shoulder-y
+  - RARM_JOINT3  : rarm-elbow-p
+  - RARM_JOINT4  : rarm-wrist-y
+  - RARM_JOINT5  : rarm-wrist-p
+  - RARM_JOINT6  : rarm-wrist-r
+larm:
+  - LARM_JOINT0  : larm-shoulder-p
+  - LARM_JOINT1  : larm-shoulder-r
+  - LARM_JOINT2  : larm-shoulder-y
+  - LARM_JOINT3  : larm-elbow-p
+  - LARM_JOINT4  : larm-wrist-y
+  - LARM_JOINT5  : larm-wrist-p
+  - LARM_JOINT6  : larm-wrist-r
+
+##
+## end-coords
+##
+rarm-end-coords:
+  parent: RARM_LINK6
+  translate : [0.1,  0, 0]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+
+larm-end-coords:
+  parent: LARM_LINK6
+  translate : [0.1, 0, 0]
+  rotate    : [0.0, 1.0, 0.0, 90.0]
+
+rleg-end-coords:
+  parent: RLEG_LINK5
+  translate : [0.12, 0, -0.1352]
+
+lleg-end-coords:
+  parent: LLEG_LINK5
+  translate : [0.12, 0, -0.1352]
+
+# head-end-coords:
+#   translate : [0.1, 0.0, 0.1]
+#   rotate    : [0.0, 1.0, 0.0, 90.0]
+
+##
+## reset-pose
+##
+angle-vector:
+#   collision-free-init-pose : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+#                               0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+#                               0.0, 0.0, 0.0,
+#                               0.0, 0.0,
+#                               0.0, 0.0, -15.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+#                               0.0, 0.0,  15.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  reset-pose : [0.0, 0.0, -60.0, 90.0, -30.0, 0.0,
+                0.0, 0.0, -60.0, 90.0, -30.0, 0.0,
+                0.0,
+                0.0, -30.0, 0.0, -90.0, 0.0, 0.0, 0.0, 
+                0.0,  30.0, 0.0, -90.0, 0.0, 0.0, 0.0]
+#   reset-servo-off-pose : [0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
+#                           0.0, 0.0, -20.0, 40.0, -20.0, 0.0,
+#                           0.0, 0.0, 0.0,
+#                           0.0, 0.0,
+#                           0.0, -5.0, -20.0, 0.0, -20.0, 0.0, 0.0, 0.0,
+#                           0.0, -5.0, +20.0, 0.0, -20.0, 0.0, 0.0, 0.0]
+#   reset-manip-pose : [0.00,   0.00, -20.00,  40.00, -20.00,   0.00,
+#                       0.00,   0.00, -20.00,  40.00, -20.00,   0.00,
+#                       0.00,   0.00,   0.00,
+#                       0.00,   30.00,
+#                       0.00,  55.00, -20.00, -15.00, -100.00, -25.00,   0.00, -45.00,
+#                       0.00,  55.00,  20.00,  15.00, -100.00,  25.00,   0.00, -45.00]
+
+#   calib-pose : [0.0, 0.0, -45.0, 90.0, -45.0, 0.0,
+#                 0.0, 0.0, -45.0, 90.0, -45.0, 0.0,
+#                 0.0, 0.0, 0.0,
+#                 0.0, 0.0,
+#                 0.0, 0.0, -30.0, -90.0, -120.0, -90.0, -60.0, 0.0,
+#                 0.0, 0.0, +30.0, +90.0, -120.0, +90.0, +60.0, 0.0]
+#   narrow-width-pose : [0.0, 0.0, -20.0, +40.0, -20.0, 0.0,
+#                        0.0, 0.0, -20.0, +40.0, -20.0, 0.0,
+#                        0.0, 0.0, 0.0,
+#                        0.0, 0.0,
+#                        +40.0, -40.0, -30.0, -30.0, -100.0, +90.0, -20.0, 0.0,
+#                        -40.0, -40.0, +30.0, +30.0, -100.0, -90.0, +20.0, 0.0]
+
+##
+## sensors
+##
+# sensors:
+#   - {sensor_name: 'rfsensor', sensor_type: 'base_force6d', parent_link: 'RLEG_LINK5', translate: '0 0 -0.069', rotate: '0 1 0 180'}
+#   - {sensor_name: 'lfsensor', sensor_type: 'base_force6d', parent_link: 'LLEG_LINK5', translate: '0 0 -0.069', rotate: '0 1 0 180'}
+#   - {sensor_name: 'rhsensor', sensor_type: 'base_force6d', parent_link: 'RARM_LINK7', translate: '0 0 -0.069', rotate: '-0.382683 -0.92388 0 180'}
+#   - {sensor_name: 'lhsensor', sensor_type: 'base_force6d', parent_link: 'LARM_LINK7', translate: '0 0 -0.069', rotate: '0.382683 -0.92388 0 180'}
+
