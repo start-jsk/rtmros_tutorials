@@ -69,7 +69,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         if self.ROBOT_NAME == "STARO":
             self.setStAbcParametersSTARO()
         elif self.ROBOT_NAME == "JAXON":
-            self.setStAbcIcParametersJAXON(foot="KAWADA")
+            self.setStAbcIcParametersJAXON(foot="LEPTRINO_FORCE_SENSOR")
         elif self.ROBOT_NAME == "JAXON_RED":
             self.setStAbcIcParametersJAXON(foot="LEPTRINO_FORCE_SENSOR")
         elif self.ROBOT_NAME == "JAXON_BLUE":
