@@ -18,9 +18,6 @@ lleg:
   - LLEG_JOINT5  : lleg-ankle-r
 torso:
   - CHEST_JOINT0 : torso-waist-y
-# head:
-#   - HEAD_JOINT0  : head-neck-y
-#   - HEAD_JOINT1  : head-neck-p
 rarm:
   - RARM_JOINT0  : rarm-shoulder-p
   - RARM_JOINT1  : rarm-shoulder-r
@@ -45,13 +42,24 @@ larm:
 ##
 rarm-end-coords:
   parent: RARM_LINK6
-  translate : [0.113,  0, 0]
+  translate : [0.113, 0, -0.08]
   rotate    : [0.0, 1.0, 0.0, 90.0]
 
 larm-end-coords:
   parent: LARM_LINK6
-  translate : [0.113, 0, 0]
+  translate : [0.113, 0, -0.08]
   rotate    : [0.0, 1.0, 0.0, 90.0]
+
+## elbow
+# rarm-end-coords:
+#   parent: RARM_LINK7
+#   translate : [0, 0.05, 0.177]
+#   rotate    : [0.0, 1.0, 0.0, 90.0]
+# 
+# larm-end-coords:
+#   parent: LARM_LINK7
+#   translate : [0, -0.05, 0.177]
+#   rotate    : [0.0, 1.0, 0.0, 90.0]
 
 rleg-end-coords:
   parent: RLEG_LINK5
@@ -60,10 +68,6 @@ rleg-end-coords:
 lleg-end-coords:
   parent: LLEG_LINK5
   translate : [0.12, 0, -0.1062]
-
-# head-end-coords:
-#   translate : [0.1, 0.0, 0.1]
-#   rotate    : [0.0, 1.0, 0.0, 90.0]
 
 ##
 ## reset-pose
@@ -112,6 +116,6 @@ angle-vector:
 # sensors:
 #   - {sensor_name: 'rfsensor', sensor_type: 'base_force6d', parent_link: 'RLEG_LINK5', translate: '0 0 -0.069', rotate: '0 1 0 180'}
 #   - {sensor_name: 'lfsensor', sensor_type: 'base_force6d', parent_link: 'LLEG_LINK5', translate: '0 0 -0.069', rotate: '0 1 0 180'}
-#   - {sensor_name: 'rhsensor', sensor_type: 'base_force6d', parent_link: 'RARM_LINK7', translate: '0 0 -0.069', rotate: '-0.382683 -0.92388 0 180'}
-#   - {sensor_name: 'lhsensor', sensor_type: 'base_force6d', parent_link: 'LARM_LINK7', translate: '0 0 -0.069', rotate: '0.382683 -0.92388 0 180'}
+#   - {sensor_name: 'rhsensor', sensor_type: 'base_force6d', parent_link: 'RARM_LINK7', translate: '0 0.051 0.177', rotate: '-1 1 1 120'}
+#   - {sensor_name: 'lhsensor', sensor_type: 'base_force6d', parent_link: 'LARM_LINK7', translate: '0 -0.051 0.177', rotate: '1 1 -1 120'}
 
