@@ -787,6 +787,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                 0, math.radians(-30), 0, math.radians(-90), 0, 0, 0, 0,
                 0, math.radians(+30), 0, math.radians(-90), 0, 0, 0, 0]
 
+    # set reset-pose to arms before legs for avoiding collision between arms and legs in the start-up sequence
     def tablisResetPoseUpper (self):
         return [0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0,
