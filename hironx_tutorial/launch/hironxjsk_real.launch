@@ -7,10 +7,9 @@
     <arg name="camera" value="head_camera" />
     <arg name="publish_tf" value="false" />
   </include>
-  <!-- FIXME: When subscribing compressedDepth, hz of image_raw drops if png_level is more than 5. -->
-  <!--        Usage of CPU processing camera may be too high (not 100%, though)                    -->
-  <!--        CPU: Intel(R) Xeon(R) CPU W5580 @ 3.20GHz                                            -->
-  <param name="head_camera/depth/image_raw/compressedDepth/png_level" value="5" />
+  <!-- Set image_transport_plugins parameters (png_level and disable_pub_plugins) -->
+  <rosparam file="$(find hironx_tutorial)/config/hironxjsk_image_transport_plugins_params.yaml"
+            command="load"/>
 
   <!-- Start Robot -->
   <include file="$(find hironx_ros_bridge)/launch/hironx_ros_bridge_real.launch">
