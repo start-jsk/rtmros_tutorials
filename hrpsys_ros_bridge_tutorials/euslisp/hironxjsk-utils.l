@@ -98,6 +98,28 @@
           (:larm (setq arm :lhand)))
     (send self :hand-width arm 100)))
 
+;; For proper :self-collision-check.
+;; Overwrite https://github.com/euslisp/jskeus/blob/1.2.5/irteus/irtmodel.l#L2670-L2684
+;; to exclude link pairs which always collide.
+;; Same method as https://github.com/jsk-ros-pkg/jsk_robot/pull/1026.
+(defmethod hironxjsk-robot
+  (:collision-check-pairs
+    (&key ((:links ls) (cons (car links) (all-child-links (car links)))))
+    (let (pairs l neighbors
+                (exclude-pairs
+                  (list (cons CHEST_JOINT0_Link_lk HEAD_JOINT1_Link_lk))))
+      (while (setq l (pop ls))
+        (setq neighbors (remove nil
+                                (append
+                                  (send l :descendants)
+                                  (send l :child-links)
+                                  (list (send l :parent-link) (send l :parent)))))
+        (dolist (l2 ls)
+          (if (and (not (memq l2 neighbors))
+                   (not (member (cons l l2) exclude-pairs :test #'equal)))
+            (push (cons l l2) pairs))))
+      pairs)))
+
 ;; additional robot model description from camera_info
 ;;
 (defun HIRONXJSK () (setq *HIRONXJSK* (instance HIRONXJSK-sensor-robot :init)))
