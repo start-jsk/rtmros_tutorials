@@ -801,10 +801,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         return [0]*len(self.tablisResetPose())
 
     def a0bResetPose(self):
-        return [0, 0, 0, 0, 0, 0]
+        return [math.radians(60), math.radians(-90), math.radians(90), math.radians(-30), math.radians(-90), math.radians(90)]
 
     def a0bInitPose (self):
-        return [0]*len(self.tqleg0ResetPose())
+        return [0]*len(self.a0bResetPose())
 
     # (mapcar #'deg2rad (concatenate cons (send *robot* :reset-landing-pose)))
     def jaxonResetLandingPose (self):
