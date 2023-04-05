@@ -1,5 +1,5 @@
 (load "package://hrpsys_ros_bridge/euslisp/rtm-ros-robot-interface.l")
-(require :tqleg0 "package://hrpsys_ros_bridge_tutorials/models/a0b.l")
+(require :a0b "package://hrpsys_ros_bridge_tutorials/models/a0b.l")
 
 (defclass a0b-interface
   :super rtm-ros-robot-interface
