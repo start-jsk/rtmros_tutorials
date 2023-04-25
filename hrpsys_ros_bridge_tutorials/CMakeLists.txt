@@ -223,7 +223,7 @@ compile_openhrp_model_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W
   --simulation-timestep-option "0.004"
   --simulation-joint-properties-option "RARM_JOINT3.angle,-1.5708,LARM_JOINT3.angle,-1.5708"
   )
-# gen_minmax_table_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W)
+gen_minmax_table_for_closed_robots(HRP2W HRP2W_for_OpenHRP3 HRP2W)
 compile_openhrp_model_for_closed_robots(HRP2G HRP2G_for_OpenHRP3 HRP2G
   --conf-file-option "end_effectors: rarm,RARM_JOINT6,CHEST_JOINT1,0.0,0.0169,-0.174,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT1,0.0,-0.0169,-0.174,0.0,1.0,0.0,1.5708"
   --conf-file-option "# for ThermoEstimator"
@@ -402,7 +402,7 @@ compile_rbrain_model_for_closed_robots(JAXON_BLUE JAXON_BLUE JAXON_BLUE
   ## KAWADA foot
   --conf-file-option "# end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.096,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT2,0.0,0.055,-0.217,0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT2,0.0,-0.055,-0.217,0,1.0,0.0,1.5708,"
   ## KAWADA foot with rubber shoes
-  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.124,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.124,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT2,0.0,0.0,-0.220,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT2,0.0,0.0,-0.220,0.0,1.0,0.0,1.5708,"
+  --conf-file-option "end_effectors: rleg,RLEG_JOINT5,WAIST,0.05,0.0,-0.124,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.05,0.0,-0.124,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT2,0.0,0.0,-0.220,0.0,1.0,0.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT2,0.0,0.0,-0.220,0.0,1.0,0.0,1.5708,"
   ## KAWADA foot with rubber shoes + hand contact end-coords
   --conf-file-option "# end_effectors: rleg,RLEG_JOINT5,WAIST,0.0,0.0,-0.1,0.0,0.0,0.0,0.0, lleg,LLEG_JOINT5,WAIST,0.0,0.0,-0.1,0.0,0.0,0.0,0.0, rarm,RARM_JOINT6,CHEST_JOINT2,0.0,0.0,-0.238,0.0,0.0,-1.0,1.5708, larm,LARM_JOINT6,CHEST_JOINT2,0.0,0.0,-0.238,0.0,0.0,1.0,1.5708,# KAWADA foot with rubber shoes + hand contact end-coords"
   ## JSK foot : mechanical 103.5mm, sole rubber 2mm
