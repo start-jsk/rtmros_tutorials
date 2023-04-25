@@ -97,3 +97,50 @@
           (:rarm (setq arm :rhand))
           (:larm (setq arm :lhand)))
     (send self :hand-width arm 100)))
+
+;; For proper :self-collision-check.
+;; Overwrite https://github.com/euslisp/jskeus/blob/1.2.5/irteus/irtmodel.l#L2670-L2684
+;; to exclude link pairs which always collide.
+;; Same method as https://github.com/jsk-ros-pkg/jsk_robot/pull/1026.
+(defmethod hironxjsk-robot
+  (:collision-check-pairs
+    (&key ((:links ls) (cons (car links) (all-child-links (car links)))))
+    (let (pairs l neighbors
+                (exclude-pairs
+                  (list (cons CHEST_JOINT0_Link_lk HEAD_JOINT1_Link_lk))))
+      (while (setq l (pop ls))
+        (setq neighbors (remove nil
+                                (append
+                                  (send l :descendants)
+                                  (send l :child-links)
+                                  (list (send l :parent-link) (send l :parent)))))
+        (dolist (l2 ls)
+          (if (and (not (memq l2 neighbors))
+                   (not (member (cons l l2) exclude-pairs :test #'equal)))
+            (push (cons l l2) pairs))))
+      pairs)))
+
+;; additional robot model description from camera_info
+;;
+(defun HIRONXJSK () (setq *HIRONXJSK* (instance HIRONXJSK-sensor-robot :init)))
+;;
+(defclass HIRONXJSK-sensor-robot
+  :super HIRONXJSK-robot
+  :slots (head_camera-depth head_camera-rgb))
+;;
+(defmethod HIRONXJSK-sensor-robot
+  (:init (&rest args)
+    (send-super* :init args)
+    ;; head_camera frame definition, this data is taken from hironx_tutorial/launch/hironxjsk_real.launch
+    ;; define cameras
+    ;; #<sensor_msgs::camerainfo #X7a782d0> #f(574.053 0.0 314.5 0.0 0.0 574.053 235.5 0.0 0.0 0.0 1.0 0.0)
+    (setq head_camera-depth (make-camera-from-ros-camera-info-aux 640 480 #f(574.053 0.0 314.5 0.0 0.0 574.053 235.5 0.0 0.0 0.0 1.0 0.0) HEAD_CAMERA_DEPTH-sensor-coords :name :head_camera/depth))
+
+    ;; #<sensor_msgs::camerainfo #X7ad2d48> #f(574.053 0.0 319.5 0.0 0.0 574.053 239.5 0.0 0.0 0.0 1.0 0.0)
+    (setq head_camera-rgb (make-camera-from-ros-camera-info-aux 640 480 #f(574.053 0.0 319.5 0.0 0.0 574.053 239.5 0.0 0.0 0.0 1.0 0.0) HEAD_CAMERA_RGB-sensor-coords :name :head_camera/rgb))
+
+    (setq cameras (append (list (send self :head_camera-depth) (send self :head_camera-rgb)) cameras))
+    self)
+
+  (:head_camera-depth (&rest args) (forward-message-to head_camera-depth args))
+  (:head_camera-rgb (&rest args) (forward-message-to head_camera-rgb args)))

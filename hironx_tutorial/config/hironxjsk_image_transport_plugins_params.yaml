@@ -1,0 +1,66 @@
+# FIXME: When subscribing compressedDepth, hz of image_raw drops if png_level is more than 5.
+#        CPU usage of compressedDepth creation seems too high.
+#        CPU% of nodelet_manager on htop is over 100% even when only compressedDepth is subscribed
+#        CPU: Intel(R) Xeon(R) CPU E5-2690 v3 @ 2.60GHz
+#
+# Based on https://github.com/jsk-ros-pkg/jsk_robot/pull/1493
+
+head_camera:
+  depth:
+    image:
+      disable_pub_plugins:
+        - 'image_transport/compressed'
+        - 'image_transport/theora'
+      compressedDepth:
+        png_level: 5
+    image_raw:
+      disable_pub_plugins:
+        - 'image_transport/compressed'
+        - 'image_transport/theora'
+      compressedDepth:
+        png_level: 5
+    image_rect:
+      disable_pub_plugins:
+        - 'image_transport/compressed'
+        - 'image_transport/theora'
+      compressedDepth:
+        png_level: 5
+    image_rect_raw:
+      disable_pub_plugins:
+        - 'image_transport/compressed'
+        - 'image_transport/theora'
+      compressedDepth:
+        png_level: 5
+  depth_registered:
+    image_raw:
+      disable_pub_plugins:
+        - 'image_transport/compressed'
+        - 'image_transport/theora'
+      compressedDepth:
+        png_level: 5
+    sw_registered:
+      image_rect:
+        disable_pub_plugins:
+          - 'image_transport/compressed'
+          - 'image_transport/theora'
+        compressedDepth:
+          png_level: 5
+      image_rect_raw:
+        disable_pub_plugins:
+          - 'image_transport/compressed'
+          - 'image_transport/theora'
+        compressedDepth:
+          png_level: 5
+  ir:
+    image:
+      disable_pub_plugins:
+        - 'image_transport/compressed'
+        - 'image_transport/compressedDepth'
+        - 'image_transport/theora'
+  rgb:
+    image_raw:
+      disable_pub_plugins:
+        - 'image_transport/compressedDepth'
+    image_rect_color:
+        disable_pub_plugins:
+          - 'image_transport/compressedDepth'

@@ -34,7 +34,12 @@
                    args)
       (dolist (limb '(:rarm :larm :head :torso))
         (let ((ctype (read-from-string (format nil "~A-controller" limb))))
-          (send self :add-controller ctype)))
+          ;; If :gazebo-ros-controller was passed to *ri* init, {limb}-controller's action was already created, so we just register it as {limb}-controller
+          (unless (send self :add-controller ctype)
+            ;; If :default-controller was passed to *ri* init, {limb}-controller's action was not created, so we create it.
+            ;; If we create it when :gazebo-ros-controller was passed, "old client's goal" warning is showed after :angle-vector
+            (send self :add-controller ctype
+                  :joint-enable-check t :create-actions t))))
 
       ;; add hand controller for gazebo with ros_control
       (when on-gazebo-ros-control
@@ -249,7 +254,7 @@
   (if (not (boundp '*ri*))
       (setq *ri* (instance* hironxjsk-interface :init args)))
   (if (not (boundp '*hironxjsk*))
-      (setq *hironxjsk* (instance hironxjsk-robot :init)))
+      (setq *hironxjsk* (instance hironxjsk-sensor-robot :init)))
   ;; read initial robot state
   (send *hironxjsk* :angle-vector (send *ri* :state :potentio-vector))
   ;; return robot instance

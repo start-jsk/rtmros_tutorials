@@ -21,6 +21,31 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
+# Generate HIRONXJSK_nosim.xml
+find_package(hrp2_models QUIET)
+if(${hrp2_models_FOUND})
+  find_package(hrpsys_ros_bridge QUIET)
+  if(${hrpsys_ros_bridge_FOUND})
+    # Based on https://github.com/start-jsk/rtmros_hironx/blob/2.2.0/hironx_ros_bridge/CMakeLists.txt#L25-L48
+    # set OPENHRP3 for configure_file
+    set(PKG_CONFIG_PATH "${openhrp3_PREFIX}/lib/pkgconfig:$ENV{PKG_CONFIG_PATH}") # for openrtm3.1.pc
+    execute_process(
+      COMMAND pkg-config --variable=idl_dir openhrp3.1
+      OUTPUT_VARIABLE OPENHRP_IDL_DIR
+      RESULT_VARIABLE RESULT
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(NOT RESULT EQUAL 0)
+      set(OPENHRP_FOUND FALSE)
+    endif()
+    # OPENHRP_IDL_DIR = <openhrp3>/share/OpenHRP-3.1/idl/
+    set(OPENHRP_SAMPLE_DIR ${OPENHRP_IDL_DIR}/../../../)
+    set(OPENHRP3 ${OPENHRP_SAMPLE_DIR})  # for longfloor.wrl
+    message("Configure HIRONXJSK_nosim.xml with OPENHRP3=${OPENHRP3}")
+    configure_file(config/HIRONXJSK_nosim.xml.in ${PROJECT_SOURCE_DIR}/config/HIRONXJSK_nosim.xml)
+    add_custom_target(${PROJECT_NAME}_model_files ALL DEPENDS ${PROJECT_SOURCE_DIR}/config/HIRONXJSK_nosim.xml)
+  endif()
+endif()
+
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
