@@ -51,6 +51,19 @@ head_camera:
           - 'image_transport/theora'
         compressedDepth:
           png_level: 5
+    hw_registered:
+      image_rect:
+        disable_pub_plugins:
+          - 'image_transport/compressed'
+          - 'image_transport/theora'
+        compressedDepth:
+          png_level: 5
+      image_rect_raw:
+        disable_pub_plugins:
+          - 'image_transport/compressed'
+          - 'image_transport/theora'
+        compressedDepth:
+          png_level: 5
   ir:
     image:
       disable_pub_plugins:
