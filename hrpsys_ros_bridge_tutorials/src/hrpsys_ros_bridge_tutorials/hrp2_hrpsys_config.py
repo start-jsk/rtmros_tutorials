@@ -122,7 +122,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices]]
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
@@ -219,7 +219,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices]]
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
@@ -316,7 +316,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices]]
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
