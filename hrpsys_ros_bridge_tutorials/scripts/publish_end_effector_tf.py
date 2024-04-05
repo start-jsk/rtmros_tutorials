@@ -50,9 +50,9 @@ if __name__ == "__main__":
             if not g_eef_info_list[limb].has_key('parent'):
                 g_eef_info_list[limb]['parent'] = parent_link_name
     # print for debug
-    print 'eef_infos param list:'
+    print('eef_infos param list:')
     for limb, eef_info in g_eef_info_list.items():
-        print '%s: %s' % (limb, eef_info)
+        print('%s: %s' % (limb, eef_info))
 
     while not rospy.is_shutdown():
         publishEndEffectorAll()
