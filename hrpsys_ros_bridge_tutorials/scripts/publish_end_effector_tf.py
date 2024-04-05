@@ -13,7 +13,7 @@ def publishEndEffectorOne(eef_name, eef_info, stamp):
                      stamp, eef_name, eef_info['parent'])
 
 def publishEndEffectorAll():
-    for limb_name, eef_info in g_eef_info_list.items():
+    for limb_name, eef_info in list(g_eef_info_list.items()):
         publishEndEffectorOne(limb_name+"_end_coords", eef_info, rospy.Time.now())
 
 if __name__ == "__main__":
@@ -51,7 +51,7 @@ if __name__ == "__main__":
                 g_eef_info_list[limb]['parent'] = parent_link_name
     # print for debug
     print('eef_infos param list:')
-    for limb, eef_info in g_eef_info_list.items():
+    for limb, eef_info in list(g_eef_info_list.items()):
         print('%s: %s' % (limb, eef_info))
 
     while not rospy.is_shutdown():
