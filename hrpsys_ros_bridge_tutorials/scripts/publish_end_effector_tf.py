@@ -33,7 +33,7 @@ if __name__ == "__main__":
         parent_link_name_next = parent_link_name
         while True:
             parent_link_name = parent_link_name_next
-            if robot_model.child_map.has_key(parent_link_name):
+            if parent_link_name in robot_model.child_map:
                 parent_link_name_next = robot_model.child_map[parent_link_name][0][1]
                 if not (parent_link_name_next.startswith(limb.upper()) or parent_link_name_next.startswith(limb.lower())):
                     break
@@ -43,11 +43,11 @@ if __name__ == "__main__":
         param_name = '~'+limb+'-end-coords'
         if rospy.has_param(param_name):
             g_eef_info_list[limb] = rospy.get_param(param_name)
-            if not g_eef_info_list[limb].has_key('translate'):
+            if 'translate' not in g_eef_info_list[limb]:
                 g_eef_info_list[limb]['translate'] = [0, 0, 0, 0]
-            if not g_eef_info_list[limb].has_key('rotate'):
+            if 'rotate' not in g_eef_info_list[limb]:
                 g_eef_info_list[limb]['rotate'] = [0, 0, 0, 0]
-            if not g_eef_info_list[limb].has_key('parent'):
+            if 'parent' not in g_eef_info_list[limb]:
                 g_eef_info_list[limb]['parent'] = parent_link_name
     # print for debug
     print('eef_infos param list:')
