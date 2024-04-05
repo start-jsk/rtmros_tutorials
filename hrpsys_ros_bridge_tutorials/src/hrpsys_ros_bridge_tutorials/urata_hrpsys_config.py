@@ -481,7 +481,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         self.st_svc.setParameter(stp)
 
     def setStAbcParametersYSTLEG (self):
-        print "Not implemented yet"
+        print("Not implemented yet")
 
     def setStAbcParametersCHIDORI (self):
         # abc setting
@@ -903,4 +903,4 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         elif self.ROBOT_NAME == "JAXON_RED":
             self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_JAXON_RED")
         else:
-            print "No force moment offset file"
+            print("No force moment offset file")

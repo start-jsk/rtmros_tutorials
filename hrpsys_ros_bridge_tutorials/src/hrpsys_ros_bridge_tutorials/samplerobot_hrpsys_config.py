@@ -12,7 +12,7 @@ class SampleRobotHrpsysConfigurator(HrpsysConfigurator):
         return self.getRTCListUnstable()
     def init (self, robotname="SampleRobot", url=""):
         HrpsysConfigurator.init(self, robotname, url)
-        print "initialize rtc parameters"
+        print("initialize rtc parameters")
         self.setStAbcParameters()
 
     def defJointGroups (self):
