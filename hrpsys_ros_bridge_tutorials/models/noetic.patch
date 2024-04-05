@@ -1,0 +1,75 @@
+diff --git a/hrpsys_ros_bridge_tutorials/models/HRP2G.urdf.xacro b/hrpsys_ros_bridge_tutorials/models/HRP2G.urdf.xacro
+index f364de3..a6036a6 100644
+--- a/hrpsys_ros_bridge_tutorials/models/HRP2G.urdf.xacro
++++ b/hrpsys_ros_bridge_tutorials/models/HRP2G.urdf.xacro
+@@ -1,6 +1,6 @@
+ <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="HRP2G" >
+   <xacro:include filename="HRP2G.urdf" />
+-  <xacro:include filename="$(find multisense_description)/urdf/multisenseS7.urdf" />
++  <xacro:include filename="$(find multisense_description)/urdf/multisenseS7/multisenseS7.urdf.xacro" />
+   <joint name="hrp2_to_multisense" type="fixed">
+     <parent link="HEAD_LINK1" />
+     <child  link="head_root" /> <!-- for multisense / multisense_description -->
+diff --git a/hrpsys_ros_bridge_tutorials/models/HRP2JSK.urdf.xacro b/hrpsys_ros_bridge_tutorials/models/HRP2JSK.urdf.xacro
+index 70fa4e9..64635c7 100644
+--- a/hrpsys_ros_bridge_tutorials/models/HRP2JSK.urdf.xacro
++++ b/hrpsys_ros_bridge_tutorials/models/HRP2JSK.urdf.xacro
+@@ -1,6 +1,6 @@
+ <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="HRP2JSK" >
+   <xacro:include filename="HRP2JSK.urdf" />
+-  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
++  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL/multisenseSL.urdf.xacro" />
+   <joint name="hrp2_to_multisense" type="fixed">
+     <parent link="HEAD_LINK1" />
+     <child  link="head_root" /> <!-- for multisense / multisense_description -->
+diff --git a/hrpsys_ros_bridge_tutorials/models/HRP2JSKNT.urdf.xacro b/hrpsys_ros_bridge_tutorials/models/HRP2JSKNT.urdf.xacro
+index 42ea336..70775ec 100644
+--- a/hrpsys_ros_bridge_tutorials/models/HRP2JSKNT.urdf.xacro
++++ b/hrpsys_ros_bridge_tutorials/models/HRP2JSKNT.urdf.xacro
+@@ -2,7 +2,7 @@
+   <xacro:include filename="HRP2JSKNT_body.urdf" />
+   <xacro:include filename="HRP3HAND_L.urdf" />
+   <xacro:include filename="HRP3HAND_R.urdf" />
+-  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
++  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL/multisenseSL.urdf.xacro" />
+   <joint name="hrp2_to_multisense" type="fixed">
+     <parent link="HEAD_LINK1" />
+     <!--child  link="head" /--> <!-- for drcsim / multisense_sl_description -->
+diff --git a/hrpsys_ros_bridge_tutorials/models/HRP2W.urdf.xacro b/hrpsys_ros_bridge_tutorials/models/HRP2W.urdf.xacro
+index 45acd03..2c174f9 100644
+--- a/hrpsys_ros_bridge_tutorials/models/HRP2W.urdf.xacro
++++ b/hrpsys_ros_bridge_tutorials/models/HRP2W.urdf.xacro
+@@ -1,6 +1,6 @@
+ <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="HRP2W" >
+   <xacro:include filename="HRP2W.urdf" />
+-  <xacro:include filename="$(find multisense_description)/urdf/multisenseS7.urdf" />
++  <xacro:include filename="$(find multisense_description)/urdf/multisenseS7/multisenseS7.urdf.xacro" />
+   <joint name="hrp2_to_multisense" type="fixed">
+     <parent link="HEAD_LINK1" />
+     <child  link="head_root" /> <!-- for multisense / multisense_description -->
+diff --git a/hrpsys_ros_bridge_tutorials/models/JAXON.urdf.xacro b/hrpsys_ros_bridge_tutorials/models/JAXON.urdf.xacro
+index 0b78f97..cc450c5 100644
+--- a/hrpsys_ros_bridge_tutorials/models/JAXON.urdf.xacro
++++ b/hrpsys_ros_bridge_tutorials/models/JAXON.urdf.xacro
+@@ -51,7 +51,7 @@
+   </gazebo>
+ 
+   <!-- HEAD -->
+-  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
++  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL/multisenseSL.urdf.xacro" />
+   <joint name="head_tip_to_multisense" type="fixed">
+     <parent link="HEAD_LINK1" />
+     <child  link="head_root" />
+diff --git a/hrpsys_ros_bridge_tutorials/models/JAXON_RED.urdf.xacro b/hrpsys_ros_bridge_tutorials/models/JAXON_RED.urdf.xacro
+index 81a2e6b..64e26f3 100644
+--- a/hrpsys_ros_bridge_tutorials/models/JAXON_RED.urdf.xacro
++++ b/hrpsys_ros_bridge_tutorials/models/JAXON_RED.urdf.xacro
+@@ -51,7 +51,7 @@
+   </gazebo>
+ 
+   <!-- HEAD -->
+-  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
++  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL/multisenseSL.urdf.xacro" />
+   <joint name="head_tip_to_multisense" type="fixed">
+     <parent link="HEAD_LINK1" />
+     <child  link="head_root" />
