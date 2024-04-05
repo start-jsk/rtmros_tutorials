@@ -530,8 +530,10 @@ generate_default_launch_eusinterface_files("$(find openhrp3)/share/OpenHRP-3.1/s
 find_package(xacro)
 if(EXISTS ${xacro_SOURCE_PREFIX}/xacro.py)
   set(xacro_exe ${xacro_SOURCE_PREFIX}/xacro.py)
-else()
+elseif(EXISTS ${xacro_PREFIX}/share/xacro/xacro.py)
   set(xacro_exe ${xacro_PREFIX}/share/xacro/xacro.py)
+else()
+  set(xacro_exe ${xacro_PREFIX}/bin/xacro) # xacro.py is deprecated in Noetic
 endif()
 
 find_package(euscollada)
