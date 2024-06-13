@@ -14,7 +14,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         return self.getRTCListUnstable()
     def init (self, robotname="Robot", url=""):
         HrpsysConfigurator.init(self, robotname, url)
-        print "initialize rtc parameters"
+        print("initialize rtc parameters")
         self.setStAbcParameters()
         self.loadForceMomentOffsetFile()
 
@@ -122,7 +122,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices]]
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
@@ -219,7 +219,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices]]
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
@@ -316,7 +316,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices]]
         #   tpcc st params
         stp.k_tpcc_p=[2.0, 2.0]
         stp.k_tpcc_x=[5.0, 5.0]
@@ -380,7 +380,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         elif self.ROBOT_NAME == "HRP2JSK":
             self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_thumb_60deg_HRP2JSK")
         else:
-            print "No force moment offset file"
+            print("No force moment offset file")
 
     def __init__(self, robotname=""):
         self.ROBOT_NAME = robotname

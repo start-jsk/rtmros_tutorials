@@ -144,7 +144,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, stp.eefm_leg_outside_margin])]
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices]]
         stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         #stp.eefm_cogvel_cutoff_freq = 3.18
         #stp.eefm_cogvel_cutoff_freq = 6.18 # servooff+walk
@@ -280,7 +280,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, stp.eefm_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices]]
         stp.eefm_cogvel_cutoff_freq = 4.0
         stp.eefm_k1=[-1.48412,-1.48412]
         stp.eefm_k2=[-0.486727,-0.486727]
@@ -385,7 +385,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, stp.eefm_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices]]
         stp.eefm_cogvel_cutoff_freq = 4.0
         # for only leg
         stp.eefm_k1=[-1.36334,-1.36334]
@@ -472,7 +472,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, stp.eefm_leg_outside_margin])]
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices]]
         stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         stp.eefm_cogvel_cutoff_freq = 4.25
         stp.eefm_k1=[-1.38077, -1.38077]
@@ -481,7 +481,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         self.st_svc.setParameter(stp)
 
     def setStAbcParametersYSTLEG (self):
-        print "Not implemented yet"
+        print("Not implemented yet")
 
     def setStAbcParametersCHIDORI (self):
         # abc setting
@@ -545,7 +545,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[tmp_leg_front_margin, -1*tmp_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, -1*tmp_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices]]
         # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         stp.eefm_cogvel_cutoff_freq = 4.0
         stp.eefm_k1=[-1.48412,-1.48412]
@@ -624,7 +624,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[stp.eefm_leg_front_margin, -1*stp.eefm_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, -1*stp.eefm_leg_inside_margin]),
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*stp.eefm_leg_rear_margin, stp.eefm_leg_outside_margin])]
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices]]
         stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         stp.eefm_cogvel_cutoff_freq = 4.25
         stp.eefm_k1=[-1.38077, -1.38077]
@@ -688,7 +688,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                          OpenHRP.StabilizerService.TwoDimensionVertex(pos=[-1*tmp_leg_rear_margin, tmp_leg_outside_margin])]
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
+        stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices]]
         # stp.eefm_zmp_delay_time_const=[0.055, 0.055]
         stp.eefm_cogvel_cutoff_freq = 4.0
         # calculated by calculate-eefm-st-state-feedback-default-gain-from-robot *chidori*
@@ -903,4 +903,4 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         elif self.ROBOT_NAME == "JAXON_RED":
             self.rmfo_svc.loadForceMomentOffsetParams(rospkg.RosPack().get_path('hrpsys_ros_bridge_tutorials')+"/models/hand_force_calib_offset_JAXON_RED")
         else:
-            print "No force moment offset file"
+            print("No force moment offset file")
