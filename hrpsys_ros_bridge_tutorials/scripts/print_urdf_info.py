@@ -50,7 +50,8 @@ def parse_urdf(file_path):
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python script.py path_to_your_urdf_file.urdf")
+        print("Usage: python print_urdf_info.py path_to_your_urdf_file.urdf")
+        print("with python2")
         sys.exit(1)
     
     file_path = sys.argv[1]
@@ -85,5 +86,6 @@ def main():
         limits = joint[1]
         print("{:<20} {:<10.2f} {:<10.2f} {:<10.2f} {:<10.2f} {:<10.2f} {:<10.2f}".format(name, limits[0], limits[1], limits[0]*180/math.pi, limits[1]*180/math.pi, limits[2], limits[3]))
 
+    print("-" * 120)
 if __name__ == "__main__":
     main()
