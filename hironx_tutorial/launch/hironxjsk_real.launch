@@ -5,6 +5,7 @@
   <!-- Start Camera -->
   <include file="$(find openni2_launch)/launch/openni2.launch">
     <arg name="camera" value="head_camera" />
+    <arg name="depth_registration" value="true" />
     <arg name="publish_tf" value="false" />
   </include>
   <!-- Set image_transport_plugins parameters (png_level and disable_pub_plugins) -->
