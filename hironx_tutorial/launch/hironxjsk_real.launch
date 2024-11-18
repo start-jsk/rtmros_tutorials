@@ -1,6 +1,8 @@
 <launch>
 
   <arg name="launch_sound_play" default="true" />
+  <arg name="publish_real_hand_joint_state" default="false" />
+  <arg name="real_hand_joint_state_rate" default="5" />
 
   <!-- Start Camera -->
   <include file="$(find openni2_launch)/launch/openni2.launch">
@@ -18,7 +20,17 @@
     <arg name="nameserver" value="hiro014" />
     <arg name="USE_IMPEDANCECONTROLLER" value="true" />
     <arg name="USE_COLLISIONCHECK" value="true" />
+    <arg name="USE_HAND_JOINT_STATE_PUBLISHER" value="true" unless="$(arg publish_real_hand_joint_state)" />
+    <arg name="USE_HAND_JOINT_STATE_PUBLISHER" value="false" if="$(arg publish_real_hand_joint_state)" />
   </include>
+  <group if="$(arg publish_real_hand_joint_state)">
+    <node name="hand_joint_state_publisher_real"
+          pkg="hironx_tutorial" type="hand-joint-state-publisher-real.l">
+      <rosparam subst_value="True">
+        publish_rate: $(arg real_hand_joint_state_rate)
+      </rosparam>
+    </node>
+  </group>
 
   <!-- Publish odom tf -->
   <node name="odom_tf_publisher"
