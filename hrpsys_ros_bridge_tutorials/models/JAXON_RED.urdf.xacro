@@ -61,7 +61,9 @@
     <!-- calibration at 2015.12.09 with jaxon_calibration -->
     <!-- <origin xyz="0.097542410 -0.000296955 0.063307448" rpy="-0.007600616 0.046755703 -0.015569626" /> -->
     <!-- 2016.6.1 tamura kumagai by modification of mount frame -->
-    <origin rpy="-0.005 0.048 -0.020569626" xyz="0.095 0.003596955 0.075307448"/>
+    <!-- <origin rpy="-0.005 0.048 -0.020569626" xyz="0.095 0.003596955 0.075307448"/> -->
+    <!-- 2020.10.23 copy new head parameter from JAXON.urdf.xacro -->
+    <origin rpy="0.003 0.255 -0.02" xyz="0.1 0.01 0.085"/>
   </joint>
   <!-- for calibration / original offset of camera_frame
   <link name="left_camera_optical_frame" />
