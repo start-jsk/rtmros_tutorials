@@ -9,11 +9,22 @@ input_urdf=$3
 output_urdf=$4
 yaml_file=$5
 
+# enable to execute with correct python version
+# cf. https://github.com/tork-a/openrtm_aist_python-release/pull/5
+if command -v python3 &>/dev/null; then
+    PYTHON_EXECUTABLE=$(command -v python3)
+elif command -v python &>/dev/null; then
+    PYTHON_EXECUTABLE=$(command -v python)
+else
+    echo "Cannot find python executable"
+    exit 1
+fi
+
 # generating model with sensors
 function add_sensor_to_tmp_urdf()
 {
     tmp_model=`mktemp`
-    ${eusurdf_path}/scripts/add_sensor_to_urdf.py $@ $tmp_model
+    ${PYTHON_EXECUTABLE} ${eusurdf_path}/scripts/add_sensor_to_urdf.py $@ $tmp_model
     if [ $? == 0 ]; then
         echo $tmp_model
     else
@@ -24,7 +35,7 @@ function add_sensor_to_tmp_urdf()
 function add_eef_to_tmp_urdf()
 {
     tmp_model=`mktemp`
-    ${eusurdf_path}/scripts/add_eef_to_urdf.py $@ $tmp_model
+    ${PYTHON_EXECUTABLE} ${eusurdf_path}/scripts/add_eef_to_urdf.py $@ $tmp_model
     if [ $? == 0 ]; then
         echo $tmp_model
     else
@@ -59,7 +70,7 @@ function generate_staro_model()
 #     # tmp_model11=$(add_sensor_to_tmp_urdf 0 0.2 -0.2 0 0 1.57 LARM_LINK6 LARM_cb_jig $tmp_model10)
 #     # tmp_model12=$(add_sensor_to_tmp_urdf 0 -0.2 -0.2 0 0 1.57 RARM_LINK6 RARM_cb_jig $tmp_model11)
 #     cp $tmp_model4 $2
-    ${eusurdf_path}/scripts/add_sensor_to_collada.py $1 -O $2 -C $3
+    ${PYTHON_EXECUTABLE} ${eusurdf_path}/scripts/add_sensor_to_collada.py $1 -O $2 -C $3
 }
 
 generate_staro_model $input_urdf $output_urdf $yaml_file
