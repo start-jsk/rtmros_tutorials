@@ -543,6 +543,14 @@ else ()
   set(euscollada_PACKAGE_PATH ${euscollada_PREFIX}/share/euscollada)
 endif()
 
+# enable to execute with correct python version
+# cf. https://github.com/tork-a/openrtm_aist_python-release/pull/5
+find_package(PythonInterp QUIET)
+if(NOT PYTHONINTERP_FOUND)
+  find_package(Python REQUIRED)
+  set(PYTHON_EXECUTABLE ${Python_EXECUTABLE})
+endif()
+
 macro (generate_hand_attached_hrp2_model _robot_name)
   set(_model_dir "${PROJECT_SOURCE_DIR}/models/")
   set(_in_urdf_file "${_model_dir}/${_robot_name}.urdf")
@@ -551,7 +559,7 @@ macro (generate_hand_attached_hrp2_model _robot_name)
   string(TOLOWER ${_robot_name} _srobot_name)
   message("generate hand_attached_hrp2_model for ${_robot_name}")
   add_custom_command(OUTPUT ${_out_urdf_file}
-      COMMAND ${_script_file}
+      COMMAND ${PYTHON_EXECUTABLE} ${_script_file}
       LARM_LINK6 RARM_LINK6 ${_in_urdf_file} ${_out_urdf_file}
       DEPENDS ${_in_urdf_file} ${_script_file} ${_srobot_name}_${PROJECT_NAME}_compile_urdf)
 endmacro()
@@ -577,7 +585,7 @@ macro (attach_sensor_and_endeffector_to_hrp2jsk_urdf
   set(_out_urdf_file "${_model_dir}/${_out_file}")
   set(_script_file ${euscollada_PACKAGE_PATH}/scripts/add_sensor_to_collada.py)
   add_custom_command(OUTPUT ${_out_urdf_file}
-    COMMAND ${_script_file}
+    COMMAND ${PYTHON_EXECUTABLE} ${_script_file}
     ${_in_urdf_file} -O ${_out_urdf_file} -C ${_in_yaml_file}
     DEPENDS ${_in_urdf_file} ${_in_yaml_file} ${_script_file})
   list(APPEND compile_urdf_robots ${_out_urdf_file})
