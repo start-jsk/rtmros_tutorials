@@ -75,7 +75,8 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         abcp=self.abc_svc.getAutoBalancerParam()[1]
         #abcp.default_zmp_offsets = [[0.015, -0.01, 0], [0.015, 0.01, 0], [0, 0, 0], [0, 0, 0]]
         #abcp.default_zmp_offsets = [[0.015, 0.01, 0], [0.015, -0.01, 0], [0, 0, 0], [0, 0, 0]]
-        abcp.default_zmp_offsets = [[0.01, 0.01, 0], [0.01, -0.01, 0], [0, 0, 0], [0, 0, 0]]
+        #abcp.default_zmp_offsets = [[0.01, 0.01, 0], [0.01, -0.01, 0], [0, 0, 0], [0, 0, 0]] # before 2018/07/01 murooka
+        abcp.default_zmp_offsets = [[0.02, 0.01, 0], [0.02, -0.01, 0], [0, 0, 0], [0, 0, 0]] # after 2018/07/01 murooka
         self.abc_svc.setAutoBalancerParam(abcp)
         # ST parameters
         stp=self.st_svc.getParameter()
