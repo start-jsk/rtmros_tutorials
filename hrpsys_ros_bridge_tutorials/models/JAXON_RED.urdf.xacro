@@ -51,7 +51,7 @@
   </gazebo>
 
   <!-- HEAD -->
-  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL.urdf" />
+  <xacro:include filename="$(find multisense_description)/urdf/multisenseSL/multisenseSL.urdf.xacro" />
   <joint name="head_tip_to_multisense" type="fixed">
     <parent link="HEAD_LINK1" />
     <child  link="head_root" />
