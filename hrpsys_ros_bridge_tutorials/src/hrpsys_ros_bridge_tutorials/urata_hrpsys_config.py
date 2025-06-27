@@ -326,12 +326,13 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
     def setStAbcIcParametersJAXON_BLUE(self, foot="KAWADA"):
         # abc setting
         abcp=self.abc_svc.getAutoBalancerParam()[1]
-        abcp.default_zmp_offsets=[[0.05, 0.0, 0.0], [0.05, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
+        abcp.default_zmp_offsets=[[0.0, 0.02, 0.0], [0.0, -0.02, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
         kfp=self.kf_svc.getKalmanFilterParam()[1]
         kfp.R_angle=1000
+        kfp.sensorRPY_offset=[0.7*3.14/180, 0, 0]
         self.kf_svc.setKalmanFilterParam(kfp)
         # st setting
         stp=self.st_svc.getParameter()
@@ -387,10 +388,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         larm_vertices = lleg_vertices
         stp.eefm_support_polygon_vertices_sequence = [OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x) for x in [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices]]
         stp.eefm_cogvel_cutoff_freq = 4.0
-        # for only leg
-        stp.eefm_k1=[-1.36334,-1.36334]
-        stp.eefm_k2=[-0.343983,-0.343983]
-        stp.eefm_k3=[-0.161465,-0.161465]
+        # for leg + body
+        stp.eefm_k1 = [-1.40928, -1.40928]
+        stp.eefm_k2 = [-0.398194, -0.398194]
+        stp.eefm_k3 = [-0.178433, -0.178433]
         self.st_svc.setParameter(stp)
         # Abc setting
         #gg=self.abc_svc.getGaitGeneratorParam()[1]
@@ -818,7 +819,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         return [0.004318,0.005074,-0.134838,1.18092,-0.803855,-0.001463,0.004313,0.005079,-0.133569,1.18206,-0.806262,-0.001469,0.003782,-0.034907,0.004684,0.0,0.0,0.0,0.698132,-0.349066,-0.087266,-1.39626,0.0,0.0,-0.349066,0.0,0.698132,0.349066,0.087266,-1.39626,0.0,0.0,-0.349066]
 
     def jaxonBlueResetLandingPose (self):
-        return self.jaxonBlueResetPose()
+        return [0.0,0.0,-0.73796,1.45379,-0.715828,0.0, 0.0,0.0,-0.73796,1.45379,-0.715828,0.0, 0.0,0.0,0.0, 0.0,0.0, 0.698132,-0.349066,-0.087266,-1.39626,0.0,0.0,0.0, 0.698132,0.349066,0.087266,-1.39626,0.0,0.0,0.0]
 
     # handmade
     def chidoriResetLandingPose (self):
@@ -889,7 +890,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             self.seq_svc.setJointAngles(self.jaxonCollisionFreeResetPose(), 10.0)
 
     def setResetLandingPose(self):
-        if self.ROBOT_NAME == 0:
+        if self.ROBOT_NAME == "JAXON_BLUE":
             self.seq_svc.setJointAngles(self.jaxonBlueResetLandingPose(), 5.0)
         if self.ROBOT_NAME.find("JAXON") == 0:
             self.seq_svc.setJointAngles(self.jaxonResetLandingPose(), 5.0)
