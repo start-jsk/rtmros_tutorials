@@ -27,8 +27,10 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
         head_group = ['head', ['HEAD_JOINT0', 'HEAD_JOINT1']]
         rarm_group = ['rarm', ['RARM_JOINT0', 'RARM_JOINT1', 'RARM_JOINT2', 'RARM_JOINT3', 'RARM_JOINT4', 'RARM_JOINT5', 'RARM_JOINT6', 'RARM_JOINT7']]
         larm_group = ['larm', ['LARM_JOINT0', 'LARM_JOINT1', 'LARM_JOINT2', 'LARM_JOINT3', 'LARM_JOINT4', 'LARM_JOINT5', 'LARM_JOINT6', 'LARM_JOINT7']]
+        rhand_group = ['rhand', ['R_THUMBCM_Y', 'R_THUMBCM_P', 'R_INDEXMP_R', 'R_INDEXMP_P', 'R_INDEXPIP_R', 'R_MIDDLEPIP_R']]
+        lhand_group = ['lhand', ['L_THUMBCM_Y', 'L_THUMBCM_P', 'L_INDEXMP_R', 'L_INDEXMP_P', 'L_INDEXPIP_R', 'L_MIDDLEPIP_R']]
         if self.ROBOT_NAME == "HRP2JSKNT" or self.ROBOT_NAME == "HRP2JSKNTS":
-            self.Groups = [rleg_7dof_group, lleg_7dof_group, torso_group, head_group, rarm_group, larm_group]
+            self.Groups = [rleg_7dof_group, lleg_7dof_group, torso_group, head_group, rarm_group, larm_group, rhand_group, lhand_group]
         elif self.ROBOT_NAME == "HRP2JSK":
             self.Groups = [rleg_6dof_group, lleg_6dof_group, torso_group, head_group, rarm_group, larm_group]
         else: # HRP2W, HRP2G
@@ -36,7 +38,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
 
     def hrp2ResetPose (self):
         if self.ROBOT_NAME.find("HRP2JSKNT") != -1:
-            return [0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.174533, -0.174533, 0.0, -0.436332, 0.0, 0.0, -0.174533, 0.261799, 0.174533, 0.174533, 0.0, -0.436332, 0.0, 0.0, -0.174533, -0.261799]
+            return [0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.174533, -0.174533, 0.0, -0.436332, 0.0, 0.0, -0.174533, 0.261799, 0.174533, 0.174533, 0.0, -0.436332, 0.0, 0.0, -0.174533, -0.261799] + [0.0]*12
         elif self.ROBOT_NAME.find("HRP2JSK") != -1:
             return [0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, 0.0, 0.0, 0.174533, -0.174533, 0.0, -0.436332, 0.0, 0.0, -0.174533, 0.261799, 0.174533, 0.174533, 0.0, -0.436332, 0.0, 0.0, -0.174533, -0.261799]
         else:
@@ -44,7 +46,7 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
 
     def hrp2ResetManipPose (self):
         if self.ROBOT_NAME.find("HRP2JSKNT") != -1:
-            return [0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, 0.0, 0.0, 0.698132, 0.872665, -0.523599, -0.174533, -2.0944, -0.436332, -0.087266, -0.349066, 1.0472, 0.872665, 0.523599, 0.174533, -2.0944, 0.436332, 0.087266, -0.349066, -1.0472]
+            return [0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, 0.0, 0.0, 0.698132, 0.872665, -0.523599, -0.174533, -2.0944, -0.436332, -0.087266, -0.349066, 1.0472, 0.872665, 0.523599, 0.174533, -2.0944, 0.436332, 0.087266, -0.349066, -1.0472] + [0.0]*12
         elif self.ROBOT_NAME.find("HRP2JSK") != -1:
             return [0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, -0.453786, 0.872665, -0.418879, 0.0, 0.0, 0.0, 0.0, 0.698132, 0.872665, -0.523599, -0.174533, -2.0944, -0.436332, -0.087266, -0.349066, 1.0472, 0.872665, 0.523599, 0.174533, -2.0944, 0.436332, 0.087266, -0.349066, -1.0472]
         else:
@@ -370,6 +372,24 @@ class JSKHRP2HrpsysConfigurator(HrpsysConfigurator):
 
     def setInitPose(self):
         self.seq_svc.setJointAngles(self.hrp2InitPose(), 5.0)
+
+    def hrp3HandResetPose(self):
+        self.seq_svc.setJointAnglesOfGroup("rhand", [0, 0, 0, 0, 0, 0], 2)
+        self.seq_svc.setJointAnglesOfGroup("lhand", [0, 0, 0, 0, 0, 0], 2)
+        self.seq_svc.waitInterpolationOfGroup("rhand")
+        self.seq_svc.waitInterpolationOfGroup("lhand")
+
+    def hrp3HandGraspPose(self):
+        self.seq_svc.setJointAnglesOfGroup("rhand", [1.36085, -0.200245, 0.144643, 0.0, 1.85328, 1.50268], 2)
+        self.seq_svc.setJointAnglesOfGroup("lhand", [1.36085, -0.200245, 0.144643, 0.0, 1.85328, 1.50268], 2)
+        self.seq_svc.waitInterpolationOfGroup("rhand")
+        self.seq_svc.waitInterpolationOfGroup("lhand")
+
+    def hrp3HandHookPose(self):
+        self.seq_svc.setJointAnglesOfGroup("rhand", [1.5708, 1.5708, 0.0, 0.174533, -0.349066, -0.349066], 2)
+        self.seq_svc.setJointAnglesOfGroup("lhand", [1.5708, 1.5708, 0.0, 0.174533, -0.349066, -0.349066], 2)
+        self.seq_svc.waitInterpolationOfGroup("rhand")
+        self.seq_svc.waitInterpolationOfGroup("lhand")
 
     def loadForceMomentOffsetFile (self):
         import rospkg

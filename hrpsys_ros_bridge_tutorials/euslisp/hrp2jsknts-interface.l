@@ -3,8 +3,6 @@
 (when (probe-file (ros::resolve-ros-path "package://hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-utils.l"))
   (require :hrp2jsknts-utils "package://hrpsys_ros_bridge_tutorials/euslisp/hrp2jsknts-utils.l"))
 (load "package://hrpsys_ros_bridge_tutorials/euslisp/hrp2-common-interface.l")
-(if (ros::resolve-ros-path "package://jsk_hrp2_ros_bridge")
-    (ros::load-ros-manifest "jsk_hrp2_ros_bridge"))
 
 (defclass hrp2jsknts-interface
   :super hrp2-common-interface
@@ -14,7 +12,7 @@
     (prog1
         (send-super* :init :robot hrp2jsknts-robot args)
       ;; add controller
-      (dolist (limb '(:rarm :larm :rleg :lleg :head :torso))
+      (dolist (limb '(:rarm :larm :rleg :lleg :head :torso :rhand :lhand))
         (send self :def-limb-controller-method limb)
         (send self :add-controller (read-from-string (format nil "~A-controller" limb)) :joint-enable-check t :create-actions t))))
   )

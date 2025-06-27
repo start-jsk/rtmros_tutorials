@@ -1,6 +1,7 @@
 ##
 ## - collada_joint_name : euslisp_joint_name (start with :)
 ##
+limbs: [rleg, lleg, torso, head, rarm, larm, rhand, lhand]
 
 rleg:
   - RLEG_JOINT0  : rleg-crotch-y
@@ -42,6 +43,20 @@ larm:
   - LARM_JOINT5  : larm-wrist-r
   - LARM_JOINT6  : larm-wrist-p
   - LARM_JOINT7  : larm-thumb-r
+rhand:
+  - R_THUMBCM_Y  : rarm-t-1y
+  - R_THUMBCM_P  : rarm-t-1p
+  - R_INDEXMP_R  : rarm-f1-1r
+  - R_INDEXMP_P  : rarm-f1-1p
+  - R_INDEXPIP_R  : rarm-f1-2r
+  - R_MIDDLEPIP_R : rarm-f2-2r
+lhand:
+  - L_THUMBCM_Y  : larm-t-1y
+  - L_THUMBCM_P  : larm-t-1p
+  - L_INDEXMP_R  : larm-f1-1r
+  - L_INDEXMP_P  : larm-f1-1p
+  - L_INDEXPIP_R  : larm-f1-2r
+  - L_MIDDLEPIP_R : larm-f2-2r
 
 ##
 ## end-coords
@@ -146,13 +161,17 @@ angle-vector:
                 0.0, 0.0,
                 0.0, 0.0,
                 10.0, -10.0, 0.0, -25.0, 0.0, 0.0, -10.0,  15.0,
-                10.0,  10.0, 0.0, -25.0, 0.0, 0.0, -10.0, -15.0]
+                10.0,  10.0, 0.0, -25.0, 0.0, 0.0, -10.0, -15.0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
   reset-manip-pose : [0.0,   0.0, -26.0,   50.0, -24.0,  0.0, 0.0,
                       0.0,   0.0, -26.0,   50.0, -24.0,  0.0, 0.0,
                       0.0,   0.0,
                       0.0,  40.0,
-                     50.0, -30.0, -10.0, -120.0, -25.0, -5.0, -20.0,  60.0,
-                     50.0,  30.0,  10.0, -120.0,  25.0,  5.0, -20.0, -60.0]
+                      50.0, -30.0, -10.0, -120.0, -25.0, -5.0, -20.0,  60.0,
+                      50.0,  30.0,  10.0, -120.0,  25.0,  5.0, -20.0, -60.0,
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                      0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 # for gazebo simulation
 replace_xmls:
   - match_rule:
