@@ -19,10 +19,14 @@
   <build_depend>hrpsys</build_depend>
   <build_depend>hrpsys_tools</build_depend>
   <build_depend>rostest</build_depend>
+  <build_depend>roslib</build_depend>
+  <build_depend>roslint</build_depend>
 
   <!-- Dependencies needed after this package is compiled. -->
   <run_depend>hrpsys</run_depend>
   <run_depend>hrpsys_tools</run_depend>
+  <run_depend>roslib</run_depend>
+  <run_depend>rospy</run_depend>
 
   <!-- Dependencies needed only for running tests. -->
   <!-- <test_depend>hrpsys</test_depend> -->
