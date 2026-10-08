@@ -12,10 +12,9 @@
   <exec_depend>pr2eus</exec_depend>
   <exec_depend>euscollada</exec_depend>
   <exec_depend>nextage_description</exec_depend>
-  <exec_depend>robotiq_ft_sensor</exec_depend>
+  <exec_depend>leptrino_force_torque</exec_depend>
   <exec_depend>usb_cam</exec_depend>
   <exec_depend>dynamixel_detachable_hand</exec_depend>
-  <!--<exec_depend>gravity_compensation</exec_depend>-->
   <!--<exec_depend>nextage_gazebo</exec_depend>-->
 
   <export>

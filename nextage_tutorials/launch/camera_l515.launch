@@ -1,7 +1,7 @@
 <launch>
-  <arg name="serial_no"           default="f0233276"/>
+  <arg name="serial_no"           default=""/>
   <arg name="usb_port_id"         default=""/>
-  <arg name="device_type"         default=""/>
+  <arg name="device_type"         default="515"/>
   <arg name="json_file_path"      default=""/>
   <arg name="camera"              default="top_camera"/>
   <arg name="tf_prefix"           default="top_camera"/>
