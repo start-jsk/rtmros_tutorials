@@ -1,4 +1,4 @@
-(require "package://nextage_tutorials/euslisp/jsk-nextage-interface.l")
+(load "package://nextage_tutorials/jsk-nextage.l")
 
 (defmethod NextageOpen-robot
   (:self-collision-check (&rest args)

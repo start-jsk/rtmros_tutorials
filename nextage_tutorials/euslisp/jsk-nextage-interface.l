@@ -1,7 +1,8 @@
 (load "package://pr2eus/robot-interface.l")
 (require :nextage "package://nextage_tutorials/jsk-nextage.l")
+(load "package://nextage_tutorials/euslisp/jsk-nextage-utils.l")
 
-;; If dynamixel hand is available
+;; If dynamixel hand is available:
 (when (ros::resolve-ros-path "package://dynamixel_detachable_hand/euslisp/lhand-interface.l")
   (load "package://dynamixel_detachable_hand/euslisp/lhand-interface.l")
   (load "package://dynamixel_detachable_hand/euslisp/rhand-interface.l"))
@@ -14,7 +15,6 @@
   (:init (&rest args &key (type nil) &allow-other-keys)
     (setq on-gazebo-ros-control
           (and (ros::get-param "/gazebo/time_step" nil)
-               ;; rtm-ros-bridge does not have type parametrs
                (ros::get-param "/torso_controller/type" nil)))
     (when on-gazebo-ros-control
       (ros::ros-warn "Found Gazebo/ros_control environment"))
