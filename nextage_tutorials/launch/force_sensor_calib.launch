@@ -1,6 +1,6 @@
 <launch>
   <group ns="left">
-    <node pkg="nextage_tutorials"
+    <node respawn="true" pkg="nextage_tutorials"
           type="ft_gravity_calib.py"
           name="ft_calib_left"
           output="screen">
@@ -11,7 +11,7 @@
     </node>
   </group>
   <group ns="right">
-    <node pkg="nextage_tutorials"
+    <node respawn="true" pkg="nextage_tutorials"
           type="ft_gravity_calib.py"
           name="ft_calib_right"
           output="screen">

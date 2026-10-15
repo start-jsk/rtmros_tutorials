@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find nextage_tutorials)/launch/camera_l515.launch"/>
+  <include file="$(find nextage_tutorials)/launch/leptrino.launch"/>
+  <include file="$(find nextage_tutorials)/launch/jsk_robot_state_publisher.launch"/>
+</launch>

@@ -1,18 +1,18 @@
 <launch>
 
   <group ns="right_ft">
-    <node pkg="leptrino_force_torque" type="leptrino_force_torque" name="right_ft" output="screen">
+    <node respawn="true" pkg="leptrino_force_torque" type="leptrino_force_torque" name="right_ft" output="screen">
       <param name="com_port" value="/dev/right_ft_sensor" />
     </node>
   </group>
   
   <group ns="left_ft">
-    <node pkg="leptrino_force_torque" type="leptrino_force_torque" name="left_ft" output="screen">
+    <node respawn="true" pkg="leptrino_force_torque" type="leptrino_force_torque" name="left_ft" output="screen">
       <param name="com_port" value="/dev/left_ft_sensor" />  	  	
     </node>
   </group>
 
-  <node pkg="nextage_tutorials"
+  <node respawn="true" pkg="nextage_tutorials"
         type="ft_gravity_compensate.py"
         name="ft_compensate_left"
         output="screen">
@@ -23,7 +23,7 @@
     <rosparam file="$(find nextage_tutorials)/config/ft_left.yaml" />
   </node>
 
-  <node pkg="nextage_tutorials"
+  <node respawn="true" pkg="nextage_tutorials"
         type="ft_gravity_compensate.py"
         name="ft_compensate_right"
         output="screen">
