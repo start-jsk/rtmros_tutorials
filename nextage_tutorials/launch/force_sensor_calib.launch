@@ -1,0 +1,24 @@
+<launch>
+  <group ns="left">
+    <node respawn="true" pkg="nextage_tutorials"
+          type="ft_gravity_calib.py"
+          name="ft_calib_left"
+          output="screen">
+      <param name="ft_topic"     value="/left_ft/left_ft/force_torque"/>
+      <param name="sensor_frame" value="LARM_JOINT5_Link"/>
+      <param name="base_frame"   value="WAIST"/>
+      <param name="yaml_path"    value="$(find nextage_tutorials)/config/ft_left.yaml"/>
+    </node>
+  </group>
+  <group ns="right">
+    <node respawn="true" pkg="nextage_tutorials"
+          type="ft_gravity_calib.py"
+          name="ft_calib_right"
+          output="screen">
+      <param name="ft_topic"     value="/right_ft/right_ft/force_torque"/>
+      <param name="sensor_frame" value="RARM_JOINT5_Link"/>
+      <param name="base_frame"   value="WAIST"/>
+      <param name="yaml_path"    value="$(find nextage_tutorials)/config/ft_right.yaml"/>
+    </node>
+  </group>
+</launch>

@@ -1,0 +1,637 @@
+<?xml version="1.0"?>
+<robot name="NextageOpen">
+	<link name="WAIST">
+		<visual>
+			<origin xyz="0 0 0.97" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/WAIST_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.97" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/WAIST_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="CHEST_JOINT0_Link">
+		<inertial>
+			<mass value="3" />
+			<inertia ixx="0.0639574975" iyy="0.0310845003" izz="0.0501107015" ixy="-0.000228329998" ixz="0.000111720001" iyz="6.47999987e-05" />
+			<origin xyz="0 0 0" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/CHEST_JOINT0_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/CHEST_JOINT0_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="HEAD_JOINT0_Link">
+		<inertial>
+			<mass value="0.317929" />
+			<inertia ixx="0.000276820007" iyy="0.000130090004" izz="0.000209539998" ixy="2.99999989e-08" ixz="-3.30000006e-07" iyz="-1.092e-05" />
+			<origin xyz="-2.292e-05 0.00547848 -0.00784016" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0.5695" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/HEAD_JOINT0_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.5695" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/HEAD_JOINT0_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="LARM_JOINT0_Link">
+		<inertial>
+			<mass value="1.32625997" />
+			<inertia ixx="0.00207536994" iyy="0.00240295008" izz="0.00141912" ixy="0.000112759997" ixz="8.92699973e-05" iyz="-4.56999987e-05" />
+			<origin xyz="-0.00226388 -0.00521383 0.0156081" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0.145 0.370296" rpy="-0.261799 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/LARM_JOINT0_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0.145 0.370296" rpy="-0.261799 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/LARM_JOINT0_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="RARM_JOINT0_Link">
+		<inertial>
+			<mass value="1.32625997" />
+			<inertia ixx="0.00207536994" iyy="0.00240295008" izz="0.00141912" ixy="-0.000112759997" ixz="8.92699973e-05" iyz="4.56999987e-05" />
+			<origin xyz="-0.00226388 0.00521383 0.0156081" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 -0.145 0.370296" rpy="0.261799 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/RARM_JOINT0_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 -0.145 0.370296" rpy="0.261799 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/RARM_JOINT0_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="HEAD_JOINT1_Link">
+		<inertial>
+			<mass value="0.0808593035" />
+			<inertia ixx="0.00100000005" iyy="0.00100000005" izz="0.00100000005" ixy="0" ixz="0" iyz="0" />
+			<origin xyz="0 0 0" rpy="0 0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/HEAD_JOINT1_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/HEAD_JOINT1_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="LARM_JOINT1_Link">
+		<inertial>
+			<mass value="1.14898002" />
+			<inertia ixx="0.0154168" iyy="0.0147117004" izz="0.00126579998" ixy="9.95417054e-07" ixz="3.38146992e-06" iyz="0.00213718996" />
+			<origin xyz="-5.236e-05 0.0583134 -0.107061" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/LARM_JOINT1_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/LARM_JOINT1_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="RARM_JOINT1_Link">
+		<inertial>
+			<mass value="1.14898002" />
+			<inertia ixx="0.0154168" iyy="0.0147117004" izz="0.00126579998" ixy="-9.95417054e-07" ixz="3.38146992e-06" iyz="-0.00213718996" />
+			<origin xyz="-5.236e-05 -0.0583134 -0.107061" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/RARM_JOINT1_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/RARM_JOINT1_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="CHEST_NEXTAGE_TO_TOP_CAMERA_Link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/CHEST_NEXTAGE_TO_L515.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+			<material name="CHEST_NEXTAGE_TO_L515_WHITE">
+				<color rgba="1 1 1 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/CHEST_NEXTAGE_TO_L515.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="TOP_CAMERA_Link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/CHEST_L515.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/CHEST_L515.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="top_camera_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/L515.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+			<material name="L515_GRAY">
+				<color rgba="0.55 0.55 0.55 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/L515.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="LARM_JOINT2_Link">
+		<inertial>
+			<mass value="0.577517986" />
+			<inertia ixx="0.00143965997" iyy="0.00141763" izz="0.000197200003" ixy="-3.00000011e-07" ixz="1.20000004e-06" iyz="-7.59600007e-05" />
+			<origin xyz="-2.254e-05 0.00167107 -0.0715116" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0.095 -0.25" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/LARM_JOINT2_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0.095 -0.25" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/LARM_JOINT2_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="RARM_JOINT2_Link">
+		<inertial>
+			<mass value="0.577517986" />
+			<inertia ixx="0.00143965997" iyy="0.00141763" izz="0.000197200003" ixy="3.00000011e-07" ixz="1.20000004e-06" iyz="7.59600007e-05" />
+			<origin xyz="-2.254e-05 -0.00167107 -0.0715116" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 -0.095 -0.25" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/RARM_JOINT2_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 -0.095 -0.25" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/RARM_JOINT2_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="LARM_JOINT3_Link">
+		<inertial>
+			<mass value="0.457417995" />
+			<inertia ixx="0.000692049973" iyy="0.000689029985" izz="0.000135089998" ixy="2.99999989e-08" ixz="5.20000015e-07" iyz="-1.91500003e-05" />
+			<origin xyz="-1.788e-05 -0.00395812 -0.20273" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="-0.03 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/LARM_JOINT3_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="-0.03 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/LARM_JOINT3_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="RARM_JOINT3_Link">
+		<inertial>
+			<mass value="0.457417995" />
+			<inertia ixx="0.000692049973" iyy="0.000689029985" izz="0.000135089998" ixy="-2.99999989e-08" ixz="5.20000015e-07" iyz="1.91500003e-05" />
+			<origin xyz="-1.788e-05 0.00395812 -0.20273" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="-0.03 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/RARM_JOINT3_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="-0.03 0 0" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/RARM_JOINT3_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="LARM_JOINT4_Link">
+		<inertial>
+			<mass value="0.418433994" />
+			<inertia ixx="0.000520160014" iyy="0.000505689997" izz="0.000140040007" ixy="1.68999998e-06" ixz="7.90000013e-06" iyz="-5.37699998e-05" />
+			<origin xyz="0.00243131 0.00379733 -0.0577036" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 -0.235" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/LARM_JOINT4_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 -0.235" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/LARM_JOINT4_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="RARM_JOINT4_Link">
+		<inertial>
+			<mass value="0.418433994" />
+			<inertia ixx="0.000520160014" iyy="0.000505689997" izz="0.000140040007" ixy="-1.68999998e-06" ixz="7.90000013e-06" iyz="5.37699998e-05" />
+			<origin xyz="0.00243131 -0.00379733 -0.0577036" rpy="0 -0 0" />
+		</inertial>
+		<visual>
+			<origin xyz="0 0 -0.235" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/RARM_JOINT4_Link_mesh.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 -0.235" rpy="0 -0 0" />
+			<geometry>
+				<mesh filename="package://nextage_description/urdf/meshes/RARM_JOINT4_Link_mesh.dae" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="LARM_JOINT5_Link">
+		<inertial>
+			<mass value="1.05156004" />
+			<inertia ixx="0.00194072002" iyy="0.00209392002" izz="0.000357879995" ixy="1.10000002e-07" ixz="-0.000424819998" iyz="1.19999996e-07" />
+			<origin xyz="-0.048476 -3.2e-06 -0.0388988" rpy="0 -0 0" />
+		</inertial>
+	</link>
+	<link name="RARM_JOINT5_Link">
+		<inertial>
+			<mass value="1.05156004" />
+			<inertia ixx="0.00194072002" iyy="0.00209392002" izz="0.000357879995" ixy="-1.10000002e-07" ixz="-0.000424819998" iyz="-1.19999996e-07" />
+			<origin xyz="-0.048476 3.2e-06 -0.0388988" rpy="0 -0 0" />
+		</inertial>
+	</link>
+	<link name="LARM_FTSENSOR_SPACER_Link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 1.570796 0" />
+			<geometry>
+				<cylinder radius="0.0185" length="0.0175" />
+			</geometry>
+			<material name="FTSENSOR_SPACER_GRAY">
+				<color rgba="0.45 0.45 0.45 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 1.570796 0" />
+			<geometry>
+				<cylinder radius="0.0185" length="0.0175" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="RARM_FTSENSOR_SPACER_Link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 1.570796 0" />
+			<geometry>
+				<cylinder radius="0.0185" length="0.0175" />
+			</geometry>
+			<material name="FTSENSOR_SPACER_GRAY">
+				<color rgba="0.45 0.45 0.45 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 1.570796 0" />
+			<geometry>
+				<cylinder radius="0.0185" length="0.0175" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="LARM_NEXTAGE_TO_FTSENSOR_Link">
+		<visual>
+			<origin xyz="0.055 0.055 0" rpy="0 0 3.141593" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/LARM_NEXTAGE_TO_FTSENSOR.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+			<material name="NEXTAGE_TO_FTSENSOR_LIGHT_GRAY">
+				<color rgba="0.50 0.50 0.50 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0.055 0.055 0" rpy="0 0 3.141593" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/LARM_NEXTAGE_TO_FTSENSOR.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="LARM_FTSENSOR_Link">
+		<visual>
+			<origin xyz="0 0 0.002" rpy="3.141593 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/LARM_FTSENSOR.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+			<material name="FTSENSOR_VERY_LIGHT_GRAY">
+				<color rgba="0.85 0.85 0.85 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.002" rpy="3.141593 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/LARM_FTSENSOR.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="RARM_NEXTAGE_TO_FTSENSOR_Link">
+		<visual>
+			<origin xyz="0.055 0.055 0" rpy="0 0 3.141593" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/RARM_NEXTAGE_TO_FTSENSOR.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+			<material name="NEXTAGE_TO_FTSENSOR_LIGHT_GRAY">
+				<color rgba="0.50 0.50 0.50 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0.055 0.055 0" rpy="0 0 3.141593" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/RARM_NEXTAGE_TO_FTSENSOR.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="RARM_FTSENSOR_Link">
+		<visual>
+			<origin xyz="0 0 0.002" rpy="3.141593 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/RARM_FTSENSOR.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+			<material name="FTSENSOR_VERY_LIGHT_GRAY">
+				<color rgba="0.85 0.85 0.85 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0.002" rpy="3.141593 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/RARM_FTSENSOR.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="LARM_NEJINEJI_Link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/LARM_NEJINEJI.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+			<material name="NEJINEJI_LIGHT_GRAY">
+				<color rgba="0.50 0.50 0.50 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/LARM_NEJINEJI.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+		</collision>
+	</link>
+	<link name="RARM_NEJINEJI_Link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/RARM_NEJINEJI.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+			<material name="NEJINEJI_LIGHT_GRAY">
+				<color rgba="0.50 0.50 0.50 1" />
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://nextage_tutorials/meshes/RARM_NEJINEJI.stl" scale="0.001 0.001 0.001" />
+			</geometry>
+		</collision>
+	</link>
+	<joint name="CHEST_JOINT0" type="revolute">
+		<parent link="WAIST" />
+		<child link="CHEST_JOINT0_Link" />
+		<origin xyz="0 0 0" rpy="0 -0 0" />
+		<axis xyz="0 0 1" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-2.84489012" upper="2.84489012" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="HEAD_JOINT0" type="revolute">
+		<parent link="CHEST_JOINT0_Link" />
+		<child link="HEAD_JOINT0_Link" />
+		<origin xyz="0 0 0.5695" rpy="0 -0 0" />
+		<axis xyz="0 0 1" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-1.22172999" upper="1.22172999" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="LARM_JOINT0" type="revolute">
+		<parent link="CHEST_JOINT0_Link" />
+		<child link="LARM_JOINT0_Link" />
+		<origin xyz="0 0.145 0.370296" rpy="-0.261799 0 0" />
+		<axis xyz="0 0 1" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-1.53588998" upper="1.53588998" effort="150" velocity="0.5" />
+	</joint>
+	<joint name="RARM_JOINT0" type="revolute">
+		<parent link="CHEST_JOINT0_Link" />
+		<child link="RARM_JOINT0_Link" />
+		<origin xyz="0 -0.145 0.370296" rpy="0.261799 -0 0" />
+		<axis xyz="0 0 1" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-1.53588998" upper="1.53588998" effort="150" velocity="0.5" />
+	</joint>
+	<joint name="HEAD_JOINT1" type="revolute">
+		<parent link="HEAD_JOINT0_Link" />
+		<child link="HEAD_JOINT1_Link" />
+		<origin xyz="0 0 0" rpy="0 -0 0" />
+		<axis xyz="0 1 0" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-0.349065989" upper="1.22172999" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="LARM_JOINT1" type="revolute">
+		<parent link="LARM_JOINT0_Link" />
+		<child link="LARM_JOINT1_Link" />
+		<origin xyz="0 0 0" rpy="0 -0 0" />
+		<axis xyz="0 1 0" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-2.44345999" upper="1.04719996" effort="200" velocity="0.5" />
+	</joint>
+	<joint name="RARM_JOINT1" type="revolute">
+		<parent link="RARM_JOINT0_Link" />
+		<child link="RARM_JOINT1_Link" />
+		<origin xyz="0 0 0" rpy="0 -0 0" />
+		<axis xyz="0 1 0" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-2.44345999" upper="1.04719996" effort="200" velocity="0.5" />
+	</joint>
+	<joint name="CHEST_JOINT0_TO_NEXTAGE_TO_TOP_CAMERA" type="fixed">
+		<parent link="CHEST_JOINT0_Link" />
+		<child link="CHEST_NEXTAGE_TO_TOP_CAMERA_Link" />
+		<origin xyz="0.080855 0.099197 0.291294" rpy="0.698132 0 -1.570796" />
+	</joint>
+	<joint name="CHEST_NEXTAGE_TO_TOP_CAMERA_TO_TOP_CAMERA" type="fixed">
+		<parent link="CHEST_NEXTAGE_TO_TOP_CAMERA_Link" />
+		<child link="TOP_CAMERA_Link" />
+		<origin xyz="0.099197 0.069502 0.025" rpy="-1.570796 1.570796 0" />
+	</joint>
+	<joint name="TOP_CAMERA_TO_TOP_CAMERA" type="fixed">
+		<parent link="TOP_CAMERA_Link" />
+		<child link="top_camera_link" />
+		<origin xyz="0 0 0" rpy="0 0 0" />
+	</joint>
+	<joint name="LARM_JOINT2" type="revolute">
+		<parent link="LARM_JOINT1_Link" />
+		<child link="LARM_JOINT2_Link" />
+		<origin xyz="0 0.095 -0.25" rpy="0 -0 0" />
+		<axis xyz="0 1 0" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-2.7576201" upper="0" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="RARM_JOINT2" type="revolute">
+		<parent link="RARM_JOINT1_Link" />
+		<child link="RARM_JOINT2_Link" />
+		<origin xyz="0 -0.095 -0.25" rpy="0 -0 0" />
+		<axis xyz="0 1 0" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-2.7576201" upper="0" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="LARM_JOINT3" type="revolute">
+		<parent link="LARM_JOINT2_Link" />
+		<child link="LARM_JOINT3_Link" />
+		<origin xyz="-0.03 0 0" rpy="0 -0 0" />
+		<axis xyz="0 0 1" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-1.8326" upper="2.87979007" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="RARM_JOINT3" type="revolute">
+		<parent link="RARM_JOINT2_Link" />
+		<child link="RARM_JOINT3_Link" />
+		<origin xyz="-0.03 0 0" rpy="0 -0 0" />
+		<axis xyz="0 0 1" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-2.87979007" upper="1.8326" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="LARM_JOINT4" type="revolute">
+		<parent link="LARM_JOINT3_Link" />
+		<child link="LARM_JOINT4_Link" />
+		<origin xyz="0 0 -0.235" rpy="0 -0 0" />
+		<axis xyz="0 1 0" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-1.74532998" upper="1.74532998" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="RARM_JOINT4" type="revolute">
+		<parent link="RARM_JOINT3_Link" />
+		<child link="RARM_JOINT4_Link" />
+		<origin xyz="0 0 -0.235" rpy="0 -0 0" />
+		<axis xyz="0 1 0" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-1.74532998" upper="1.74532998" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="LARM_JOINT5" type="revolute">
+		<parent link="LARM_JOINT4_Link" />
+		<child link="LARM_JOINT5_Link" />
+		<origin xyz="-0.047 0 -0.09" rpy="0 -0 0" />
+		<axis xyz="1 0 0" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-2.84489012" upper="2.84489012" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="RARM_JOINT5" type="revolute">
+		<parent link="RARM_JOINT4_Link" />
+		<child link="RARM_JOINT5_Link" />
+		<origin xyz="-0.047 0 -0.09" rpy="0 -0 0" />
+		<axis xyz="1 0 0" />
+		<dynamics damping="0.200000003" friction="0" />
+		<limit lower="-2.84489012" upper="2.84489012" effort="100" velocity="0.5" />
+	</joint>
+	<joint name="LARM_JOINT5_TO_FTSENSOR_SPACER" type="fixed">
+		<parent link="LARM_JOINT5_Link" />
+		<child link="LARM_FTSENSOR_SPACER_Link" />
+		<origin xyz="0.015 0 0" rpy="0 0 0" />
+	</joint>
+	<joint name="LARM_FTSENSOR_SPACER_TO_NEXTAGE_TO_FTSENSOR" type="fixed">
+		<parent link="LARM_FTSENSOR_SPACER_Link" />
+		<child link="LARM_NEXTAGE_TO_FTSENSOR_Link" />
+		<origin xyz="-0.0165 -0.0275 0.0275" rpy="0 1.570796 0" />
+	</joint>
+	<joint name="LARM_NEXTAGE_TO_FTSENSOR_TO_FTSENSOR" type="fixed">
+		<parent link="LARM_NEXTAGE_TO_FTSENSOR_Link" />
+		<child link="LARM_FTSENSOR_Link" />
+		<origin xyz="0.0275 0.0275 -0.017" rpy="0 0 -0.785398" />
+	</joint>
+	<joint name="LARM_FTSENSOR_TO_NEJINEJI" type="fixed">
+		<parent link="LARM_FTSENSOR_Link" />
+		<child link="LARM_NEJINEJI_Link" />
+		<origin xyz="-0.03634 0.03631 -0.01197" rpy="-1.570796 0 -1.570796" />
+	</joint>
+	<joint name="RARM_JOINT5_TO_FTSENSOR_SPACER" type="fixed">
+		<parent link="RARM_JOINT5_Link" />
+		<child link="RARM_FTSENSOR_SPACER_Link" />
+		<origin xyz="0.015 0 0" rpy="0 0 0" />
+	</joint>
+	<joint name="RARM_FTSENSOR_SPACER_TO_NEXTAGE_TO_FTSENSOR" type="fixed">
+		<parent link="RARM_FTSENSOR_SPACER_Link" />
+		<child link="RARM_NEXTAGE_TO_FTSENSOR_Link" />
+		<origin xyz="-0.0165 -0.0275 0.0275" rpy="0 1.570796 0" />
+	</joint>
+	<joint name="RARM_NEXTAGE_TO_FTSENSOR_TO_FTSENSOR" type="fixed">
+		<parent link="RARM_NEXTAGE_TO_FTSENSOR_Link" />
+		<child link="RARM_FTSENSOR_Link" />
+		<origin xyz="0.0275 0.0275 -0.017" rpy="0 0 0.785398" />
+	</joint>
+	<joint name="RARM_FTSENSOR_TO_NEJINEJI" type="fixed">
+		<parent link="RARM_FTSENSOR_Link" />
+		<child link="RARM_NEJINEJI_Link" />
+		<origin xyz="0.03634 -0.03631 -0.01197" rpy="-1.570796 0 1.570796" />
+	</joint>
+</robot>
